@@ -39,7 +39,7 @@ public class Notification {
                     0, notificationIntent,
                     PendingIntent.FLAG_CANCEL_CURRENT);
 
-            String bigText = "Может быть ты уже что-то сделаешь для проекта,"
+            String bigText = "Может быть ты уже что-то сделаешь для проекта, "
                     + "а не только я все буду делать?";
 
             BitmapFactory.Options options = new BitmapFactory.Options();
