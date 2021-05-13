@@ -1,17 +1,15 @@
 package com.example.finances;
 
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.provider.Settings;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.example.finances.course.CourseLength;
+import com.example.finances.helpclasses.NotificationChannel;
 
 public class Notification {
 
