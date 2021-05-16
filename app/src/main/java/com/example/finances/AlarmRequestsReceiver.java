@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
+import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 public class AlarmRequestsReceiver extends BroadcastReceiver {
@@ -34,9 +35,14 @@ public class AlarmRequestsReceiver extends BroadcastReceiver {
     @RequiresApi(api = Build.VERSION_CODES.P)
     private void scheduleJob(Context context) {
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 12);
+        calendar.set(Calendar.MINUTE, 55);
+        calendar.set(Calendar.SECOND, 0);
+
         ComponentName jobService = new ComponentName(context, JobSchedulerService.class);
         JobInfo.Builder exerciseJobBuilder = new JobInfo.Builder(sJobId++, jobService);
-
+        exerciseJobBuilder.setMinimumLatency(15*1000);
 
         JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
         jobScheduler.schedule(exerciseJobBuilder.build());

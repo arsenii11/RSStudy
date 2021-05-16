@@ -37,6 +37,11 @@ public class Notification {
                     0, notificationIntent,
                     PendingIntent.FLAG_CANCEL_CURRENT);
 
+            Intent cancel = new Intent(mContext, NotificationCancelReceiver.class);
+            cancel.putExtra("NOTIFY_ID", NOTIFY_ID);
+            PendingIntent cancelP = PendingIntent.getBroadcast(mContext, 0, cancel, PendingIntent.FLAG_CANCEL_CURRENT);
+
+
             String bigText = "Может быть ты уже что-то сделаешь для проекта, "
                     + "а не только я все буду делать?";
 
@@ -49,7 +54,7 @@ public class Notification {
                             .setContentTitle("Привет!")
                             .setContentText("Может быть ты уже что-то сделаешь для проекта," )
                             .setContentIntent(contentIntent)
-                            .addAction(R.drawable.icons, "Открыть",contentIntent)
+                            .addAction(R.drawable.icons, "Открыть",cancelP)
                             .setLargeIcon(bitmap)
                             .setStyle(new NotificationCompat.BigTextStyle().bigText(bigText))
                             .setAutoCancel(true);
