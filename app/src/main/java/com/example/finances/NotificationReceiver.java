@@ -6,7 +6,7 @@ import android.content.Intent;
 
 public class NotificationReceiver extends BroadcastReceiver {
 
-
+    public static final String ACTION_SEND_ALARM = "ACTION_SEND_ALARM";
 
     @Override
     public void onReceive(Context context, Intent intent) {
