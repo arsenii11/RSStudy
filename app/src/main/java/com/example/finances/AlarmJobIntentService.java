@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,16 +22,15 @@ import org.jetbrains.annotations.NotNull;
 
 public class AlarmJobIntentService extends JobIntentService {
 
-    static final int JOB_ID = 1000;
+    static final int JOB_ID = 9875;
 
-    private static final String ACTION_WRITE_ALARM =
-            "com.github.ihandy.jobschedulerdemo.action.ACTION_WRITE_ALARM";
+    private static final String ACTION_ALARM =
+            "android.intent.action.ACTION_ALARM";
 
 
     public static void startAction(Context context) {
         Intent intent = new Intent(context, AlarmJobIntentService.class);
-        intent.setAction(ACTION_WRITE_ALARM);
-
+        intent.setAction(ACTION_ALARM);
         enqueueWork(context, AlarmJobIntentService.class, JOB_ID,intent);
 
     }
@@ -38,9 +38,9 @@ public class AlarmJobIntentService extends JobIntentService {
     @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     protected void onHandleWork(@NonNull @NotNull Intent intent) {
+        Log.println(Log.ERROR, "onHandle()", "OK");
         final String action = intent.getAction();
-        Toast.makeText(this, "work", Toast.LENGTH_SHORT).show();
-        if (ACTION_WRITE_ALARM.equals(action)) {
+        if (ACTION_ALARM.equals(action)) {
             handleActionWriteAlarm();
         }
     }
@@ -60,5 +60,15 @@ public class AlarmJobIntentService extends JobIntentService {
                 .setAction(NotificationReceiver.ACTION_SEND_ALARM);
 
         appContext.sendBroadcast(IntentForBroadcast);
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }
