@@ -9,7 +9,7 @@ import android.util.Log;
 
 import androidx.core.app.NotificationManagerCompat;
 
-public class NotificationCancelReceiver extends BroadcastReceiver {
+public class   NotificationCancelReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
