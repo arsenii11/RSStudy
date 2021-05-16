@@ -25,6 +25,11 @@ public class NotificationCancelReceiver extends BroadcastReceiver {
             e.printStackTrace();
         }
 
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         //Cancel your ongoing Notification
         int notificationId = intent.getIntExtra("NOTIFY_ID", 0);
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
