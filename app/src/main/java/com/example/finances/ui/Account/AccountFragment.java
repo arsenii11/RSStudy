@@ -43,7 +43,7 @@ import kotlin.jvm.functions.Function2;
 
 import static android.app.Activity.RESULT_OK;
 
-public class AccountFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, Function2<CheckableChipView, Boolean, Unit> {
+public class AccountFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, Function2<CheckableChipView, Boolean, Unit>  {
 
     public static final String APP_PREFERENCES_Path = "Nickname" ;
     private final int GALLERY_REQUEST = 1;
@@ -130,6 +130,8 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
             eduplace.setText("Not indicated");
         }
 
+
+
         //устанавливаю строку из SharedPreferences
         File ff = new File(FilePath);
         if (ff.isFile()) {
@@ -164,8 +166,14 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
 
     //добавляем значения
     private void setInitialData() {
+        try {
+
+
         DBHelper dbHelper = new DBHelper(this.getContext());
-        courses = dbHelper.getAllCourses();
+        courses = dbHelper.getAllCourses();}
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 

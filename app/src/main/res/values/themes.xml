@@ -14,7 +14,7 @@
         <item name="windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <!-- Customize your theme here. -->
-        <item name="android:fontFamily">@font/pt_sans_bold</item>
+        <item name="android:fontFamily">@font/san_francisco_semibold</item>
 
     </style>
 

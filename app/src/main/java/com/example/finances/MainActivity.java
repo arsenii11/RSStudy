@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,7 +31,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import maes.tech.intentanim.CustomIntent;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
 
 
@@ -58,6 +59,14 @@ public class MainActivity extends AppCompatActivity  {
         //Обновляем состояние будильника
         myAlarm();
 
+
+
+
+        //регистрируем обработчик настроек
+        Context context = getApplicationContext();
+        SharedPreferences prefs =
+                PreferenceManager.getDefaultSharedPreferences(context);
+        prefs.registerOnSharedPreferenceChangeListener(this);
 
 
         int writePermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -125,7 +134,7 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
-        //Проверяем настройки
+       //Проверяем настройки
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         Boolean flagTheme = prefs.getBoolean("aa",false);
         String theme = prefs.getString("ThemeList", "");
@@ -170,7 +179,7 @@ public class MainActivity extends AppCompatActivity  {
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
                 CustomIntent.customType(this,"fadein-to-fadeout");
-                finish();
+
 
             } catch (Exception E) {
 
@@ -198,4 +207,49 @@ public class MainActivity extends AppCompatActivity  {
     }
 
 
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        //Проверяем настройки
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        Boolean flagTheme = prefs.getBoolean("aa",false);
+        String theme = prefs.getString("ThemeList", "");
+        if(flagTheme) {
+            if (theme.equals("Bright")) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+            if (theme.equals("Dark")) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
+        }
+        else {AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);}
+
+
+
+
+        //устанавливаем никнейм
+        SharedPreferences accNickname = PreferenceManager.getDefaultSharedPreferences(this);
+        String nickname = accNickname.getString("Nickname", "");
+        TextView Nickname = findViewById(R.id.name);
+        Nickname.setText(nickname);
+        if (nickname.isEmpty()) {
+            Nickname.setText("Nickname");
+        }
+        //устанавливаем email
+        SharedPreferences accEmail = PreferenceManager.getDefaultSharedPreferences(this);
+        String email = accNickname.getString("E-mail", "");
+        TextView Email = findViewById(R.id.email);
+        Email.setText(email);
+        if (email.isEmpty()) {
+            Email.setText("Not indicated");
+        }
+
+        //устанавливаем место учебы
+        SharedPreferences eduPlace = PreferenceManager.getDefaultSharedPreferences(this);
+        String EduPLace = accNickname.getString("Educational institution", "");
+        TextView eduplace = findViewById(R.id.eduInstitution);
+        eduplace.setText(EduPLace);
+        if (EduPLace.isEmpty()) {
+            eduplace.setText("Not indicated");
+        }
+    }
 }
