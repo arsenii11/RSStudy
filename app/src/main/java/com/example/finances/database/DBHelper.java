@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -135,6 +136,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery("select * from "+TABLE_COURSES, null);
         cursor.moveToFirst();
 
+
         while (!cursor.isLast()){
             Course course = new Course();
 
@@ -147,9 +149,22 @@ public class DBHelper extends SQLiteOpenHelper {
             course.setLessonsCompleted(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_COMPLETED_LESSONS)));
 
             arrayList.add(course);
-            Log.println(Log.ERROR, "COURSE", course.getName());
+
             cursor.moveToNext();
         }
+
+        Course course = new Course();
+
+        course.setId(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_ID)));
+        course.setName(cursor.getString(cursor.getColumnIndex(KEY_COURSE_NAME)));
+        course.setStartDate(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_START_DATE)));
+        course.setEndDate(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_END_DATE)));
+        course.setFinished(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_FINISHED)));
+        course.setLessons(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_LESSONS)));
+        course.setLessonsCompleted(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_COMPLETED_LESSONS)));
+
+        arrayList.add(course);
+
 
         return arrayList;
     }

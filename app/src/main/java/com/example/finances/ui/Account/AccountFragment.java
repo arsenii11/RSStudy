@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
@@ -163,7 +164,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
 
     //добавляем значения
     private void setInitialData() {
-        DBHelper dbHelper = new DBHelper(getContext());
+        DBHelper dbHelper = new DBHelper(this.getContext());
         courses = dbHelper.getAllCourses();
     }
 

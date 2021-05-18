@@ -6,19 +6,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finances.R;
 import com.example.finances.database.Course;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class CourseAdapter {
+public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder>{
 
-   /* private final LayoutInflater inflater;
-   private final List<Course> courses;
+   private final LayoutInflater inflater;
+   private final ArrayList<Course> courses;
 
-    CourseAdapter(Context context, List<Course> courses) {
+    CourseAdapter(Context context, ArrayList<Course> courses) {
         this.courses = courses;
         this.inflater = LayoutInflater.from(context);
     }
@@ -45,7 +48,7 @@ public class CourseAdapter {
         final TextView nameView;
         ViewHolder(View view){
             super(view);
-            nameView = (TextView) view.findViewById(R.id.name);
+            nameView = (TextView) view.findViewById(R.id.CourseName);
         }
-    } */
+    }
 }
