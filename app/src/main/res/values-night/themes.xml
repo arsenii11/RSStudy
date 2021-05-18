@@ -24,13 +24,13 @@
         <!-- android:textColorPrimary is the color of the title text in the Toolbar  -->
         <item name="android:textColorPrimary">@color/diagramText</item>
         <!-- actionMenuTextColor is the color of the text of action (menu) items  -->
-        <item name="actionMenuTextColor">@android:color/holo_green_light</item>
+        <item name="actionMenuTextColor">@color/white</item>
         <!-- Tints the input fields like checkboxes and text fields -->
-        <item name="colorAccent">@color/enterpurple</item>
+        <item name="colorAccent">@color/white</item>
         <!-- Applies to views in their normal state. -->
-        <item name="colorControlNormal">@color/enterpurple</item>
+        <item name="colorControlNormal">@color/white</item>
         <!-- Applies to views in their activated state (i.e checked or switches) -->
-        <item name="colorControlActivated">@color/enterpurple</item>
+        <item name="colorControlActivated">@color/white</item>
         <!-- Applied to framework control highlights (i.e ripples or list selectors) -->
         <item name="colorControlHighlight">@color/ErrorText</item>
 
