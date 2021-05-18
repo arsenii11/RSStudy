@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Категории покупок-->
+    <string-array name="categories">
+        <item>Супермаркеты</item>
+        <item>Развлечения</item>
+        <item>Одежда и обувь</item>
+        <item>Транспорт</item>
+        <item>ЖКХ</item>
+        <item>Рестораны</item>
+        <item>Фастфуд</item>
+        <item>Красота</item>
+        <item>Мобильная связь</item>
+        <item>Музыка</item>
+        <item>Авиабилеты</item>
+        <item>Образование</item>
+        <item>Цветы</item>
+        <item>Дом, Ремонт</item>
+        <item>Медицина</item>
+        <item>Отели</item>
+        <item>Другое</item>
+
+    </string-array>
+</resources>

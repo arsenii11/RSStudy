@@ -1,0 +1,57 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <PreferenceCategory app:title="@string/account_header">
+        <EditTextPreference
+            app:key="Nickname"
+            app:title="@string/Nickname_title"
+            app:useSimpleSummaryProvider="true"/>
+        <EditTextPreference
+            app:key="E-mail"
+            app:title="@string/Email_title"
+            app:useSimpleSummaryProvider="true"/>
+        <EditTextPreference
+            app:key="Educational institution"
+            app:title="@string/Educational_title"
+            app:useSimpleSummaryProvider="true"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/theme_header">
+
+
+        <SwitchPreferenceCompat
+            app:key="aa"
+            app:defaultValue="false"
+            app:title="@string/Application_theme_change"
+            app:summaryOff="@string/Auto_theme_on"
+            app:summaryOn="@string/Auto_theme_off"
+           />
+
+        <ListPreference
+            app:dependency="aa"
+            app:defaultValue=""
+            app:key="ThemeList"
+            app:entries="@array/reply_themes"
+            app:entryValues="@array/reply_tsm"
+            app:title="@string/Selection_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+  <!--  <PreferenceCategory app:title="@string/sync_header">
+
+        <SwitchPreferenceCompat
+            app:key="sync"
+            app:title="@string/sync_title" />
+
+        <SwitchPreferenceCompat
+            app:dependency="sync"
+            app:key="attachment"
+            app:summaryOff="@string/attachment_summary_off"
+            app:summaryOn="@string/attachment_summary_on"
+            app:title="@string/attachment_title" />
+
+    </PreferenceCategory> -->
+
+</PreferenceScreen>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="hole">@color/black</color>
+    <color name="diagramText">#ffffff</color>
+    <color name="enterpurple">#6644E6</color>
+    <color name="button_course">@color/gray_dove_light</color>
+    <color name="ListBackGround">#70B42CD3</color>
+    <color name="DivideLine">#0B0B0B</color>
+    <color name="background_main">#000000</color>
+
+</resources>

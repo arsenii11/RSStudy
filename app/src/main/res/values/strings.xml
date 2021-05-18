@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">RS:Study</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Calendar</string>
+    <string name="title_notifications">Account</string>
+    <string name="item2">Item2</string>
+    <string name="setting">Item3</string>
+    <string name="dark">Item4</string>
+    <string name="todo">TODO</string>
+    <string name="button">Button</string>
+    <string name="preference_file_key" />
+    <string name="title_activity_settings">Settings</string>
+
+
+    <!-- Preference Titles -->
+    <string name="account_header">Account</string>
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+    <string name="theme_header">Theme</string>
+
+    <!-- Account Preferences -->
+    <string name="Nickname_title">Nickname</string>
+    <string name="Email_title">E-mail</string>
+    <string name="Educational_title">Educational institution</string>
+
+    <!-- Theme preferences -->
+    <string name="Application_theme_change">Application team change</string>
+    <string name="Auto_theme_on">Auto
+    </string>
+    <string name="Auto_theme_off">Manual</string>
+    <string name="Selection_title">Select</string>
+    <string name="about_text">In nowadays rapidly developing world where multitasking is essential for productive activities, our hard-working team would like to present you with the ultimate solution to track your educational progress most effectively. This planner app is honored to keep an eye on your courses, lessons and deadlines and reminding you periodically. Our goal is to relieve stress in the educational life of students around the world.</string>
+    <string name="rights">© 2020, REDISS team, All rights reserved</string>
+    <string name="email">rsstydyrediss@gmail.com</string>
+    <string name="policydata">We do not track you, as well as we do not profile you. We value your privacy ;)</string>
+
+
+</resources>
