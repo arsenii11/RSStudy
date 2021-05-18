@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.Toolbar
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:padding="9dp"
-    android:background="@color/design_default_color_on_primary">
+    android:theme="@style/ToolbarTheme"
+    android:background="#8377DD">
+
+    <com.sdsmdg.harjot.longshadows.LongShadowsWrapper
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        >
+
+        <com.sdsmdg.harjot.longshadows.LongShadowsTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RS:Study"
+            android:layout_centerInParent="true"
+            android:textSize="25dp"
+            android:fontFamily="@font/inter_black"
+            android:textColor="@color/white"
+            app:shadow_length="100"/>
+
+    </com.sdsmdg.harjot.longshadows.LongShadowsWrapper>
 
 </androidx.appcompat.widget.Toolbar>

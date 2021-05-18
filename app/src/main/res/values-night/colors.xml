@@ -6,6 +6,6 @@
     <color name="button_course">@color/gray_dove_light</color>
     <color name="ListBackGround">#70B42CD3</color>
     <color name="DivideLine">#0B0B0B</color>
-    <color name="background_main">#000000</color>
-
+    <color name="background_main">#101010</color>
+    <color name="MMM_purple">#8377DD</color>
 </resources>

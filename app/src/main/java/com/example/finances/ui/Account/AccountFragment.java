@@ -31,7 +31,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import jp.wasabeef.picasso.transformations.CropSquareTransformation;
@@ -54,7 +53,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     public ProgressBar simpleProgressBar;
     public TextView progressText;
     public Uri selectedImageUri;
-    ArrayList<Course> courses = new ArrayList<Course>();
+   // ArrayList<> courses = new ArrayList<Course>();
 
 
 
@@ -83,13 +82,13 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         view = inflater.inflate(R.layout.fragment_account, container, false);
 
         //Список
-        setInitialData();
+       /* setInitialData();
         RecyclerView CoursesList = (RecyclerView) view.findViewById(R.id.list);
         // создаем адаптер
         Context context = getContext();
         CourseAdapter adapter = new CourseAdapter(context, courses);
         // устанавливаем для списка адаптер
-        CoursesList.setAdapter(adapter);
+        CoursesList.setAdapter(adapter); */
 
 
         ImageButton PhotoButton = view.findViewById(R.id.FirstPhotoButton);
@@ -162,19 +161,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     private void setInitialData() {
 
 
-            courses.add(new Course("Математика", "школа", R.drawable.ideal));
-            courses.add(new Course("Физика", "с репетитором", R.drawable.ideal));
-            courses.add(new Course("С++", "", R.drawable.ideal));
-            courses.add(new Course("Вышивание крестиком", "", R.drawable.ideal));
-            courses.add(new Course("География", "Знаю на твердую пять", R.drawable.ideal));
-            courses.add(new Course("География", "Знаю на твердую пять", R.drawable.redisslogo));
-        courses.add(new Course("География", "Знаю на твердую пять", R.drawable.redisslogo));
-        courses.add(new Course("География", "Знаю на твердую пять", R.drawable.redisslogo));
-        courses.add(new Course("География", "Знаю на твердую пять", R.drawable.redisslogo));
-        courses.add(new Course("География", "Знаю на твердую пять", R.drawable.redisslogo));
-        courses.add(new Course("География", "Знаю на твердую пять", R.drawable.redisslogo));
-        courses.add(new Course("География", "Знаю на твердую пять", R.drawable.redisslogo));
-        courses.add(new Course("География", "Знаю на твердую пять", R.drawable.redisslogo));
+
     }
 
 
@@ -182,6 +169,13 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     public void onStart() {
         super.onStart();
         simpleProgressBar.setVisibility(View.INVISIBLE);
+
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
 
         CheckableChipView hide_courses = (CheckableChipView) view.findViewById(R.id.hide_courses);
         if(hide_courses.isChecked()){
@@ -191,7 +185,6 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
             Snackbar snackbar = Snackbar.make(view, "Hello Android", Snackbar.LENGTH_LONG);
             snackbar.show();
         }
-
     }
 
 
