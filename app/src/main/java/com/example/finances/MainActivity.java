@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +23,11 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
 
 import com.example.finances.notifications.AlarmRequestsReceiver;
+import com.example.finances.toolbar.About;
+import com.example.finances.toolbar.SettingsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import maes.tech.intentanim.CustomIntent;
 
 public class MainActivity extends AppCompatActivity  {
 
@@ -149,7 +155,7 @@ public class MainActivity extends AppCompatActivity  {
                 break; } }
 
 
-    /*public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
@@ -189,7 +195,7 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-    }*/
+    }
 
 
 }

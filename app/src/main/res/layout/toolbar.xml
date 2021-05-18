@@ -4,27 +4,27 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:padding="9dp"
     android:theme="@style/ToolbarTheme"
     android:background="#8377DD">
 
     <com.sdsmdg.harjot.longshadows.LongShadowsWrapper
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        >
+        android:layout_height="match_parent">
 
         <com.sdsmdg.harjot.longshadows.LongShadowsTextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="RS:Study"
+            android:padding="9dp"
             android:layout_centerInParent="true"
             android:textSize="25dp"
             android:fontFamily="@font/inter_black"
             android:textColor="@color/white"
-            app:shadow_length="100"/>
-
+            app:shadow_angle="30"
+            app:shadow_length="75"/>
     </com.sdsmdg.harjot.longshadows.LongShadowsWrapper>
+
+
 
 </androidx.appcompat.widget.Toolbar>

@@ -12,9 +12,9 @@ import com.example.finances.R;
 
 import java.util.List;
 
-public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder>{
+public class CourseAdapter {
 
-    private final LayoutInflater inflater;
+   /* private final LayoutInflater inflater;
    private final List<Course> courses;
 
     CourseAdapter(Context context, List<Course> courses) {
@@ -49,5 +49,5 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             nameView = (TextView) view.findViewById(R.id.name);
             capitalView = (TextView) view.findViewById(R.id.capital);
         }
-    }
+    } */
 }
