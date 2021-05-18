@@ -23,6 +23,8 @@ import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finances.R;
+import com.example.finances.database.Course;
+import com.example.finances.database.DBHelper;
 import com.github.okdroid.checkablechipview.CheckableChipView;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
@@ -31,6 +33,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import jp.wasabeef.picasso.transformations.CropSquareTransformation;
@@ -53,7 +56,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     public ProgressBar simpleProgressBar;
     public TextView progressText;
     public Uri selectedImageUri;
-   // ArrayList<> courses = new ArrayList<Course>();
+    ArrayList<Course> courses = new ArrayList<Course>();
 
 
 
@@ -83,13 +86,13 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         view = inflater.inflate(R.layout.fragment_account, container, false);
 
         //Список
-       /* setInitialData();
+        setInitialData();
         RecyclerView CoursesList = (RecyclerView) view.findViewById(R.id.list);
         // создаем адаптер
         Context context = getContext();
         CourseAdapter adapter = new CourseAdapter(context, courses);
         // устанавливаем для списка адаптер
-        CoursesList.setAdapter(adapter); */
+        CoursesList.setAdapter(adapter);
 
 
         ImageButton PhotoButton = view.findViewById(R.id.FirstPhotoButton);
@@ -160,9 +163,8 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
 
     //добавляем значения
     private void setInitialData() {
-
-
-
+        DBHelper dbHelper = new DBHelper(getContext());
+        courses = dbHelper.getAllCourses();
     }
 
 

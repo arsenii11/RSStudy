@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -50,6 +51,11 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("drop table if exists "+ TABLE_COURSES);
         db.execSQL("drop table if exists "+ TABLE_LESSONS);
         onCreate(db);
+    }
+
+    public void clear(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        onUpgrade(db, DATABASE_VERSION, DATABASE_VERSION+1);
     }
 
     public boolean insertCourse(Course course){
@@ -141,7 +147,7 @@ public class DBHelper extends SQLiteOpenHelper {
             course.setLessonsCompleted(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_COMPLETED_LESSONS)));
 
             arrayList.add(course);
-
+            Log.println(Log.ERROR, "COURSE", course.getName());
             cursor.moveToNext();
         }
 

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finances.R;
+import com.example.finances.database.Course;
 
 import java.util.List;
 
@@ -41,13 +42,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        final ImageView flagView;
-        final TextView nameView, capitalView;
+        final TextView nameView;
         ViewHolder(View view){
             super(view);
-            flagView = (ImageView)view.findViewById(R.id.flag);
             nameView = (TextView) view.findViewById(R.id.name);
-            capitalView = (TextView) view.findViewById(R.id.capital);
         }
     }
 }

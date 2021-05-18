@@ -20,6 +20,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
 
+import com.example.finances.database.DBHelper;
 import com.example.finances.notifications.AlarmRequestsReceiver;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -50,7 +51,6 @@ public class MainActivity extends AppCompatActivity  {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         //Обновляем состояние будильника
         myAlarm();
-
 
 
 
