@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context=".toolbar.About">
 
 
@@ -26,7 +27,7 @@
         android:layout_height="100dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="3dp"
         android:src="@drawable/logobook_rmbg" />
 
     <LinearLayout
@@ -109,27 +110,28 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/ll"
-        android:layout_width="45dp"
-        android:layout_height="100dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:src="@drawable/redissvector" />
 
+        <ImageView
+            android:id="@+id/ll"
+            android:layout_width="45dp"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="12dp"
+            android:src="@drawable/redissvector" />
 
-
-
-    <TextView
-        android:layout_width="190dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="25dp"
-        android:text="@string/rights"
-        android:textSize="10sp"
-        android:textStyle="bold" />
+        <TextView
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="116dp"
+            android:layout_marginEnd="105dp"
+            android:layout_marginBottom="60dp"
+            android:text="@string/rights"
+            android:textSize="10sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

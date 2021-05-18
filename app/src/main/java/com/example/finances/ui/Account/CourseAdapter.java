@@ -15,7 +15,7 @@ import java.util.List;
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder>{
 
     private final LayoutInflater inflater;
-    private final List<Course> courses;
+   private final List<Course> courses;
 
     CourseAdapter(Context context, List<Course> courses) {
         this.courses = courses;
@@ -31,9 +31,8 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     @Override
     public void onBindViewHolder(CourseAdapter.ViewHolder holder, int position) {
         Course course = courses.get(position);
-        holder.flagView.setImageResource(course.getFlagResource());
         holder.nameView.setText(course.getName());
-        holder.capitalView.setText(course.getCapital());
+
     }
 
     @Override
