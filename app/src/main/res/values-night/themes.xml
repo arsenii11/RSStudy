@@ -13,6 +13,11 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <!-- Customize your theme here. -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
     <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -21,15 +26,15 @@
         <!-- actionMenuTextColor is the color of the text of action (menu) items  -->
         <item name="actionMenuTextColor">@android:color/holo_green_light</item>
         <!-- Tints the input fields like checkboxes and text fields -->
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="colorAccent">@color/enterpurple</item>
+        <!-- Applies to views in their normal state. -->
+        <item name="colorControlNormal">@color/enterpurple</item>
+        <!-- Applies to views in their activated state (i.e checked or switches) -->
+        <item name="colorControlActivated">@color/enterpurple</item>
+        <!-- Applied to framework control highlights (i.e ripples or list selectors) -->
+        <item name="colorControlHighlight">@color/ErrorText</item>
 
-    <item name="android:navigationBarColor">@android:color/transparent</item>
 
-    <item name="android:windowTranslucentStatus">true</item>
-
-    <item name="android:windowTranslucentNavigation">true</item>
-
-    <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <!-- Enable these below if you want clicking icons to trigger a ripple effect -->
         <!--
         <item name="selectableItemBackground">?android:selectableItemBackground</item>

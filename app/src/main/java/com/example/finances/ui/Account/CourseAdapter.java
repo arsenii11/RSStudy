@@ -13,9 +13,9 @@ import com.example.finances.database.Course;
 
 import java.util.List;
 
-public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder>{
+public class CourseAdapter {
 
-    private final LayoutInflater inflater;
+   /* private final LayoutInflater inflater;
    private final List<Course> courses;
 
     CourseAdapter(Context context, List<Course> courses) {
@@ -47,5 +47,5 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             super(view);
             nameView = (TextView) view.findViewById(R.id.name);
         }
-    }
+    } */
 }
