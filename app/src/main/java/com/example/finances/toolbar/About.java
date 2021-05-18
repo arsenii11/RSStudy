@@ -59,4 +59,10 @@ E.printStackTrace();
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onPause(){
+        super.onPause();
+        finish();
+    }
+
 }

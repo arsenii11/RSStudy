@@ -209,6 +209,48 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
+
+
+        //устанавливаем никнейм
+        SharedPreferences accNickname = PreferenceManager.getDefaultSharedPreferences(this);
+        String nickname = accNickname.getString("Nickname", "");
+        TextView Nickname = findViewById(R.id.name);
+        try {
+        Nickname.setText(nickname);
+        if (nickname.isEmpty()) {
+            Nickname.setText("Nickname");
+        }}
+        catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        //устанавливаем email
+        SharedPreferences accEmail = PreferenceManager.getDefaultSharedPreferences(this);
+        String email = accNickname.getString("E-mail", "");
+        TextView Email = findViewById(R.id.email);
+        try {
+            Email.setText(email);
+            if (email.isEmpty()) {
+                Email.setText("Not indicated");
+            }
+        }  catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
+        //устанавливаем место учебы
+        SharedPreferences eduPlace = PreferenceManager.getDefaultSharedPreferences(this);
+        String EduPLace = accNickname.getString("Educational institution", "");
+        TextView eduplace = findViewById(R.id.eduInstitution);
+        try {
+            eduplace.setText(EduPLace);
+            if (EduPLace.isEmpty()) {
+                eduplace.setText("Not indicated");
+            }
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
+
         //Проверяем настройки
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         Boolean flagTheme = prefs.getBoolean("aa",false);
@@ -226,30 +268,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
 
 
-        //устанавливаем никнейм
-        SharedPreferences accNickname = PreferenceManager.getDefaultSharedPreferences(this);
-        String nickname = accNickname.getString("Nickname", "");
-        TextView Nickname = findViewById(R.id.name);
-        Nickname.setText(nickname);
-        if (nickname.isEmpty()) {
-            Nickname.setText("Nickname");
-        }
-        //устанавливаем email
-        SharedPreferences accEmail = PreferenceManager.getDefaultSharedPreferences(this);
-        String email = accNickname.getString("E-mail", "");
-        TextView Email = findViewById(R.id.email);
-        Email.setText(email);
-        if (email.isEmpty()) {
-            Email.setText("Not indicated");
-        }
 
-        //устанавливаем место учебы
-        SharedPreferences eduPlace = PreferenceManager.getDefaultSharedPreferences(this);
-        String EduPLace = accNickname.getString("Educational institution", "");
-        TextView eduplace = findViewById(R.id.eduInstitution);
-        eduplace.setText(EduPLace);
-        if (EduPLace.isEmpty()) {
-            eduplace.setText("Not indicated");
-        }
     }
 }
