@@ -2,6 +2,7 @@ package com.example.finances.database;
 
 public class Lesson {
 
+    private int id;
     private String name;
     private int courseId;
     private int date;
@@ -10,13 +11,16 @@ public class Lesson {
 
     public Lesson(){}
 
-    public Lesson(String name, int courseId, int date, int duration, int weight){
+    public Lesson(int id, String name, int courseId, int date, int duration, int weight){
+        this.id = id;
         this.name = name;
         this.courseId = courseId;
         this.date = date;
         this.duration = duration;
         this.weight = weight;
     }
+
+    public int getId() { return id; }
 
     public String getName(){
         return name;
@@ -37,6 +41,8 @@ public class Lesson {
     public int getWeight(){
         return weight;
     }
+
+    public void setId(int id) { this.id = id; }
 
     public void setName(String name){
         this.name = name;

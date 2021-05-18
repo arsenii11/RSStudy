@@ -2,6 +2,7 @@ package com.example.finances.database;
 
 public class Course {
 
+    private  int id;
     private String name;
     private int startDate;
     private int endDate;
@@ -11,7 +12,8 @@ public class Course {
 
     public Course() {}
 
-    public Course(String name, int startDate, int endDate, int finished, int lessons, int lessonsCompleted){
+    public Course(int id, String name, int startDate, int endDate, int finished, int lessons, int lessonsCompleted){
+        this.id = id;
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -19,6 +21,8 @@ public class Course {
         this.lessons = lessons;
         this.lessonsCompleted = lessonsCompleted;
     }
+
+    public int getId() {return id;}
 
     public String getName(){
         return name;
@@ -43,6 +47,8 @@ public class Course {
     public int getLessonsCompleted(){
         return lessonsCompleted;
     }
+
+    public void setId(int id) { this.id = id; }
 
     public void setName(String name){
         this.name = name;
