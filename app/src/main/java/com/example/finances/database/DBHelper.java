@@ -86,11 +86,38 @@ public class DBHelper extends SQLiteOpenHelper {
         return status;
     }
 
+    public boolean updateCourse(int oldCourseId, Course newCourse){
+        boolean status = true;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_COURSE_NAME, newCourse.getName());
+        cv.put(KEY_COURSE_START_DATE, newCourse.getStartDate());
+        cv.put(KEY_COURSE_END_DATE, newCourse.getEndDate());
+        cv.put(KEY_COURSE_FINISHED, newCourse.getFinished());
+        cv.put(KEY_COURSE_LESSONS, newCourse.getLessons());
+        cv.put(KEY_COURSE_COMPLETED_LESSONS, newCourse.getLessonsCompleted());
+
+        if(db.update(TABLE_COURSES, cv, KEY_COURSE_ID+" = "+ oldCourseId, null) == -1)
+            status = false;
+
+        return status;
+    }
+
     public boolean deleteCourse(Course course){
         boolean status = true;
         SQLiteDatabase db = this.getWritableDatabase();
 
         if(db.delete(TABLE_COURSES, KEY_COURSE_ID+" = "+ course.getId(), null) == -1)
+            status = false;
+
+        return status;
+    }
+
+    public boolean deleteCourse(int courseId){
+        boolean status = true;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        if(db.delete(TABLE_COURSES, KEY_COURSE_ID+" = "+ courseId, null) == -1)
             status = false;
 
         return status;
@@ -153,11 +180,37 @@ public class DBHelper extends SQLiteOpenHelper {
         return status;
     }
 
+    public boolean updateLesson(int oldLessonId, Lesson newLesson){
+        boolean status = true;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_LESSON_NAME, newLesson.getName());
+        cv.put(KEY_LESSON_COURSE_ID, newLesson.getCourseId());
+        cv.put(KEY_LESSON_DATE, newLesson.getDate());
+        cv.put(KEY_LESSON_DURATION, newLesson.getDuration());
+        cv.put(KEY_LESSON_WEIGHT, newLesson.getWeight());
+
+        if(db.update(TABLE_LESSONS, cv, KEY_LESSON_ID+" = "+oldLessonId, null) == -1)
+            status = false;
+
+        return status;
+    }
+
     public boolean deleteLesson(Lesson lesson){
         boolean status = true;
         SQLiteDatabase db = this.getWritableDatabase();
 
         if(db.delete(TABLE_LESSONS, KEY_LESSON_ID+" = "+ lesson.getId(), null) == -1)
+            status = false;
+
+        return status;
+    }
+
+    public boolean deleteLesson(int lessonId){
+        boolean status = true;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        if(db.delete(TABLE_LESSONS, KEY_LESSON_ID+" = "+ lessonId, null) == -1)
             status = false;
 
         return status;
@@ -191,6 +244,30 @@ public class DBHelper extends SQLiteOpenHelper {
         ArrayList<Lesson> arrayList = new ArrayList<Lesson>();
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from "+TABLE_LESSONS+" where "+KEY_LESSON_ID+" = "+course.getId(), null);
+        cursor.moveToFirst();
+
+        while (!cursor.isLast()){
+            Lesson lesson = new Lesson();
+
+            lesson.setId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_ID)));
+            lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
+            lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
+            lesson.setDate(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_DATE)));
+            lesson.setDuration(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_DURATION)));
+            lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
+
+            arrayList.add(lesson);
+
+            cursor.moveToNext();
+        }
+
+        return arrayList;
+    }
+
+    public ArrayList<Lesson> getAllLessons(int courseId){
+        ArrayList<Lesson> arrayList = new ArrayList<Lesson>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from "+TABLE_LESSONS+" where "+KEY_LESSON_ID+" = "+courseId, null);
         cursor.moveToFirst();
 
         while (!cursor.isLast()){
