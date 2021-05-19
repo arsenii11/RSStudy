@@ -1,6 +1,7 @@
 package com.example.finances.ui.Account;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +12,15 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finances.R;
+import com.example.finances.course.CourseDate;
+import com.example.finances.course.CourseName;
 import com.example.finances.database.Course;
+import com.example.finances.ui.Account.course.CourseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import maes.tech.intentanim.CustomIntent;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder>{
 
@@ -37,6 +43,15 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         Course course = courses.get(position);
         holder.nameView.setText(course.getName());
 
+        holder.nameView.setOnClickListener (new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), CourseActivity.class);
+                intent.putExtra("COURSE_Id", course.getId());
+                v.getContext().startActivity(intent);
+                CustomIntent.customType(v.getContext(),"left-to-right");
+            }
+        });
     }
 
     @Override
