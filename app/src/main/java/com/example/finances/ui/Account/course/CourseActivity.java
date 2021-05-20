@@ -2,23 +2,23 @@ package com.example.finances.ui.Account.course;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.compose.material.IconButtonKt;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.compose.material.icons.Icons;
 
 import com.example.finances.MainActivity;
-import com.example.finances.NewLessonActivity;
 import com.example.finances.R;
 
 import maes.tech.intentanim.CustomIntent;
 
 
 public class CourseActivity extends AppCompatActivity {
+
+    private int COURSE_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +31,13 @@ public class CourseActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         ImageButton newLessonBut = findViewById(R.id.ButtonNewLesson);
+
+        COURSE_ID = getIntent().getIntExtra("COURSE_ID", -1);
         newLessonBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CourseActivity.this, NewLessonActivity.class);
+                intent.putExtra("COURSE_ID", COURSE_ID);
                 startActivity(intent);
                 CustomIntent.customType(CourseActivity.this,"left-to-right");
                 finish();

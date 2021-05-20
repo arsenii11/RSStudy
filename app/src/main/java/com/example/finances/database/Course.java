@@ -4,15 +4,15 @@ public class Course {
 
     private  int id;
     private String name;
-    private int startDate;
-    private int endDate;
+    private long startDate;
+    private long endDate;
     private int finished;
     private int lessons;
     private int lessonsCompleted;
 
     public Course() {}
 
-    public Course(int id, String name, int startDate, int endDate, int finished, int lessons, int lessonsCompleted){
+    public Course(int id, String name, long startDate, long endDate, int finished, int lessons, int lessonsCompleted){
         this.id = id;
         this.name = name;
         this.startDate = startDate;
@@ -28,11 +28,11 @@ public class Course {
         return name;
     }
 
-    public  int getStartDate(){
+    public long getStartDate(){
         return startDate;
     }
 
-    public int getEndDate(){
+    public long getEndDate(){
         return endDate;
     }
 
@@ -54,11 +54,11 @@ public class Course {
         this.name = name;
     }
 
-    public void setStartDate(int startDate){
+    public void setStartDate(long startDate){
         this.startDate = startDate;
     }
 
-    public void setEndDate(int endDate){
+    public void setEndDate(long endDate){
         this.endDate = endDate;
     }
 

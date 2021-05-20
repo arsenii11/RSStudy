@@ -12,7 +12,7 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.Finances">
-        <activity android:name=".NewLessonActivity"></activity>
+        <activity android:name=".ui.Account.course.NewLessonActivity"></activity>
 
         <receiver
             android:name=".notifications.NotificationReceiver"

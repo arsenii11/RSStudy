@@ -47,7 +47,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), CourseActivity.class);
-                intent.putExtra("COURSE_Id", course.getId());
+                intent.putExtra("COURSE_ID", course.getId());
                 v.getContext().startActivity(intent);
                 CustomIntent.customType(v.getContext(),"left-to-right");
             }

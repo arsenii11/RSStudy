@@ -5,13 +5,13 @@ public class Lesson {
     private int id;
     private String name;
     private int courseId;
-    private int date;
+    private long date;
     private int duration;
     private int weight;
 
     public Lesson(){}
 
-    public Lesson(int id, String name, int courseId, int date, int duration, int weight){
+    public Lesson(int id, String name, int courseId, long date, int duration, int weight){
         this.id = id;
         this.name = name;
         this.courseId = courseId;
@@ -30,7 +30,7 @@ public class Lesson {
         return courseId;
     }
 
-    public int getDate(){
+    public long getDate(){
         return date;
     }
 
@@ -52,7 +52,7 @@ public class Lesson {
         this.courseId = courseId;
     }
 
-    public void setDate(int date){
+    public void setDate(long date){
         this.date = date;
     }
 
