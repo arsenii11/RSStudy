@@ -76,32 +76,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageButton
-                android:id="@+id/courseBt"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/widget_selector"
-                android:src="@drawable/outline_add_60" />
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:src="@drawable/outline_add_60"/>
-
-            <TextView
-                android:layout_width="92dp"
-                android:layout_height="33dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="21dp"
-                android:layout_marginTop="99dp"
-                android:layout_marginEnd="23dp"
-                android:layout_marginBottom="4dp"
-                android:fontFamily="@font/notosanstc_bold"
-                android:text="New course" />
 
         </RelativeLayout>
       </com.example.finances.helpclasses.SquaredConstraintLayout>

@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -24,8 +25,10 @@ import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finances.R;
+import com.example.finances.course.CourseName;
 import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
+import com.example.finances.ui.Home.HomeFragment;
 import com.github.okdroid.checkablechipview.CheckableChipView;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
@@ -40,6 +43,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import jp.wasabeef.picasso.transformations.CropSquareTransformation;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function2;
+import maes.tech.intentanim.CustomIntent;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -58,6 +62,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     public TextView progressText;
     public Uri selectedImageUri;
     ArrayList<Course> courses = new ArrayList<Course>();
+    Button newCourse;
 
 
 
@@ -72,9 +77,6 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         //получаем путь к изображению
         SharedPreferences accountPhoto = getActivity().getSharedPreferences(APP_PREFERENCES_Path, Context.MODE_PRIVATE);
         FilePath= accountPhoto.getString("key1", "");
-
-
-
 
 
     }
@@ -146,7 +148,17 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
             }
         }
 
-
+        //Кнопка нового курса
+        newCourse = view.findViewById(R.id.courseBt);
+        newCourse.setClipToOutline(true);
+        newCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AccountFragment.this.getActivity(), CourseName.class);
+                startActivity(intent);
+                CustomIntent.customType(getContext(),"left-to-right");
+            }
+        });
 
 
 
