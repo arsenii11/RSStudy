@@ -65,7 +65,7 @@ public class HomeFragment extends Fragment  {
         pieChart.setDragDecelerationFrictionCoef(0.95f);
 
 
-        pieChart.setDrawHoleEnabled(true);
+        pieChart.setDrawHoleEnabled(false);
         pieChart.setHoleColor(myColor);
         pieChart.setTransparentCircleRadius(50f);
 
@@ -78,21 +78,12 @@ public class HomeFragment extends Fragment  {
 
         pieChart.animateY(1100, Easing.EaseInOutCirc);
 
-        PieDataSet dataSet= new PieDataSet(yValues, "Studying");
+        PieDataSet dataSet= new PieDataSet(yValues, "");
         dataSet.setSliceSpace(3f);
         dataSet.setSelectionShift(5f);
 
         dataSet.setColors( Diagram_colors, getContext());
 
-
-        Description description = new Description();
-        description.setText("Courses");
-        description.setTextColor(DescriptionColor);
-        description.setTextSize(22);
-        description.setYOffset(-40);
-        description.setXOffset(133);
-
-        pieChart.setDescription(description);
 
         PieData data = new PieData(dataSet);
         data.setValueTextSize(10f);

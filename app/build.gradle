@@ -9,6 +9,20 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
+
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerVersion "1.4.32"
+        kotlinCompilerExtensionVersion "1.0.0-beta07"
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     defaultConfig {
         applicationId "com.example.finances"
         minSdkVersion 21
@@ -43,6 +57,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0' //glide
 
+    implementation "androidx.compose.ui:ui:1.0.0-beta07"
     implementation 'com.sdsmdg.harjot:longshadows:1.0.1'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.1.0'
@@ -54,6 +69,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'androidx.core:core-ktx:0.3'
+    implementation "androidx.compose.material:material:1.0.0-beta07" //icons
     implementation 'com.github.bumptech.glide:glide:4.12.0' // Glide(работа с изображениями)
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'//вспомогательная штука для Glide
     implementation 'com.squareup.picasso:picasso:2.71828'//picasso библиотека

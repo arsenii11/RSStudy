@@ -17,11 +17,11 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".toolbar.About">
 
-    <ImageView
+        <ImageView
         android:id="@+id/book"
         android:layout_width="wrap_content"
         android:layout_height="100dp"
@@ -110,29 +110,45 @@
 
     </LinearLayout>
 
-
-        <ImageView
-            android:id="@+id/ll"
-            android:layout_width="45dp"
-            android:layout_height="100dp"
-            android:layout_alignParentBottom="true"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout4"
+            android:layout_width="301dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/layout3"
+            android:layout_alignStart="@+id/layout3"
+            android:layout_alignEnd="@+id/layout3"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="12dp"
-            android:src="@drawable/redissvector" />
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="0dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="190dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="116dp"
-            android:layout_marginEnd="105dp"
-            android:layout_marginBottom="60dp"
-            android:text="@string/rights"
-            android:textSize="10sp"
-            android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/ll"
+                android:layout_width="45dp"
+                android:layout_height="40dp"
 
+                android:src="@drawable/redissvector"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.501"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.838" />
+
+            <TextView
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+
+                android:text="@string/rights"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll"
+                app:layout_constraintVertical_bias="0.0" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </RelativeLayout>
 
     </LinearLayout>
