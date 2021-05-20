@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.fragment.app.Fragment;
 
@@ -32,7 +33,7 @@ public class HomeFragment extends Fragment  {
 
 
     PieChart pieChart;
-    Button newCourse;
+    ImageButton newCourse;
 
     @SuppressLint("ResourceType")
     @Override
@@ -42,6 +43,7 @@ public class HomeFragment extends Fragment  {
 
         //Кнопка
         newCourse = view.findViewById(R.id.courseBt);
+        newCourse.setClipToOutline(true);
         newCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

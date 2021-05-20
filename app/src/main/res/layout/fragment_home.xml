@@ -8,30 +8,31 @@
     android:tag="Scroll_tag"
     tools:context=".ui.Calendar.CalendarFragment">
 
-
-  <LinearLayout
-    android:id="@+id/linerHome"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="4000dp"
+    android:id="@+id/mainlay"
     android:orientation="vertical">
+
+
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="300dp">
+
       <TextView
           android:id="@+id/nextevent"
           android:layout_width="350dp"
-          android:layout_height="match_parent"
+          android:layout_height="wrap_content"
           android:layout_centerInParent="true"
-        android:layout_centerVertical="true"
+          android:layout_centerVertical="true"
+          android:fontFamily="@font/velasans_bold"
           android:gravity="center"
-        android:text="Math test at 3:00 tomorrow"
-        android:textSize="30dp"
-
-        android:fontFamily="@font/velasans_bold">
-      </TextView>
+          android:text="Math test at 3:00 tomorrow"
+          android:textSize="30dp"/>
 
     </RelativeLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -59,30 +60,124 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_weight="0.5">
-
-        <Button
-            android:id="@+id/courseBt"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:text="New course"
-            android:background="@drawable/round_background"
+        <RelativeLayout
+            android:layout_width="140dp"
+            android:layout_height="140dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/courseBt"
+                style="@style/BlockHome"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:src="@drawable/outline_add_60" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="95dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/notosanstc_bold"
+                android:text="New course" />
+
+        </RelativeLayout>
       </com.example.finances.helpclasses.SquaredConstraintLayout>
 
 
 
     </LinearLayout>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="300dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+      <com.example.finances.helpclasses.SquaredConstraintLayout
+          android:id="@+id/box3"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="0.5">
+        <RelativeLayout
+            style="@style/BlockHome"
+            android:backgroundTint="@color/blue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </RelativeLayout>
 
 
 
-  </LinearLayout>
+      </com.example.finances.helpclasses.SquaredConstraintLayout>
+
+      <com.example.finances.helpclasses.SquaredConstraintLayout
+          android:id="@+id/box4"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="0.5">
+        <FrameLayout
+            style="@style/BlockHome"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </FrameLayout>
+      </com.example.finances.helpclasses.SquaredConstraintLayout>
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+      <com.example.finances.helpclasses.SquaredConstraintLayout
+          android:id="@+id/box5"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="0.5">
+        <FrameLayout
+            style="@style/BlockHome"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </FrameLayout>
+
+
+
+      </com.example.finances.helpclasses.SquaredConstraintLayout>
+
+      <com.example.finances.helpclasses.SquaredConstraintLayout
+          android:id="@+id/box6"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="0.5">
+        <FrameLayout
+            style="@style/BlockHome"
+            android:backgroundTint="@color/teal_200"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </FrameLayout>
+      </com.example.finances.helpclasses.SquaredConstraintLayout>
+    </LinearLayout>
+</LinearLayout>
 </ScrollView>

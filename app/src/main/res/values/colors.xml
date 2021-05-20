@@ -17,5 +17,6 @@
     <color name="background_main">#FFFFFF</color>
     <color name="DivideLine">#F1ECEC</color>
     <color name="MMM_purple">#8377DD</color>
+    <color name="blue">#166CB1</color>
 
 </resources>
