@@ -5,20 +5,15 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finances.R;
-import com.example.finances.course.CourseDate;
-import com.example.finances.course.CourseName;
 import com.example.finances.database.Course;
 import com.example.finances.ui.Account.course.CourseActivity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import maes.tech.intentanim.CustomIntent;
 
