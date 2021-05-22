@@ -187,7 +187,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Course findCourse(Course course){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery("select * from "+TABLE_COURSES+" where "+KEY_COURSE_NAME+"="+course.getName()+" and "+KEY_COURSE_LESSONS+"="+course.getLessons(), null);
+        Cursor cursor = db.rawQuery("select * from "+TABLE_COURSES+" where "+KEY_COURSE_NAME+"='"+course.getName()+"' and "+KEY_COURSE_LESSONS+"="+course.getLessons(), null);
         cursor.moveToFirst();
         if (cursor.isLast()) {
             course.setId(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_ID)));
