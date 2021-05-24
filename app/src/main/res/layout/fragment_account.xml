@@ -151,8 +151,42 @@
             app:layout_constraintEnd_toEndOf="@+id/list" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     <View
         style="@style/Divider" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/LessonListLayout"
+        android:layout_width="match_parent"
+        android:layout_height="275dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/ListBackGround">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/Lessonlist"
+            android:layout_width="300dp"
+            android:layout_height="164dp"
+            android:background="@drawable/round_background"
+            android:backgroundTint="@color/ListBackGround"
+            android:visibility="visible"
+
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.612" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        style="@style/Divider" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="1000dp"

@@ -28,6 +28,7 @@ import com.example.finances.R;
 import com.example.finances.course.CourseName;
 import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
+import com.example.finances.database.Lesson;
 import com.example.finances.ui.Home.HomeFragment;
 import com.github.okdroid.checkablechipview.CheckableChipView;
 import com.google.android.material.snackbar.Snackbar;
@@ -62,6 +63,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     public TextView progressText;
     public Uri selectedImageUri;
     ArrayList<Course> courses = new ArrayList<Course>();
+    ArrayList<Lesson> lessons = new ArrayList<>();
     Button newCourse;
 
 
