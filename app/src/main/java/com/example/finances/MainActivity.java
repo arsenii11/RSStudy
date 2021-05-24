@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         //Обновляем состояние будильника
         myAlarm();
 
+        /*DBHelper dbHelper = new DBHelper(getApplicationContext());
+        dbHelper.clear();*/
 
         //регистрируем обработчик настроек
         Context context = getApplicationContext();

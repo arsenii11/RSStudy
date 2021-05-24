@@ -19,7 +19,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "RSSTUDIO.db";
 
     public static final String TABLE_COURSES = "Courses";
-
     public static final String KEY_COURSE_ID = "_id";
     public static final String KEY_COURSE_NAME = "name";
     public static final String KEY_COURSE_START_DATE = "startDate";
@@ -29,7 +28,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String KEY_COURSE_COMPLETED_LESSONS = "lessonsCompleted";
 
     public static final String TABLE_LESSONS = "Lessons";
-
     public static final String KEY_LESSON_ID = "_id";
     public static final String KEY_LESSON_NAME = "name";
     public static final String KEY_LESSON_COURSE_ID = "courseId";
@@ -37,20 +35,28 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String KEY_LESSON_DURATION = "duration";
     public static final String KEY_LESSON_WEIGHT = "weight";
 
+    public static final String TABLE_TESTS = "Tests";
+    public static final String KEY_TEST_ID = "_id";
+    public static final String KEY_TEST_COURSE_ID = "courseId";
+    public static final String KEY_TEST_DATE = "date";
+    public static final String KEY_TEST_WEIGHT = "weight";
+
     public DBHelper(@Nullable Context context) {
         super(context, DATABASE_NAME,null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(" create table " + TABLE_COURSES+"("+KEY_COURSE_ID+ " integer primary key ," + KEY_COURSE_NAME +" text, "+ KEY_COURSE_START_DATE+ " integer, "+ KEY_COURSE_END_DATE+ " integer, "+ KEY_COURSE_FINISHED+ " integer, "+ KEY_COURSE_LESSONS+ " integer, "+ KEY_COURSE_COMPLETED_LESSONS+ " integer "+ ")");
-        db.execSQL(" create table " + TABLE_LESSONS+"("+KEY_LESSON_ID+ " integer primary key ," + KEY_LESSON_NAME +" text, "+ KEY_LESSON_COURSE_ID+ " integer, "+ KEY_LESSON_DATE+ " text, "+ KEY_LESSON_DURATION+ " integer, "+ KEY_LESSON_WEIGHT+ " integer "+ ")");
+        db.execSQL(" create table " + TABLE_COURSES +"(" + KEY_COURSE_ID + " integer primary key, " + KEY_COURSE_NAME +" text, " + KEY_COURSE_START_DATE+ " integer, " + KEY_COURSE_END_DATE + " integer, " + KEY_COURSE_FINISHED + " integer, " + KEY_COURSE_LESSONS + " integer, " + KEY_COURSE_COMPLETED_LESSONS + " integer " + ")");
+        db.execSQL(" create table " + TABLE_LESSONS +"(" + KEY_LESSON_ID + " integer primary key, " + KEY_LESSON_NAME +" text, " + KEY_LESSON_COURSE_ID + " integer, " + KEY_LESSON_DATE + " text, " + KEY_LESSON_DURATION + " integer, " + KEY_LESSON_WEIGHT + " integer " + ")");
+        db.execSQL(" create table " + TABLE_TESTS + "(" + KEY_TEST_ID + " integer primary key, " + KEY_TEST_COURSE_ID + " integer, " + KEY_TEST_DATE + " text, " + KEY_TEST_WEIGHT + " integer " + ")");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table if exists "+ TABLE_COURSES);
         db.execSQL("drop table if exists "+ TABLE_LESSONS);
+        db.execSQL("drop table if exists "+ TABLE_TESTS);
         onCreate(db);
     }
 
@@ -58,6 +64,8 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         onUpgrade(db, DATABASE_VERSION, DATABASE_VERSION+1);
     }
+
+    //COURSE
 
     public boolean insertCourse(Course course){
         boolean status = true;
@@ -203,6 +211,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    //LESSON
+
     public boolean insertLesson(Lesson lesson){
         boolean status = true;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -292,6 +302,17 @@ public class DBHelper extends SQLiteOpenHelper {
             cursor.moveToNext();
         }
 
+        Lesson lesson = new Lesson();
+
+        lesson.setId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_ID)));
+        lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
+        lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
+        lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
+        lesson.setDuration(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_DURATION)));
+        lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
+
+        arrayList.add(lesson);
+
         return arrayList;
     }
 
@@ -315,6 +336,17 @@ public class DBHelper extends SQLiteOpenHelper {
 
             cursor.moveToNext();
         }
+
+        Lesson lesson = new Lesson();
+
+        lesson.setId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_ID)));
+        lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
+        lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
+        lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
+        lesson.setDuration(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_DURATION)));
+        lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
+
+        arrayList.add(lesson);
 
         return arrayList;
     }
@@ -340,6 +372,17 @@ public class DBHelper extends SQLiteOpenHelper {
             cursor.moveToNext();
         }
 
+        Lesson lesson = new Lesson();
+
+        lesson.setId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_ID)));
+        lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
+        lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
+        lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
+        lesson.setDuration(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_DURATION)));
+        lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
+
+        arrayList.add(lesson);
+
         return arrayList;
     }
 
@@ -357,5 +400,134 @@ public class DBHelper extends SQLiteOpenHelper {
         lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
 
         return lesson;
+    }
+
+    //TEST
+
+    public boolean insertTest(Test test){
+        boolean status = true;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_TEST_COURSE_ID, test.getCourseId());
+        cv.put(KEY_TEST_DATE, test.getDate());
+        cv.put(KEY_TEST_WEIGHT, test.getWeight());
+
+        if(db.insert(TABLE_TESTS, null, cv) == -1)
+            status = false;
+
+        return status;
+    }
+
+    public boolean updateTest(Test oldTest, Test test){
+        boolean status = true;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_TEST_COURSE_ID, test.getCourseId());
+        cv.put(KEY_TEST_DATE, test.getDate());
+        cv.put(KEY_TEST_WEIGHT, test.getWeight());
+
+        if(db.update(TABLE_TESTS, cv, KEY_TEST_ID + " = "+ oldTest.getId(), null) == -1)
+            status = false;
+
+        return status;
+    }
+
+    public boolean updateTest(int testId, Test test){
+        boolean status = true;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_TEST_COURSE_ID, test.getCourseId());
+        cv.put(KEY_TEST_DATE, test.getDate());
+        cv.put(KEY_TEST_WEIGHT, test.getWeight());
+
+        if(db.update(TABLE_TESTS, cv, KEY_TEST_ID + " = "+ testId, null) == -1)
+            status = false;
+
+        return status;
+    }
+
+    public boolean deleteTest(Test test){
+        boolean status = true;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        if(db.delete(TABLE_TESTS, KEY_TEST_ID+" = "+ test.getId(), null) == -1)
+            status = false;
+
+        return status;
+    }
+
+    public boolean deleteTest(int testId){
+        boolean status = true;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        if(db.delete(TABLE_TESTS, KEY_TEST_ID+" = "+ testId, null) == -1)
+            status = false;
+
+        return status;
+    }
+
+    public ArrayList<Test> getAllTests(){
+        ArrayList<Test> arrayList = new ArrayList<Test>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from "+TABLE_TESTS, null);
+        cursor.moveToFirst();
+
+        while (!cursor.isLast()){
+            Test test = new Test();
+
+            test.setId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_ID)));
+            test.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_COURSE_ID)));
+            test.setDate(cursor.getLong(cursor.getColumnIndex(KEY_TEST_DATE)));
+            test.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_TEST_WEIGHT)));
+
+            arrayList.add(test);
+
+            cursor.moveToNext();
+        }
+
+        Test test = new Test();
+
+        test.setId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_ID)));
+        test.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_COURSE_ID)));
+        test.setDate(cursor.getLong(cursor.getColumnIndex(KEY_TEST_DATE)));
+        test.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_TEST_WEIGHT)));
+
+        arrayList.add(test);
+
+        return arrayList;
+    }
+
+    public ArrayList<Test> getAllTests(int courseId){
+        ArrayList<Test> arrayList = new ArrayList<Test>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from "+TABLE_TESTS+" where "+KEY_TEST_COURSE_ID+" = "+courseId, null);
+        cursor.moveToFirst();
+
+        while (!cursor.isLast()){
+            Test test = new Test();
+
+            test.setId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_ID)));
+            test.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_COURSE_ID)));
+            test.setDate(cursor.getLong(cursor.getColumnIndex(KEY_TEST_DATE)));
+            test.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_TEST_WEIGHT)));
+
+            arrayList.add(test);
+
+            cursor.moveToNext();
+        }
+
+        Test test = new Test();
+
+        test.setId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_ID)));
+        test.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_COURSE_ID)));
+        test.setDate(cursor.getLong(cursor.getColumnIndex(KEY_TEST_DATE)));
+        test.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_TEST_WEIGHT)));
+
+        arrayList.add(test);
+
+        return arrayList;
     }
 }
