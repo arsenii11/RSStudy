@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -142,37 +144,25 @@ public class DBHelper extends SQLiteOpenHelper {
         ArrayList<Course> arrayList = new ArrayList<Course>();
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from "+TABLE_COURSES, null);
-        cursor.moveToFirst();
 
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                Course course = new Course();
 
-        while (!cursor.isLast()){
-            Course course = new Course();
+                course.setId(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_ID)));
+                course.setName(cursor.getString(cursor.getColumnIndex(KEY_COURSE_NAME)));
+                course.setStartDate(cursor.getLong(cursor.getColumnIndex(KEY_COURSE_START_DATE)));
+                course.setEndDate(cursor.getLong(cursor.getColumnIndex(KEY_COURSE_END_DATE)));
+                course.setFinished(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_FINISHED)));
+                course.setLessons(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_LESSONS)));
+                course.setLessonsCompleted(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_COMPLETED_LESSONS)));
 
-            course.setId(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_ID)));
-            course.setName(cursor.getString(cursor.getColumnIndex(KEY_COURSE_NAME)));
-            course.setStartDate(cursor.getLong(cursor.getColumnIndex(KEY_COURSE_START_DATE)));
-            course.setEndDate(cursor.getLong(cursor.getColumnIndex(KEY_COURSE_END_DATE)));
-            course.setFinished(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_FINISHED)));
-            course.setLessons(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_LESSONS)));
-            course.setLessonsCompleted(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_COMPLETED_LESSONS)));
+                arrayList.add(course);
 
-            arrayList.add(course);
-
-            cursor.moveToNext();
+                cursor.moveToNext();
+            }
         }
-
-        Course course = new Course();
-
-        course.setId(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_ID)));
-        course.setName(cursor.getString(cursor.getColumnIndex(KEY_COURSE_NAME)));
-        course.setStartDate(cursor.getLong(cursor.getColumnIndex(KEY_COURSE_START_DATE)));
-        course.setEndDate(cursor.getLong(cursor.getColumnIndex(KEY_COURSE_END_DATE)));
-        course.setFinished(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_FINISHED)));
-        course.setLessons(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_LESSONS)));
-        course.setLessonsCompleted(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_COMPLETED_LESSONS)));
-
-        arrayList.add(course);
-
 
         return arrayList;
     }
@@ -285,34 +275,24 @@ public class DBHelper extends SQLiteOpenHelper {
         ArrayList<Lesson> arrayList = new ArrayList<Lesson>();
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from "+TABLE_LESSONS, null);
-        cursor.moveToFirst();
 
-        while (!cursor.isLast()){
-            Lesson lesson = new Lesson();
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                Lesson lesson = new Lesson();
 
-            lesson.setId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_ID)));
-            lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
-            lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
-            lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
-            lesson.setDuration(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_DURATION)));
-            lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
+                lesson.setId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_ID)));
+                lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
+                lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
+                lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
+                lesson.setDuration(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_DURATION)));
+                lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
 
-            arrayList.add(lesson);
+                arrayList.add(lesson);
 
-            cursor.moveToNext();
+                cursor.moveToNext();
+            }
         }
-
-        Lesson lesson = new Lesson();
-
-        lesson.setId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_ID)));
-        lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
-        lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
-        lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
-        lesson.setDuration(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_DURATION)));
-        lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
-
-        arrayList.add(lesson);
-
         return arrayList;
     }
 
@@ -320,33 +300,24 @@ public class DBHelper extends SQLiteOpenHelper {
         ArrayList<Lesson> arrayList = new ArrayList<Lesson>();
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from "+TABLE_LESSONS+" where "+KEY_LESSON_COURSE_ID+" = "+course.getId(), null);
-        cursor.moveToFirst();
 
-        while (!cursor.isLast()){
-            Lesson lesson = new Lesson();
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                Lesson lesson = new Lesson();
 
-            lesson.setId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_ID)));
-            lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
-            lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
-            lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
-            lesson.setDuration(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_DURATION)));
-            lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
+                lesson.setId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_ID)));
+                lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
+                lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
+                lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
+                lesson.setDuration(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_DURATION)));
+                lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
 
-            arrayList.add(lesson);
+                arrayList.add(lesson);
 
-            cursor.moveToNext();
+                cursor.moveToNext();
+            }
         }
-
-        Lesson lesson = new Lesson();
-
-        lesson.setId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_ID)));
-        lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
-        lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
-        lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
-        lesson.setDuration(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_DURATION)));
-        lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
-
-        arrayList.add(lesson);
 
         return arrayList;
     }
@@ -355,35 +326,77 @@ public class DBHelper extends SQLiteOpenHelper {
         ArrayList<Lesson> arrayList = new ArrayList<Lesson>();
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from "+TABLE_LESSONS+" where "+KEY_LESSON_COURSE_ID+" = "+courseId, null);
-        cursor.moveToFirst();
 
-        while (!cursor.isLast()){
-            Lesson lesson = new Lesson();
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                Lesson lesson = new Lesson();
 
+                lesson.setId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_ID)));
+                lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
+                lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
+                lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
+                lesson.setDuration(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_DURATION)));
+                lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
+
+                arrayList.add(lesson);
+
+                cursor.moveToNext();
+            }
+        }
+
+        return arrayList;
+    }
+
+    public ArrayList<Lesson> getLessonsTodaySortByTime(){
+        ArrayList<Lesson> arrayList = new ArrayList<Lesson>();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        long dayTime = today.getTimeInMillis()/1000;
+        Cursor cursor = db.rawQuery("select * from " + TABLE_LESSONS + " where " + KEY_LESSON_DATE + ">=" + dayTime + "order by" + KEY_LESSON_DATE, null);
+
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                Lesson lesson = new Lesson();
+
+                lesson.setId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_ID)));
+                lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
+                lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
+                lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
+                lesson.setDuration(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_DURATION)));
+                lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
+
+                arrayList.add(lesson);
+
+                cursor.moveToNext();
+            }
+        }
+
+        return arrayList;
+    }
+
+    public Lesson getLessonToday(){
+        Lesson lesson = new Lesson();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        long dayTime = today.getTimeInMillis()/1000;
+        Cursor cursor = db.rawQuery("select * from " + TABLE_LESSONS + " where " + KEY_LESSON_DATE + ">=" + dayTime + "order by" + KEY_LESSON_WEIGHT, null);
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
             lesson.setId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_ID)));
             lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
             lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
             lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
             lesson.setDuration(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_DURATION)));
             lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
-
-            arrayList.add(lesson);
-
-            cursor.moveToNext();
         }
-
-        Lesson lesson = new Lesson();
-
-        lesson.setId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_ID)));
-        lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
-        lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
-        lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
-        lesson.setDuration(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_DURATION)));
-        lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
-
-        arrayList.add(lesson);
-
-        return arrayList;
+        return lesson;
     }
 
     public Lesson getLesson(int lessonId){
@@ -401,6 +414,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return lesson;
     }
+
 
     //TEST
 
@@ -473,29 +487,22 @@ public class DBHelper extends SQLiteOpenHelper {
         ArrayList<Test> arrayList = new ArrayList<Test>();
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from "+TABLE_TESTS, null);
-        cursor.moveToFirst();
 
-        while (!cursor.isLast()){
-            Test test = new Test();
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                Test test = new Test();
 
-            test.setId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_ID)));
-            test.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_COURSE_ID)));
-            test.setDate(cursor.getLong(cursor.getColumnIndex(KEY_TEST_DATE)));
-            test.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_TEST_WEIGHT)));
+                test.setId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_ID)));
+                test.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_COURSE_ID)));
+                test.setDate(cursor.getLong(cursor.getColumnIndex(KEY_TEST_DATE)));
+                test.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_TEST_WEIGHT)));
 
-            arrayList.add(test);
+                arrayList.add(test);
 
-            cursor.moveToNext();
+                cursor.moveToNext();
+            }
         }
-
-        Test test = new Test();
-
-        test.setId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_ID)));
-        test.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_COURSE_ID)));
-        test.setDate(cursor.getLong(cursor.getColumnIndex(KEY_TEST_DATE)));
-        test.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_TEST_WEIGHT)));
-
-        arrayList.add(test);
 
         return arrayList;
     }
@@ -504,30 +511,22 @@ public class DBHelper extends SQLiteOpenHelper {
         ArrayList<Test> arrayList = new ArrayList<Test>();
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from "+TABLE_TESTS+" where "+KEY_TEST_COURSE_ID+" = "+courseId, null);
-        cursor.moveToFirst();
 
-        while (!cursor.isLast()){
-            Test test = new Test();
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                Test test = new Test();
 
-            test.setId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_ID)));
-            test.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_COURSE_ID)));
-            test.setDate(cursor.getLong(cursor.getColumnIndex(KEY_TEST_DATE)));
-            test.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_TEST_WEIGHT)));
+                test.setId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_ID)));
+                test.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_COURSE_ID)));
+                test.setDate(cursor.getLong(cursor.getColumnIndex(KEY_TEST_DATE)));
+                test.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_TEST_WEIGHT)));
 
-            arrayList.add(test);
+                arrayList.add(test);
 
-            cursor.moveToNext();
+                cursor.moveToNext();
+            }
         }
-
-        Test test = new Test();
-
-        test.setId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_ID)));
-        test.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_COURSE_ID)));
-        test.setDate(cursor.getLong(cursor.getColumnIndex(KEY_TEST_DATE)));
-        test.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_TEST_WEIGHT)));
-
-        arrayList.add(test);
-
         return arrayList;
     }
 }
