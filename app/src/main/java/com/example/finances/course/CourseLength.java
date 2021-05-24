@@ -57,6 +57,7 @@ public class CourseLength extends AppCompatActivity {
                     intent.putExtra("CURRENT_LESSON", 0);
                     startActivity(intent);
                     CustomIntent.customType(CourseLength.this,"left-to-right");
+                    finish();
                 }
                 else {
                     Snackbar snackbar = Snackbar.make(view1, "Record not inserted", Snackbar.LENGTH_LONG);
@@ -65,9 +66,8 @@ public class CourseLength extends AppCompatActivity {
                     Intent intent = new Intent(CourseLength.this, MainActivity.class);
                     startActivity(intent);
                     CustomIntent.customType(CourseLength.this,"left-to-right");
+                    finish();
                 }
-
-                finish();
             }
         });
 

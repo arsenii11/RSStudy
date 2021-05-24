@@ -60,8 +60,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         myAlarm();
 
 
-
-
         //регистрируем обработчик настроек
         Context context = getApplicationContext();
         SharedPreferences prefs =
