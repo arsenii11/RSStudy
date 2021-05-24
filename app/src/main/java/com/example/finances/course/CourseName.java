@@ -31,7 +31,7 @@ public class CourseName extends AppCompatActivity {
 
         instance = this;
 
-        final EditText contentEditText = findViewById(R.id.editTextStartDate);
+        final EditText contentEditText = findViewById(R.id.editTextCourseName);
 
         next = findViewById(R.id.buttonNext);
         next.setOnClickListener(new View.OnClickListener() {
@@ -39,7 +39,7 @@ public class CourseName extends AppCompatActivity {
             public void onClick(View v) {
                 String content = contentEditText.getText().toString();
 
-                Intent intent = new Intent(CourseName.this, CourseDate.class);
+                Intent intent = new Intent(CourseName.this, CourseLength.class);
                 intent.putExtra("COURSE_NAME", content);
                 startActivity(intent);
                 CustomIntent.customType(CourseName.this,"left-to-right");

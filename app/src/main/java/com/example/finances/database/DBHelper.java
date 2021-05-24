@@ -185,6 +185,24 @@ public class DBHelper extends SQLiteOpenHelper {
         return  course;
     }
 
+    public Course findCourse(Course course){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from "+TABLE_COURSES+" where "+KEY_COURSE_NAME+"='"+course.getName()+"' and "+KEY_COURSE_LESSONS+"="+course.getLessons(), null);
+        cursor.moveToFirst();
+        if (cursor.isLast()) {
+            course.setId(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_ID)));
+            course.setName(cursor.getString(cursor.getColumnIndex(KEY_COURSE_NAME)));
+            course.setStartDate(cursor.getLong(cursor.getColumnIndex(KEY_COURSE_START_DATE)));
+            course.setEndDate(cursor.getLong(cursor.getColumnIndex(KEY_COURSE_END_DATE)));
+            course.setFinished(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_FINISHED)));
+            course.setLessons(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_LESSONS)));
+            course.setLessonsCompleted(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_COMPLETED_LESSONS)));
+        }
+
+        return course;
+
+    }
+
     public boolean insertLesson(Lesson lesson){
         boolean status = true;
         SQLiteDatabase db = this.getWritableDatabase();

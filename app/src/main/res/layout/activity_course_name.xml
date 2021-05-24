@@ -7,7 +7,7 @@
     tools:context=".course.CourseName">
 
     <TextView
-        android:id="@+id/courseDate"
+        android:id="@+id/courseName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Course name?"
@@ -19,7 +19,7 @@
         app:layout_constraintVertical_bias="0.449" />
 
     <EditText
-        android:id="@+id/editTextStartDate"
+        android:id="@+id/editTextCourseName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -27,7 +27,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseDate"
+        app:layout_constraintTop_toBottomOf="@+id/courseName"
         app:layout_constraintVertical_bias="0.038" />
 
     <Button

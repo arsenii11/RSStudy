@@ -10,7 +10,7 @@
         android:id="@+id/courseLength"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="How long is your course duration?"
+        android:text="Lessons a week"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,11 +19,12 @@
         app:layout_constraintVertical_bias="0.449" />
 
     <EditText
-        android:id="@+id/editTextLength"
+        android:id="@+id/editTextCourseLength"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:text="2"
+        android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +32,7 @@
         app:layout_constraintVertical_bias="0.038" />
 
     <Button
-        android:id="@+id/buttonNext3"
+        android:id="@+id/buttonNext2"
         android:layout_width="99dp"
         android:layout_height="47dp"
         android:text="Next"

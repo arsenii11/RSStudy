@@ -33,26 +33,12 @@ public class HomeFragment extends Fragment  {
 
 
     PieChart pieChart;
-    ImageButton newCourse;
+
 
     @SuppressLint("ResourceType")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
-
-        //Кнопка
-        newCourse = view.findViewById(R.id.courseBt);
-        newCourse.setClipToOutline(true);
-        newCourse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeFragment.this.getActivity(), CourseName.class);
-                startActivity(intent);
-                CustomIntent.customType(getContext(),"left-to-right");
-            }
-        });
-
 
 
         //Диаграма

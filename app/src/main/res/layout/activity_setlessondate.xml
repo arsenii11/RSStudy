@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.Account.course.LessonDateActivity"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+
+    <include
+        android:id="@+id/toolbar2"
+        layout="@layout/toolbar">
+    </include>
+
+    <TextView
+        android:id="@+id/currentDateTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+
+
+    <ImageButton
+        android:id="@+id/timeButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/round_background"
+        android:onClick="setTime"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentDateTime"
+        app:srcCompat="@drawable/outline_add_24" />
+
+    <ImageButton
+        android:id="@+id/dateButton"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/round_background"
+        android:onClick="setDate"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeButton"
+        app:srcCompat="@drawable/outline_add_24" />
+
+    <TextView
+        android:id="@+id/lessonTextDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Duration? (hours)"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.449" />
+
+    <EditText
+        android:id="@+id/editTextLessonDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseDate"
+        app:layout_constraintVertical_bias="0.038" />
+
+    <Button
+        android:id="@+id/buttonLessonNext"
+        android:layout_width="99dp"
+        android:layout_height="47dp"
+        android:text="Next"
+        app:backgroundTint="@color/button_course"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.938" />
+
+</LinearLayout>
