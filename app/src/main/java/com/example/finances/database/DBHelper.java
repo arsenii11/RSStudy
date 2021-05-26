@@ -171,15 +171,19 @@ public class DBHelper extends SQLiteOpenHelper {
         Course course = new Course();
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from "+TABLE_COURSES+" where "+KEY_COURSE_ID+"="+courseId, null);
-        cursor.moveToFirst();
-        course.setId(courseId);
-        course.setName(cursor.getString(cursor.getColumnIndex(KEY_COURSE_NAME)));
-        course.setStartDate(cursor.getLong(cursor.getColumnIndex(KEY_COURSE_START_DATE)));
-        course.setEndDate(cursor.getLong(cursor.getColumnIndex(KEY_COURSE_END_DATE)));
-        course.setFinished(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_FINISHED)));
-        course.setLessons(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_LESSONS)));
-        course.setLessonsCompleted(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_COMPLETED_LESSONS)));
+       try {
+           cursor.moveToFirst();
 
+           course.setId(courseId);
+           course.setName(cursor.getString(cursor.getColumnIndex(KEY_COURSE_NAME)));
+           course.setStartDate(cursor.getLong(cursor.getColumnIndex(KEY_COURSE_START_DATE)));
+           course.setEndDate(cursor.getLong(cursor.getColumnIndex(KEY_COURSE_END_DATE)));
+           course.setFinished(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_FINISHED)));
+           course.setLessons(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_LESSONS)));
+           course.setLessonsCompleted(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_COMPLETED_LESSONS)));
+       }catch (Exception e){
+           e.printStackTrace();
+       }
         return  course;
     }
 
