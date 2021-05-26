@@ -10,39 +10,39 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finances.R;
-import com.example.finances.database.Course;
+import com.example.finances.database.Lesson;
 import com.example.finances.ui.Account.course.CourseActivity;
 
 import java.util.ArrayList;
 
 import maes.tech.intentanim.CustomIntent;
 
-public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder>{
+public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.ViewHolder>{
 
     private final LayoutInflater inflater;
-    private final ArrayList<Course> courses;
+    private final ArrayList<Lesson> lessons;
 
-    CourseAdapter(Context context, ArrayList<Course> courses) {
-        this.courses = courses;
+    LessonAdapter(Context context, ArrayList<Lesson> lessons) {
+        this.lessons = lessons;
         this.inflater = LayoutInflater.from(context);
     }
     @Override
-    public CourseAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public LessonAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = inflater.inflate(R.layout.list_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(CourseAdapter.ViewHolder holder, int position) {
-        Course course = courses.get(position);
-        holder.nameView.setText(course.getName());
+    public void onBindViewHolder(LessonAdapter.ViewHolder holder, int position) {
+        Lesson lesson = lessons.get(position);
+        holder.nameView.setText(lesson.getName());
 
         holder.nameView.setOnClickListener (new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), CourseActivity.class);
-                intent.putExtra("COURSE_ID", course.getId());
+                intent.putExtra("LESSON_ID", lesson.getId());
                 v.getContext().startActivity(intent);
                 CustomIntent.customType(v.getContext(),"left-to-right");
             }
@@ -51,7 +51,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return courses.size();
+        return lessons.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

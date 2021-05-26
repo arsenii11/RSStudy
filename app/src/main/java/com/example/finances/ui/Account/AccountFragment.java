@@ -63,7 +63,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     public TextView progressText;
     public Uri selectedImageUri;
     ArrayList<Course> courses = new ArrayList<Course>();
-    ArrayList<Lesson> lessons = new ArrayList<>();
+    ArrayList<Lesson> lessons = new ArrayList<Lesson>();
     Button newCourse;
 
 
@@ -93,12 +93,14 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         //Список
         setInitialData();
         RecyclerView CoursesList = (RecyclerView) view.findViewById(R.id.list);
+        RecyclerView LessonsList = (RecyclerView) view.findViewById(R.id.Lessonlist);
         // создаем адаптер
         Context context = getContext();
         CourseAdapter adapter = new CourseAdapter(context, courses);
+        LessonAdapter lessonAdapter = new LessonAdapter(context, lessons);
         // устанавливаем для списка адаптер
         CoursesList.setAdapter(adapter);
-
+        LessonsList.setAdapter(lessonAdapter);
 
         ImageButton PhotoButton = view.findViewById(R.id.FirstPhotoButton);
         simpleProgressBar = view.findViewById(R.id.progressBar);
@@ -181,10 +183,10 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     //добавляем значения
     private void setInitialData() {
         try {
-
-
-        DBHelper dbHelper = new DBHelper(this.getContext());
-        courses = dbHelper.getAllCourses();}
+            DBHelper dbHelper = new DBHelper(this.getContext());
+            courses = dbHelper.getAllCourses();
+            lessons = dbHelper.getAllLessons();
+        }
         catch (Exception e){
             e.printStackTrace();
         }
