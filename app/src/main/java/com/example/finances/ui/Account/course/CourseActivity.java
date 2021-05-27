@@ -34,6 +34,9 @@ public class CourseActivity extends AppCompatActivity {
         DBHelper dbHelper = new DBHelper(getApplicationContext());
         ArrayList<Lesson> lessons = dbHelper.getAllLessons();
         for (Lesson lesson: lessons) {
+            try {
+
+
             ContentResolver cr = getContentResolver();
             ContentValues values = new ContentValues();
             values.put(CalendarContract.Events.DTSTART, lesson.getDate());
@@ -42,7 +45,10 @@ public class CourseActivity extends AppCompatActivity {
             values.put(CalendarContract.Events.DESCRIPTION, "RS:STUDIO");
             values.put(CalendarContract.Events.CALENDAR_ID, calID);
             values.put(CalendarContract.Events.EVENT_TIMEZONE, "Russia/Moscow");
-            Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
+            Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);}
+            catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 

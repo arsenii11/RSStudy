@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -16,12 +16,12 @@ import com.example.finances.R;
 import com.example.finances.course.CourseName;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import maes.tech.intentanim.CustomIntent;
 
@@ -33,6 +33,7 @@ public class HomeFragment extends Fragment  {
 
 
     PieChart pieChart;
+    ImageButton plusCourse;
 
 
     @SuppressLint("ResourceType")
@@ -40,6 +41,16 @@ public class HomeFragment extends Fragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        //widget add something
+        plusCourse = view.findViewById(R.id.buttonpluscourse);
+        plusCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeFragment.this.getActivity(), CourseName.class);
+                startActivity(intent);
+                CustomIntent.customType(getContext(),"fadein-to-fadeout");
+            }
+        });
 
         //Диаграма
         int DescriptionColor = getResources().getColor(R.color.diagramText);
@@ -81,8 +92,13 @@ public class HomeFragment extends Fragment  {
 
 
 
-
-
-
+        //widget
+        String mydate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
+        TextView datetext = getActivity().findViewById(R.id.textdate);
+        try {
+        datetext.setText(mydate);}
+        catch (Exception e){
+            e.printStackTrace();
+        }
         return view;
     }}
