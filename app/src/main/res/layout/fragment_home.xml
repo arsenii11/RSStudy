@@ -70,7 +70,7 @@
             android:layout_width="140dp"
             android:layout_height="140dp"
             style="@style/BlockHome"
-            android:backgroundTint="@color/ListBackGround"
+            android:backgroundTint="@color/Widget1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -93,7 +93,7 @@
           android:layout_weight="0.5">
         <androidx.constraintlayout.widget.ConstraintLayout
             style="@style/BlockHome"
-            android:backgroundTint="@color/diagramText"
+            android:backgroundTint="@color/Widget1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -139,7 +139,7 @@
           android:layout_weight="0.5">
         <FrameLayout
             style="@style/BlockHome"
-            android:backgroundTint="@color/ListBackGround"
+            android:backgroundTint="@color/Widget2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

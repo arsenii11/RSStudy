@@ -1,7 +1,11 @@
 package com.example.finances.ui.Account.course;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.finances.MainActivity;
 import com.example.finances.R;
+import com.example.finances.database.DBHelper;
+import com.example.finances.database.Lesson;
+
+import java.util.ArrayList;
 
 import maes.tech.intentanim.CustomIntent;
 
@@ -19,6 +27,24 @@ import maes.tech.intentanim.CustomIntent;
 public class CourseActivity extends AppCompatActivity {
 
     private int COURSE_ID;
+
+    public void addCalendarEvent() {
+
+        long calID = 1;
+        DBHelper dbHelper = new DBHelper(getApplicationContext());
+        ArrayList<Lesson> lessons = dbHelper.getAllLessons();
+        for (Lesson lesson: lessons) {
+            ContentResolver cr = getContentResolver();
+            ContentValues values = new ContentValues();
+            values.put(CalendarContract.Events.DTSTART, lesson.getDate());
+            values.put(CalendarContract.Events.DTEND, lesson.getDate()+lesson.getDuration()*60*60*1000);
+            values.put(CalendarContract.Events.TITLE, lesson.getName());
+            values.put(CalendarContract.Events.DESCRIPTION, "RS:STUDIO");
+            values.put(CalendarContract.Events.CALENDAR_ID, calID);
+            values.put(CalendarContract.Events.EVENT_TIMEZONE, "Russia/Moscow");
+            Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +70,7 @@ public class CourseActivity extends AppCompatActivity {
             }
         });
 
-
+        addCalendarEvent();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

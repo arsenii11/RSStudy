@@ -2,12 +2,17 @@ package com.example.finances;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -24,10 +29,14 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
 
 import com.example.finances.database.DBHelper;
+import com.example.finances.database.Lesson;
 import com.example.finances.notifications.AlarmRequestsReceiver;
 import com.example.finances.toolbar.About;
 import com.example.finances.toolbar.SettingsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 
 import maes.tech.intentanim.CustomIntent;
 
@@ -59,14 +68,27 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         //Обновляем состояние будильника
         myAlarm();
 
-        /*DBHelper dbHelper = new DBHelper(getApplicationContext());
-        dbHelper.clear();*/
+        /*
+        DBHelper dbHelper = new DBHelper(getApplicationContext());
+        dbHelper.clear();
+        */
 
         //регистрируем обработчик настроек
         Context context = getApplicationContext();
         SharedPreferences prefs =
                 PreferenceManager.getDefaultSharedPreferences(context);
         prefs.registerOnSharedPreferenceChangeListener(this);
+
+
+        int readCalendarPermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALENDAR);
+        if ((readCalendarPermissionCheck != PackageManager.PERMISSION_GRANTED))  {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CALENDAR},
+                    MY_PERMISSIONS_WRITE_REQUEST); }
+
+        int writeCalendarPermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR);
+        if ((writeCalendarPermissionCheck != PackageManager.PERMISSION_GRANTED))  {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_CALENDAR},
+                    MY_PERMISSIONS_WRITE_REQUEST); }
 
 
         int writePermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -82,8 +104,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         else {
             readDataExternal();
         }
-
     }
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.P)
@@ -117,7 +139,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         appContext.sendBroadcast(IntentForBroadcast);
     }
 
-
+        //DBHelper dbHelper = new DBHelper(getApplicationContext());
+        //dbHelper.clear();
 
 
     @Override
