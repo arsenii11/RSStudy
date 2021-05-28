@@ -50,7 +50,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(" create table " + TABLE_COURSES +"(" + KEY_COURSE_ID + " integer primary key, " + KEY_COURSE_NAME +" text, " + KEY_COURSE_START_DATE+ " integer, " + KEY_COURSE_END_DATE + " integer, " + KEY_COURSE_FINISHED + " integer, " + KEY_COURSE_LESSONS + " integer, " + KEY_COURSE_COMPLETED_LESSONS + " integer " + ")");
-        db.execSQL(" create table " + TABLE_LESSONS +"(" + KEY_LESSON_ID + " integer primary key, " + KEY_LESSON_NAME +" text, " + KEY_LESSON_COURSE_ID + " integer, " + KEY_LESSON_DATE + " text, " + KEY_LESSON_DURATION + " integer, " + KEY_LESSON_WEIGHT + " integer " + ")");
+        db.execSQL(" create table " + TABLE_LESSONS +"(" + KEY_LESSON_ID + " integer primary key, " + KEY_LESSON_NAME +" text, " + KEY_LESSON_COURSE_ID + " integer, " + KEY_LESSON_DATE + " text, " + KEY_LESSON_DURATION + " real, " + KEY_LESSON_WEIGHT + " integer " + ")");
         db.execSQL(" create table " + TABLE_TESTS + "(" + KEY_TEST_ID + " integer primary key, " + KEY_TEST_COURSE_ID + " integer, " + KEY_TEST_DATE + " text, " + KEY_TEST_WEIGHT + " integer " + ")");
     }
 
@@ -171,19 +171,16 @@ public class DBHelper extends SQLiteOpenHelper {
         Course course = new Course();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from "+TABLE_COURSES+" where "+KEY_COURSE_ID+"="+courseId, null);
-       try {
-           cursor.moveToFirst();
-
-           course.setId(courseId);
-           course.setName(cursor.getString(cursor.getColumnIndex(KEY_COURSE_NAME)));
-           course.setStartDate(cursor.getLong(cursor.getColumnIndex(KEY_COURSE_START_DATE)));
-           course.setEndDate(cursor.getLong(cursor.getColumnIndex(KEY_COURSE_END_DATE)));
-           course.setFinished(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_FINISHED)));
-           course.setLessons(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_LESSONS)));
-           course.setLessonsCompleted(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_COMPLETED_LESSONS)));
-       }catch (Exception e){
-           e.printStackTrace();
-       }
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            course.setId(courseId);
+            course.setName(cursor.getString(cursor.getColumnIndex(KEY_COURSE_NAME)));
+            course.setStartDate(cursor.getLong(cursor.getColumnIndex(KEY_COURSE_START_DATE)));
+            course.setEndDate(cursor.getLong(cursor.getColumnIndex(KEY_COURSE_END_DATE)));
+            course.setFinished(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_FINISHED)));
+            course.setLessons(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_LESSONS)));
+            course.setLessonsCompleted(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_COMPLETED_LESSONS)));
+        }
         return  course;
     }
 
@@ -289,7 +286,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
                 lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
                 lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
-                lesson.setDuration(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_DURATION)));
+                lesson.setDuration(cursor.getFloat(cursor.getColumnIndex(KEY_LESSON_DURATION)));
                 lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
 
                 arrayList.add(lesson);
@@ -314,7 +311,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
                 lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
                 lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
-                lesson.setDuration(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_DURATION)));
+                lesson.setDuration(cursor.getFloat(cursor.getColumnIndex(KEY_LESSON_DURATION)));
                 lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
 
                 arrayList.add(lesson);
@@ -340,7 +337,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
                 lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
                 lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
-                lesson.setDuration(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_DURATION)));
+                lesson.setDuration(cursor.getFloat(cursor.getColumnIndex(KEY_LESSON_DURATION)));
                 lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
 
                 arrayList.add(lesson);
@@ -370,7 +367,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
                 lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
                 lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
-                lesson.setDuration(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_DURATION)));
+                lesson.setDuration(cursor.getFloat(cursor.getColumnIndex(KEY_LESSON_DURATION)));
                 lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
 
                 arrayList.add(lesson);
@@ -397,7 +394,7 @@ public class DBHelper extends SQLiteOpenHelper {
             lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
             lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
             lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
-            lesson.setDuration(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_DURATION)));
+            lesson.setDuration(cursor.getFloat(cursor.getColumnIndex(KEY_LESSON_DURATION)));
             lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
         }
         return lesson;
@@ -417,7 +414,7 @@ public class DBHelper extends SQLiteOpenHelper {
             lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
             lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
             lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
-            lesson.setDuration(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_DURATION)));
+            lesson.setDuration(cursor.getFloat(cursor.getColumnIndex(KEY_LESSON_DURATION)));
             lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
         }
         return lesson;
@@ -433,7 +430,7 @@ public class DBHelper extends SQLiteOpenHelper {
         lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
         lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
         lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
-        lesson.setDuration(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_DURATION)));
+        lesson.setDuration(cursor.getFloat(cursor.getColumnIndex(KEY_LESSON_DURATION)));
         lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
 
         return lesson;

@@ -66,7 +66,8 @@ public class LessonDateActivity extends AppCompatActivity {
                 lesson.setCourseId(COURSE_ID);
                 long dat = dateAndTime.getTimeInMillis()/1000;
                 lesson.setDate(dat);
-                lesson.setDuration(Integer.parseInt(duration.getText().toString()));
+                String dur = duration.getText().toString();
+                lesson.setDuration(Integer.parseInt(dur.split(":")[0]) + Float.parseFloat(dur.split(":")[1])/60);
 
                 Log.e("CURRENT", String.valueOf(CURRENT_LESSON));
                 Log.e("ALL", String.valueOf(LESSONS));

@@ -6,12 +6,12 @@ public class Lesson {
     private String name;
     private int courseId;
     private long date;
-    private int duration;
+    private float duration;
     private int weight;
 
     public Lesson(){}
 
-    public Lesson(int id, String name, int courseId, long date, int duration, int weight){
+    public Lesson(int id, String name, int courseId, long date, float duration, int weight){
         this.id = id;
         this.name = name;
         this.courseId = courseId;
@@ -34,7 +34,7 @@ public class Lesson {
         return date;
     }
 
-    public int getDuration(){
+    public float getDuration(){
         return duration;
     }
 
@@ -56,7 +56,7 @@ public class Lesson {
         this.date = date;
     }
 
-    public void setDuration(int duration){
+    public void setDuration(float duration){
         this.duration = duration;
     }
 
