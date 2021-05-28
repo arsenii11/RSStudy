@@ -77,6 +77,7 @@ public class LessonDateActivity extends AppCompatActivity {
                 lesson.setCourseId(COURSE_ID);
                 long dat = dateAndTime.getTimeInMillis()/1000;
                 lesson.setDate(dat);
+
                 String dur = duration.getText().toString();
                 try {
                     lesson.setDuration(Integer.parseInt(dur.split(":")[0]) + Float.parseFloat(dur.split(":")[1]) / 60);
@@ -115,7 +116,7 @@ public class LessonDateActivity extends AppCompatActivity {
 
     // отображаем диалоговое окно для выбора даты
     public void setDate(View v) {
-        new DatePickerDialog(this, d,
+        new DatePickerDialog(this, R.style.TimePickerTheme, d,
                 dateAndTime.get(Calendar.YEAR),
                 dateAndTime.get(Calendar.MONTH),
                 dateAndTime.get(Calendar.DAY_OF_MONTH))
@@ -124,7 +125,7 @@ public class LessonDateActivity extends AppCompatActivity {
 
     // отображаем диалоговое окно для выбора времени
     public void setTime(View v) {
-        new TimePickerDialog(this, t,
+        new TimePickerDialog(this, R.style.TimePickerTheme, t,
                 dateAndTime.get(Calendar.HOUR_OF_DAY),
                 dateAndTime.get(Calendar.MINUTE), true)
                 .show();

@@ -28,6 +28,11 @@ import com.example.finances.database.Lesson;
 import java.util.Calendar;
 
 import maes.tech.intentanim.CustomIntent;
+import ru.tinkoff.decoro.MaskImpl;
+import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser;
+import ru.tinkoff.decoro.slots.Slot;
+import ru.tinkoff.decoro.watchers.FormatWatcher;
+import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
 
 public class NewLessonActivity extends AppCompatActivity {
 
@@ -37,6 +42,8 @@ public class NewLessonActivity extends AppCompatActivity {
     Button next;
     int COURSE_ID;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +52,12 @@ public class NewLessonActivity extends AppCompatActivity {
         currentDateTime=(TextView)findViewById(R.id.currentDateTime);
         duration = (EditText) findViewById(R.id.editTextLessonDuration);
         next = findViewById(R.id.buttonLessonNext);
+
+        //Установка маски на ввод
+        Slot[] slots = new UnderscoreDigitSlotsParser().parseSlots("_:__");
+        FormatWatcher formatWatcher = new MaskFormatWatcher(MaskImpl.createTerminated(slots));
+        formatWatcher.installOn(duration);
+
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +73,12 @@ public class NewLessonActivity extends AppCompatActivity {
                 lesson.setDate(dat);
                 //lesson.setDuration(Integer.getInteger(duration.toString()));
 
+                String dur = duration.getText().toString();
+                try {
+                    lesson.setDuration(Integer.parseInt(dur.split(":")[0]) + Float.parseFloat(dur.split(":")[1]) / 60);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
 
                 dbHelper.insertLesson(lesson);
                 dbHelper.updateCourse(COURSE_ID, course);
@@ -99,7 +118,7 @@ public class NewLessonActivity extends AppCompatActivity {
 
     // отображаем диалоговое окно для выбора даты
     public void setDate(View v) {
-        new DatePickerDialog(this, d,
+        new DatePickerDialog(this,R.style.TimePickerTheme, d,
                 dateAndTime.get(Calendar.YEAR),
                 dateAndTime.get(Calendar.MONTH),
                 dateAndTime.get(Calendar.DAY_OF_MONTH))
@@ -108,7 +127,7 @@ public class NewLessonActivity extends AppCompatActivity {
 
     // отображаем диалоговое окно для выбора времени
     public void setTime(View v) {
-        new TimePickerDialog(this, t,
+        new TimePickerDialog(this, R.style.TimePickerTheme, t,
                 dateAndTime.get(Calendar.HOUR_OF_DAY),
                 dateAndTime.get(Calendar.MINUTE), true)
                 .show();

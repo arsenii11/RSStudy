@@ -33,7 +33,7 @@
         android:layout_marginTop="36dp"
         android:onClick="setDate"
         android:textAllCaps="false"
-        android:text="Select date"
+        android:text="select date"
         app:layout_constraintStart_toStartOf="@+id/LableLsn"
         app:layout_constraintTop_toBottomOf="@+id/LableLsn" />
 
@@ -43,33 +43,21 @@
         android:background="@drawable/buttonbackground_1"
         android:layout_marginTop="20dp"
         android:onClick="setTime"
-        android:text="Select time"
+        android:text="select time"
         android:textAllCaps="false"
         app:layout_constraintStart_toStartOf="@+id/dateButton"
         app:layout_constraintTop_toBottomOf="@+id/dateButton" />
 
-    <TextView
-        android:id="@+id/textView4"
-        style="@style/LessonDateButton"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textSize="17dp"
-        android:backgroundTint="@color/transparent"
-        android:text="Lesson duration:"
-        app:layout_constraintStart_toStartOf="@+id/timeButton"
-        app:layout_constraintTop_toBottomOf="@+id/timeButton" />
-
     <EditText
         android:id="@+id/editTextLessonDuration"
         style="@style/LessonDateButton"
-        android:layout_marginTop="4dp"
         android:background="@drawable/buttonbackground_1"
-        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
         android:inputType="time"
-        android:text="_:__ "
-        android:textSize="25dp"
+        android:text="duration"
         app:layout_constraintStart_toStartOf="@+id/timeButton"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/timeButton" />
 
     <TextView
         android:id="@+id/currentDateTime"

@@ -40,4 +40,8 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="TimePickerTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/MMM_purple</item>
+    </style>
+
 </resources>
