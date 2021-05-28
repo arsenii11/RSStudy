@@ -27,6 +27,11 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.Calendar;
 
 import maes.tech.intentanim.CustomIntent;
+import ru.tinkoff.decoro.MaskImpl;
+import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser;
+import ru.tinkoff.decoro.slots.Slot;
+import ru.tinkoff.decoro.watchers.FormatWatcher;
+import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
 
 
 public class LessonDateActivity extends AppCompatActivity {
@@ -50,7 +55,13 @@ public class LessonDateActivity extends AppCompatActivity {
         CURRENT_LESSON = i.getIntExtra("CURRENT_LESSON", -1);
 
         currentDateTime=(TextView)findViewById(R.id.currentDateTime);
-        duration = (EditText) findViewById(R.id.editTextLessonDuration);
+        duration = (EditText)findViewById(R.id.editTextLessonDuration);
+
+        //Установка маски на ввод
+        Slot[] slots = new UnderscoreDigitSlotsParser().parseSlots("_:__");
+        FormatWatcher formatWatcher = new MaskFormatWatcher(MaskImpl.createTerminated(slots));
+        formatWatcher.installOn(duration);
+
 
         next = findViewById(R.id.buttonLessonNext);
         next.setOnClickListener(new View.OnClickListener() {
@@ -61,14 +72,17 @@ public class LessonDateActivity extends AppCompatActivity {
                 Intent i = getIntent();
                 Lesson lesson = new Lesson();
                 Course course = dbHelper.getCourse(COURSE_ID);
-                String lessonName = course.getName() + " " + currentDateTime.getText();
+                String lessonName = course.getName() + " " + currentDateTime.getText()+duration.getText()+" hours";
                 lesson.setName(lessonName);
                 lesson.setCourseId(COURSE_ID);
                 long dat = dateAndTime.getTimeInMillis()/1000;
                 lesson.setDate(dat);
                 String dur = duration.getText().toString();
-                lesson.setDuration(Integer.parseInt(dur.split(":")[0]) + Float.parseFloat(dur.split(":")[1])/60);
-
+                try {
+                    lesson.setDuration(Integer.parseInt(dur.split(":")[0]) + Float.parseFloat(dur.split(":")[1]) / 60);
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
                 Log.e("CURRENT", String.valueOf(CURRENT_LESSON));
                 Log.e("ALL", String.valueOf(LESSONS));
 
@@ -96,18 +110,7 @@ public class LessonDateActivity extends AppCompatActivity {
             }
         });
 
-        /*
-        close = findViewById(R.id.closeButton3);
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                Intent intent = new Intent(LessonDateActivity.this, MainActivity.class);
-                startActivity(intent);
-                CustomIntent.customType(LessonDateActivity.this,"fadein-to-fadeout");
-                finish();
-            }
-        });*/
     }
 
     // отображаем диалоговое окно для выбора даты

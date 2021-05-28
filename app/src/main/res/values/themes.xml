@@ -1,7 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Finances" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Finances" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Primary brand color. -->
+        <item name="buttonStyle">@style/NotCapsButton</item>
         <item name="colorPrimaryDark">@color/Widget1</item>
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -14,7 +15,6 @@
         <item name="windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <!-- Customize your theme here. -->
-        <item name="android:fontFamily">@font/san_francisco_semibold</item>
 
     </style>
 

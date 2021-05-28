@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.Account.course.LessonDateActivity"
-    android:orientation="vertical"
     android:fitsSystemWindows="true">
 
     <include
@@ -13,76 +12,99 @@
         layout="@layout/toolbar">
     </include>
 
+
     <TextView
-        android:id="@+id/currentDateTime"
-        android:layout_width="match_parent"
+        android:id="@+id/LableLsn"
+        style="@style/TextView.Primary.Header"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="40dp"
+        android:text="New lesson"
+        android:textSize="40dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.152"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
-
-    <ImageButton
-        android:id="@+id/timeButton"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@drawable/round_background"
-        android:onClick="setTime"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currentDateTime"
-        app:srcCompat="@drawable/outline_add_24" />
-
-    <ImageButton
+    <Button
         android:id="@+id/dateButton"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@drawable/round_background"
+        style="@style/LessonDateButton"
+        android:background="@drawable/buttonbackground_1"
+        android:layout_marginTop="36dp"
         android:onClick="setDate"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeButton"
-        app:srcCompat="@drawable/outline_add_24" />
+        android:textAllCaps="false"
+        android:text="Select date"
+        app:layout_constraintStart_toStartOf="@+id/LableLsn"
+        app:layout_constraintTop_toBottomOf="@+id/LableLsn" />
+
+    <Button
+        android:id="@+id/timeButton"
+        style="@style/LessonDateButton"
+        android:background="@drawable/buttonbackground_1"
+        android:layout_marginTop="20dp"
+        android:onClick="setTime"
+        android:text="Select time"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="@+id/dateButton"
+        app:layout_constraintTop_toBottomOf="@+id/dateButton" />
 
     <TextView
-        android:id="@+id/lessonTextDuration"
-        android:layout_width="wrap_content"
+        android:id="@+id/textView4"
+        style="@style/LessonDateButton"
         android:layout_height="wrap_content"
-        android:text="Duration? (hours)"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.449" />
+        android:layout_marginTop="8dp"
+        android:textSize="17dp"
+        android:backgroundTint="@color/transparent"
+        android:text="Lesson duration:"
+        app:layout_constraintStart_toStartOf="@+id/timeButton"
+        app:layout_constraintTop_toBottomOf="@+id/timeButton" />
 
     <EditText
         android:id="@+id/editTextLessonDuration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
+        style="@style/LessonDateButton"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/buttonbackground_1"
+        android:gravity="center"
         android:inputType="time"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseDate"
-        app:layout_constraintVertical_bias="0.038" />
+        android:text="_:__ "
+        android:textSize="25dp"
+        app:layout_constraintStart_toStartOf="@+id/timeButton"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/currentDateTime"
+        style="@style/LessonDateButton"
+        android:layout_width="270dp"
+        android:layout_marginTop="56dp"
+        android:background="@drawable/buttonbackground_1"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="@+id/editTextLessonDuration"
+        app:layout_constraintTop_toBottomOf="@+id/editTextLessonDuration" />
 
     <Button
         android:id="@+id/buttonLessonNext"
-        android:layout_width="99dp"
-        android:layout_height="47dp"
-        android:text="Next"
-        app:backgroundTint="@color/button_course"
-        app:layout_constraintBottom_toBottomOf="parent"
+        style="@style/LessonDateButton"
+        android:layout_width="210dp"
+        android:layout_marginTop="180dp"
+        android:background="@drawable/buttonbackground_1"
+        android:backgroundTint="@color/plus2"
+        android:text="Complete"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.938" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextLessonDuration" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lesson:"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/currentDateTime"
+        app:layout_constraintStart_toStartOf="@+id/currentDateTime" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

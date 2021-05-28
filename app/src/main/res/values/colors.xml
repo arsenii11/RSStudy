@@ -26,5 +26,13 @@
     <color name="plus2">#8A7EE3</color>
     <color name="plus3">#ABA4DB</color>
 
+    //цвет текста кнопок добавления урока
+    <color name="buttontext_1">#515151</color>
+    <color name="buttonbackground_gray_light">#DCDCDC</color>
+
+    //прозрачный цвет
+    <color name="transparent">#00DCDCDC</color>
+
+
 
 </resources>
