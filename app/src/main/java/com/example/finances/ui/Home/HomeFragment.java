@@ -20,10 +20,21 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
+import org.w3c.dom.Text;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import maes.tech.intentanim.CustomIntent;
+import ru.tinkoff.decoro.Mask;
+import ru.tinkoff.decoro.MaskImpl;
+import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser;
+import ru.tinkoff.decoro.slots.Slot;
 
 import static com.example.finances.design.diagram_colors.Diagram_colors;
 
@@ -34,6 +45,10 @@ public class HomeFragment extends Fragment  {
 
     PieChart pieChart;
     ImageButton plusCourse;
+    Calendar calendar;
+    TextView dayofweek;
+    TextView currenttime;
+
 
 
     @SuppressLint("ResourceType")
@@ -92,7 +107,7 @@ public class HomeFragment extends Fragment  {
 
 
 
-        //widget
+        //widget new event
         String mydate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
         TextView datetext = getActivity().findViewById(R.id.textdate);
         try {
@@ -100,5 +115,28 @@ public class HomeFragment extends Fragment  {
         catch (Exception e){
             e.printStackTrace();
         }
+
+
+        dayofweek = view.findViewById(R.id.dayofweek);
+        currenttime = view.findViewById(R.id.textViewTime);
+        //widget time/day of week
+
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+        Date d = new Date();
+        String dayOfTheWeek = sdf.format(d);
+        dayofweek.setText(dayOfTheWeek.substring(0,3));
+
+
+        currenttime.setText(setCurrentime());
+
+
         return view;
-    }}
+    }
+
+    private String setCurrentime() {
+        Date currentDate = new Date();
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        String timeText = timeFormat.format(currentDate);
+        return  timeText;
+    }
+}

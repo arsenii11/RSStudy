@@ -26,7 +26,7 @@
           android:layout_height="wrap_content"
           android:layout_centerInParent="true"
           android:layout_centerVertical="true"
-          android:fontFamily="@font/velasans_bold"
+          android:fontFamily="@font/nokora_regular"
           android:gravity="center"
           android:text="Math test at 3:00 tomorrow"
           android:textSize="30dp"/>
@@ -131,6 +131,8 @@
     android:layout_height="3000dp"
     android:orientation="vertical">
 
+
+    //линия виджетов
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -142,13 +144,16 @@
           android:layout_height="wrap_content"
           android:layout_weight="0.5">
 
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/Piechart"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+          <ImageView
+              android:layout_width="130dp"
+              android:layout_height="130dp"
+              android:src="@drawable/bar"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent" />
 
-        </com.github.mikephil.charting.charts.PieChart>
+
 
       </com.example.finances.helpclasses.SquaredConstraintLayout>
 
@@ -157,18 +162,49 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_weight="0.5">
-        <RelativeLayout
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            style="@style/BlockHome"
-            android:backgroundTint="@color/Widget1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+
+          <androidx.constraintlayout.widget.ConstraintLayout
+              style="@style/BlockHome"
+              android:layout_width="140dp"
+              android:layout_height="140dp"
+              android:backgroundTint="@color/Widget2"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent">
 
 
-        </RelativeLayout>
+              <TextView
+                  android:id="@+id/textViewTime"
+                  style="@style/TextView.Primary.Bold"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="12:00"
+                  android:textSize="35dp"
+                  android:fontFamily="@font/nokora_bold"
+                  android:textColor="@color/Widget2text"
+                  app:layout_constraintBottom_toBottomOf="parent"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toTopOf="parent"
+                  app:layout_constraintVertical_bias="0.396" />
+
+              <TextView
+                  android:id="@+id/dayofweek"
+                  style="@style/TextView.Primary.Bold"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:fontFamily="@font/nokora_bold"
+                  android:layout_marginTop="-10dp"
+                  android:text="WED"
+                  android:textColor="@color/Widget2text"
+                  android:textSize="20dp"
+                  app:layout_constraintBottom_toBottomOf="parent"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toTopOf="parent"
+                  app:layout_constraintVertical_bias="0.706" />
+          </androidx.constraintlayout.widget.ConstraintLayout>
       </com.example.finances.helpclasses.SquaredConstraintLayout>
     </LinearLayout>
 
@@ -264,7 +300,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
-            android:fontFamily="@font/velasans_bold"
+            android:fontFamily="@font/nokora_bold"
             android:gravity="center"
             android:text="Работа кипит"
             android:textSize="30dp"/>
