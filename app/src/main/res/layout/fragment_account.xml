@@ -145,7 +145,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="4dp"
             android:text="New course"
-            android:fontFamily="@font/velasans_bold"
+            android:fontFamily="@font/nokora_bold"
             android:textSize="9dp"
             app:layout_constraintBottom_toTopOf="@+id/list"
             app:layout_constraintEnd_toEndOf="@+id/list" />

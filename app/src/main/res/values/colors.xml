@@ -18,6 +18,7 @@
     <color name="DivideLine">#F1ECEC</color>
     <color name="MMM_purple">#8377DD</color>
     <color name="blue">#166CB1</color>
+
     <color name="Widget1">#ABA4DB</color>
     <color name="Widget2">#B7B3D2</color>
     <color name="Widget3">#CFCFCF</color>
@@ -25,6 +26,8 @@
     <color name="plus1">#604EE7</color>
     <color name="plus2">#8A7EE3</color>
     <color name="plus3">#ABA4DB</color>
+
+    <color name="Widget2text">#604EE7</color>
 
     //цвет текста кнопок добавления урока
     <color name="buttontext_1">#515151</color>

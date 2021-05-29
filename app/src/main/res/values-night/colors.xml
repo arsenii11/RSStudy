@@ -10,10 +10,13 @@
     <color name="MMM_purple">#8377DD</color>
     <color name="blue">#2C1AB5</color>
      <color name="Widget1">#ABA4DB</color>
-    <color name="Widget2">#B7B3D2</color>
-    <color name="Widget3">#CFCFCF</color>
+    <color name="Widget2">#604EE7</color>
+    <color name="Widget3">#232323</color>
+
+    <color name="Widget2text">#B7B3D2</color>
+
     <!--Цвета виджета из трех плюсов-->
     <color name="plus1">#604EE7</color>
-    <color name="plus2">#8A7EE3</color>
-    <color name="plus3">#ABA4DB</color>
+    <color name="plus2">#3521CF</color>
+    <color name="plus3">#270DD7</color>
 </resources>
