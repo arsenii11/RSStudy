@@ -75,7 +75,7 @@ public class HomeFragment extends Fragment  {
         int DescriptionColor = getResources().getColor(R.color.diagramText);
         int myColor = getResources().getColor(R.color.hole);
 
-        pieChart = (PieChart) view.findViewById(R.id.Piechart);
+       /* pieChart = (PieChart) view.findViewById(R.id.Piechart);
         pieChart.setUsePercentValues(true);
         pieChart.getDescription().setEnabled(false);
 
@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment  {
         data.setValueTextSize(10f);
         data.setValueTextColor(Color.YELLOW);
 
-        pieChart.setData(data);
+        pieChart.setData(data);*/
 
         nextEvent = (TextView) view.findViewById(R.id.nextevent);
         try {
