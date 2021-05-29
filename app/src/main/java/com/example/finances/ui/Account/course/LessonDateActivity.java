@@ -72,7 +72,7 @@ public class LessonDateActivity extends AppCompatActivity {
                 Intent i = getIntent();
                 Lesson lesson = new Lesson();
                 Course course = dbHelper.getCourse(COURSE_ID);
-                String lessonName = course.getName() + " " + currentDateTime.getText()+duration.getText()+" hours";
+                String lessonName = course.getName() + ", " + currentDateTime.getText().toString() + ", " + duration.getText()+" hours";
                 lesson.setName(lessonName);
                 lesson.setCourseId(COURSE_ID);
                 long dat = dateAndTime.getTimeInMillis()/1000;
@@ -84,25 +84,24 @@ public class LessonDateActivity extends AppCompatActivity {
                 } catch (Exception e){
                     e.printStackTrace();
                 }
-                Log.e("CURRENT", String.valueOf(CURRENT_LESSON));
-                Log.e("ALL", String.valueOf(LESSONS));
 
                 CURRENT_LESSON++;
                 if(dbHelper.insertLesson(lesson) && (CURRENT_LESSON<LESSONS)) {
-                    Snackbar snackbar = Snackbar.make(view1, "Record inserted successfully", Snackbar.LENGTH_LONG);
-                    snackbar.show();
                     Intent intent = new Intent(LessonDateActivity.this, LessonDateActivity.class);
                     intent.putExtra("COURSE_ID", COURSE_ID);
                     intent.putExtra("LESSONS", LESSONS);
                     intent.putExtra("CURRENT_LESSON", CURRENT_LESSON);
+
+                    Course parentCourse = dbHelper.getCourse(COURSE_ID);
+                    if ((parentCourse.getStartDate() > lesson.getDate()) || parentCourse.getStartDate() <= 0) {
+                        parentCourse.setStartDate(lesson.getDate());
+                        dbHelper.updateCourse(COURSE_ID, parentCourse);
+                    }
                     finish();
                     startActivity(intent);
                     CustomIntent.customType(LessonDateActivity.this,"left-to-right");
                 }
                 else {
-                    Snackbar snackbar = Snackbar.make(view1, "Record not inserted", Snackbar.LENGTH_LONG);
-                    snackbar.show();
-
                     Intent intent = new Intent(LessonDateActivity.this, MainActivity.class);
                     startActivity(intent);
                     CustomIntent.customType(LessonDateActivity.this,"left-to-right");
