@@ -39,6 +39,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public static final String TABLE_TESTS = "Tests";
     public static final String KEY_TEST_ID = "_id";
+    public static final String KEY_TEST_NAME = "name";
     public static final String KEY_TEST_COURSE_ID = "courseId";
     public static final String KEY_TEST_DATE = "date";
     public static final String KEY_TEST_WEIGHT = "weight";
@@ -51,7 +52,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(" create table " + TABLE_COURSES +"(" + KEY_COURSE_ID + " integer primary key, " + KEY_COURSE_NAME +" text, " + KEY_COURSE_START_DATE+ " integer, " + KEY_COURSE_END_DATE + " integer, " + KEY_COURSE_FINISHED + " integer, " + KEY_COURSE_LESSONS + " integer, " + KEY_COURSE_COMPLETED_LESSONS + " integer " + ")");
         db.execSQL(" create table " + TABLE_LESSONS +"(" + KEY_LESSON_ID + " integer primary key, " + KEY_LESSON_NAME +" text, " + KEY_LESSON_COURSE_ID + " integer, " + KEY_LESSON_DATE + " text, " + KEY_LESSON_DURATION + " real, " + KEY_LESSON_WEIGHT + " integer " + ")");
-        db.execSQL(" create table " + TABLE_TESTS + "(" + KEY_TEST_ID + " integer primary key, " + KEY_TEST_COURSE_ID + " integer, " + KEY_TEST_DATE + " text, " + KEY_TEST_WEIGHT + " integer " + ")");
+        db.execSQL(" create table " + TABLE_TESTS + "(" + KEY_TEST_ID + " integer primary key, " + KEY_TEST_NAME +" text, " + KEY_TEST_COURSE_ID + " integer, " + KEY_TEST_DATE + " text, " + KEY_TEST_WEIGHT + " integer " + ")");
     }
 
     @Override
@@ -406,7 +407,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         Calendar today = Calendar.getInstance();
         long dayTime = today.getTimeInMillis()/1000;
-        Cursor cursor = db.rawQuery("select * from " + TABLE_LESSONS + " where " + KEY_LESSON_DATE + ">=" + dayTime + "order by" + KEY_LESSON_DATE, null);
+        Cursor cursor = db.rawQuery("select * from " + TABLE_LESSONS + " where " + KEY_LESSON_DATE + ">=" + dayTime + " order by " + KEY_LESSON_DATE, null);
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -444,6 +445,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
+        cv.put(KEY_TEST_NAME, test.getName());
         cv.put(KEY_TEST_COURSE_ID, test.getCourseId());
         cv.put(KEY_TEST_DATE, test.getDate());
         cv.put(KEY_TEST_WEIGHT, test.getWeight());
@@ -459,6 +461,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
+        cv.put(KEY_TEST_NAME, test.getName());
         cv.put(KEY_TEST_COURSE_ID, test.getCourseId());
         cv.put(KEY_TEST_DATE, test.getDate());
         cv.put(KEY_TEST_WEIGHT, test.getWeight());
@@ -474,6 +477,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
+        cv.put(KEY_TEST_NAME, test.getName());
         cv.put(KEY_TEST_COURSE_ID, test.getCourseId());
         cv.put(KEY_TEST_DATE, test.getDate());
         cv.put(KEY_TEST_WEIGHT, test.getWeight());
@@ -515,6 +519,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 Test test = new Test();
 
                 test.setId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_ID)));
+                test.setName(cursor.getString(cursor.getColumnIndex(KEY_TEST_NAME)));
                 test.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_COURSE_ID)));
                 test.setDate(cursor.getLong(cursor.getColumnIndex(KEY_TEST_DATE)));
                 test.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_TEST_WEIGHT)));
@@ -539,6 +544,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 Test test = new Test();
 
                 test.setId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_ID)));
+                test.setName(cursor.getString(cursor.getColumnIndex(KEY_TEST_NAME)));
                 test.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_COURSE_ID)));
                 test.setDate(cursor.getLong(cursor.getColumnIndex(KEY_TEST_DATE)));
                 test.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_TEST_WEIGHT)));
@@ -557,11 +563,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
         Calendar today = Calendar.getInstance();
         long dayTime = today.getTimeInMillis()/1000;
-        Cursor cursor = db.rawQuery("select * from " + TABLE_TESTS + " where " + KEY_TEST_DATE + ">=" + dayTime + "order by" + KEY_TEST_DATE, null);
+        Cursor cursor = db.rawQuery("select * from " + TABLE_TESTS + " where " + KEY_TEST_DATE + ">=" + dayTime + " order by " + KEY_TEST_DATE, null);
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             test.setId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_ID)));
+            test.setName(cursor.getString(cursor.getColumnIndex(KEY_TEST_NAME)));
             test.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_COURSE_ID)));
             test.setDate(cursor.getLong(cursor.getColumnIndex(KEY_TEST_DATE)));
             test.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_TEST_WEIGHT)));
@@ -573,8 +580,29 @@ public class DBHelper extends SQLiteOpenHelper {
     public Object getEventFromNowSortByTime(){
         Lesson lesson = getLessonFromNowSortByTime();
         Test test = getTestFromNowSortByTime();
-
-        if (test.getDate()<=lesson.getDate()) return test;
+        if (test.getName() == null) return lesson;
+        else if(lesson.getName() == null) return test;
+        else if (test.getDate()<=lesson.getDate()) return test;
         else return lesson;
+    }
+
+    public String getEventFromNowSortByTimeStr(){
+        String str = "";
+        Calendar calendar = Calendar.getInstance();
+        Lesson lesson = getLessonFromNowSortByTime();
+        Test test = getTestFromNowSortByTime();
+        if (test.getName() == null) {
+            calendar.setTimeInMillis(lesson.getDate()*1000);
+            //str = lesson.getName() + " at "+ calendar.get(Calendar.AM_PM) + " " + calendar.get(Calendar.DAY_OF_WEEK);
+            String[] names = lesson.getName().split(", ");
+            str = names[0] + " lesson at " + names[3] + " " + names[1];
+        }
+        else if((lesson.getName() == null) || (test.getDate()<=lesson.getDate())) {
+            calendar.setTimeInMillis(test.getDate()*1000);
+            //str = test.getName() + " at "+ calendar.get(Calendar.AM_PM) + " " + calendar.get(Calendar.DAY_OF_WEEK);
+            String[] names = test.getName().split(", ");
+            str = names[0] + " lesson at " + names[3] + " " + names[1];
+        }
+        return str;
     }
 }
