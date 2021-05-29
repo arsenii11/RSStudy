@@ -18,7 +18,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="180dp">
 
       <TextView
           android:id="@+id/nextevent"
@@ -128,7 +128,7 @@
 </RelativeLayout>
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="7000dp"
+    android:layout_height="3000dp"
     android:orientation="vertical">
 
     <LinearLayout
