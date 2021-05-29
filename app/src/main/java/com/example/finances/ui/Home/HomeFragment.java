@@ -110,9 +110,15 @@ public class HomeFragment extends Fragment  {
         pieChart.setData(data);
 
         nextEvent = (TextView) view.findViewById(R.id.nextevent);
-        DBHelper dbHelper = new DBHelper(getContext());
-        String event = dbHelper.getEventFromNowSortByTimeStr();
-        nextEvent.setText(event);
+        try {
+            DBHelper dbHelper = new DBHelper(getContext());
+            String event = dbHelper.getEventFromNowSortByTimeStr();
+            nextEvent.setText(event);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         //widget new event
         String mydate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
