@@ -27,7 +27,7 @@ import maes.tech.intentanim.CustomIntent;
 public class CourseActivity extends AppCompatActivity {
 
     private int COURSE_ID;
-
+    /*
     public void addCalendarEvent() {
 
         long calID = 1;
@@ -50,7 +50,7 @@ public class CourseActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +63,7 @@ public class CourseActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         ImageButton newLessonBut = findViewById(R.id.ButtonNewLesson);
+        ImageButton newTestBut = findViewById(R.id.ButtonNewTest);
 
         COURSE_ID = getIntent().getIntExtra("COURSE_ID", -1);
         newLessonBut.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +77,18 @@ public class CourseActivity extends AppCompatActivity {
             }
         });
 
-        addCalendarEvent();
+        newTestBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CourseActivity.this, NewTestActivity.class);
+                intent.putExtra("COURSE_ID", COURSE_ID);
+                startActivity(intent);
+                CustomIntent.customType(CourseActivity.this,"left-to-right");
+                finish();
+            }
+        });
+
+        //addCalendarEvent();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -20,8 +20,23 @@
         android:background="@drawable/round_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar1"
+        app:layout_constraintVertical_bias="0.45"
+        app:srcCompat="@drawable/outline_add_24" />
+
+    <ImageButton
+        android:id="@+id/ButtonNewTest"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/round_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar1"
+        app:layout_constraintVertical_bias="0.624"
         app:srcCompat="@drawable/outline_add_24" />
 
 
