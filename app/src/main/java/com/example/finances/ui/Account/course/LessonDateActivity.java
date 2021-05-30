@@ -86,17 +86,12 @@ public class LessonDateActivity extends AppCompatActivity {
                 }
 
                 CURRENT_LESSON++;
-                if(dbHelper.insertLesson(lesson) && (CURRENT_LESSON<LESSONS)) {
+                if(dbHelper.insertLessonSmart(lesson) && (CURRENT_LESSON<LESSONS)) {
                     Intent intent = new Intent(LessonDateActivity.this, LessonDateActivity.class);
                     intent.putExtra("COURSE_ID", COURSE_ID);
                     intent.putExtra("LESSONS", LESSONS);
                     intent.putExtra("CURRENT_LESSON", CURRENT_LESSON);
 
-                    Course parentCourse = dbHelper.getCourse(COURSE_ID);
-                    if ((parentCourse.getStartDate() > lesson.getDate()) || parentCourse.getStartDate() <= 0) {
-                        parentCourse.setStartDate(lesson.getDate());
-                        dbHelper.updateCourse(COURSE_ID, parentCourse);
-                    }
                     finish();
                     startActivity(intent);
                     CustomIntent.customType(LessonDateActivity.this,"left-to-right");

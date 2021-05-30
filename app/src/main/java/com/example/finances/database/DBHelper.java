@@ -221,6 +221,27 @@ public class DBHelper extends SQLiteOpenHelper {
         return status;
     }
 
+    public boolean insertLessonSmart(Lesson lesson){
+        boolean status = true;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Course parentCourse = getCourse(lesson.getCourseId());
+        if ((parentCourse.getStartDate() > lesson.getDate()) || parentCourse.getStartDate() <= 0) {
+            parentCourse.setStartDate(lesson.getDate());
+            updateCourse(parentCourse.getId(), parentCourse);
+        }
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_LESSON_NAME, lesson.getName());
+        cv.put(KEY_LESSON_COURSE_ID, lesson.getCourseId());
+        cv.put(KEY_LESSON_DATE, lesson.getDate());
+        cv.put(KEY_LESSON_DURATION, lesson.getDuration());
+        cv.put(KEY_LESSON_WEIGHT, lesson.getWeight());
+
+        if(db.insert(TABLE_LESSONS, null, cv) == -1)
+            status = false;
+
+        return status;
+    }
+
     public boolean updateLesson(Lesson oldLesson, Lesson newLesson){
         boolean status = true;
         SQLiteDatabase db = this.getWritableDatabase();
