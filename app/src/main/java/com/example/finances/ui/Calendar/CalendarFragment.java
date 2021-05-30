@@ -35,7 +35,7 @@ public class CalendarFragment extends Fragment {
 
         Calendar calendar = Calendar.getInstance();
         setInitialData(calendar.getTimeInMillis());
-        RecyclerView LessonsList = (RecyclerView) view.findViewById(R.id.Lessonlist);
+        RecyclerView LessonsList = (RecyclerView) view.findViewById(R.id.Lessonlist_calendar);
         //RecyclerView TestsList = (RecyclerView) view.findViewById(R.id.Testlist);
         Context context = getContext();
         lessonAdapter = new com.example.finances.ui.Calendar.LessonAdapter(context, lessons);

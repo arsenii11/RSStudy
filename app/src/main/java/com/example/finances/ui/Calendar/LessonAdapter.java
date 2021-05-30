@@ -29,7 +29,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.ViewHolder
     @Override
     public LessonAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = inflater.inflate(R.layout.list_item, parent, false);
+        View view = inflater.inflate(R.layout.list_lesson_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -58,7 +58,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.ViewHolder
         final TextView nameView;
         ViewHolder(View view){
             super(view);
-            nameView = (TextView) view.findViewById(R.id.CourseName);
+            nameView = (TextView) view.findViewById(R.id.LessonItem);
         }
     }
 }

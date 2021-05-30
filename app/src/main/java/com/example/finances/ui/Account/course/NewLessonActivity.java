@@ -118,7 +118,7 @@ public class NewLessonActivity extends AppCompatActivity {
 
     // отображаем диалоговое окно для выбора даты
     public void setDate(View v) {
-        new DatePickerDialog(this,R.style.TimePickerTheme, d,
+        new DatePickerDialog(this, d,
                 dateAndTime.get(Calendar.YEAR),
                 dateAndTime.get(Calendar.MONTH),
                 dateAndTime.get(Calendar.DAY_OF_MONTH))
@@ -127,7 +127,7 @@ public class NewLessonActivity extends AppCompatActivity {
 
     // отображаем диалоговое окно для выбора времени
     public void setTime(View v) {
-        new TimePickerDialog(this, R.style.TimePickerTheme, t,
+        new TimePickerDialog(this,  t,
                 dateAndTime.get(Calendar.HOUR_OF_DAY),
                 dateAndTime.get(Calendar.MINUTE), true)
                 .show();
