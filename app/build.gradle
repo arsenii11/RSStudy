@@ -85,6 +85,7 @@ dependencies {
     implementation 'nz.co.trademe.covert:covert:2.0.0' //Material Swipe Actions
     implementation "ru.tinkoff.decoro:decoro:1.1.1" //красивый ввод
     implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'//calendar
+    implementation 'com.github.pchmn:MaterialChipsInput:1.0.8'//выпадающий выбор
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

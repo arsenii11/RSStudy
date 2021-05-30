@@ -36,12 +36,12 @@ public class CalendarFragment extends Fragment {
         Calendar calendar = Calendar.getInstance();
         setInitialData(calendar.getTimeInMillis());
         RecyclerView LessonsList = (RecyclerView) view.findViewById(R.id.Lessonlist);
-        RecyclerView TestsList = (RecyclerView) view.findViewById(R.id.Testlist);
+        //RecyclerView TestsList = (RecyclerView) view.findViewById(R.id.Testlist);
         Context context = getContext();
         lessonAdapter = new com.example.finances.ui.Calendar.LessonAdapter(context, lessons);
         testAdapter = new TestAdapter(context, tests);
         LessonsList.setAdapter(lessonAdapter);
-        TestsList.setAdapter(testAdapter);
+       // TestsList.setAdapter(testAdapter);
 
         calendarView = view.findViewById(R.id.calendarView);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -55,7 +55,7 @@ public class CalendarFragment extends Fragment {
                 lessonAdapter = new com.example.finances.ui.Calendar.LessonAdapter(context, lessons);
                 testAdapter = new TestAdapter(context, tests);
                 LessonsList.setAdapter(lessonAdapter);
-                TestsList.setAdapter(testAdapter);
+              //  TestsList.setAdapter(testAdapter);
             }
         });
 
