@@ -3,7 +3,9 @@ package com.example.finances.ui.Home;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +34,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import maes.tech.intentanim.CustomIntent;
 import ru.tinkoff.decoro.Mask;
@@ -51,7 +55,6 @@ public class HomeFragment extends Fragment  {
     Calendar calendar;
     TextView dayofweek;
     TextView currenttime;
-
 
     TextView nextEvent;
 
@@ -134,22 +137,39 @@ public class HomeFragment extends Fragment  {
         currenttime = view.findViewById(R.id.textViewTime);
         //widget time/day of week
 
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
-        Date d = new Date();
-        String dayOfTheWeek = sdf.format(d);
-        dayofweek.setText(dayOfTheWeek.substring(0,3));
 
-
-        currenttime.setText(setCurrentime());
+        //dayofweek.setText(setCurrentDate());
+        //currenttime.setText(setCurrentTime());
+        task.run();
 
 
         return view;
     }
 
-    private String setCurrentime() {
+    private String setCurrentTime() {
         Date currentDate = new Date();
         DateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
         String timeText = timeFormat.format(currentDate);
         return  timeText;
     }
+
+    public String setCurrentDate(){
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+        Date d = new Date();
+        String dayOfTheWeek = sdf.format(d);
+        return dayOfTheWeek.substring(0,3);
+    }
+
+    private Handler handler = new Handler();
+    private Runnable task = new Runnable() {
+        @Override
+        public void run() {
+            dayofweek.setText(setCurrentDate());
+            currenttime.setText(setCurrentTime());
+            handler.postDelayed(this, 1000);
+        }
+    };
+
 }
+
+
