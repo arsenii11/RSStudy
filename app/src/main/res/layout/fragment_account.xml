@@ -22,48 +22,52 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ProfileImage"
-            android:layout_width="125dp"
-            android:layout_height="125dp"
+            android:layout_width="175dp"
+            android:layout_height="175dp"
             android:src="@drawable/no_avatar"
-            app:civ_border_width="2dp"
             app:civ_border_color="@color/button_course"
+            app:civ_border_width="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.314" />
+            app:layout_constraintVertical_bias="0.283" />
 
         <ImageButton
             android:id="@+id/FirstPhotoButton"
-            android:layout_width="65dp"
-            android:layout_height="40dp"
+            android:layout_width="86dp"
+            android:layout_height="103dp"
             android:layout_alignEnd="@+id/ProfileImage"
             android:layout_alignRight="@+id/ProfileImage"
             android:layout_alignBottom="@+id/ProfileImage"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="16dp"
             android:background="@drawable/round_background"
-            android:src="@drawable/outline_photo_camera_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/name" />
+            android:backgroundTint="@color/transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+            app:layout_constraintEnd_toEndOf="@+id/ProfileImage"
+            app:layout_constraintHorizontal_bias="0.259"
+            app:layout_constraintStart_toStartOf="@+id/progressBar"
+            app:layout_constraintTop_toTopOf="@+id/ProfileImage"
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/name"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="32dp"
             android:text="@string/Nickname_title"
             android:textColor="@color/diagramText"
             android:textSize="30dp"
+            android:gravity="center"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ProfileImage" />
 
         <ProgressBar
             android:id="@+id/progressBar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="106dp"
+            android:layout_height="138dp"
             android:layout_gravity="center"
             app:layout_constraintBottom_toBottomOf="@+id/ProfileImage"
             app:layout_constraintEnd_toEndOf="@+id/ProfileImage"
