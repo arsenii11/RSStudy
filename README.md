@@ -1,6 +1,6 @@
 # RS:Study
 
-<a href="https://imgbb.com/"><img src="https://i.ibb.co/hM7r2v9/logoroundgraph.png" alt="logoroundgraph" border="0"></a>
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/rxBhB9R/logoroundgraph-250px.png" alt="logoroundgraph-250px" border="0"></a><br /><a target='_blank' href='https://da.imgbb.com/'>easy upload</a><br />
 
 ### Table of Contests
 - [Description](###Description) 
