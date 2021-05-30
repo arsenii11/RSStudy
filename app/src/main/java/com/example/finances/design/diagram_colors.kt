@@ -17,6 +17,7 @@ class diagram_colors : AppCompatActivity() {
             R.color.u,
             R.color.i,
             R.color.o
+
         )
     }
 }
