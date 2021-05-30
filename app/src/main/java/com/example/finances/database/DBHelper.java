@@ -401,6 +401,38 @@ public class DBHelper extends SQLiteOpenHelper {
         return arrayList;
     }
 
+    public ArrayList<Lesson> getLessonsFromDaySortByTime(long datetime){
+        ArrayList<Lesson> arrayList = new ArrayList<Lesson>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Calendar today = Calendar.getInstance();
+        today.setTimeInMillis(datetime);
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        long dayTime = today.getTimeInMillis()/1000;
+        long tomorrowTime = dayTime+86400;
+        Cursor cursor = db.rawQuery("select * from " + TABLE_LESSONS + " where " + KEY_LESSON_DATE + " between " + dayTime + " and " + tomorrowTime + " order by " + KEY_LESSON_DATE, null);
+
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                Lesson lesson = new Lesson();
+
+                lesson.setId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_ID)));
+                lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
+                lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
+                lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
+                lesson.setDuration(cursor.getFloat(cursor.getColumnIndex(KEY_LESSON_DURATION)));
+                lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
+
+                arrayList.add(lesson);
+
+                cursor.moveToNext();
+            }
+        }
+
+        return arrayList;
+    }
+
     public Lesson getLessonTodaySortByWeight(){
         Lesson lesson = new Lesson();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -408,7 +440,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Calendar today = Calendar.getInstance();
         today.set(Calendar.HOUR_OF_DAY, 0);
         long dayTime = today.getTimeInMillis()/1000;
-        Cursor cursor = db.rawQuery("select * from " + TABLE_LESSONS + " where " + KEY_LESSON_DATE + ">=" + dayTime + "order by" + KEY_LESSON_WEIGHT, null);
+        Cursor cursor = db.rawQuery("select * from " + TABLE_LESSONS + " where " + KEY_LESSON_DATE + ">=" + dayTime + " order by " + KEY_LESSON_WEIGHT, null);
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -441,6 +473,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return lesson;
     }
+
 
     public Lesson getLesson(int lessonId){
         Lesson lesson = new Lesson();
@@ -576,6 +609,37 @@ public class DBHelper extends SQLiteOpenHelper {
             }
         }
         return arrayList;
+    }
+
+    public ArrayList<Test> getTestsFromDaySortByTime(long datetime){
+        ArrayList<Test> arrayList = new ArrayList<Test>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Calendar today = Calendar.getInstance();
+        today.setTimeInMillis(datetime);
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        long dayTime = today.getTimeInMillis()/1000;
+        long tomorrowTime = dayTime+86400;
+        Cursor cursor = db.rawQuery("select * from " + TABLE_TESTS + " where " + KEY_TEST_DATE + " between " + dayTime + " and " + tomorrowTime + " order by " + KEY_TEST_DATE, null);
+
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                Test test = new Test();
+
+                test.setId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_ID)));
+                test.setName(cursor.getString(cursor.getColumnIndex(KEY_TEST_NAME)));
+                test.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_COURSE_ID)));
+                test.setDate(cursor.getLong(cursor.getColumnIndex(KEY_TEST_DATE)));
+                test.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_TEST_WEIGHT)));
+
+                arrayList.add(test);
+
+                cursor.moveToNext();
+            }
+        }
+        return arrayList;
+
     }
 
     public Test getTestFromNowSortByTime(){

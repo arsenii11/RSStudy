@@ -67,11 +67,6 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     Button newCourse;
 
 
-
-
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
