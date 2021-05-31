@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,6 @@ public class HomeFragment extends Fragment  {
     Calendar calendar;
     TextView dayofweek;
     TextView currenttime;
-
     TextView nextEvent;
 
     @SuppressLint("ResourceType")

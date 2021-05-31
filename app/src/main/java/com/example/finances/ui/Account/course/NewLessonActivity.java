@@ -64,7 +64,7 @@ public class NewLessonActivity extends AppCompatActivity {
                 DBHelper dbHelper = new DBHelper(getApplicationContext());
                 Lesson lesson = new Lesson();
                 Course course = dbHelper.getCourse(COURSE_ID);
-                String lessonName = course.getName() + " " + currentDateTime.getText();
+                String lessonName = course.getName() + ", " + currentDateTime.getText().toString() + ", " + duration.getText()+" hours";
                 lesson.setName(lessonName);
                 lesson.setCourseId(COURSE_ID);
 

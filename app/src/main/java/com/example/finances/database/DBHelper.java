@@ -676,11 +676,12 @@ public class DBHelper extends SQLiteOpenHelper {
         Calendar calendar = Calendar.getInstance();
         Lesson lesson = getLessonFromNowSortByTime();
         Test test = getTestFromNowSortByTime();
-        if (test.getName() == null) {
+        if (test.getName() == null || (test.getDate()>=lesson.getDate())) {
             calendar.setTimeInMillis(lesson.getDate()*1000);
             //str = lesson.getName() + " at "+ calendar.get(Calendar.AM_PM) + " " + calendar.get(Calendar.DAY_OF_WEEK);
-            String[] names = lesson.getName().split(", ");
-            str = names[0] + " lesson at " + names[3] + " " + names[1];
+            //String[] names = lesson.getName().split(", ");
+            //str = names[0] + " lesson at " + names[3] + " " + names[1];
+            str = lesson.getName();
         }
         else if((lesson.getName() == null) || (test.getDate()<=lesson.getDate())) {
             calendar.setTimeInMillis(test.getDate()*1000);
