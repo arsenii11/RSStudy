@@ -686,7 +686,7 @@ public class DBHelper extends SQLiteOpenHelper {
             calendar.setTimeInMillis(test.getDate()*1000);
             //str = test.getName() + " at "+ calendar.get(Calendar.AM_PM) + " " + calendar.get(Calendar.DAY_OF_WEEK);
             String[] names = test.getName().split(", ");
-            str = names[0] + " test at " + names[3] + " " + names[1];
+            str = names[0] + " at " + names[3] + " " + names[1];
         }
         return str;
     }

@@ -108,6 +108,11 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".ui.Account.course.NewTestActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

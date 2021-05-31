@@ -25,8 +25,14 @@ import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
 import com.example.finances.database.Lesson;
 import com.example.finances.database.Test;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+import com.pchmn.materialchips.ChipsInput;
+import com.pchmn.materialchips.model.ChipInterface;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import maes.tech.intentanim.CustomIntent;
 import ru.tinkoff.decoro.MaskImpl;
@@ -41,8 +47,7 @@ public class NewTestActivity extends AppCompatActivity {
     TextView currentDateTime;
     Button next;
     int COURSE_ID;
-
-
+    ChipGroup chipInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,19 +56,26 @@ public class NewTestActivity extends AppCompatActivity {
         COURSE_ID = getIntent().getIntExtra("COURSE_ID", -1);
         currentDateTime=(TextView)findViewById(R.id.currentDateTime);
         next = findViewById(R.id.buttonTestNext);
-
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DBHelper dbHelper = new DBHelper(getApplicationContext());
                 Test test = new Test();
+                Chip selectedChip = findViewById(chipInput.getCheckedChipId());
                 Course course = dbHelper.getCourse(COURSE_ID);
-                String testName = course.getName() + " " + currentDateTime.getText();
+                String testName = course.getName();
 
-                test.setName(testName);
                 test.setCourseId(COURSE_ID);
                 long dat = dateAndTime.getTimeInMillis()/1000;
                 test.setDate(dat);
+
+                switch (selectedChip.getText().toString()){
+                    case "Test": test.setWeight(0); testName+= " test"; break;
+                    case "Exam": test.setWeight(1); testName+= " exam"; break;
+                }
+
+                testName += " " + currentDateTime.getText();
+                test.setName(testName);
                 dbHelper.insertTest(test);
 
                 Intent intent = new Intent(NewTestActivity.this, CourseActivity.class);
@@ -72,6 +84,9 @@ public class NewTestActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        chipInput = (ChipGroup) findViewById(R.id.chipInput);
+        chipInput.setSingleSelection(true);
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
