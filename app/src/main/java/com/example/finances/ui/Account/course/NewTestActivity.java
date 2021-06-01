@@ -74,7 +74,7 @@ public class NewTestActivity extends AppCompatActivity {
                     case "Exam": test.setWeight(1); testName+= " exam"; break;
                 }
 
-                testName += " " + currentDateTime.getText();
+                testName += ", " + currentDateTime.getText();
                 test.setName(testName);
                 dbHelper.insertTest(test);
 
