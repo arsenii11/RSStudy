@@ -30,6 +30,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_ALARM" />
+                <action android:name="android.intent.action.LESSON_ALARM" />
             </intent-filter>
         </receiver>
         <receiver android:name=".notifications.actions.NotificationCancelReceiver"></receiver>

@@ -22,6 +22,9 @@ public class Notification {
         private Context mContext;
         private static String CHANNEL_ID = "Info";
         private static final int NOTIFY_ID = 101;
+        String title;
+        String text;
+        String bigText;
 
         NotificationHelper(Context context) {
             mContext = context;
@@ -30,7 +33,7 @@ public class Notification {
 
 
 
-        void createNotification() {
+        void createNotification(String title, String text, String bixText) {
 
             //Create channel
             NotificationChannel.createNotification.createNotificationChannel(CHANNEL_ID,mContext);
@@ -44,9 +47,9 @@ public class Notification {
             cancel.putExtra("NOTIFY_ID", NOTIFY_ID);
             PendingIntent cancelP = PendingIntent.getBroadcast(mContext, 0, cancel, PendingIntent.FLAG_CANCEL_CURRENT);
 
-
-            String bigText = "Может быть ты уже что-то сделаешь для проекта, "
-                    + "а не только я все буду делать?";
+            //title = "Привет!";
+            //text = "Может быть ты уже что-то сделаешь для проекта,";
+            //bigText = "Может быть ты уже что-то сделаешь для проекта, " + "а не только я все буду делать?";
 
             BitmapFactory.Options options = new BitmapFactory.Options();
             Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.logobook_rmbg, options);
@@ -54,8 +57,8 @@ public class Notification {
             NotificationCompat.Builder builder =
                     new NotificationCompat.Builder(mContext, CHANNEL_ID)
                             .setSmallIcon(R.drawable.outline_event_note_24)
-                            .setContentTitle("Привет!")
-                            .setContentText("Может быть ты уже что-то сделаешь для проекта," )
+                            .setContentTitle(title)
+                            .setContentText(text)
                             .setContentIntent(contentIntent)
                             .addAction(R.drawable.icons, "Открыть",cancelP)
                             .setLargeIcon(bitmap)

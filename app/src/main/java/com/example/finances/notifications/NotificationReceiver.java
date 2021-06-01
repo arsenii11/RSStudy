@@ -13,7 +13,7 @@ public class NotificationReceiver extends BroadcastReceiver {
 
 
         Notification.NotificationHelper notificationHelper = new Notification.NotificationHelper(context);
-        notificationHelper.createNotification();
+        //notificationHelper.createNotification();
 
     }
 }
