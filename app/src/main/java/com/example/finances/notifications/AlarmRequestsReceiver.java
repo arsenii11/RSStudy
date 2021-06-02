@@ -15,6 +15,7 @@ import androidx.annotation.RequiresApi;
 import com.example.finances.database.DBHelper;
 import com.example.finances.database.Lesson;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AlarmRequestsReceiver extends BroadcastReceiver {
@@ -62,22 +63,28 @@ public class AlarmRequestsReceiver extends BroadcastReceiver {
         Log.e("AlarmRequestReceiver", "check3");
 
         DBHelper dbHelper = new DBHelper(context);
-        Lesson lesson = dbHelper.getLessonFromNowSortByTime();
+        ArrayList<Lesson> lessons = dbHelper.getAllLessons();
         Calendar now = Calendar.getInstance();
-        long latency = lesson.getDate()*1000 - now.getTimeInMillis() - 3600000;
 
-        PersistableBundle bundle = new PersistableBundle();
-        bundle.putString("ACTION", AlarmJobIntentService.LESSON_ALARM);
-        bundle.putString("TITLE", lesson.getName()+" lesson");
-        bundle.putString("TEXT", "Урок уже через час");
-        bundle.putString("BIG_TEXT", "Урок уже через час, за 15 минут я напомню еще раз :)");
+        for (Lesson lesson: lessons) {
+            int hour = 3600000;
+            long latency = lesson.getDate()*1000 - now.getTimeInMillis() - hour;
+            if(latency>0) {
+                PersistableBundle bundle = new PersistableBundle();
+                bundle.putString("ACTION", AlarmJobIntentService.LESSON_ALARM);
+                bundle.putString("TITLE", lesson.getName() + " lesson");
+                bundle.putString("TEXT", "Урок уже через час");
+                bundle.putString("BIG_TEXT", "Урок уже через час, за 15 минут я напомню еще раз :)");
 
-        ComponentName jobService = new ComponentName(context, JobSchedulerService.class);
-        JobInfo.Builder exerciseJobBuilder = new JobInfo.Builder(sJobId++, jobService);
-        exerciseJobBuilder.setMinimumLatency(latency);
-        exerciseJobBuilder.setExtras(bundle);
+                ComponentName jobService = new ComponentName(context, JobSchedulerService.class);
+                JobInfo.Builder exerciseJobBuilder = new JobInfo.Builder(sJobId++, jobService);
+                exerciseJobBuilder.setMinimumLatency(latency);
+                exerciseJobBuilder.setExtras(bundle);
 
-        JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
-        jobScheduler.schedule(exerciseJobBuilder.build());
+                JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+                jobScheduler.schedule(exerciseJobBuilder.build());
+            }
+        }
+
     }
 }
