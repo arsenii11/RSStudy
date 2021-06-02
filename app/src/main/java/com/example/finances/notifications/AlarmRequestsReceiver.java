@@ -64,7 +64,7 @@ public class AlarmRequestsReceiver extends BroadcastReceiver {
         DBHelper dbHelper = new DBHelper(context);
         Lesson lesson = dbHelper.getLessonFromNowSortByTime();
         Calendar now = Calendar.getInstance();
-        long latency = lesson.getDate()*1000 - now.getTimeInMillis();
+        long latency = lesson.getDate()*1000 - now.getTimeInMillis() - 3600000;
 
         PersistableBundle bundle = new PersistableBundle();
         bundle.putString("ACTION", AlarmJobIntentService.LESSON_ALARM);
@@ -74,7 +74,7 @@ public class AlarmRequestsReceiver extends BroadcastReceiver {
 
         ComponentName jobService = new ComponentName(context, JobSchedulerService.class);
         JobInfo.Builder exerciseJobBuilder = new JobInfo.Builder(sJobId++, jobService);
-        exerciseJobBuilder.setMinimumLatency(30*1000);
+        exerciseJobBuilder.setMinimumLatency(latency);
         exerciseJobBuilder.setExtras(bundle);
 
         JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);

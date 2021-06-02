@@ -378,7 +378,8 @@ public class DBHelper extends SQLiteOpenHelper {
         Calendar today = Calendar.getInstance();
         today.set(Calendar.HOUR_OF_DAY, 0);
         long dayTime = today.getTimeInMillis()/1000;
-        Cursor cursor = db.rawQuery("select * from " + TABLE_LESSONS + " where " + KEY_LESSON_DATE + ">=" + dayTime + "order by" + KEY_LESSON_DATE, null);
+        long tomorrow = dayTime+86400;
+        Cursor cursor = db.rawQuery("select * from " + TABLE_LESSONS + " where " + KEY_LESSON_DATE + " between " + dayTime + " and " + tomorrow + " order by " + KEY_LESSON_DATE, null);
 
         if(cursor.getCount() > 0) {
             cursor.moveToFirst();
