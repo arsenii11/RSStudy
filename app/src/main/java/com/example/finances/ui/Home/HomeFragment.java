@@ -20,6 +20,7 @@ import com.example.finances.R;
 import com.example.finances.course.CourseName;
 import com.example.finances.database.DBHelper;
 import com.example.finances.database.Test;
+import com.example.finances.ui.Account.CourseListActivity;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -53,6 +54,8 @@ public class HomeFragment extends Fragment  {
 
     PieChart pieChart;
     ImageButton plusCourse;
+    ImageButton plusLesson;
+    ImageButton plusTest;
     Calendar calendar;
     TextView dayofweek;
     TextView currenttime;
@@ -69,6 +72,26 @@ public class HomeFragment extends Fragment  {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeFragment.this.getActivity(), CourseName.class);
+                startActivity(intent);
+                CustomIntent.customType(getContext(),"fadein-to-fadeout");
+            }
+        });
+
+        plusLesson = view.findViewById(R.id.buttonpluslesson);
+        plusLesson.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeFragment.this.getActivity(), CourseListActivity.class);
+                startActivity(intent);
+                CustomIntent.customType(getContext(),"fadein-to-fadeout");
+            }
+        });
+
+        plusTest = view.findViewById(R.id.buttonplustest);
+        plusTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeFragment.this.getActivity(), CourseListActivity.class);
                 startActivity(intent);
                 CustomIntent.customType(getContext(),"fadein-to-fadeout");
             }
