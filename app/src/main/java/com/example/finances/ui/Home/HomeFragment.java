@@ -82,6 +82,7 @@ public class HomeFragment extends Fragment  {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeFragment.this.getActivity(), CourseListActivity.class);
+                intent.putExtra("ADAPTER_MODE", "ADD_LESSON");
                 startActivity(intent);
                 CustomIntent.customType(getContext(),"fadein-to-fadeout");
             }
@@ -92,6 +93,7 @@ public class HomeFragment extends Fragment  {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeFragment.this.getActivity(), CourseListActivity.class);
+                intent.putExtra("ADAPTER_MODE", "ADD_TEST");
                 startActivity(intent);
                 CustomIntent.customType(getContext(),"fadein-to-fadeout");
             }

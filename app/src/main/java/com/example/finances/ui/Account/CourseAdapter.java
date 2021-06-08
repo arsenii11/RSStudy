@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.finances.R;
 import com.example.finances.database.Course;
 import com.example.finances.ui.Account.course.CourseActivity;
+import com.example.finances.ui.Account.course.NewLessonActivity;
+import com.example.finances.ui.Account.course.NewTestActivity;
 
 import java.util.ArrayList;
 
@@ -21,10 +23,17 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
     private final LayoutInflater inflater;
     private final ArrayList<Course> courses;
+    public enum AdapterMode{
+        OpenCourse,
+        AddLesson,
+        AddTest
+    }
+    private final AdapterMode mode;
 
-    CourseAdapter(Context context, ArrayList<Course> courses) {
+    CourseAdapter(Context context, ArrayList<Course> courses, AdapterMode mode) {
         this.courses = courses;
         this.inflater = LayoutInflater.from(context);
+        this.mode = mode;
     }
     @Override
     public CourseAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -42,6 +51,11 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), CourseActivity.class);
+                switch (mode){
+                    case OpenCourse: intent = new Intent(v.getContext(), CourseActivity.class); break;
+                    case AddTest: intent = new Intent(v.getContext(), NewTestActivity.class); break;
+                    case AddLesson: intent = new Intent(v.getContext(), NewLessonActivity.class);
+                }
                 intent.putExtra("COURSE_ID", course.getId());
                 v.getContext().startActivity(intent);
                 CustomIntent.customType(v.getContext(),"left-to-right");

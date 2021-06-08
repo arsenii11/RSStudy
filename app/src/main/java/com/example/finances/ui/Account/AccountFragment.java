@@ -91,7 +91,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         RecyclerView LessonsList = (RecyclerView) view.findViewById(R.id.Lessonlist);
         // создаем адаптер
         Context context = getContext();
-        CourseAdapter adapter = new CourseAdapter(context, courses);
+        CourseAdapter adapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse);
         LessonAdapter lessonAdapter = new LessonAdapter(context, lessons);
         // устанавливаем для списка адаптер
         CoursesList.setAdapter(adapter);

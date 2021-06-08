@@ -1,6 +1,7 @@
 package com.example.finances.ui.Account;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +25,14 @@ public class CourseListActivity extends AppCompatActivity {
         setInitialData();
         RecyclerView CoursesList = (RecyclerView) findViewById(R.id.CoursesList);
         Context context = getApplicationContext();
-        CourseAdapter adapter = new CourseAdapter(this, courses);
+        CourseAdapter.AdapterMode mode = CourseAdapter.AdapterMode.OpenCourse;
+        Intent i = getIntent();
+        String modeStr = i.getStringExtra("ADAPTER_MODE");
+        switch (modeStr){
+            case "ADD_LESSON": mode = CourseAdapter.AdapterMode.AddLesson; break;
+            case "ADD_TEST": mode = CourseAdapter.AdapterMode.AddTest; break;
+        }
+        CourseAdapter adapter = new CourseAdapter(this, courses, mode);
         CoursesList.setAdapter(adapter);
     }
 
