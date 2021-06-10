@@ -3,16 +3,22 @@ package com.example.finances.ui.Account;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.finances.MainActivity;
 import com.example.finances.R;
 import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
+import com.example.finances.toolbar.About;
 import com.example.finances.ui.Account.CourseAdapter;
 
 import java.util.ArrayList;
+
+import maes.tech.intentanim.CustomIntent;
 
 public class CourseListActivity extends AppCompatActivity {
 
@@ -34,6 +40,39 @@ public class CourseListActivity extends AppCompatActivity {
         }
         CourseAdapter adapter = new CourseAdapter(this, courses, mode);
         CoursesList.setAdapter(adapter);
+
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbarCourseList);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+    }
+
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        menu.getItem(1).setVisible(false);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            CustomIntent.customType(this,"fadein-to-fadeout");
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+
+
     }
 
     //добавляем значения
