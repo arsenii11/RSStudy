@@ -88,14 +88,14 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         //Список
         setInitialData();
         RecyclerView CoursesList = (RecyclerView) view.findViewById(R.id.list);
-        RecyclerView LessonsList = (RecyclerView) view.findViewById(R.id.Lessonlist);
+       // RecyclerView LessonsList = (RecyclerView) view.findViewById(R.id.Lessonlist);
         // создаем адаптер
         Context context = getContext();
         CourseAdapter adapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse);
         LessonAdapter lessonAdapter = new LessonAdapter(context, lessons);
         // устанавливаем для списка адаптер
         CoursesList.setAdapter(adapter);
-        LessonsList.setAdapter(lessonAdapter);
+       // LessonsList.setAdapter(lessonAdapter);
 
         ImageButton PhotoButton = view.findViewById(R.id.FirstPhotoButton);
         simpleProgressBar = view.findViewById(R.id.progressBar);
