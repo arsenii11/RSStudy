@@ -4,9 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,19 +27,38 @@ import maes.tech.intentanim.CustomIntent;
 public class CourseLength extends AppCompatActivity {
     ImageButton close;
     Button next;
+    Spinner spinner;
+    String cn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_length);
 
-        final EditText contentEditText = findViewById(R.id.editTextCourseLength);
+        //final EditText contentEditText = findViewById(R.id.editTextCourseLength);
+
+        spinner = findViewById(R.id.spinner);
+        String[] numbers = {"0", "1", "2", "3", "4", "5", "6", "7"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, numbers);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                cn = String.valueOf(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                cn = "0";
+            }
+        });
 
         next = findViewById(R.id.buttonNext2);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
-                String cn = contentEditText.getText().toString();
+                //cn = contentEditText.getText().toString();
                 int content = Integer.parseInt(cn);
                 Log.e("LESSONS", cn);
                 Log.e("LESSONS", String.valueOf(content));
@@ -47,7 +69,7 @@ public class CourseLength extends AppCompatActivity {
 
                 DBHelper dbh = new DBHelper(getApplicationContext());
 
-                if(dbh.insertCourse(course)) {
+                if(dbh.insertCourse(course) && cn != "0") {
                     Snackbar snackbar = Snackbar.make(view1, "Record inserted successfully", Snackbar.LENGTH_LONG);
                     snackbar.show();
                     course = dbh.findCourse(course);
