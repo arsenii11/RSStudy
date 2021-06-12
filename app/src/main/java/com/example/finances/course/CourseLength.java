@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -46,6 +47,8 @@ public class CourseLength extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 cn = String.valueOf(position);
+                Toast toast = Toast.makeText(getApplicationContext(), cn, Toast.LENGTH_SHORT);
+                toast.show();
             }
 
             @Override
@@ -69,7 +72,7 @@ public class CourseLength extends AppCompatActivity {
 
                 DBHelper dbh = new DBHelper(getApplicationContext());
 
-                if(dbh.insertCourse(course) && cn != "0") {
+                if(dbh.insertCourse(course) && !cn.equals("0")) {
                     Snackbar snackbar = Snackbar.make(view1, "Record inserted successfully", Snackbar.LENGTH_LONG);
                     snackbar.show();
                     course = dbh.findCourse(course);
