@@ -27,6 +27,9 @@
     <color name="plus2">#8A7EE3</color>
     <color name="plus3">#ABA4DB</color>
 
+
+    <color name="BlackBackGround">#1E1E1E</color>
+
     <color name="Widget2text">#604EE7</color>
 
     //цвет текста кнопок добавления урока
