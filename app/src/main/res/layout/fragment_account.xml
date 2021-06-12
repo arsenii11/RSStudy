@@ -148,12 +148,23 @@
             android:textColor="@color/Widget2text"
             android:textSize="20dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/list"
-            app:layout_constraintStart_toStartOf="@+id/list" />
+            app:layout_constraintBottom_toTopOf="@+id/ListContainer"
+            app:layout_constraintStart_toStartOf="@+id/ListContainer" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ListContainer"
+            android:layout_width="290dp"
+            android:layout_height="164dp"
+            android:background="@drawable/round_background"
+            android:backgroundTint="@color/Widget3"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list"
-            android:layout_width="300dp"
+            android:layout_width="270dp"
             android:layout_height="164dp"
             android:background="@drawable/round_background"
             android:backgroundTint="@color/Widget3"
@@ -165,6 +176,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
             android:id="@+id/courseBt"
@@ -180,8 +192,8 @@
             android:textSize="10dp"
             app:cornerRadius="12dp"
             app:iconPadding="0dp"
-            app:layout_constraintEnd_toEndOf="@+id/list"
-            app:layout_constraintTop_toBottomOf="@+id/list" />
+            app:layout_constraintEnd_toEndOf="@+id/ListContainer"
+            app:layout_constraintTop_toBottomOf="@+id/ListContainer" />
 
         <Button
             android:id="@+id/ViewAllBt"
@@ -197,8 +209,8 @@
             android:textSize="10dp"
             app:cornerRadius="12dp"
             app:iconPadding="0dp"
-            app:layout_constraintStart_toStartOf="@+id/list"
-            app:layout_constraintTop_toBottomOf="@+id/list" />
+            app:layout_constraintStart_toStartOf="@+id/ListContainer"
+            app:layout_constraintTop_toBottomOf="@+id/ListContainer" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

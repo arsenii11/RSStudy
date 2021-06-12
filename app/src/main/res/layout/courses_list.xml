@@ -22,7 +22,6 @@
         android:id="@+id/CoursesList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/Widget1"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 </LinearLayout>

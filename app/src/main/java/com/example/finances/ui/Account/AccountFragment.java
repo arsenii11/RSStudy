@@ -65,6 +65,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     ArrayList<Course> courses = new ArrayList<Course>();
     ArrayList<Lesson> lessons = new ArrayList<Lesson>();
     Button newCourse;
+    Button ViewAllBt;
 
 
     @Override
@@ -100,6 +101,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         ImageButton PhotoButton = view.findViewById(R.id.FirstPhotoButton);
         simpleProgressBar = view.findViewById(R.id.progressBar);
         progressText = view.findViewById(R.id.progressText);
+        ViewAllBt = view.findViewById(R.id.ViewAllBt);
 
 
         //Получаем activity
@@ -168,6 +170,17 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
                 photoPickerIntent.setType("image/*");
                 startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
+            }
+        });
+
+        //Кнопка раскрывающая список курсов
+        ViewAllBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent ListCoursesList = new Intent(AccountFragment.this.getActivity(),CourseListActivity.class);
+                ListCoursesList.putExtra("ADAPTER_MODE", "OPEN_COURSE");
+                startActivity(ListCoursesList);
+                CustomIntent.customType(getContext(),"fadein-to-fadeout");
             }
         });
 
