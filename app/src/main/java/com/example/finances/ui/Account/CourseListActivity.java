@@ -37,6 +37,8 @@ public class CourseListActivity extends AppCompatActivity {
         switch (modeStr){
             case "ADD_LESSON": mode = CourseAdapter.AdapterMode.AddLesson; break;
             case "ADD_TEST": mode = CourseAdapter.AdapterMode.AddTest; break;
+            case "OPEN_COURSE": mode = CourseAdapter.AdapterMode.OpenCourse; break;
+            default: mode = CourseAdapter.AdapterMode.OpenCourse; break;
         }
         CourseAdapter adapter = new CourseAdapter(this, courses, mode);
         CoursesList.setAdapter(adapter);
