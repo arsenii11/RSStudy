@@ -128,6 +128,14 @@ public class DBHelper extends SQLiteOpenHelper {
         if(db.delete(TABLE_COURSES, KEY_COURSE_ID+" = "+ course.getId(), null) == -1)
             status = false;
 
+        for (Lesson lesson: getAllLessons(course.getId())) {
+            if(!deleteLesson(lesson)) status = false;
+        }
+
+        for (Test test: getAllTests(course.getId())){
+            if(!deleteTest(test)) status = false;
+        }
+
         return status;
     }
 
@@ -137,6 +145,14 @@ public class DBHelper extends SQLiteOpenHelper {
 
         if(db.delete(TABLE_COURSES, KEY_COURSE_ID+" = "+ courseId, null) == -1)
             status = false;
+
+        for (Lesson lesson: getAllLessons(courseId)) {
+            if(!deleteLesson(lesson)) status = false;
+        }
+
+        for (Test test: getAllTests(courseId)){
+            if(!deleteTest(test)) status = false;
+        }
 
         return status;
     }

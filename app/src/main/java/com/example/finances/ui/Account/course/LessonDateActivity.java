@@ -43,6 +43,8 @@ public class LessonDateActivity extends AppCompatActivity {
     int COURSE_ID;
     int LESSONS;
     int CURRENT_LESSON;
+    String COURSE_REPEAT;
+    String COURSE_REPEAT_MODE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,8 @@ public class LessonDateActivity extends AppCompatActivity {
         COURSE_ID = i.getIntExtra("COURSE_ID", -1);
         LESSONS = i.getIntExtra("LESSONS", -1);
         CURRENT_LESSON = i.getIntExtra("CURRENT_LESSON", -1);
+        COURSE_REPEAT = i.getStringExtra("COURSE_REPEAT");
+        COURSE_REPEAT_MODE = i.getStringExtra("COURSE_REPEAT_MODE");
 
         currentDateTime=(TextView)findViewById(R.id.currentDateTime);
         duration = (EditText)findViewById(R.id.editTextLessonDuration);
@@ -83,6 +87,11 @@ public class LessonDateActivity extends AppCompatActivity {
                     lesson.setDuration(Integer.parseInt(dur.split(":")[0]) + Float.parseFloat(dur.split(":")[1]) / 60);
                 } catch (Exception e){
                     e.printStackTrace();
+                }
+
+                Lesson lessonRep;
+                if(COURSE_REPEAT.equals("Yes")){
+
                 }
 
                 CURRENT_LESSON++;
