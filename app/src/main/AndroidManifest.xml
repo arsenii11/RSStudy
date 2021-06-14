@@ -14,7 +14,7 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.Finances">
-        <activity android:name=".ui.Account.course.NewLessonActivity"></activity>
+        <activity android:name=".course.NewLessonActivity"></activity>
 
         <receiver
             android:name=".notifications.NotificationReceiver"
@@ -97,7 +97,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.Account.course.CourseActivity"
+            android:name=".course.CourseActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -105,17 +105,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.Account.course.LessonDateActivity"
+            android:name=".course.LessonDateActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".ui.Account.course.NewTestActivity"
+            android:name=".course.NewTestActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".ui.Account.CourseListActivity"
+            android:name=".course.CourseListActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
         </activity>

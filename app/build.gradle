@@ -82,7 +82,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version" //kotlin extra library
     implementation 'androidx.preference:preference:1.1.1'//Круглая фотография
     implementation 'com.github.hajiyevelnur92:intentanimation:1.0' //анимация интент
-    implementation 'nz.co.trademe.covert:covert:2.0.0' //Material Swipe Actions
+    implementation 'nz.co.trademe.covert:covert:2.0.0' //Смахивание по элементу списка
     implementation "ru.tinkoff.decoro:decoro:1.1.1" //красивый ввод
     implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'//calendar
     implementation 'com.github.pchmn:MaterialChipsInput:1.0.8'//выпадающий выбор

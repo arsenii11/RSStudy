@@ -18,18 +18,19 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finances.R;
+import com.example.finances.course.CourseAdapter;
+import com.example.finances.course.CourseListActivity;
 import com.example.finances.course.CourseName;
+import com.example.finances.course.LessonAdapter;
 import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
 import com.example.finances.database.Lesson;
-import com.example.finances.ui.Home.HomeFragment;
 import com.github.okdroid.checkablechipview.CheckableChipView;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
@@ -177,7 +178,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         ViewAllBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent ListCoursesList = new Intent(AccountFragment.this.getActivity(),CourseListActivity.class);
+                Intent ListCoursesList = new Intent(AccountFragment.this.getActivity(), CourseListActivity.class);
                 ListCoursesList.putExtra("ADAPTER_MODE", "OPEN_COURSE");
                 startActivity(ListCoursesList);
                 CustomIntent.customType(getContext(),"fadein-to-fadeout");

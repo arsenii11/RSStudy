@@ -1,4 +1,4 @@
-package com.example.finances.ui.Calendar;
+package com.example.finances.course;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,39 +10,38 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finances.R;
-import com.example.finances.database.Test;
-import com.example.finances.course.CourseActivity;
+import com.example.finances.database.Lesson;
 
 import java.util.ArrayList;
 
 import maes.tech.intentanim.CustomIntent;
 
-public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>{
+public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.ViewHolder>{
 
     private final LayoutInflater inflater;
-    private final ArrayList<Test> tests;
+    private final ArrayList<Lesson> lessons;
 
-    TestAdapter(Context context, ArrayList<Test> tests) {
-        this.tests = tests;
+    public LessonAdapter(Context context, ArrayList<Lesson> lessons) {
+        this.lessons = lessons;
         this.inflater = LayoutInflater.from(context);
     }
     @Override
-    public TestAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public LessonAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = inflater.inflate(R.layout.list_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(TestAdapter.ViewHolder holder, int position) {
-        Test test = tests.get(position);
-        holder.nameView.setText(test.getName());
+    public void onBindViewHolder(LessonAdapter.ViewHolder holder, int position) {
+        Lesson lesson = lessons.get(position);
+        holder.nameView.setText(lesson.getName());
 
         holder.nameView.setOnClickListener (new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), CourseActivity.class);
-                intent.putExtra("TEST_ID", test.getId());
+                intent.putExtra("LESSON_ID", lesson.getId());
                 v.getContext().startActivity(intent);
                 CustomIntent.customType(v.getContext(),"left-to-right");
             }
@@ -51,7 +50,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHolder>{
 
     @Override
     public int getItemCount() {
-        return tests.size();
+        return lessons.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

@@ -1,25 +1,16 @@
-package com.example.finances.ui.Account.course;
+package com.example.finances.course;
 
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.finances.MainActivity;
 import com.example.finances.R;
-import com.example.finances.database.DBHelper;
-import com.example.finances.database.Lesson;
-
-import java.util.ArrayList;
 
 import maes.tech.intentanim.CustomIntent;
 

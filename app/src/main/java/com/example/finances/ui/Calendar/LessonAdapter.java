@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finances.R;
 import com.example.finances.database.Lesson;
-import com.example.finances.ui.Account.course.CourseActivity;
+import com.example.finances.course.CourseActivity;
 
 import java.util.ArrayList;
 

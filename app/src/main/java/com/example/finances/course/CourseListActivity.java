@@ -1,4 +1,4 @@
-package com.example.finances.ui.Account;
+package com.example.finances.course;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,8 +13,6 @@ import com.example.finances.MainActivity;
 import com.example.finances.R;
 import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
-import com.example.finances.toolbar.About;
-import com.example.finances.ui.Account.CourseAdapter;
 
 import java.util.ArrayList;
 

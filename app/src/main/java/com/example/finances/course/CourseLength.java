@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -18,8 +17,6 @@ import com.example.finances.MainActivity;
 import com.example.finances.R;
 import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
-import com.example.finances.database.Lesson;
-import com.example.finances.ui.Account.course.LessonDateActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import maes.tech.intentanim.CustomIntent;
