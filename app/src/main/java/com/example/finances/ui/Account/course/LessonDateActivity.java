@@ -89,10 +89,6 @@ public class LessonDateActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                Lesson lessonRep;
-                if(COURSE_REPEAT.equals("Yes")){
-
-                }
 
                 CURRENT_LESSON++;
                 if(dbHelper.insertLessonSmart(lesson) && (CURRENT_LESSON<LESSONS)) {
@@ -100,6 +96,8 @@ public class LessonDateActivity extends AppCompatActivity {
                     intent.putExtra("COURSE_ID", COURSE_ID);
                     intent.putExtra("LESSONS", LESSONS);
                     intent.putExtra("CURRENT_LESSON", CURRENT_LESSON);
+                    intent.putExtra("COURSE_REPEAT", COURSE_REPEAT);
+                    intent.putExtra("COURSE_REPEAT_MODE", COURSE_REPEAT_MODE);
 
                     finish();
                     startActivity(intent);
