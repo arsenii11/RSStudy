@@ -44,8 +44,10 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 import jp.wasabeef.picasso.transformations.CropSquareTransformation;
 import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 import kotlin.jvm.functions.Function2;
 import maes.tech.intentanim.CustomIntent;
+import nz.co.trademe.covert.Covert;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -68,6 +70,10 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     Button newCourse;
     Button ViewAllBt;
 
+    Covert.Config config = new Covert.Config(R.drawable.ic_cancel_grey_24dp, R.color.black, R.color.blue);
+    Covert.Builder covertBuilder;
+    Covert covert;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,11 +82,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         //получаем путь к изображению
         SharedPreferences accountPhoto = getActivity().getSharedPreferences(APP_PREFERENCES_Path, Context.MODE_PRIVATE);
         FilePath= accountPhoto.getString("key1", "");
-
-
     }
-
-
 
 
     @Override
@@ -89,15 +91,26 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
 
         //Список
         setInitialData();
+
+        covertBuilder = Covert.with(config).setIsActiveCallback(viewHolder -> {
+            return false;
+        }).doOnSwipe((viewHolder, swipeDirection) -> {
+            return null;
+        });
+
         RecyclerView CoursesList = (RecyclerView) view.findViewById(R.id.list);
-       // RecyclerView LessonsList = (RecyclerView) view.findViewById(R.id.Lessonlist);
+        // RecyclerView LessonsList = (RecyclerView) view.findViewById(R.id.Lessonlist);
+
+        covert = covertBuilder.attachTo(CoursesList);
+
         // создаем адаптер
         Context context = getContext();
-        CourseAdapter adapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse);
+        CourseAdapter adapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, true, covert);
         LessonAdapter lessonAdapter = new LessonAdapter(context, lessons);
         // устанавливаем для списка адаптер
         CoursesList.setAdapter(adapter);
-       // LessonsList.setAdapter(lessonAdapter);
+        // LessonsList.setAdapter(lessonAdapter);
+
 
         ImageButton PhotoButton = view.findViewById(R.id.FirstPhotoButton);
         simpleProgressBar = view.findViewById(R.id.progressBar);

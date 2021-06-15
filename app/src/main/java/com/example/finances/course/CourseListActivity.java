@@ -38,7 +38,7 @@ public class CourseListActivity extends AppCompatActivity {
             case "OPEN_COURSE": mode = CourseAdapter.AdapterMode.OpenCourse; break;
             default: mode = CourseAdapter.AdapterMode.OpenCourse; break;
         }
-        CourseAdapter adapter = new CourseAdapter(this, courses, mode);
+        CourseAdapter adapter = new CourseAdapter(this, courses, mode, false, null);
         CoursesList.setAdapter(adapter);
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbarCourseList);

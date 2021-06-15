@@ -7,14 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finances.R;
 import com.example.finances.database.Course;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import maes.tech.intentanim.CustomIntent;
+import nz.co.trademe.covert.Covert;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder>{
 
@@ -26,12 +31,15 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         AddTest
     }
     private final AdapterMode mode;
-    
+    private boolean swipeEnabled;
+    private final Covert covert;
 
-    public CourseAdapter(Context context, ArrayList<Course> courses, AdapterMode mode) {
+    public CourseAdapter(Context context, ArrayList<Course> courses, AdapterMode mode, boolean swipeEnabled, Covert covert) {
         this.courses = courses;
         this.inflater = LayoutInflater.from(context);
         this.mode = mode;
+        this.covert = covert;
+        this.swipeEnabled = swipeEnabled;
     }
     @Override
     public CourseAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -42,6 +50,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(CourseAdapter.ViewHolder holder, int position) {
+
+        if(swipeEnabled)
+            covert.drawCornerFlag(holder);
+
         Course course = courses.get(position);
         holder.nameView.setText(course.getName());
 
@@ -60,6 +72,14 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             }
         });
     }
+
+    @Override
+    public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position, @NonNull @NotNull List<Object> payloads) {
+        if (!payloads.contains(Covert.SKIP_FULL_BIND_PAYLOAD)) {
+            onBindViewHolder(holder, position);
+        }
+    }
+
 
     @Override
     public int getItemCount() {
