@@ -1,4 +1,4 @@
-package com.example.finances.ui.Account.course;
+package com.example.finances.course;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,88 +7,72 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.example.finances.MainActivity;
 import com.example.finances.R;
-import com.example.finances.course.CourseLength;
 import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
-import com.example.finances.database.Lesson;
+import com.example.finances.database.Test;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 
 import java.util.Calendar;
 
 import maes.tech.intentanim.CustomIntent;
-import ru.tinkoff.decoro.MaskImpl;
-import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser;
-import ru.tinkoff.decoro.slots.Slot;
-import ru.tinkoff.decoro.watchers.FormatWatcher;
-import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
 
-public class NewLessonActivity extends AppCompatActivity {
+public class NewTestActivity extends AppCompatActivity {
 
     Calendar dateAndTime=Calendar.getInstance();
     TextView currentDateTime;
-    EditText duration;
     Button next;
     int COURSE_ID;
-
-
+    ChipGroup chipInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_lesson);
+        setContentView(R.layout.activity_new_test);
         COURSE_ID = getIntent().getIntExtra("COURSE_ID", -1);
         currentDateTime=(TextView)findViewById(R.id.currentDateTime);
-        duration = (EditText) findViewById(R.id.editTextLessonDuration);
-        next = findViewById(R.id.buttonLessonNext);
-
-        //Установка маски на ввод
-        Slot[] slots = new UnderscoreDigitSlotsParser().parseSlots("_:__");
-        FormatWatcher formatWatcher = new MaskFormatWatcher(MaskImpl.createTerminated(slots));
-        formatWatcher.installOn(duration);
-
+        next = findViewById(R.id.buttonTestNext);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DBHelper dbHelper = new DBHelper(getApplicationContext());
-                Lesson lesson = new Lesson();
+                Test test = new Test();
+                Chip selectedChip = findViewById(chipInput.getCheckedChipId());
                 Course course = dbHelper.getCourse(COURSE_ID);
-                String lessonName = course.getName() + ", " + currentDateTime.getText().toString() + ", " + duration.getText()+" hours";
-                lesson.setName(lessonName);
-                lesson.setCourseId(COURSE_ID);
+                String testName = course.getName();
 
-
+                test.setCourseId(COURSE_ID);
                 long dat = dateAndTime.getTimeInMillis()/1000;
-                lesson.setDate(dat);
-                //lesson.setDuration(Integer.getInteger(duration.toString()));
+                test.setDate(dat);
 
-                String dur = duration.getText().toString();
-                try {
-                    lesson.setDuration(Integer.parseInt(dur.split(":")[0]) + Float.parseFloat(dur.split(":")[1]) / 60);
-                } catch (Exception e){
-                    e.printStackTrace();
+                switch (selectedChip.getText().toString()){
+                    case "Test": test.setWeight(0); testName+= " test"; break;
+                    case "Exam": test.setWeight(1); testName+= " exam"; break;
                 }
 
-                dbHelper.insertLesson(lesson);
-                dbHelper.updateCourse(COURSE_ID, course);
+                testName += ", " + currentDateTime.getText();
+                test.setName(testName);
+                dbHelper.insertTest(test);
 
-                Intent intent = new Intent(NewLessonActivity.this, CourseActivity.class);
+                Intent intent = new Intent(NewTestActivity.this, CourseActivity.class);
                 startActivity(intent);
-                CustomIntent.customType(NewLessonActivity.this,"left-to-right");
+                CustomIntent.customType(NewTestActivity.this,"left-to-right");
                 finish();
             }
         });
+
+        chipInput = (ChipGroup) findViewById(R.id.chipInput);
+        chipInput.setSingleSelection(true);
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
@@ -127,7 +111,7 @@ public class NewLessonActivity extends AppCompatActivity {
 
     // отображаем диалоговое окно для выбора времени
     public void setTime(View v) {
-        new TimePickerDialog(this,  t,
+        new TimePickerDialog(this, t,
                 dateAndTime.get(Calendar.HOUR_OF_DAY),
                 dateAndTime.get(Calendar.MINUTE), true)
                 .show();

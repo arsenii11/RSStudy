@@ -2,15 +2,11 @@ package com.example.finances.ui.Home;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -19,33 +15,16 @@ import androidx.fragment.app.Fragment;
 import com.example.finances.R;
 import com.example.finances.course.CourseName;
 import com.example.finances.database.DBHelper;
-import com.example.finances.database.Test;
-import com.example.finances.ui.Account.CourseListActivity;
-import com.github.mikephil.charting.animation.Easing;
+import com.example.finances.course.CourseListActivity;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-
-import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import maes.tech.intentanim.CustomIntent;
-import ru.tinkoff.decoro.Mask;
-import ru.tinkoff.decoro.MaskImpl;
-import ru.tinkoff.decoro.parser.UnderscoreDigitSlotsParser;
-import ru.tinkoff.decoro.slots.Slot;
-
-import static com.example.finances.design.diagram_colors.Diagram_colors;
 
 
 public class HomeFragment extends Fragment  {

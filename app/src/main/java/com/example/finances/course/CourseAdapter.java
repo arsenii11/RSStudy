@@ -1,4 +1,4 @@
-package com.example.finances.ui.Account;
+package com.example.finances.course;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,39 +10,51 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finances.R;
-import com.example.finances.database.Lesson;
-import com.example.finances.ui.Account.course.CourseActivity;
+import com.example.finances.database.Course;
 
 import java.util.ArrayList;
 
 import maes.tech.intentanim.CustomIntent;
 
-public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.ViewHolder>{
+public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder>{
 
     private final LayoutInflater inflater;
-    private final ArrayList<Lesson> lessons;
+    private final ArrayList<Course> courses;
+    public enum AdapterMode{
+        OpenCourse,
+        AddLesson,
+        AddTest
+    }
+    private final AdapterMode mode;
+    
 
-    LessonAdapter(Context context, ArrayList<Lesson> lessons) {
-        this.lessons = lessons;
+    public CourseAdapter(Context context, ArrayList<Course> courses, AdapterMode mode) {
+        this.courses = courses;
         this.inflater = LayoutInflater.from(context);
+        this.mode = mode;
     }
     @Override
-    public LessonAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CourseAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = inflater.inflate(R.layout.list_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(LessonAdapter.ViewHolder holder, int position) {
-        Lesson lesson = lessons.get(position);
-        holder.nameView.setText(lesson.getName());
+    public void onBindViewHolder(CourseAdapter.ViewHolder holder, int position) {
+        Course course = courses.get(position);
+        holder.nameView.setText(course.getName());
 
         holder.nameView.setOnClickListener (new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), CourseActivity.class);
-                intent.putExtra("LESSON_ID", lesson.getId());
+                switch (mode){
+                    case OpenCourse: intent = new Intent(v.getContext(), CourseActivity.class); break;
+                    case AddTest: intent = new Intent(v.getContext(), NewTestActivity.class); break;
+                    case AddLesson: intent = new Intent(v.getContext(), NewLessonActivity.class);
+                }
+                intent.putExtra("COURSE_ID", course.getId());
                 v.getContext().startActivity(intent);
                 CustomIntent.customType(v.getContext(),"left-to-right");
             }
@@ -51,7 +63,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return lessons.size();
+        return courses.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

@@ -1,39 +1,26 @@
-package com.example.finances.ui.Account.course;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.finances.course;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateUtils;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
-import com.dd.morphingbutton.MorphingButton;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.finances.MainActivity;
 import com.example.finances.R;
-import com.example.finances.course.CourseLength;
 import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
 import com.example.finances.database.Lesson;
-import com.example.finances.database.Test;
-import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipGroup;
-import com.pchmn.materialchips.ChipsInput;
-import com.pchmn.materialchips.model.ChipInterface;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import maes.tech.intentanim.CustomIntent;
 import ru.tinkoff.decoro.MaskImpl;
@@ -42,77 +29,86 @@ import ru.tinkoff.decoro.slots.Slot;
 import ru.tinkoff.decoro.watchers.FormatWatcher;
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
 
-public class NewTestActivity extends AppCompatActivity {
 
-    Calendar dateAndTime=Calendar.getInstance();
+public class LessonDateActivity extends AppCompatActivity {
+
+    Calendar dateAndTime;
     TextView currentDateTime;
+    EditText duration;
     Button next;
     int COURSE_ID;
-    ChipGroup chipInput;
+    int LESSONS;
+    int CURRENT_LESSON;
+    String COURSE_REPEAT;
+    String COURSE_REPEAT_MODE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_test);
-        COURSE_ID = getIntent().getIntExtra("COURSE_ID", -1);
+        setContentView(R.layout.activity_setlessondate);
+        Intent i = getIntent();
+        dateAndTime = Calendar.getInstance();
+        COURSE_ID = i.getIntExtra("COURSE_ID", -1);
+        LESSONS = i.getIntExtra("LESSONS", -1);
+        CURRENT_LESSON = i.getIntExtra("CURRENT_LESSON", -1);
+        COURSE_REPEAT = i.getStringExtra("COURSE_REPEAT");
+        COURSE_REPEAT_MODE = i.getStringExtra("COURSE_REPEAT_MODE");
+
         currentDateTime=(TextView)findViewById(R.id.currentDateTime);
-        next = findViewById(R.id.buttonTestNext);
+        duration = (EditText)findViewById(R.id.editTextLessonDuration);
+
+        //Установка маски на ввод
+        Slot[] slots = new UnderscoreDigitSlotsParser().parseSlots("_:__");
+        FormatWatcher formatWatcher = new MaskFormatWatcher(MaskImpl.createTerminated(slots));
+        formatWatcher.installOn(duration);
+
+
+        next = findViewById(R.id.buttonLessonNext);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view1) {
+
                 DBHelper dbHelper = new DBHelper(getApplicationContext());
-                Test test = new Test();
-                Chip selectedChip = findViewById(chipInput.getCheckedChipId());
+                Intent i = getIntent();
+                Lesson lesson = new Lesson();
                 Course course = dbHelper.getCourse(COURSE_ID);
-                String testName = course.getName();
-
-                test.setCourseId(COURSE_ID);
+                String lessonName = course.getName() + ", " + currentDateTime.getText().toString() + ", " + duration.getText()+" hours";
+                lesson.setName(lessonName);
+                lesson.setCourseId(COURSE_ID);
                 long dat = dateAndTime.getTimeInMillis()/1000;
-                test.setDate(dat);
+                lesson.setDate(dat);
 
-                switch (selectedChip.getText().toString()){
-                    case "Test": test.setWeight(0); testName+= " test"; break;
-                    case "Exam": test.setWeight(1); testName+= " exam"; break;
+                String dur = duration.getText().toString();
+                try {
+                    lesson.setDuration(Integer.parseInt(dur.split(":")[0]) + Float.parseFloat(dur.split(":")[1]) / 60);
+                } catch (Exception e){
+                    e.printStackTrace();
                 }
 
-                testName += ", " + currentDateTime.getText();
-                test.setName(testName);
-                dbHelper.insertTest(test);
 
-                Intent intent = new Intent(NewTestActivity.this, CourseActivity.class);
-                startActivity(intent);
-                CustomIntent.customType(NewTestActivity.this,"left-to-right");
-                finish();
+                CURRENT_LESSON++;
+                if(dbHelper.insertLessonSmart(lesson) && (CURRENT_LESSON<LESSONS)) {
+                    Intent intent = new Intent(LessonDateActivity.this, LessonDateActivity.class);
+                    intent.putExtra("COURSE_ID", COURSE_ID);
+                    intent.putExtra("LESSONS", LESSONS);
+                    intent.putExtra("CURRENT_LESSON", CURRENT_LESSON);
+                    intent.putExtra("COURSE_REPEAT", COURSE_REPEAT);
+                    intent.putExtra("COURSE_REPEAT_MODE", COURSE_REPEAT_MODE);
+
+                    finish();
+                    startActivity(intent);
+                    CustomIntent.customType(LessonDateActivity.this,"left-to-right");
+                }
+                else {
+                    Intent intent = new Intent(LessonDateActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    CustomIntent.customType(LessonDateActivity.this,"left-to-right");
+                    finish();
+                }
             }
         });
 
-        chipInput = (ChipGroup) findViewById(R.id.chipInput);
-        chipInput.setSingleSelection(true);
 
-        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar2);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-    }
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            CustomIntent.customType(this, "fadein-to-fadeout");
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     // отображаем диалоговое окно для выбора даты
