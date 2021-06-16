@@ -70,7 +70,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     Button newCourse;
     Button ViewAllBt;
 
-    Covert.Config config = new Covert.Config(R.drawable.ic_cancel_grey_24dp, R.color.black, R.color.blue);
+    Covert.Config config = new Covert.Config(R.drawable.ic_cancel_grey_24dp, R.color.white, R.color.ErrorText);
     Covert.Builder covertBuilder;
     Covert covert;
 
