@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,10 +18,16 @@ import com.example.finances.database.DBHelper;
 import java.util.ArrayList;
 
 import maes.tech.intentanim.CustomIntent;
+import nz.co.trademe.covert.Covert;
 
 public class CourseListActivity extends AppCompatActivity {
 
     ArrayList<Course> courses = new ArrayList<Course>();
+    DBHelper dbHelper;
+    CourseAdapter courseAdapter;
+
+    Covert.Config config = new Covert.Config(R.drawable.ic_cancel_grey_24dp, R.color.white, R.color.ErrorText);
+    Covert covert;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +45,19 @@ public class CourseListActivity extends AppCompatActivity {
             case "OPEN_COURSE": mode = CourseAdapter.AdapterMode.OpenCourse; break;
             default: mode = CourseAdapter.AdapterMode.OpenCourse; break;
         }
-        CourseAdapter adapter = new CourseAdapter(this, courses, mode, false, null);
-        CoursesList.setAdapter(adapter);
+
+        covert = Covert.with(config).setIsActiveCallback(viewHolder -> false).doOnSwipe((viewHolder, swipeDirection) -> {
+            TextView textView = viewHolder.itemView.findViewById(R.id.CourseID);
+            int id = Integer.parseInt(textView.getText().toString());
+            dbHelper.deleteCourse(id);
+            setInitialData();
+            courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, true, covert);
+            CoursesList.setAdapter(courseAdapter);
+            return null;
+        }).attachTo(CoursesList);
+
+        courseAdapter = new CourseAdapter(this, courses, mode, true, covert);
+        CoursesList.setAdapter(courseAdapter);
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbarCourseList);
         setSupportActionBar(toolbar);
@@ -78,7 +96,7 @@ public class CourseListActivity extends AppCompatActivity {
     //добавляем значения
     private void setInitialData() {
         try {
-            DBHelper dbHelper = new DBHelper(this.getApplicationContext());
+            dbHelper = new DBHelper(this.getApplicationContext());
             courses = dbHelper.getAllCourses();
         }
         catch (Exception e){

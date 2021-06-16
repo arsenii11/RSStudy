@@ -71,7 +71,6 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     Button ViewAllBt;
 
     Covert.Config config = new Covert.Config(R.drawable.ic_cancel_grey_24dp, R.color.white, R.color.ErrorText);
-    Covert.Builder covertBuilder;
     Covert covert;
 
     DBHelper dbHelper;
@@ -96,9 +95,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         RecyclerView CoursesList = (RecyclerView) view.findViewById(R.id.list);
         // RecyclerView LessonsList = (RecyclerView) view.findViewById(R.id.Lessonlist);
 
-        covert = Covert.with(config).setIsActiveCallback(viewHolder -> {
-            return false;
-        }).doOnSwipe((viewHolder, swipeDirection) -> {
+        covert = Covert.with(config).setIsActiveCallback(viewHolder -> false).doOnSwipe((viewHolder, swipeDirection) -> {
             TextView textView = viewHolder.itemView.findViewById(R.id.CourseID);
             int id = Integer.parseInt(textView.getText().toString());
             dbHelper.deleteCourse(id);
