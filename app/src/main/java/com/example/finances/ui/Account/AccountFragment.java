@@ -70,10 +70,12 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     Button newCourse;
     Button ViewAllBt;
 
-    Covert.Config config = new Covert.Config(R.drawable.ic_cancel_grey_24dp, R.color.black, R.color.blue);
-    Covert.Builder covertBuilder;
+    Covert.CornerFlag cornerFlag = new Covert.CornerFlag.Custom(R.dimen.triangle_cornerflag_width, R.drawable.triangle_background);
+    Covert.Config config = new Covert.Config(new Covert.Icon(R.drawable.ic_cancel_white_24dp, R.color.button_course, R.color.button_course), new Covert.Icon(R.drawable.ic_cancel_grey_24dp, R.color.button_course, R.color.button_course), R.color.button_course, R.color.button_course, true, cornerFlag);
     Covert covert;
 
+    DBHelper dbHelper;
+    CourseAdapter courseAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,27 +90,28 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_account, container, false);
-
+        Context context = getContext();
         //Список
         setInitialData();
-
-        covertBuilder = Covert.with(config).setIsActiveCallback(viewHolder -> {
-            return false;
-        }).doOnSwipe((viewHolder, swipeDirection) -> {
-            return null;
-        });
-
         RecyclerView CoursesList = (RecyclerView) view.findViewById(R.id.list);
         // RecyclerView LessonsList = (RecyclerView) view.findViewById(R.id.Lessonlist);
 
-        covert = covertBuilder.attachTo(CoursesList);
+        covert = Covert.with(config).setIsActiveCallback(viewHolder -> {
+            return false;
+        }).doOnSwipe((viewHolder, swipeDirection) -> {
+            TextView textView = viewHolder.itemView.findViewById(R.id.CourseID);
+            int id = Integer.parseInt(textView.getText().toString());
+            dbHelper.deleteCourse(id);
+            setInitialData();
+            courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, true, covert);
+            CoursesList.setAdapter(courseAdapter);
+            return null;
+        }).attachTo(CoursesList);
 
-        // создаем адаптер
-        Context context = getContext();
-        CourseAdapter adapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, true, covert);
-        LessonAdapter lessonAdapter = new LessonAdapter(context, lessons);
+        courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, true, covert);
+        // LessonAdapter lessonAdapter = new LessonAdapter(context, lessons);
         // устанавливаем для списка адаптер
-        CoursesList.setAdapter(adapter);
+        CoursesList.setAdapter(courseAdapter);
         // LessonsList.setAdapter(lessonAdapter);
 
 
@@ -205,7 +208,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     //добавляем значения
     private void setInitialData() {
         try {
-            DBHelper dbHelper = new DBHelper(this.getContext());
+            dbHelper = new DBHelper(this.getContext());
             courses = dbHelper.getAllCourses();
             lessons = dbHelper.getAllLessons();
         }

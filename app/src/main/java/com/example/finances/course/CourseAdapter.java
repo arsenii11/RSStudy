@@ -56,6 +56,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
         Course course = courses.get(position);
         holder.nameView.setText(course.getName());
+        holder.idView.setText(String.valueOf(course.getId()));
 
         holder.nameView.setOnClickListener (new View.OnClickListener() {
             @Override
@@ -88,9 +89,11 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         final TextView nameView;
+        final TextView idView;
         ViewHolder(View view){
             super(view);
             nameView = (TextView) view.findViewById(R.id.CourseName);
+            idView = (TextView) view.findViewById(R.id.CourseID);
         }
     }
 }
