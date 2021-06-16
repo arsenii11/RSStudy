@@ -23,7 +23,7 @@
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipInputRep"
-        android:layout_width="211dp"
+        android:layout_width="160dp"
         android:layout_height="60dp"
         android:layout_marginTop="8dp"
         android:textSize="5dp"
@@ -59,7 +59,7 @@
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipInputHow"
-        android:layout_width="211dp"
+        android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_marginTop="8dp"
         android:textSize="5dp"
@@ -77,17 +77,27 @@
             android:layout_height="wrap_content"
             android:checked="true"
             android:gravity="center"
-            android:text="Month"
+            android:text="Monthly"
             android:textSize="40dp" />
 
         <com.google.android.material.chip.Chip
-            android:id="@+id/chip_unlimited"
+            android:id="@+id/chip_week"
             style="@style/Widget.MaterialComponents.Chip.Choice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false"
             android:gravity="center"
-            android:text="Unlimited"
+            android:text="Weekly"
+            android:textSize="40dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_2weeks"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:gravity="center"
+            android:text="Every 2 weeks"
             android:textSize="40dp" />
 
 

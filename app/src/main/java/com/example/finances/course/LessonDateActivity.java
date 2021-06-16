@@ -87,7 +87,7 @@ public class LessonDateActivity extends AppCompatActivity {
 
 
                 CURRENT_LESSON++;
-                if(dbHelper.insertLessonSmart(lesson) && (CURRENT_LESSON<LESSONS)) {
+                /*if(dbHelper.insertLessonSmart(lesson) && (CURRENT_LESSON<LESSONS)) {
                     Intent intent = new Intent(LessonDateActivity.this, LessonDateActivity.class);
                     intent.putExtra("COURSE_ID", COURSE_ID);
                     intent.putExtra("LESSONS", LESSONS);
@@ -98,6 +98,50 @@ public class LessonDateActivity extends AppCompatActivity {
                     finish();
                     startActivity(intent);
                     CustomIntent.customType(LessonDateActivity.this,"left-to-right");
+                }
+                else {
+                    Intent intent = new Intent(LessonDateActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    CustomIntent.customType(LessonDateActivity.this,"left-to-right");
+                    finish();
+                }*/
+
+                if(dbHelper.insertLessonSmart(lesson)){
+                    if(COURSE_REPEAT.equals("YES")) {
+                        long add = 0;
+                        if(COURSE_REPEAT_MODE.equals("MONTHLY")) add = 1814400000L;
+                        else if(COURSE_REPEAT_MODE.equals("WEEKLY")) add = 604800000L;
+                        else if(COURSE_REPEAT_MODE.equals("EVERY 2 WEEKS")) add = 1209600000L;
+                        dateAndTime.setTimeInMillis(dateAndTime.getTimeInMillis() + add);
+                        setInitialDateTime();
+
+                        lessonName = course.getName() + ", " + currentDateTime.getText().toString() + ", " + duration.getText()+" hours";
+                        lesson.setName(lessonName);
+
+                        dat = dateAndTime.getTimeInMillis()/1000;
+                        lesson.setDate(dat);
+
+                        dbHelper.insertLessonSmart(lesson);
+                    }
+
+                    if(CURRENT_LESSON<LESSONS){
+                        Intent intent = new Intent(LessonDateActivity.this, LessonDateActivity.class);
+                        intent.putExtra("COURSE_ID", COURSE_ID);
+                        intent.putExtra("LESSONS", LESSONS);
+                        intent.putExtra("CURRENT_LESSON", CURRENT_LESSON);
+                        intent.putExtra("COURSE_REPEAT", COURSE_REPEAT);
+                        intent.putExtra("COURSE_REPEAT_MODE", COURSE_REPEAT_MODE);
+
+                        finish();
+                        startActivity(intent);
+                        CustomIntent.customType(LessonDateActivity.this,"left-to-right");
+                    }
+                    else {
+                        Intent intent = new Intent(LessonDateActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        CustomIntent.customType(LessonDateActivity.this,"left-to-right");
+                        finish();
+                    }
                 }
                 else {
                     Intent intent = new Intent(LessonDateActivity.this, MainActivity.class);
