@@ -70,8 +70,8 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     Button newCourse;
     Button ViewAllBt;
 
-    Covert.CornerFlag cornerFlag = new Covert.CornerFlag.Custom(R.dimen.triangle_cornerflag_width, R.drawable.triangle_background);
-    Covert.Config config = new Covert.Config(new Covert.Icon(R.drawable.ic_cancel_white_24dp, R.color.button_course, R.color.button_course), new Covert.Icon(R.drawable.ic_cancel_grey_24dp, R.color.button_course, R.color.button_course), R.color.button_course, R.color.button_course, true, cornerFlag);
+    Covert.Config config = new Covert.Config(R.drawable.ic_cancel_grey_24dp, R.color.white, R.color.ErrorText);
+    Covert.Builder covertBuilder;
     Covert covert;
 
     DBHelper dbHelper;
