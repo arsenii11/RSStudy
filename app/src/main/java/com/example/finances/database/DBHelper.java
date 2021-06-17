@@ -5,13 +5,16 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -707,4 +710,21 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return str;
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public ArrayList<String> getEventFromDaySortByTime(long datetime){
+        ArrayList<String> array = new ArrayList<String>();
+        ArrayList<Event> events = new ArrayList<Event>();
+        ArrayList<Lesson> lessons = getLessonsFromDaySortByTime(datetime);
+        ArrayList<Test> tests = getTestsFromDaySortByTime(datetime);
+
+        lessons.forEach(lesson -> events.add(new Event(lesson.getName(), lesson.getDate())));
+        tests.forEach(test -> events.add(new Event(test.getName(), test.getDate())));
+
+        events.sort(((o1, o2) -> Long.compare(o1.getDate(), o2.getDate())));
+
+        events.forEach(event -> array.add(event.getName()));
+        return array;
+    }
+
 }
