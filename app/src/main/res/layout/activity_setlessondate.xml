@@ -57,16 +57,18 @@
         app:layout_constraintStart_toStartOf="@+id/dateButton"
         app:layout_constraintTop_toBottomOf="@+id/dateButton" />
 
-    <EditText
-        android:id="@+id/editTextLessonDuration"
+    <Button
+        android:id="@+id/timeButton2"
         style="@style/LessonDateButton"
         android:layout_width="165dp"
-        android:gravity="center"
-        android:background="@drawable/buttonbackground_1"
+        android:layout_height="59dp"
         android:layout_marginTop="20dp"
-        android:textStyle="bold"
-        android:inputType="time"
-        android:text="duration"
+        android:background="@drawable/buttonbackground_1"
+        android:onClick="setEndTime"
+        android:text="select time"
+        android:textAllCaps="false"
+        app:cornerRadius="12dp"
+        app:iconPadding="0dp"
         app:layout_constraintStart_toStartOf="@+id/timeButton"
         app:layout_constraintTop_toBottomOf="@+id/timeButton" />
 
@@ -77,8 +79,18 @@
         android:layout_marginTop="56dp"
         android:background="@drawable/buttonbackground_1"
         android:gravity="center"
-        app:layout_constraintStart_toStartOf="@+id/editTextLessonDuration"
-        app:layout_constraintTop_toBottomOf="@+id/editTextLessonDuration" />
+        app:layout_constraintStart_toStartOf="@+id/timeButton2"
+        app:layout_constraintTop_toBottomOf="@+id/timeButton2" />
+
+    <TextView
+        android:id="@+id/endDateTime"
+        style="@style/LessonDateButton"
+        android:layout_width="270dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/buttonbackground_1"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="@+id/currentDateTime"
+        app:layout_constraintTop_toBottomOf="@+id/currentDateTime" />
 
     <Button
         android:id="@+id/buttonLessonNext"
@@ -96,7 +108,7 @@
         app:iconPadding="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextLessonDuration" />
+        app:layout_constraintTop_toBottomOf="@+id/timeButton2" />
 
     <TextView
         android:id="@+id/textView8"
