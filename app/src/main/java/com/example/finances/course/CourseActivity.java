@@ -12,12 +12,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.finances.MainActivity;
 import com.example.finances.R;
 
+import java.util.ArrayList;
+
 import maes.tech.intentanim.CustomIntent;
 
 
 public class CourseActivity extends AppCompatActivity {
 
     private int COURSE_ID;
+
+    ArrayList<NewEvent> newEvents = new ArrayList<NewEvent>();
+
     /*
     public void addCalendarEvent() {
 

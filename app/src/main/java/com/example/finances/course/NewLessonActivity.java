@@ -45,6 +45,9 @@ public class NewLessonActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_lesson);
+
+        final String[] LessonInfo = new String[]{"Select time","Select date"};
+
         COURSE_ID = getIntent().getIntExtra("COURSE_ID", -1);
         currentDateTime=(TextView)findViewById(R.id.currentDateTime);
         duration = (EditText) findViewById(R.id.editTextLessonDuration);

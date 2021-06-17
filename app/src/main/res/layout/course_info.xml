@@ -13,6 +13,22 @@
         layout="@layout/toolbar">
     </include>
 
+    <LinearLayout
+        android:id="@+id/LinerAcc"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar1">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/NewEventList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    </LinearLayout>
+
     <ImageButton
         android:id="@+id/ButtonNewLesson"
         android:layout_width="100dp"

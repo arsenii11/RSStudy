@@ -44,8 +44,7 @@ public class CourseLength extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 cn = String.valueOf(position);
-                Toast toast = Toast.makeText(getApplicationContext(), cn, Toast.LENGTH_SHORT);
-                toast.show();
+
             }
 
             @Override

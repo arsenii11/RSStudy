@@ -45,7 +45,7 @@ public class CourseListActivity extends AppCompatActivity {
             case "OPEN_COURSE": mode = CourseAdapter.AdapterMode.OpenCourse; break;
             default: mode = CourseAdapter.AdapterMode.OpenCourse; break;
         }
-
+        //свайаы блин
         covert = Covert.with(config).setIsActiveCallback(viewHolder -> false).doOnSwipe((viewHolder, swipeDirection) -> {
             TextView textView = viewHolder.itemView.findViewById(R.id.CourseID);
             int id = Integer.parseInt(textView.getText().toString());
@@ -59,6 +59,7 @@ public class CourseListActivity extends AppCompatActivity {
         courseAdapter = new CourseAdapter(this, courses, mode, true, covert);
         CoursesList.setAdapter(courseAdapter);
 
+        //а это тулбар и фокусы с ним
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbarCourseList);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);

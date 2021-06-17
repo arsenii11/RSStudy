@@ -124,6 +124,19 @@
         android:backgroundTint="@color/ListBackGround">
 
 
+        <TextView
+            android:id="@+id/name3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="56dp"
+            android:layout_marginTop="28dp"
+            android:gravity="center"
+            android:text="My awards"
+            android:textColor="@color/Widget2text"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -149,7 +162,8 @@
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/ListContainer"
-            app:layout_constraintStart_toStartOf="@+id/ListContainer" />
+            app:layout_constraintStart_toStartOf="@+id/ListContainer"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ListContainer"

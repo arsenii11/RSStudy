@@ -303,7 +303,6 @@
             android:layout_centerVertical="true"
             android:fontFamily="@font/nokora_bold"
             android:gravity="center"
-            android:text="Работа кипит"
             android:textSize="30dp"/>
 
     </RelativeLayout>
