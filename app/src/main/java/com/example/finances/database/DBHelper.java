@@ -51,6 +51,7 @@ public class DBHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME,null, DATABASE_VERSION);
     }
 
+    //Создание БД
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(" create table " + TABLE_COURSES +"(" + KEY_COURSE_ID + " integer primary key, " + KEY_COURSE_NAME +" text, " + KEY_COURSE_START_DATE+ " integer, " + KEY_COURSE_END_DATE + " integer, " + KEY_COURSE_FINISHED + " integer, " + KEY_COURSE_LESSONS + " integer, " + KEY_COURSE_COMPLETED_LESSONS + " integer " + ")");
@@ -58,6 +59,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(" create table " + TABLE_TESTS + "(" + KEY_TEST_ID + " integer primary key, " + KEY_TEST_NAME +" text, " + KEY_TEST_COURSE_ID + " integer, " + KEY_TEST_DATE + " text, " + KEY_TEST_WEIGHT + " integer " + ")");
     }
 
+    //Обновление версии БД
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table if exists "+ TABLE_COURSES);
@@ -66,13 +68,14 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    //Очистить БД
     public void clear(){
         SQLiteDatabase db = this.getWritableDatabase();
         onUpgrade(db, DATABASE_VERSION, DATABASE_VERSION+1);
     }
 
     //COURSE
-
+    //Добавить курс
     public boolean insertCourse(Course course){
         boolean status = true;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -90,6 +93,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return status;
     }
 
+    //Обновить существующий курс
     public boolean updateCourse(Course oldCourse, Course newCourse){
         boolean status = true;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -107,6 +111,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return status;
     }
 
+    //Обновить существующий курс
     public boolean updateCourse(int oldCourseId, Course newCourse){
         boolean status = true;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -124,6 +129,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return status;
     }
 
+    //Удалить курс
     public boolean deleteCourse(Course course){
         boolean status = true;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -142,6 +148,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return status;
     }
 
+    //Удалить курс
     public boolean deleteCourse(int courseId){
         boolean status = true;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -160,6 +167,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return status;
     }
 
+    //Получить все курсы из БД
     public ArrayList<Course> getAllCourses(){
         ArrayList<Course> arrayList = new ArrayList<Course>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -187,6 +195,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return arrayList;
     }
 
+    //Получить курс по ID
     public Course getCourse(int courseId){
         Course course = new Course();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -204,6 +213,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return  course;
     }
 
+    //Найти курс
     public Course findCourse(Course course){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from "+TABLE_COURSES+" where "+KEY_COURSE_NAME+"='"+course.getName()+"' and "+KEY_COURSE_LESSONS+"="+course.getLessons(), null);
@@ -223,7 +233,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     //LESSON
-
+    //Добавить урок
     public boolean insertLesson(Lesson lesson){
         boolean status = true;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -240,6 +250,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return status;
     }
 
+    //Умное добавление урока (изменяется дата начала родительского курса)
     public boolean insertLessonSmart(Lesson lesson){
         boolean status = true;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -261,6 +272,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return status;
     }
 
+    //Обновить существующий урок
     public boolean updateLesson(Lesson oldLesson, Lesson newLesson){
         boolean status = true;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -277,6 +289,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return status;
     }
 
+    //Обновить существующий урок
     public boolean updateLesson(int oldLessonId, Lesson newLesson){
         boolean status = true;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -293,6 +306,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return status;
     }
 
+    //удалить урок
     public boolean deleteLesson(Lesson lesson){
         boolean status = true;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -303,6 +317,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return status;
     }
 
+    //Удалить урок
     public boolean deleteLesson(int lessonId){
         boolean status = true;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -313,6 +328,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return status;
     }
 
+    //Получить все уроки из БД
     public ArrayList<Lesson> getAllLessons(){
         ArrayList<Lesson> arrayList = new ArrayList<Lesson>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -338,6 +354,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return arrayList;
     }
 
+    //Получить все уроки из БД с одинаковым родительским курсом
     public ArrayList<Lesson> getAllLessons(Course course){
         ArrayList<Lesson> arrayList = new ArrayList<Lesson>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -364,6 +381,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return arrayList;
     }
 
+    //Получить все уроки из БД с одинаковым родительским курсом
     public ArrayList<Lesson> getAllLessons(int courseId){
         ArrayList<Lesson> arrayList = new ArrayList<Lesson>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -390,6 +408,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return arrayList;
     }
 
+    //Получить все курсы за сегодняшний дней, отсортированные по времени
     public ArrayList<Lesson> getLessonsTodaySortByTime(){
         ArrayList<Lesson> arrayList = new ArrayList<Lesson>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -421,6 +440,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return arrayList;
     }
 
+    //Получить все уроки за определенный день, отсортированные по времени
     public ArrayList<Lesson> getLessonsFromDaySortByTime(long datetime){
         ArrayList<Lesson> arrayList = new ArrayList<Lesson>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -453,6 +473,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return arrayList;
     }
 
+    //Получить все уроки за сегодняшний день, отсортированные по весу
     public Lesson getLessonTodaySortByWeight(){
         Lesson lesson = new Lesson();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -474,6 +495,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return lesson;
     }
 
+    //Получить ближайший к текущему времени урок
     public Lesson getLessonFromNowSortByTime(){
         Lesson lesson = new Lesson();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -494,26 +516,43 @@ public class DBHelper extends SQLiteOpenHelper {
         return lesson;
     }
 
-
+    //Получить урок по ID
     public Lesson getLesson(int lessonId){
         Lesson lesson = new Lesson();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from "+TABLE_LESSONS+" where "+KEY_LESSON_ID+" = "+lessonId, null);
-        cursor.moveToFirst();
 
-        lesson.setId(lessonId);
-        lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
-        lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
-        lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
-        lesson.setDuration(cursor.getFloat(cursor.getColumnIndex(KEY_LESSON_DURATION)));
-        lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
-
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            lesson.setId(lessonId);
+            lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
+            lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
+            lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
+            lesson.setDuration(cursor.getFloat(cursor.getColumnIndex(KEY_LESSON_DURATION)));
+            lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
+        }
         return lesson;
+    }
+
+    //Получить длительность уроков за промежуток времени
+    public float getLessonDurationInTime(long startDate, long endDate){
+        float sum = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        startDate /= 1000;
+        endDate /= 1000;
+        Cursor cursor = db.rawQuery("select SUM("+KEY_LESSON_DURATION+") from " + TABLE_LESSONS + " where " + KEY_LESSON_DATE + " between " + startDate + " and " + endDate, null);
+
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            sum = cursor.getFloat(0);
+        }
+
+        return sum;
     }
 
 
     //TEST
-
+    //Добавить тест
     public boolean insertTest(Test test){
         boolean status = true;
 
@@ -530,6 +569,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return status;
     }
 
+    //Обновить существующий тест
     public boolean updateTest(Test oldTest, Test test){
         boolean status = true;
 
@@ -546,6 +586,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return status;
     }
 
+    //Обновить существующий тест
     public boolean updateTest(int testId, Test test){
         boolean status = true;
 
@@ -562,6 +603,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return status;
     }
 
+    //Удалить тест
     public boolean deleteTest(Test test){
         boolean status = true;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -572,6 +614,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return status;
     }
 
+    //Удалить тест
     public boolean deleteTest(int testId){
         boolean status = true;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -582,6 +625,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return status;
     }
 
+    //Получить все тесты
     public ArrayList<Test> getAllTests(){
         ArrayList<Test> arrayList = new ArrayList<Test>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -607,6 +651,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return arrayList;
     }
 
+    //Получить все тесты с одинаковым родительским курсом
     public ArrayList<Test> getAllTests(int courseId){
         ArrayList<Test> arrayList = new ArrayList<Test>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -631,6 +676,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return arrayList;
     }
 
+    //Получить все тесты за определенный день, отсортированные по времени
     public ArrayList<Test> getTestsFromDaySortByTime(long datetime){
         ArrayList<Test> arrayList = new ArrayList<Test>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -662,6 +708,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    //Получить ближаший к текущему времени тест
     public Test getTestFromNowSortByTime(){
         Test test = new Test();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -691,6 +738,7 @@ public class DBHelper extends SQLiteOpenHelper {
         else return lesson;
     }
 
+    //Получить название ближайшего к текущему времени события (урока или теста)
     public String getEventFromNowSortByTimeStr(){
         String str = null;
         Calendar calendar = Calendar.getInstance();
@@ -711,6 +759,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return str;
     }
 
+    //Получить названия всех событий (уроков или тестов) за определенный день, отсортированных по времени
     @RequiresApi(api = Build.VERSION_CODES.N)
     public ArrayList<String> getEventFromDaySortByTime(long datetime){
         ArrayList<String> array = new ArrayList<String>();
@@ -726,5 +775,7 @@ public class DBHelper extends SQLiteOpenHelper {
         events.forEach(event -> array.add(event.getName()));
         return array;
     }
+
+
 
 }

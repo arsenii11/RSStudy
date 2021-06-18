@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -16,6 +17,7 @@ import com.example.finances.R;
 import com.example.finances.database.DBHelper;
 import com.example.finances.database.Lesson;
 import com.example.finances.database.Test;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -52,6 +54,7 @@ public class CalendarFragment extends Fragment {
                 LessonsList.setAdapter(mainAdaptor);
             }
         });
+
 
         return view;
     }
