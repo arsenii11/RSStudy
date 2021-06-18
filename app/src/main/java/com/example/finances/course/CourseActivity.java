@@ -8,9 +8,11 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finances.MainActivity;
 import com.example.finances.R;
+import com.example.finances.toolbar.SettingsActivity;
 
 import java.util.ArrayList;
 
@@ -23,40 +25,26 @@ public class CourseActivity extends AppCompatActivity {
 
     ArrayList<NewEvent> newEvents = new ArrayList<NewEvent>();
 
-    /*
-    public void addCalendarEvent() {
-
-        long calID = 1;
-        DBHelper dbHelper = new DBHelper(getApplicationContext());
-        ArrayList<Lesson> lessons = dbHelper.getAllLessons();
-        for (Lesson lesson: lessons) {
-            try {
 
 
-            ContentResolver cr = getContentResolver();
-            ContentValues values = new ContentValues();
-            values.put(CalendarContract.Events.DTSTART, lesson.getDate());
-            values.put(CalendarContract.Events.DTEND, lesson.getDate()+lesson.getDuration()*60*60*1000);
-            values.put(CalendarContract.Events.TITLE, lesson.getName());
-            values.put(CalendarContract.Events.DESCRIPTION, "RS:STUDIO");
-            values.put(CalendarContract.Events.CALENDAR_ID, calID);
-            values.put(CalendarContract.Events.EVENT_TIMEZONE, "Russia/Moscow");
-            Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);}
-            catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.course_info);
-        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar1);
+
+        //Верхний тулбар
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        setInitialData();
+        RecyclerView recyclerView = findViewById(R.id.NewEventList);
+        NewEventAdapter adapter = new NewEventAdapter(this, newEvents);
+        recyclerView.setAdapter(adapter);
+
 
         ImageButton newLessonBut = findViewById(R.id.ButtonNewLesson);
         ImageButton newTestBut = findViewById(R.id.ButtonNewTest);
@@ -87,9 +75,15 @@ public class CourseActivity extends AppCompatActivity {
         //addCalendarEvent();
     }
 
+    private void setInitialData(){
+        newEvents.add(new NewEvent ("lesson"));
+        newEvents.add(new NewEvent ("test"));
+    }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        menu.getItem(0).setVisible(false);
         return true;
     }
 
@@ -97,6 +91,18 @@ public class CourseActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+
+        if (id == R.id.item4) {
+            try {
+                Intent intent = new Intent(CourseActivity.this, SettingsActivity.class);
+                startActivity(intent);
+                CustomIntent.customType(this,"fadein-to-fadeout");
+
+
+            } catch (Exception E) {
+
+            }
+        }
         if (id == android.R.id.home) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

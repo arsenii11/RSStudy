@@ -22,14 +22,20 @@ public class NewEventAdapter extends RecyclerView.Adapter<NewEventAdapter.ViewHo
     }
     public NewEventAdapter.ViewHolder  onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = inflater.inflate(R.layout.list_item, parent, false);
+        View view = inflater.inflate(R.layout.plus_list_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(NewEventAdapter.ViewHolder holder, int position) {
         NewEvent newevent = NewEventStates.get(position);
-        holder.nameView.setText(newevent.getNewEventname());
+        holder.newEventName.setText(newevent.getNewEventname());
+        holder.itemView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 
@@ -39,10 +45,10 @@ public class NewEventAdapter extends RecyclerView.Adapter<NewEventAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView nameView;
+        final TextView newEventName;
         ViewHolder(View view){
             super(view);
-            nameView = (TextView) view.findViewById(R.id.CourseName);
+            newEventName = (TextView) view.findViewById(R.id.CourseName);
 
         }
     }

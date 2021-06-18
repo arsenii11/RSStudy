@@ -9,25 +9,29 @@
 
 
     <include
-        android:id="@+id/toolbar1"
+        android:id="@+id/toolbar3"
         layout="@layout/toolbar">
     </include>
 
-    <LinearLayout
-        android:id="@+id/LinerAcc"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar1">
+    <TextView
+        android:id="@+id/LableNewEvent"
+        style="@style/TextView.Primary.Header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="New event"
+        android:textSize="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/NewEventList"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar3"
+        app:layout_constraintVertical_bias="0.611" />
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/NewEventList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-    </LinearLayout>
+    <View
+        style="@style/Divider"
+        app:layout_constraintBottom_toTopOf="@+id/NewEventList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LableNewEvent" />
 
     <ImageButton
         android:id="@+id/ButtonNewLesson"
@@ -38,7 +42,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar1"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar3"
         app:layout_constraintVertical_bias="0.45"
         app:srcCompat="@drawable/outline_add_24" />
 
@@ -51,9 +55,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar1"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar3"
         app:layout_constraintVertical_bias="0.624"
         app:srcCompat="@drawable/outline_add_24" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/NewEventList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar3"
+        tools:layout_editor_absoluteX="0dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

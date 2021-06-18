@@ -28,7 +28,7 @@
           android:layout_centerVertical="true"
           android:fontFamily="@font/nokora_regular"
           android:gravity="center"
-          android:text="Math test at 3:00 tomorrow"
+          android:text="No events planned"
           android:textSize="30dp"/>
 
     </RelativeLayout>
