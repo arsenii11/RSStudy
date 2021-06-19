@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finances.MainActivity;
@@ -61,19 +62,10 @@ public class CourseActivity extends AppCompatActivity {
         NewEventAdapter adapter = new NewEventAdapter(this, newEvents, COURSE_ID);
         recyclerView.setAdapter(adapter);
 
-
-
         RecyclerView allLessonsList = findViewById(R.id.allEventsList);
+        allLessonsList.setLayoutManager(new LinearLayoutManager(this));
         MainAdaptor mainAdaptor = new MainAdaptor(this, arrayAllList);
         allLessonsList.setAdapter(mainAdaptor);
-
-
-
-
-
-
-
-
 
         //createCalendar();
     }
