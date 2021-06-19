@@ -767,8 +767,8 @@ public class DBHelper extends SQLiteOpenHelper {
         ArrayList<Lesson> lessons = getLessonsFromDaySortByTime(datetime);
         ArrayList<Test> tests = getTestsFromDaySortByTime(datetime);
 
-        lessons.forEach(lesson -> events.add(new Event(lesson.getName(), lesson.getDate())));
-        tests.forEach(test -> events.add(new Event(test.getName(), test.getDate())));
+        lessons.forEach(lesson -> events.add(new Event(lesson.getId(), lesson.getName(), lesson.getCourseId(), lesson.getDate(), Event.EventType.Lesson)));
+        tests.forEach(test -> events.add(new Event(test.getId(), test.getName(), test.getCourseId(), test.getDate(), Event.EventType.Test)));
 
         events.sort(((o1, o2) -> Long.compare(o1.getDate(), o2.getDate())));
 
