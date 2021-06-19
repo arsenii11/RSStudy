@@ -250,23 +250,23 @@
 
             <TextView
                 android:id="@+id/thisweek"
-                android:layout_width="75dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="14dp"
+                android:layout_marginEnd="32dp"
                 android:fontFamily="@font/nokora_bold"
-                android:text="Hours"
+                android:text="Hr"
                 android:textColor="@color/Widget2text"
                 android:textSize="22dp"
-                app:layout_constraintBottom_toTopOf="@+id/textView2"
-                app:layout_constraintStart_toEndOf="@+id/hoursnumber"
+                app:layout_constraintBottom_toBottomOf="@+id/hoursnumber"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/hoursnumber" />
-
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="60dp"
                 android:fontFamily="@font/nokora_bold"
                 android:text="this week"
                 android:textColor="@color/Widget2text"
