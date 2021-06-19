@@ -24,7 +24,7 @@ public class MainAdaptor extends RecyclerView.Adapter<MainAdaptor.ViewHolder> {
     private final ArrayList<String> array;
 
 
-    MainAdaptor(Context context, ArrayList<String> array)  {
+    public MainAdaptor(Context context, ArrayList<String> array)  {
         this.inflater = LayoutInflater.from(context);
         this.array = array;
     }

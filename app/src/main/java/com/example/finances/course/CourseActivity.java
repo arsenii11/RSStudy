@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.view.Menu;
@@ -18,7 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finances.MainActivity;
 import com.example.finances.R;
+import com.example.finances.database.DBHelper;
 import com.example.finances.toolbar.SettingsActivity;
+import com.example.finances.ui.Calendar.MainAdaptor;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -61,7 +64,8 @@ public class CourseActivity extends AppCompatActivity {
 
 
         RecyclerView allLessonsList = findViewById(R.id.allEventsList);
-
+        MainAdaptor mainAdaptor = new MainAdaptor(this, arrayAllList);
+        allLessonsList.setAdapter(mainAdaptor);
 
 
 
@@ -77,6 +81,12 @@ public class CourseActivity extends AppCompatActivity {
     private void setInitialData(){
         newEvents.add(new NewEvent ("lesson"));
         newEvents.add(new NewEvent ("test"));
+
+        DBHelper dbHelper = new DBHelper(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            arrayAllList = dbHelper.getAllEvents(COURSE_ID);
+        }
+
     }
 
     public void intentNewLessonActivity(){
