@@ -34,6 +34,8 @@ public class CalendarFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
 
         Calendar calendar = Calendar.getInstance();
+
+        //Список курсов и уроков
         setInitialData(calendar.getTimeInMillis());
         RecyclerView LessonsList = (RecyclerView) view.findViewById(R.id.Lessonlist_calendar);
         Context context = getContext();

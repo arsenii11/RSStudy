@@ -1,6 +1,7 @@
 package com.example.finances.course;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +13,17 @@ import com.example.finances.R;
 
 import java.util.List;
 
+import maes.tech.intentanim.CustomIntent;
+
 public class NewEventAdapter extends RecyclerView.Adapter<NewEventAdapter.ViewHolder> {
     private final LayoutInflater inflater;
     private final List<NewEvent> NewEventStates;
+    private int COURSE_ID;
 
-    NewEventAdapter(Context context,List<NewEvent> NewEventStates){
+    NewEventAdapter(Context context,List<NewEvent> NewEventStates, int COURSE_ID){
         this.NewEventStates = NewEventStates;
         this.inflater = LayoutInflater.from(context);
+        this.COURSE_ID = COURSE_ID;
     }
     public NewEventAdapter.ViewHolder  onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -33,6 +38,18 @@ public class NewEventAdapter extends RecyclerView.Adapter<NewEventAdapter.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+              if(holder.newEventName.getText().toString().equals("lesson")){
+                  Intent intent = new Intent(v.getContext(), NewLessonActivity.class);
+                  intent.putExtra("COURSE_ID", COURSE_ID);
+                  v.getContext().startActivity(intent);
+                  CustomIntent.customType(v.getContext(),"left-to-right");
+              }
+              else{
+                  Intent intent = new Intent(v.getContext(), NewTestActivity.class);
+                  intent.putExtra("COURSE_ID", COURSE_ID);
+                  v.getContext().startActivity(intent);
+                  CustomIntent.customType(v.getContext(),"left-to-right");
+              }
 
             }
         });

@@ -32,6 +32,7 @@ public class CourseActivity extends AppCompatActivity {
     private int COURSE_ID;
 
     ArrayList<NewEvent> newEvents = new ArrayList<NewEvent>();
+    ArrayList<String> arrayAllList = new ArrayList<String>();
 
 
 
@@ -48,37 +49,27 @@ public class CourseActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        COURSE_ID = getIntent().getIntExtra("COURSE_ID", -1);
+
+
+
         setInitialData();
         RecyclerView recyclerView = findViewById(R.id.NewEventList);
-        NewEventAdapter adapter = new NewEventAdapter(this, newEvents);
+        NewEventAdapter adapter = new NewEventAdapter(this, newEvents, COURSE_ID);
         recyclerView.setAdapter(adapter);
 
 
-        ImageButton newLessonBut = findViewById(R.id.ButtonNewLesson);
-        ImageButton newTestBut = findViewById(R.id.ButtonNewTest);
 
-        COURSE_ID = getIntent().getIntExtra("COURSE_ID", -1);
-        newLessonBut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CourseActivity.this, NewLessonActivity.class);
-                intent.putExtra("COURSE_ID", COURSE_ID);
-                startActivity(intent);
-                CustomIntent.customType(CourseActivity.this,"left-to-right");
-                finish();
-            }
-        });
+        RecyclerView allLessonsList = findViewById(R.id.allEventsList);
 
-        newTestBut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CourseActivity.this, NewTestActivity.class);
-                intent.putExtra("COURSE_ID", COURSE_ID);
-                startActivity(intent);
-                CustomIntent.customType(CourseActivity.this,"left-to-right");
-                finish();
-            }
-        });
+
+
+
+
+
+
+
+
 
         //createCalendar();
     }
@@ -86,6 +77,22 @@ public class CourseActivity extends AppCompatActivity {
     private void setInitialData(){
         newEvents.add(new NewEvent ("lesson"));
         newEvents.add(new NewEvent ("test"));
+    }
+
+    public void intentNewLessonActivity(){
+        Intent intent = new Intent(CourseActivity.this, NewLessonActivity.class);
+        intent.putExtra("COURSE_ID", COURSE_ID);
+        startActivity(intent);
+        CustomIntent.customType(CourseActivity.this,"left-to-right");
+        finish();
+    }
+
+    public void intentNewTestActivity() {
+        Intent intent = new Intent(CourseActivity.this, NewTestActivity.class);
+        intent.putExtra("COURSE_ID", COURSE_ID);
+        startActivity(intent);
+        CustomIntent.customType(CourseActivity.this,"left-to-right");
+        finish();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
