@@ -776,6 +776,20 @@ public class DBHelper extends SQLiteOpenHelper {
         return array;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public ArrayList<String> getAllEvents(int courseId){
+        ArrayList<String> array = new ArrayList<String>();
+        ArrayList<Event> events = new ArrayList<Event>();
+        ArrayList<Lesson> lessons = getAllLessons(courseId);
+        ArrayList<Test> tests = getAllTests(courseId);
 
+        lessons.forEach(lesson -> events.add(new Event(lesson.getId(), lesson.getName(), lesson.getCourseId(), lesson.getDate(), Event.EventType.Lesson)));
+        tests.forEach(test -> events.add(new Event(test.getId(), test.getName(), test.getCourseId(), test.getDate(), Event.EventType.Test)));
+
+        events.sort(((o1, o2) -> Long.compare(o1.getDate(), o2.getDate())));
+
+        events.forEach(event -> array.add(event.getName()));
+        return array;
+    }
 
 }
