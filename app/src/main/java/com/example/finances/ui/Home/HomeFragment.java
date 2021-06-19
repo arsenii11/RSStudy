@@ -39,14 +39,24 @@ public class HomeFragment extends Fragment  {
     TextView dayofweek;
     TextView currenttime;
     TextView nextEvent;
+    TextView numberHours;
 
     @SuppressLint("ResourceType")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+
+        calendar = Calendar.getInstance();
+
+
+
+        numberHours = view.findViewById(R.id.hoursnumber);
+
         //widget add something
         plusCourse = view.findViewById(R.id.buttonpluscourse);
+        setInitialdata();
+
         plusCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,6 +158,13 @@ public class HomeFragment extends Fragment  {
 
 
         return view;
+    }
+
+
+    private void setInitialdata(){
+        DBHelper dbHelper = new DBHelper(this.getContext());
+        int duration = (int) dbHelper.getLessonDurationInTime(calendar.getTimeInMillis()-604800000, calendar.getTimeInMillis());
+        numberHours.setText(String.valueOf(duration));
     }
 
     private String setCurrentTime() {
