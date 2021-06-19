@@ -37,7 +37,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.ViewHolder
         Lesson lesson = lessons.get(position);
         holder.nameView.setText(lesson.getName());
 
-        holder.nameView.setOnClickListener (new View.OnClickListener() {
+        holder.itemView.setOnClickListener (new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), CourseActivity.class);

@@ -100,12 +100,12 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
             int id = Integer.parseInt(textView.getText().toString());
             dbHelper.deleteCourse(id);
             setInitialData();
-            courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, true, covert);
+            courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, false, covert);
             CoursesList.setAdapter(courseAdapter);
             return null;
         }).attachTo(CoursesList);
 
-        courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, true, covert);
+        courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, false, covert);
         // LessonAdapter lessonAdapter = new LessonAdapter(context, lessons);
         // устанавливаем для списка адаптер
         CoursesList.setAdapter(courseAdapter);
