@@ -40,6 +40,7 @@ public class HomeFragment extends Fragment  {
     TextView currenttime;
     TextView nextEvent;
     TextView numberHours;
+    TextView hr7days;
 
     @SuppressLint("ResourceType")
     @Override
@@ -49,8 +50,8 @@ public class HomeFragment extends Fragment  {
 
         calendar = Calendar.getInstance();
 
-
-
+        //переменные для виджета количества часов за 7 дней
+        hr7days = view.findViewById(R.id.hoursthisweekText);
         numberHours = view.findViewById(R.id.hoursnumber);
 
         //widget add something
@@ -165,6 +166,9 @@ public class HomeFragment extends Fragment  {
         DBHelper dbHelper = new DBHelper(this.getContext());
         int duration = (int) dbHelper.getLessonDurationInTime(calendar.getTimeInMillis()-604800000, calendar.getTimeInMillis());
         numberHours.setText(String.valueOf(duration));
+        if(duration==1){
+        hr7days.setText("hour last\n 7 days");}
+        else{hr7days.setText("hours last\n 7 days");}
     }
 
     private String setCurrentTime() {

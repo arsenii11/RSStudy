@@ -33,7 +33,7 @@
 
     </RelativeLayout>
 
-//первая линия
+<!--первая линия -->
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="200dp"
@@ -179,23 +179,23 @@
                   style="@style/TextView.Primary.Bold"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="12:00"
-                  android:textSize="35dp"
                   android:fontFamily="@font/nokora_bold"
+                  android:text="12:00"
                   android:textColor="@color/Widget2text"
+                  android:textSize="35dp"
                   app:layout_constraintBottom_toBottomOf="parent"
                   app:layout_constraintEnd_toEndOf="parent"
                   app:layout_constraintStart_toStartOf="parent"
                   app:layout_constraintTop_toTopOf="parent"
-                  app:layout_constraintVertical_bias="0.396" />
+                  app:layout_constraintVertical_bias="0.473" />
 
               <TextView
                   android:id="@+id/dayofweek"
                   style="@style/TextView.Primary.Bold"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:fontFamily="@font/nokora_bold"
                   android:layout_marginTop="-10dp"
+                  android:fontFamily="@font/nokora_bold"
                   android:text="WED"
                   android:textColor="@color/Widget2text"
                   android:textSize="20dp"
@@ -203,7 +203,7 @@
                   app:layout_constraintEnd_toEndOf="parent"
                   app:layout_constraintStart_toStartOf="parent"
                   app:layout_constraintTop_toTopOf="parent"
-                  app:layout_constraintVertical_bias="0.706" />
+                  app:layout_constraintVertical_bias="0.756" />
           </androidx.constraintlayout.widget.ConstraintLayout>
       </com.example.finances.helpclasses.SquaredConstraintLayout>
     </LinearLayout>
@@ -223,71 +223,45 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_weight="0.5">
-        <androidx.constraintlayout.widget.ConstraintLayout
-            style="@style/BlockHome"
-            android:backgroundTint="@color/Widget1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+
+          <androidx.constraintlayout.widget.ConstraintLayout
+              style="@style/BlockHome"
+              android:backgroundTint="@color/Widget2"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent">
 
 
+              <TextView
+                  android:id="@+id/hoursthisweekText"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="72dp"
+                  android:fontFamily="@font/nokora_bold"
+                  android:gravity="center"
+                  android:text="hours last\n 7 days"
+                  android:textColor="@color/white"
+                  android:textSize="17dp"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/nokora_bold"
-                android:text="You spent:"
-                android:textColor="@color/Widget2text"
-                android:textSize="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.45"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+              <TextView
+                  android:id="@+id/hoursnumber"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:fontFamily="@font/nokora_bold"
+                  android:text="-"
+                  android:textColor="@color/hole"
+                  android:textSize="45dp"
+                  app:layout_constraintBottom_toBottomOf="parent"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintTop_toTopOf="parent"
+                  app:layout_constraintVertical_bias="0.315" />
 
-
-            <TextView
-                android:id="@+id/thisweek"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
-                android:fontFamily="@font/nokora_bold"
-                android:text="Hr"
-                android:textColor="@color/Widget2text"
-                android:textSize="22dp"
-                app:layout_constraintBottom_toBottomOf="@+id/hoursnumber"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/hoursnumber" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="60dp"
-                android:fontFamily="@font/nokora_bold"
-                android:text="this week"
-                android:textColor="@color/Widget2text"
-                android:textSize="15dp"
-                app:layout_constraintStart_toStartOf="@+id/hoursnumber"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-            <TextView
-                android:id="@+id/hoursnumber"
-                android:layout_width="wrap_content"
-                android:layout_height="63dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/nokora_bold"
-                android:text="-"
-                android:textColor="@color/hole"
-                android:textSize="55dp"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+          </androidx.constraintlayout.widget.ConstraintLayout>
 
 
       </com.example.finances.helpclasses.SquaredConstraintLayout>
