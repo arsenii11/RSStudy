@@ -28,6 +28,7 @@ import com.example.finances.database.DBHelper;
 import com.example.finances.database.Lesson;
 
 import java.util.Calendar;
+import java.util.TimeZone;
 
 import maes.tech.intentanim.CustomIntent;
 import ru.tinkoff.decoro.MaskImpl;
@@ -111,7 +112,7 @@ public class LessonDateActivity extends AppCompatActivity {
 
                 //Запускаем умное добавление урока в БД
                 if(dbHelper.insertLessonSmart(lesson)){
-
+                    addCalendarEvent(lessonName, dateAndTime.getTimeInMillis(), timeEnd.getTimeInMillis());
                     CURRENT_LESSON++; //Увеличиваем счетчик установленных уроков
 
                     if(COURSE_REPEAT.equals("YES")) {
@@ -134,6 +135,7 @@ public class LessonDateActivity extends AppCompatActivity {
                         lesson.setDate(dat); //Устанавливаем дату начала перенесенного урока
 
                         dbHelper.insertLessonSmart(lesson); //Запускаем умное добавление перенесенного урока
+                        addCalendarEvent(lessonName, dateAndTime.getTimeInMillis(), timeEnd.getTimeInMillis());
                     }
 
                     //Проверяем, нужно ли предложить создать еще один урок
@@ -245,13 +247,10 @@ public class LessonDateActivity extends AppCompatActivity {
         }
     };
 
-    //Добавление урока в календарь
-    public void addCalendarEvent(long startDate, long endDate){
+    //Добавление урока в системный календарь
+    public void addCalendarEvent(String name,long startDate, long endDate){
         Uri calendars = Uri.parse("content://com.android.calendar/calendars"); //Адрес существующих календарей
         Uri events = Uri.parse("content://com.android.calendar/events"); //Адрес событий в календарях
-
-        //Deprecated
-        //Cursor cursor = this.managedQuery(calendars, new String[] { "_id", "name" }, null, null, null);
 
         //Создаем намерение запроса в БД системного календаря
         CursorLoader cursorLoader = new CursorLoader(this,
@@ -265,7 +264,7 @@ public class LessonDateActivity extends AppCompatActivity {
         int calendarID = 0; //ID календаря
 
         //Проверяем не пустой ли ответ БД и ставим указатель в начало
-        if (cursor != null && cursor.moveToFirst())
+        if (cursor.getCount() > 0 && cursor.moveToFirst())
         {
             //проходим по ответу БД и ищем ID последнего календаря
             while (!cursor.isAfterLast()) {
@@ -275,15 +274,14 @@ public class LessonDateActivity extends AppCompatActivity {
             cursor.close(); //Закрываем запрос
         }
 
-        ContentValues event = new ContentValues();
-        ContentResolver CR = getContentResolver();
-        ContentValues calEvent  = new ContentValues();
-        calEvent.put(CalendarContract.Events.CALENDAR_ID, calendarID);
-        calEvent.put(CalendarContract.Events.TITLE, "Demo Data");
-        calEvent.put(CalendarContract.Events.DTSTART,startDate);
-        calEvent.put(CalendarContract.Events.DTEND, endDate);
-        calEvent.put(CalendarContract.Events.EVENT_TIMEZONE, "Indian/Christmas");
-        Uri uri = CR.insert(Uri.parse("content://com.android.calendar/events"), calEvent);
-        int id = Integer.parseInt(uri.getLastPathSegment());
+        ContentResolver contentResolver = getContentResolver(); //Создаем отправителя запроса
+        ContentValues calendarEvent = new ContentValues(); //Создаем массив для отправляемых данных
+        calendarEvent.put(CalendarContract.Events.CALENDAR_ID, calendarID); //ID календаря
+        calendarEvent.put(CalendarContract.Events.TITLE, name); //Название события
+        calendarEvent.put(CalendarContract.Events.DTSTART,startDate); //Дата начала события
+        calendarEvent.put(CalendarContract.Events.DTEND, endDate); //Дата окончания
+        calendarEvent.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().getDisplayName()); //Временная зона (без неё не отправляется запрос)
+        Uri uri = contentResolver.insert(events, calendarEvent); //Отправялем запрос
+        //int id = Integer.parseInt(uri.getLastPathSegment()); //Получаем ID установленного события
     }
 }

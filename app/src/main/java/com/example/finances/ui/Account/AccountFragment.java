@@ -95,21 +95,20 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         RecyclerView CoursesList = (RecyclerView) view.findViewById(R.id.list);
         // RecyclerView LessonsList = (RecyclerView) view.findViewById(R.id.Lessonlist);
 
-        covert = Covert.with(config).setIsActiveCallback(viewHolder -> false).doOnSwipe((viewHolder, swipeDirection) -> {
+        /*covert = Covert.with(config).setIsActiveCallback(viewHolder -> false).doOnSwipe((viewHolder, swipeDirection) -> {
             TextView textView = viewHolder.itemView.findViewById(R.id.CourseID);
             int id = Integer.parseInt(textView.getText().toString());
             dbHelper.deleteCourse(id);
             setInitialData();
-            courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, false, covert);
+            courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, false, null);
             CoursesList.setAdapter(courseAdapter);
             return null;
-        }).attachTo(CoursesList);
+        }).attachTo(CoursesList);*/
 
-        courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, false, covert);
-        // LessonAdapter lessonAdapter = new LessonAdapter(context, lessons);
+        courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, false, null);
+
         // устанавливаем для списка адаптер
         CoursesList.setAdapter(courseAdapter);
-        // LessonsList.setAdapter(lessonAdapter);
 
 
         ImageButton PhotoButton = view.findViewById(R.id.FirstPhotoButton);
