@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     private static final int MY_PERMISSIONS_REQUEST_READ_MEDIA = 1;
     private static final int MY_PERMISSIONS_WRITE_REQUEST = 1;
+    public static boolean ALLOW_ADD_TO_CALENDAR;
 
 
     @RequiresApi(api = Build.VERSION_CODES.P)
@@ -229,14 +230,16 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     }
 
 
+
+    //блок чтения настроек
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
 
 
         //устанавливаем никнейм
-        SharedPreferences accNickname = PreferenceManager.getDefaultSharedPreferences(this);
-        String nickname = accNickname.getString("Nickname", "");
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String nickname = prefs.getString("Nickname", "");
         TextView Nickname = findViewById(R.id.name);
         try {
         Nickname.setText(nickname);
@@ -247,8 +250,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             e.printStackTrace();
         }
         //устанавливаем email
-        SharedPreferences accEmail = PreferenceManager.getDefaultSharedPreferences(this);
-        String email = accNickname.getString("E-mail", "");
+
+        String email = prefs.getString("E-mail", "");
         TextView Email = findViewById(R.id.email);
         try {
             Email.setText(email);
@@ -260,8 +263,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         }
 
         //устанавливаем место учебы
-        SharedPreferences eduPlace = PreferenceManager.getDefaultSharedPreferences(this);
-        String EduPLace = accNickname.getString("Educational institution", "");
+        String EduPLace = prefs.getString("Educational institution", "");
         TextView eduplace = findViewById(R.id.eduInstitution);
         try {
             eduplace.setText(EduPLace);
@@ -274,7 +276,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
 
         //Проверяем настройки
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
         Boolean flagTheme = prefs.getBoolean("aa",false);
         String theme = prefs.getString("ThemeList", "");
         if(flagTheme) {
@@ -288,8 +290,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         else {AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);}
 
 
-
-
-
+        //активируем добавление событий в календарь
+        Boolean addToCalendar = prefs.getBoolean("AllowAddToCalendar", false);
+        ALLOW_ADD_TO_CALENDAR = addToCalendar;
     }
 }

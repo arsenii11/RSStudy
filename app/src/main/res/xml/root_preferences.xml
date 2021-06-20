@@ -17,6 +17,18 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="Events">
+
+        <SwitchPreference
+            app:key="AllowAddToCalendar"
+            app:defaultValue="false"
+            app:title="Adding events to the calendar"
+            app:summaryOff="No"
+            app:summaryOn="Yes"/>
+
+
+    </PreferenceCategory>
+
     <PreferenceCategory app:title="@string/theme_header">
 
 

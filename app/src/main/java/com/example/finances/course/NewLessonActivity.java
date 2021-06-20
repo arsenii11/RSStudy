@@ -75,6 +75,7 @@ public class NewLessonActivity extends AppCompatActivity {
                 lesson.setName(lessonName);
                 lesson.setCourseId(COURSE_ID);
 
+
                 long dat = dateAndTime.getTimeInMillis()/1000;
                 lesson.setDate(dat);
 
