@@ -87,9 +87,12 @@ public class LessonDateActivity extends AppCompatActivity {
                 //Рассчитываем длительность урока в формате HH:MM
                 String dur = endDateTime.getText().toString();
                 try {
-                    dur =  String.valueOf(Integer.parseInt(endTime.split(":")[0]) - Integer.parseInt(currentTime.split(":")[0]))
-                            + ":"
-                            + String.valueOf(Float.parseFloat(endTime.split(":")[1]) - (Float.parseFloat(currentTime.split(":")[1]))).split("\\.")[0];
+                    int hours = Integer.parseInt(endTime.split(":")[0])-Integer.parseInt(currentTime.split(":")[0]);
+                    float minutes = Float.parseFloat(endTime.split(":")[1]) - Float.parseFloat(currentTime.split(":")[1]);
+                    String hoursStr = String.valueOf(hours);
+                    String minutesStr = String.valueOf(minutes).split("\\.")[0];
+                    minutesStr = minutesStr.length() < 2 ? "0" + minutesStr : minutesStr;
+                    dur =  hoursStr + ":" + minutesStr;
                 } catch (Exception e){
                     e.printStackTrace();
                 }
