@@ -82,20 +82,41 @@ public class LessonDateActivity extends AppCompatActivity {
                 Course course = dbHelper.getCourse(COURSE_ID); //Получаем родительский курс из БД по его ID
 
                 String currentTime = currentDateTime.getText().toString().split(", ")[1]; //Получаем из TextView время начала урока
-                String endTime = endDateTime.getText().toString(); //Получаем из TextView время окончания урока
+                if(currentDateTime.getText().toString().split(", ").length == 3) currentTime = currentDateTime.getText().toString().split(", ")[2]; //проверка на формат даты вида "June 16, 2021"
+                if(currentTime.split(" ").length > 0){
+                    if(currentTime.split(" ")[1].equals("AM")) {
+                        currentTime = currentTime.split(" ")[0];
+                        if(currentTime.split(":")[0].equals("12")) currentTime = "0:" + currentTime.split(":")[1];
+                    }
+                    else{
+                        currentTime = currentTime.split(" ")[0];
+                        int hours = Integer.parseInt(currentTime.split(":")[0]) + 12;
+                        currentTime = String.valueOf(hours) + ":" + currentTime.split(":")[1];
+                    }
+                }
 
+                String endTime = endDateTime.getText().toString(); //Получаем из TextView время окончания урока
+                if(endTime.split(" ").length > 0){
+                    if(endTime.split(" ")[1].equals("AM")) {
+                        endTime = endTime.split(" ")[0];
+                        if(endTime.split(":")[0].equals("12")) endTime = "0:"+endTime.split(":")[1];
+                    }
+                    else{
+                        endTime = endTime.split(" ")[0];
+                        int hours = Integer.parseInt(endTime.split(":")[0]) + 12;
+                        endTime = String.valueOf(hours) + ":" + endTime.split(":")[1];
+                    }
+                }
                 //Рассчитываем длительность урока в формате HH:MM
                 String dur = endDateTime.getText().toString();
-                try {
+
                     int hours = Integer.parseInt(endTime.split(":")[0])-Integer.parseInt(currentTime.split(":")[0]);
                     float minutes = Float.parseFloat(endTime.split(":")[1]) - Float.parseFloat(currentTime.split(":")[1]);
                     String hoursStr = String.valueOf(hours);
                     String minutesStr = String.valueOf(minutes).split("\\.")[0];
                     minutesStr = minutesStr.length() < 2 ? "0" + minutesStr : minutesStr;
                     dur =  hoursStr + ":" + minutesStr;
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
+
 
                 String lessonName = course.getName() + ", " + currentDateTime.getText().toString() + ", " + dur + " hours"; //Вычисляем имя урока
                 lesson.setName(lessonName); //Устанавливаем имя урока
