@@ -1,11 +1,17 @@
 package com.example.finances.course;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.CursorLoader;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +29,7 @@ import com.example.finances.database.DBHelper;
 import com.example.finances.database.Lesson;
 
 import java.util.Calendar;
+import java.util.TimeZone;
 
 import maes.tech.intentanim.CustomIntent;
 import ru.tinkoff.decoro.MaskImpl;
@@ -80,10 +87,10 @@ public class NewLessonActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                dbHelper.insertLesson(lesson);
-                dbHelper.updateCourse(COURSE_ID, course);
+                dbHelper.insertLessonSmart(lesson);
 
                 Intent intent = new Intent(NewLessonActivity.this, CourseActivity.class);
+                intent.putExtra("COURSE_ID", COURSE_ID);
                 startActivity(intent);
                 CustomIntent.customType(NewLessonActivity.this,"left-to-right");
                 finish();
@@ -161,4 +168,42 @@ public class NewLessonActivity extends AppCompatActivity {
             setInitialDateTime();
         }
     };
+
+    //Добавление урока в системный календарь
+    public void addCalendarEvent(String name,long startDate, long endDate){
+        Uri calendars = Uri.parse("content://com.android.calendar/calendars"); //Адрес существующих календарей
+        Uri events = Uri.parse("content://com.android.calendar/events"); //Адрес событий в календарях
+
+        //Создаем намерение запроса в БД системного календаря
+        CursorLoader cursorLoader = new CursorLoader(this,
+                calendars,
+                new String[]{"_id"},
+                null,
+                null,
+                null);
+        Cursor cursor = cursorLoader.loadInBackground(); //Получаем указатель на ответ БД
+
+        int calendarID = 0; //ID календаря
+
+        //Проверяем не пустой ли ответ БД и ставим указатель в начало
+        if (cursor.getCount() > 0 && cursor.moveToFirst())
+        {
+            //проходим по ответу БД и ищем ID последнего календаря
+            while (!cursor.isAfterLast()) {
+                calendarID = cursor.getInt(cursor.getColumnIndex("_id")); //Записываем данные из ответа БД в переменную
+                cursor.moveToNext(); //Идем к следующей строке ответа
+            }
+            cursor.close(); //Закрываем запрос
+        }
+
+        ContentResolver contentResolver = getContentResolver(); //Создаем отправителя запроса
+        ContentValues calendarEvent = new ContentValues(); //Создаем массив для отправляемых данных
+        calendarEvent.put(CalendarContract.Events.CALENDAR_ID, calendarID); //ID календаря
+        calendarEvent.put(CalendarContract.Events.TITLE, name); //Название события
+        calendarEvent.put(CalendarContract.Events.DTSTART,startDate); //Дата начала события
+        calendarEvent.put(CalendarContract.Events.DTEND, endDate); //Дата окончания
+        calendarEvent.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().getDisplayName()); //Временная зона (без неё не отправляется запрос)
+        Uri uri = contentResolver.insert(events, calendarEvent); //Отправялем запрос
+        //int id = Integer.parseInt(uri.getLastPathSegment()); //Получаем ID установленного события
+    }
 }
