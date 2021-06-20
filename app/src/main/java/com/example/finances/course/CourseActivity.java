@@ -72,7 +72,6 @@ public class CourseActivity extends AppCompatActivity {
         MainAdaptor mainAdaptor = new MainAdaptor(this, arrayAllList);
         allLessonsList.setAdapter(mainAdaptor);
 
-        //createCalendar();
     }
 
     private void setInitialData(){

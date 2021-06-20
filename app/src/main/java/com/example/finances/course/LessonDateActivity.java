@@ -2,8 +2,13 @@ package com.example.finances.course;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Button;
@@ -11,8 +16,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.CursorLoader;
 
 import com.example.finances.MainActivity;
 import com.example.finances.R;
@@ -237,4 +244,46 @@ public class LessonDateActivity extends AppCompatActivity {
             setInitialDateTime();
         }
     };
+
+    //Добавление урока в календарь
+    public void addCalendarEvent(long startDate, long endDate){
+        Uri calendars = Uri.parse("content://com.android.calendar/calendars"); //Адрес существующих календарей
+        Uri events = Uri.parse("content://com.android.calendar/events"); //Адрес событий в календарях
+
+        //Deprecated
+        //Cursor cursor = this.managedQuery(calendars, new String[] { "_id", "name" }, null, null, null);
+
+        //Создаем намерение запроса в БД системного календаря
+        CursorLoader cursorLoader = new CursorLoader(this,
+                calendars,
+                new String[]{"_id"},
+                null,
+                null,
+                null);
+        Cursor cursor = cursorLoader.loadInBackground(); //Получаем указатель на ответ БД
+
+        int calendarID = 0; //ID календаря
+
+        //Проверяем не пустой ли ответ БД и ставим указатель в начало
+        if (cursor != null && cursor.moveToFirst())
+        {
+            //проходим по ответу БД и ищем ID последнего календаря
+            while (!cursor.isAfterLast()) {
+                calendarID = cursor.getInt(cursor.getColumnIndex("_id")); //Записываем данные из ответа БД в переменную
+                cursor.moveToNext(); //Идем к следующей строке ответа
+            }
+            cursor.close(); //Закрываем запрос
+        }
+
+        ContentValues event = new ContentValues();
+        ContentResolver CR = getContentResolver();
+        ContentValues calEvent  = new ContentValues();
+        calEvent.put(CalendarContract.Events.CALENDAR_ID, calendarID);
+        calEvent.put(CalendarContract.Events.TITLE, "Demo Data");
+        calEvent.put(CalendarContract.Events.DTSTART,startDate);
+        calEvent.put(CalendarContract.Events.DTEND, endDate);
+        calEvent.put(CalendarContract.Events.EVENT_TIMEZONE, "Indian/Christmas");
+        Uri uri = CR.insert(Uri.parse("content://com.android.calendar/events"), calEvent);
+        int id = Integer.parseInt(uri.getLastPathSegment());
+    }
 }

@@ -192,6 +192,8 @@ public class DBHelper extends SQLiteOpenHelper {
             }
         }
 
+        cursor.close();
+
         return arrayList;
     }
 
@@ -210,6 +212,7 @@ public class DBHelper extends SQLiteOpenHelper {
             course.setLessons(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_LESSONS)));
             course.setLessonsCompleted(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_COMPLETED_LESSONS)));
         }
+        cursor.close();
         return  course;
     }
 
@@ -227,7 +230,7 @@ public class DBHelper extends SQLiteOpenHelper {
             course.setLessons(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_LESSONS)));
             course.setLessonsCompleted(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_COMPLETED_LESSONS)));
         }
-
+        cursor.close();
         return course;
 
     }
@@ -351,6 +354,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 cursor.moveToNext();
             }
         }
+        cursor.close();
         return arrayList;
     }
 
@@ -377,7 +381,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 cursor.moveToNext();
             }
         }
-
+        cursor.close();
         return arrayList;
     }
 
@@ -404,7 +408,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 cursor.moveToNext();
             }
         }
-
+        cursor.close();
         return arrayList;
     }
 
@@ -436,7 +440,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 cursor.moveToNext();
             }
         }
-
+        cursor.close();
         return arrayList;
     }
 
@@ -469,7 +473,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 cursor.moveToNext();
             }
         }
-
+        cursor.close();
         return arrayList;
     }
 
@@ -492,6 +496,7 @@ public class DBHelper extends SQLiteOpenHelper {
             lesson.setDuration(cursor.getFloat(cursor.getColumnIndex(KEY_LESSON_DURATION)));
             lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
         }
+        cursor.close();
         return lesson;
     }
 
@@ -513,6 +518,7 @@ public class DBHelper extends SQLiteOpenHelper {
             lesson.setDuration(cursor.getFloat(cursor.getColumnIndex(KEY_LESSON_DURATION)));
             lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
         }
+        cursor.close();
         return lesson;
     }
 
@@ -531,6 +537,7 @@ public class DBHelper extends SQLiteOpenHelper {
             lesson.setDuration(cursor.getFloat(cursor.getColumnIndex(KEY_LESSON_DURATION)));
             lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
         }
+        cursor.close();
         return lesson;
     }
 
@@ -546,7 +553,7 @@ public class DBHelper extends SQLiteOpenHelper {
             cursor.moveToFirst();
             sum = cursor.getFloat(0);
         }
-
+        cursor.close();
         return sum;
     }
 
@@ -647,7 +654,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 cursor.moveToNext();
             }
         }
-
+        cursor.close();
         return arrayList;
     }
 
@@ -673,6 +680,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 cursor.moveToNext();
             }
         }
+        cursor.close();
         return arrayList;
     }
 
@@ -704,6 +712,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 cursor.moveToNext();
             }
         }
+        cursor.close();
         return arrayList;
 
     }
@@ -725,6 +734,7 @@ public class DBHelper extends SQLiteOpenHelper {
             test.setDate(cursor.getLong(cursor.getColumnIndex(KEY_TEST_DATE)));
             test.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_TEST_WEIGHT)));
         }
+        cursor.close();
         return test;
     }
 
