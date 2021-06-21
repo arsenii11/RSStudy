@@ -38,6 +38,8 @@ import ru.tinkoff.decoro.slots.Slot;
 import ru.tinkoff.decoro.watchers.FormatWatcher;
 import ru.tinkoff.decoro.watchers.MaskFormatWatcher;
 
+import static com.example.finances.MainActivity.ALLOW_ADD_TO_CALENDAR;
+
 
 public class LessonDateActivity extends AppCompatActivity {
 
@@ -134,7 +136,8 @@ public class LessonDateActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                lesson.setCalendarEventId(addCalendarEvent(lessonName, dateAndTime.getTimeInMillis(), timeEnd.getTimeInMillis()));
+
+                    lesson.setCalendarEventId(addCalendarEvent(lessonName, dateAndTime.getTimeInMillis(), timeEnd.getTimeInMillis()));  //добавляем урок в календарь телефона
 
                 //Запускаем умное добавление урока в БД
                 if(dbHelper.insertLessonSmart(lesson)){
@@ -160,7 +163,9 @@ public class LessonDateActivity extends AppCompatActivity {
                         dat = dateAndTime.getTimeInMillis()/1000; //Рассчитываем дату начала перенесенного уока в секундах
                         lesson.setDate(dat); //Устанавливаем дату начала перенесенного урока
 
-                        lesson.setCalendarEventId(addCalendarEvent(lessonName, dateAndTime.getTimeInMillis(), timeEnd.getTimeInMillis()));
+
+                        lesson.setCalendarEventId(addCalendarEvent(lessonName, dateAndTime.getTimeInMillis(), timeEnd.getTimeInMillis())); //изменяем урок в календаре телефона
+
                         dbHelper.insertLessonSmart(lesson); //Запускаем умное добавление перенесенного урока
                     }
 
@@ -276,6 +281,9 @@ public class LessonDateActivity extends AppCompatActivity {
     //Добавление урока в системный календарь
     public int addCalendarEvent(String name,long startDate, long endDate){
         CalendarHelper calendarHelper = new CalendarHelper(this);
+        if ( ALLOW_ADD_TO_CALENDAR){
         return calendarHelper.addCalendarEvent(name, startDate, endDate);
+        }
+        else return -1;
     }
 }

@@ -239,8 +239,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
 
         //активируем добавление событий в календарь
-        Boolean addToCalendar = prefs.getBoolean("AllowAddToCalendar", false);
-        ALLOW_ADD_TO_CALENDAR = addToCalendar;
+        ALLOW_ADD_TO_CALENDAR = prefs.getBoolean("AllowAddToCalendar", false);
     }
 
     //Запрашиваем разрешения
