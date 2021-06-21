@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
 
     private static final int MY_PERMISSIONS_REQUEST_READ_MEDIA = 1;
-    private static final int MY_PERMISSIONS_WRITE_REQUEST = 1;
     public static boolean ALLOW_ADD_TO_CALENDAR;
 
 
@@ -66,11 +65,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         //Обновляем состояние будильника
         myAlarm();
-
-        //DBHelper dbHelper = new DBHelper(getApplicationContext());
-        //dbHelper.clear();
 
         //регистрируем обработчик настроек
         Context context = getApplicationContext();
@@ -78,55 +75,17 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 PreferenceManager.getDefaultSharedPreferences(context);
         prefs.registerOnSharedPreferenceChangeListener(this);
 
-
-        int readCalendarPermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALENDAR);
-        if ((readCalendarPermissionCheck != PackageManager.PERMISSION_GRANTED))  {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CALENDAR},
-                    MY_PERMISSIONS_WRITE_REQUEST); }
-
-        int writeCalendarPermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR);
-        if ((writeCalendarPermissionCheck != PackageManager.PERMISSION_GRANTED))  {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_CALENDAR},
-                    MY_PERMISSIONS_WRITE_REQUEST); }
-
-
-        int writePermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-            if ((writePermissionCheck != PackageManager.PERMISSION_GRANTED))  {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        MY_PERMISSIONS_WRITE_REQUEST); }
-
-        //Проверка доступа к хранилищу
-        int readPermissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
-        if (readPermissionCheck != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    MY_PERMISSIONS_REQUEST_READ_MEDIA); }
-        else {
-            readDataExternal();
-        }
+        //Проверка разрешений
+        if(checkSelfPermission(Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) requestPermission();
+        if(checkSelfPermission(Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) requestPermission();
+        if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) requestPermission();
+        if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) requestPermission();
     }
 
 
 
     @RequiresApi(api = Build.VERSION_CODES.P)
     public void myAlarm() {
-
-        /*Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 21);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-
-        if (calendar.getTime().compareTo(new Date()) < 0)
-            calendar.add(Calendar.DAY_OF_MONTH, 12);
-
-        Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-        if (alarmManager != null) {
-            //alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 30*1000, pendingIntent);
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-        }*/
-
         Context appContext = getApplicationContext();
 
         Intent IntentForBroadcast = new Intent(appContext, AlarmRequestsReceiver.class);
@@ -138,23 +97,15 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         appContext.sendBroadcast(IntentForBroadcast);
     }
 
-        //DBHelper dbHelper = new DBHelper(getApplicationContext());
-        //dbHelper.clear();
-
 
     @Override
     protected void onStart() {
         super.onStart();
-
-
     }
 
     @Override
     protected void onResume(){
         super.onResume();
-
-
-
 
        //Проверяем настройки
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -234,9 +185,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     //блок чтения настроек
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-
-
-
         //устанавливаем никнейм
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String nickname = prefs.getString("Nickname", "");
@@ -293,5 +241,15 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         //активируем добавление событий в календарь
         Boolean addToCalendar = prefs.getBoolean("AllowAddToCalendar", false);
         ALLOW_ADD_TO_CALENDAR = addToCalendar;
+    }
+
+    //Запрашиваем разрешения
+    private void requestPermission(){
+        String[] permissions = new String[]{Manifest.permission.READ_CALENDAR,
+                Manifest.permission.WRITE_CALENDAR,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
+        ActivityCompat.requestPermissions(this,permissions,1);
     }
 }
