@@ -8,16 +8,18 @@ public class Lesson {
     private long date;
     private float duration;
     private int weight;
+    private int calendarEventId;
 
     public Lesson(){}
 
-    public Lesson(int id, String name, int courseId, long date, float duration, int weight){
+    public Lesson(int id, String name, int courseId, long date, float duration, int weight, int calendarEventId){
         this.id = id;
         this.name = name;
         this.courseId = courseId;
         this.date = date;
         this.duration = duration;
         this.weight = weight;
+        this.calendarEventId = calendarEventId;
     }
 
     public int getId() { return id; }
@@ -42,6 +44,10 @@ public class Lesson {
         return weight;
     }
 
+    public int getCalendarEventId() {
+        return calendarEventId;
+    }
+
     public void setId(int id) { this.id = id; }
 
     public void setName(String name){
@@ -62,5 +68,9 @@ public class Lesson {
 
     public void setWeight(int weight){
         this.weight = weight;
+    }
+
+    public void setCalendarEventId(int calendarEventId) {
+        this.calendarEventId = calendarEventId;
     }
 }

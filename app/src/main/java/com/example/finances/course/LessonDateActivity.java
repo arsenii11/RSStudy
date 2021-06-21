@@ -23,6 +23,7 @@ import androidx.loader.content.CursorLoader;
 
 import com.example.finances.MainActivity;
 import com.example.finances.R;
+import com.example.finances.calendar.CalendarHelper;
 import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
 import com.example.finances.database.Lesson;
@@ -133,10 +134,11 @@ public class LessonDateActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+                lesson.setCalendarEventId(addCalendarEvent(lessonName, dateAndTime.getTimeInMillis(), timeEnd.getTimeInMillis()));
 
                 //Запускаем умное добавление урока в БД
                 if(dbHelper.insertLessonSmart(lesson)){
-                    addCalendarEvent(lessonName, dateAndTime.getTimeInMillis(), timeEnd.getTimeInMillis());
+
                     CURRENT_LESSON++; //Увеличиваем счетчик установленных уроков
 
                     if(COURSE_REPEAT.equals("YES")) {
@@ -158,8 +160,8 @@ public class LessonDateActivity extends AppCompatActivity {
                         dat = dateAndTime.getTimeInMillis()/1000; //Рассчитываем дату начала перенесенного уока в секундах
                         lesson.setDate(dat); //Устанавливаем дату начала перенесенного урока
 
+                        lesson.setCalendarEventId(addCalendarEvent(lessonName, dateAndTime.getTimeInMillis(), timeEnd.getTimeInMillis()));
                         dbHelper.insertLessonSmart(lesson); //Запускаем умное добавление перенесенного урока
-                        addCalendarEvent(lessonName, dateAndTime.getTimeInMillis(), timeEnd.getTimeInMillis());
                     }
 
                     //Проверяем, нужно ли предложить создать еще один урок
@@ -272,40 +274,8 @@ public class LessonDateActivity extends AppCompatActivity {
     };
 
     //Добавление урока в системный календарь
-    public void addCalendarEvent(String name,long startDate, long endDate){
-        Uri calendars = Uri.parse("content://com.android.calendar/calendars"); //Адрес существующих календарей
-        Uri events = Uri.parse("content://com.android.calendar/events"); //Адрес событий в календарях
-
-        //Создаем намерение запроса в БД системного календаря
-        CursorLoader cursorLoader = new CursorLoader(this,
-                calendars,
-                new String[]{"_id"},
-                null,
-                null,
-                null);
-        Cursor cursor = cursorLoader.loadInBackground(); //Получаем указатель на ответ БД
-
-        int calendarID = 0; //ID календаря
-
-        //Проверяем не пустой ли ответ БД и ставим указатель в начало
-        if (cursor.getCount() > 0 && cursor.moveToFirst())
-        {
-            //проходим по ответу БД и ищем ID последнего календаря
-            while (!cursor.isAfterLast()) {
-                calendarID = cursor.getInt(cursor.getColumnIndex("_id")); //Записываем данные из ответа БД в переменную
-                cursor.moveToNext(); //Идем к следующей строке ответа
-            }
-            cursor.close(); //Закрываем запрос
-        }
-
-        ContentResolver contentResolver = getContentResolver(); //Создаем отправителя запроса
-        ContentValues calendarEvent = new ContentValues(); //Создаем массив для отправляемых данных
-        calendarEvent.put(CalendarContract.Events.CALENDAR_ID, calendarID); //ID календаря
-        calendarEvent.put(CalendarContract.Events.TITLE, name); //Название события
-        calendarEvent.put(CalendarContract.Events.DTSTART,startDate); //Дата начала события
-        calendarEvent.put(CalendarContract.Events.DTEND, endDate); //Дата окончания
-        calendarEvent.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().getDisplayName()); //Временная зона (без неё не отправляется запрос)
-        Uri uri = contentResolver.insert(events, calendarEvent); //Отправялем запрос
-        //int id = Integer.parseInt(uri.getLastPathSegment()); //Получаем ID установленного события
+    public int addCalendarEvent(String name,long startDate, long endDate){
+        CalendarHelper calendarHelper = new CalendarHelper(this);
+        return calendarHelper.addCalendarEvent(name, startDate, endDate);
     }
 }
