@@ -83,7 +83,7 @@ public class LessonDateActivity extends AppCompatActivity {
 
                 String currentTime = currentDateTime.getText().toString().split(", ")[1]; //Получаем из TextView время начала урока
                 if(currentDateTime.getText().toString().split(", ").length == 3) currentTime = currentDateTime.getText().toString().split(", ")[2]; //проверка на формат даты вида "June 16, 2021"
-                if(currentTime.split(" ").length > 0){
+                if(currentTime.split(" ").length > 1){
                     if(currentTime.split(" ")[1].equals("AM")) {
                         currentTime = currentTime.split(" ")[0];
                         if(currentTime.split(":")[0].equals("12")) currentTime = "0:" + currentTime.split(":")[1];
@@ -96,7 +96,7 @@ public class LessonDateActivity extends AppCompatActivity {
                 }
 
                 String endTime = endDateTime.getText().toString(); //Получаем из TextView время окончания урока
-                if(endTime.split(" ").length > 0){
+                if(endTime.split(" ").length > 1){
                     if(endTime.split(" ")[1].equals("AM")) {
                         endTime = endTime.split(" ")[0];
                         if(endTime.split(":")[0].equals("12")) endTime = "0:"+endTime.split(":")[1];
