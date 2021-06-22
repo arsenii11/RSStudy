@@ -27,6 +27,8 @@ import com.example.finances.calendar.CalendarHelper;
 import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
 import com.example.finances.database.Lesson;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -43,16 +45,18 @@ import static com.example.finances.MainActivity.ALLOW_ADD_TO_CALENDAR;
 
 public class NewLessonActivity extends AppCompatActivity {
 
-    Calendar dateAndTime;
-    Calendar timeEnd;
-    TextView currentDateTime;
-    TextView endDateTime;
-    Button next;
-    int COURSE_ID;
-    int LESSONS;
-    int CURRENT_LESSON;
-    String COURSE_REPEAT;
-    String COURSE_REPEAT_MODE;
+    Calendar dateAndTime; //Календарь начала
+    Calendar timeEnd; //Календарь конца
+    TextView currentDateTime; //Строка с датой начала
+    TextView endDateTime; //Строка с датой конца
+    Button next; //Кнопка дальше
+    int COURSE_ID; //ID родительского курса
+    int LESSONS; //Количество уроков, которые нужно сейчас добавить
+    int CURRENT_LESSON; //Текущее количество добавленных уроков
+    String COURSE_REPEAT; //Повторяется ли урок
+    String COURSE_REPEAT_MODE; //Режим повторения
+    ChipGroup groupRepeat; //Группа чипов для выбора потворения урока
+    ChipGroup groupHow; //Группа чипов для выбора режима повторения урока
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,17 +72,25 @@ public class NewLessonActivity extends AppCompatActivity {
         COURSE_ID = i.getIntExtra("COURSE_ID", -1);
         LESSONS = i.getIntExtra("LESSONS", -1);
         CURRENT_LESSON = i.getIntExtra("CURRENT_LESSON", -1);
-        COURSE_REPEAT = i.getStringExtra("COURSE_REPEAT");
-        COURSE_REPEAT_MODE = i.getStringExtra("COURSE_REPEAT_MODE");
 
-        currentDateTime=(TextView)findViewById(R.id.currentDateTime);
-        endDateTime = (TextView) findViewById(R.id.endDateTime);
+        currentDateTime=(TextView)findViewById(R.id.currentDateTime); //Ищем TextView для даты начала
+        endDateTime = (TextView) findViewById(R.id.endDateTime); //Ищем TextView для даты конца
 
+        groupRepeat = findViewById(R.id.chipInputRep); //Ищем группу чипов для выбора повторения урока
+        groupHow = findViewById(R.id.chipInputHow); //Ищем группу чипов для выбора режма повторения урока
 
-        next = findViewById(R.id.buttonLessonNext);
+        next = findViewById(R.id.buttonLessonNext); //Ищем кнопку дальше
+
+        //Назначаем действия при клике на кнопку дальше
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
+
+                Chip selectedChipRepeat = findViewById(groupRepeat.getCheckedChipId()); //Ищем выделенный вариант потворения урока
+                Chip selectedChipHow = findViewById(groupHow.getCheckedChipId()); //Ищем выделенный режим повторения урока
+
+                COURSE_REPEAT = selectedChipRepeat.getText().toString().toUpperCase();
+                COURSE_REPEAT_MODE = selectedChipHow.getText().toString().toUpperCase();
 
                 DBHelper dbHelper = new DBHelper(getApplicationContext()); //заполняем БД
                 Lesson lesson = new Lesson(); //Создаем пустой урок

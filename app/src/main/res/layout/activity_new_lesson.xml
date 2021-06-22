@@ -119,5 +119,85 @@
         app:layout_constraintBottom_toTopOf="@+id/currentDateTime"
         app:layout_constraintStart_toStartOf="@+id/currentDateTime" />
 
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipInputRep"
+        android:layout_width="160dp"
+        android:layout_height="60dp"
+        android:textSize="5dp"
+        app:checkedChip="@id/chip_yes"
+        app:hint="Select a type"
+        app:layout_constraintTop_toTopOf="@+id/dateButton"
+        app:singleSelection="true"
+        tools:layout_editor_absoluteX="220dp">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_yes"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:gravity="center"
+            android:text="Yes"
+            android:textSize="40dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_no"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:gravity="center"
+            android:text="No"
+            android:textSize="40dp" />
+
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipInputHow"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:textSize="5dp"
+        app:checkedChip="@id/chip_yes"
+        app:hint="Select a type"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.369"
+        app:layout_constraintStart_toEndOf="@+id/timeButton2"
+        app:layout_constraintTop_toTopOf="@+id/timeButton"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_month"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:gravity="center"
+            android:text="Monthly"
+            android:textSize="40dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_week"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:gravity="center"
+            android:text="Weekly"
+            android:textSize="40dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_2weeks"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:gravity="center"
+            android:text="Every 2 weeks"
+            android:textSize="40dp" />
+
+
+    </com.google.android.material.chip.ChipGroup>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

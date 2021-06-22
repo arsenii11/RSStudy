@@ -72,10 +72,10 @@ public class CourseLength extends AppCompatActivity {
                     Snackbar snackbar = Snackbar.make(view1, "Record inserted successfully", Snackbar.LENGTH_LONG);
                     snackbar.show();
                     course = dbh.findCourse(course);
-                    Intent intent = new Intent(CourseLength.this, CourseRepeat.class);
+                    Intent intent = new Intent(CourseLength.this, NewLessonActivity.class);
                     intent.putExtra("COURSE_ID", course.getId());
                     intent.putExtra("LESSONS", course.getLessons());
-                    //intent.putExtra("CURRENT_LESSON", 0);
+                    intent.putExtra("CURRENT_LESSON", 0);
                     startActivity(intent);
                     CustomIntent.customType(CourseLength.this,"left-to-right");
                     finish();
