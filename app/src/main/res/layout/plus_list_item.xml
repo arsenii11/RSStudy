@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:fontFamily="@font/nokora_regular"
+        android:textColor="@color/diagramText"
         android:text="Название"
         android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"

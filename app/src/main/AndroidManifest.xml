@@ -14,7 +14,6 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.Finances">
-        <activity android:name=".course.NewLessonActivity"></activity>
 
         <receiver
             android:name=".notifications.NotificationReceiver"
@@ -78,6 +77,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".course.CourseName"
             android:launchMode="singleTask"
@@ -114,11 +114,17 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".course.NewLessonActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity
             android:name=".course.CourseRepeat"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
         </activity>
+
     </application>
 
 </manifest>
