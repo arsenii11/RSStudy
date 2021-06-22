@@ -6,9 +6,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.CalendarContract;
 
+import androidx.annotation.RequiresApi;
 import androidx.loader.content.CursorLoader;
+
+import com.example.finances.database.DBHelper;
 
 import java.util.TimeZone;
 
@@ -18,8 +22,10 @@ public class CalendarHelper {
     public final static Uri events = Uri.parse("content://com.android.calendar/events"); //Адрес событий в календарях
 
     int calendarId; //ID календаря
-    ContentResolver contentResolver; //Создаем отправителя запроса
+    ContentResolver contentResolver; //Создаем обработчика запросов к календарю
+    DBHelper dbHelper; //Создаем обработчика запросов к БД
 
+    //Конструктор класса
     public CalendarHelper(Context context){
         //Создаем намерение запроса в БД системного календаря
         CursorLoader cursorLoader = new CursorLoader(context,
@@ -41,9 +47,11 @@ public class CalendarHelper {
             cursor.close(); //Закрываем запрос
         }
 
-        contentResolver = context.getContentResolver(); //Устанавливаем отправителя запроса
+        contentResolver = context.getContentResolver(); //Устанавливаем обработчик запросов к календарю
+        dbHelper = new DBHelper(context); //Устанавливаем обработчик запросов к БД
     }
 
+    //Функция для добавления нового события в календарь
     public int addCalendarEvent(String name, long startDate, long endDate){
         ContentValues calendarEvent = new ContentValues(); //Создаем массив для отправляемых данных
         calendarEvent.put(CalendarContract.Events.CALENDAR_ID, calendarId); //ID календаря
@@ -56,8 +64,15 @@ public class CalendarHelper {
         return eventId;
     }
 
+    //Функция удаления события из календаря
     public void deleteCalendarEvent(int eventId){
         Uri uri = ContentUris.withAppendedId(events, eventId);
         contentResolver.delete(uri, null, null);
+    }
+
+    //Функция удаления всех событий в календаре по ID родительского курса
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void deleteAllCalendarEvent(int courseId){
+        dbHelper.getAllLessons(courseId).forEach(lesson -> deleteCalendarEvent(lesson.getCalendarEventId()));
     }
 }

@@ -2,16 +2,19 @@ package com.example.finances.course;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finances.MainActivity;
 import com.example.finances.R;
+import com.example.finances.calendar.CalendarHelper;
 import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
 
@@ -24,11 +27,13 @@ public class CourseListActivity extends AppCompatActivity {
 
     ArrayList<Course> courses = new ArrayList<Course>();
     DBHelper dbHelper;
+    CalendarHelper calendarHelper;
     CourseAdapter courseAdapter;
 
     Covert.Config config = new Covert.Config(R.drawable.ic_cancel_grey_24dp, R.color.white, R.color.ErrorText);
     Covert covert;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +54,7 @@ public class CourseListActivity extends AppCompatActivity {
         covert = Covert.with(config).setIsActiveCallback(viewHolder -> false).doOnSwipe((viewHolder, swipeDirection) -> {
             TextView textView = viewHolder.itemView.findViewById(R.id.CourseID);
             int id = Integer.parseInt(textView.getText().toString());
+            calendarHelper.deleteAllCalendarEvent(id);
             dbHelper.deleteCourse(id);
             setInitialData();
             courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, true, covert);
@@ -97,7 +103,8 @@ public class CourseListActivity extends AppCompatActivity {
     //добавляем значения
     private void setInitialData() {
         try {
-            dbHelper = new DBHelper(this.getApplicationContext());
+            dbHelper = new DBHelper(this);
+            calendarHelper = new CalendarHelper(this);
             courses = dbHelper.getAllCourses();
         }
         catch (Exception e){
