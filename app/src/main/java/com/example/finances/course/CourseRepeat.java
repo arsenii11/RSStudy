@@ -52,7 +52,7 @@ public class CourseRepeat extends AppCompatActivity {
                 Chip selectedChipRepeat = findViewById(groupRepeat.getCheckedChipId());
                 Chip selectedChipHow = findViewById(groupHow.getCheckedChipId());
 
-                Intent intent = new Intent(CourseRepeat.this, LessonDateActivity.class);
+                Intent intent = new Intent(CourseRepeat.this, NewLessonActivity.class);
                 intent.putExtra("COURSE_ID", courseId);
                 intent.putExtra("LESSONS", lessons);
                 intent.putExtra("CURRENT_LESSON", 0);

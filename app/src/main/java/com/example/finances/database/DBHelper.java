@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import com.example.finances.calendar.CalendarHelper;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
@@ -270,6 +272,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put(KEY_LESSON_DATE, lesson.getDate());
         cv.put(KEY_LESSON_DURATION, lesson.getDuration());
         cv.put(KEY_LESSON_WEIGHT, lesson.getWeight());
+
         cv.put(KEY_LESSON_CALENDAR_EVENT_ID, lesson.getCalendarEventId());
 
         if(db.insert(TABLE_LESSONS, null, cv) == -1)

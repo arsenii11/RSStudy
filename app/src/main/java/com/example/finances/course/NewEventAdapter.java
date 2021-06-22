@@ -41,6 +41,9 @@ public class NewEventAdapter extends RecyclerView.Adapter<NewEventAdapter.ViewHo
               if(holder.newEventName.getText().toString().equals("lesson")){
                   Intent intent = new Intent(v.getContext(), NewLessonActivity.class);
                   intent.putExtra("COURSE_ID", COURSE_ID);
+                  intent.putExtra("CURRENT_LESSON", 0);
+                  intent.putExtra("LESSONS", 1);
+                  intent.putExtra("COURSE_REPEAT", "NO");
                   v.getContext().startActivity(intent);
                   CustomIntent.customType(v.getContext(),"left-to-right");
               }

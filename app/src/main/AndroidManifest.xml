@@ -105,11 +105,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".course.LessonDateActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity
             android:name=".course.NewTestActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
