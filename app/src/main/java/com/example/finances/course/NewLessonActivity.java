@@ -27,6 +27,7 @@ import com.example.finances.calendar.CalendarHelper;
 import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
 import com.example.finances.database.Lesson;
+import com.example.finances.database.LessonOptions;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
@@ -149,20 +150,30 @@ public class NewLessonActivity extends AppCompatActivity {
                 }
 
 
-                lesson.setCalendarEventId(addCalendarEvent(lessonName, dateAndTime.getTimeInMillis(), timeEnd.getTimeInMillis()));  //добавляем урок в календарь телефона
-
                 //Запускаем умное добавление урока в БД
                 if(dbHelper.insertLessonSmart(lesson)){
 
                     CURRENT_LESSON++; //Увеличиваем счетчик установленных уроков
 
+                    LessonOptions lessonOptions = new LessonOptions(); //Создаем новые опции для урока
+
+                    lesson = dbHelper.findLesson(lesson); //Ищем добавленный урок
+
+                    lessonOptions.setLessonId(lesson.getId()); //Устанавливаем id урока в опции
+                    lessonOptions.setCalendarEventId(addCalendarEvent(lessonName, dateAndTime.getTimeInMillis(), timeEnd.getTimeInMillis())); //Устанавливаем ID события в календаре
+                    lessonOptions.setIsRepeatable(0); //Ставим режим "не повторять"
+
                     if(COURSE_REPEAT.equals("YES")) {
 
-                        //Рассчитываем добавочные миллисекудны
+                        lessonOptions.setIsRepeatable(1); //Устанавливаем режим "повторять"
+
+                        //Рассчитываем добавочные миллисекудны и устанавливаем режим повтора урока в опции
                         long add = 0;
-                        if(COURSE_REPEAT_MODE.equals("MONTHLY")) add = 1814400000L;
-                        else if(COURSE_REPEAT_MODE.equals("WEEKLY")) add = 604800000L;
-                        else if(COURSE_REPEAT_MODE.equals("EVERY 2 WEEKS")) add = 1209600000L;
+                        if(COURSE_REPEAT_MODE.equals("MONTHLY")) { add = 1814400000L; lessonOptions.setRepeatMode(3); }
+                        else if(COURSE_REPEAT_MODE.equals("WEEKLY")) { add = 604800000L; lessonOptions.setRepeatMode(1); }
+                        else if(COURSE_REPEAT_MODE.equals("EVERY 2 WEEKS")) { add = 1209600000L; lessonOptions.setRepeatMode(2);}
+
+                        dbHelper.insertLessonOptions(lessonOptions); //Добавляем опции урока в БД
 
                         //Добавляем к календарям время переноса
                         dateAndTime.setTimeInMillis(dateAndTime.getTimeInMillis() + add);
@@ -175,10 +186,17 @@ public class NewLessonActivity extends AppCompatActivity {
                         dat = dateAndTime.getTimeInMillis()/1000; //Рассчитываем дату начала перенесенного уока в секундах
                         lesson.setDate(dat); //Устанавливаем дату начала перенесенного урока
 
-
-                        lesson.setCalendarEventId(addCalendarEvent(lessonName, dateAndTime.getTimeInMillis(), timeEnd.getTimeInMillis())); //изменяем урок в календаре телефона
-
                         dbHelper.insertLessonSmart(lesson); //Запускаем умное добавление перенесенного урока
+
+                        lesson = dbHelper.findLesson(lesson); //Ищем добавленный урок
+
+                        lessonOptions.setLessonId(lesson.getId()); ////Устанавливаем id перенесенного урока в опции
+                        lessonOptions.setCalendarEventId(addCalendarEvent(lessonName, dateAndTime.getTimeInMillis(), timeEnd.getTimeInMillis())); //Устанавливаем ID события в календаре
+
+                        dbHelper.insertLessonOptions(lessonOptions); //Добавляем опции урока в БД
+                    }
+                    else{
+                        dbHelper.insertLessonOptions(lessonOptions); //Добавляем опции урока в БД
                     }
 
                     //Проверяем, нужно ли предложить создать еще один урок
@@ -293,7 +311,7 @@ public class NewLessonActivity extends AppCompatActivity {
     //Добавление урока в системный календарь
     public int addCalendarEvent(String name,long startDate, long endDate){
         CalendarHelper calendarHelper = new CalendarHelper(this);
-        if ( ALLOW_ADD_TO_CALENDAR){
+        if (ALLOW_ADD_TO_CALENDAR){
             return calendarHelper.addCalendarEvent(name, startDate, endDate);
         }
         else return -1;

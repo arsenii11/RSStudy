@@ -2,11 +2,11 @@ package com.example.finances.database;
 
 public class Event {
 
-    public int id;
-    public String name;
-    public int courseId;
-    public long date;
-    public EventType eventType;
+    private int id;
+    private String name;
+    private int courseId;
+    private long date;
+    private EventType eventType;
 
     public enum EventType{
         Lesson,

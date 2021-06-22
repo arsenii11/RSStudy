@@ -13,6 +13,7 @@ import androidx.annotation.RequiresApi;
 import androidx.loader.content.CursorLoader;
 
 import com.example.finances.database.DBHelper;
+import com.example.finances.database.LessonOptions;
 
 import java.util.TimeZone;
 
@@ -73,6 +74,9 @@ public class CalendarHelper {
     //Функция удаления всех событий в календаре по ID родительского курса
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void deleteAllCalendarEvent(int courseId){
-        dbHelper.getAllLessons(courseId).forEach(lesson -> deleteCalendarEvent(lesson.getCalendarEventId()));
+        dbHelper.getAllLessons(courseId).forEach(lesson -> {
+            LessonOptions lessonOptions = dbHelper.getLessonOptions(lesson.getId());
+            if (lessonOptions.getCalendarEventId() > -1) deleteCalendarEvent(lessonOptions.getCalendarEventId());
+        });
     }
 }

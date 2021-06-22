@@ -121,14 +121,14 @@
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipInputRep"
-        android:layout_width="160dp"
+        android:layout_width="0dp"
         android:layout_height="60dp"
         android:textSize="5dp"
         app:checkedChip="@id/chip_yes"
         app:hint="Select a type"
+        app:layout_constraintStart_toStartOf="@+id/chipInputHow"
         app:layout_constraintTop_toTopOf="@+id/dateButton"
-        app:singleSelection="true"
-        tools:layout_editor_absoluteX="220dp">
+        app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_yes"

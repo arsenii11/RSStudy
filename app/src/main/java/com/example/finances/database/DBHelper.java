@@ -6,19 +6,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import com.example.finances.calendar.CalendarHelper;
-
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -41,7 +34,13 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String KEY_LESSON_DATE = "date";
     public static final String KEY_LESSON_DURATION = "duration";
     public static final String KEY_LESSON_WEIGHT = "weight";
-    public static final String KEY_LESSON_CALENDAR_EVENT_ID = "calendarEventId";
+
+    public static final String TABLE_LESSON_OPTIONS = "LessonOptions";
+    public static final String KEY_LESSON_OPTIONS_ID = "_id";
+    public static final String KEY_LESSON_OPTIONS_LESSON_ID = "lessonId";
+    public static final String KEY_LESSON_OPTIONS_CALENDAR_EVENT_ID = "calendarEventId";
+    public static final String KEY_LESSON_OPTIONS_IS_REPEATABLE = "isRepeatable";
+    public static final String KEY_LESSON_OPTIONS_REPEAT_MODE = "repeatMode";
 
     public static final String TABLE_TESTS = "Tests";
     public static final String KEY_TEST_ID = "_id";
@@ -57,8 +56,9 @@ public class DBHelper extends SQLiteOpenHelper {
     //Создание БД
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(" create table " + TABLE_COURSES +"(" + KEY_COURSE_ID + " integer primary key, " + KEY_COURSE_NAME +" text, " + KEY_COURSE_START_DATE+ " integer, " + KEY_COURSE_END_DATE + " integer, " + KEY_COURSE_FINISHED + " integer, " + KEY_COURSE_LESSONS + " integer, " + KEY_COURSE_COMPLETED_LESSONS + " integer " + ")");
-        db.execSQL(" create table " + TABLE_LESSONS +"(" + KEY_LESSON_ID + " integer primary key, " + KEY_LESSON_NAME +" text, " + KEY_LESSON_COURSE_ID + " integer, " + KEY_LESSON_DATE + " text, " + KEY_LESSON_DURATION + " real, " + KEY_LESSON_WEIGHT + " integer, " + KEY_LESSON_CALENDAR_EVENT_ID + " integer " + ")");
+        db.execSQL(" create table " + TABLE_COURSES + "(" + KEY_COURSE_ID + " integer primary key, " + KEY_COURSE_NAME +" text, " + KEY_COURSE_START_DATE+ " integer, " + KEY_COURSE_END_DATE + " integer, " + KEY_COURSE_FINISHED + " integer, " + KEY_COURSE_LESSONS + " integer, " + KEY_COURSE_COMPLETED_LESSONS + " integer " + ")");
+        db.execSQL(" create table " + TABLE_LESSONS + "(" + KEY_LESSON_ID + " integer primary key, " + KEY_LESSON_NAME +" text, " + KEY_LESSON_COURSE_ID + " integer, " + KEY_LESSON_DATE + " text, " + KEY_LESSON_DURATION + " real, " + KEY_LESSON_WEIGHT + " integer " + ")");
+        db.execSQL(" create table " + TABLE_LESSON_OPTIONS + "(" + KEY_LESSON_OPTIONS_ID + " integer primary key, " + KEY_LESSON_OPTIONS_LESSON_ID + " integer, " + KEY_LESSON_OPTIONS_CALENDAR_EVENT_ID + " integer, " + KEY_LESSON_OPTIONS_IS_REPEATABLE + " integer, " + KEY_LESSON_OPTIONS_REPEAT_MODE + " integer " + ")");
         db.execSQL(" create table " + TABLE_TESTS + "(" + KEY_TEST_ID + " integer primary key, " + KEY_TEST_NAME +" text, " + KEY_TEST_COURSE_ID + " integer, " + KEY_TEST_DATE + " text, " + KEY_TEST_WEIGHT + " integer " + ")");
     }
 
@@ -249,7 +249,6 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put(KEY_LESSON_DATE, lesson.getDate());
         cv.put(KEY_LESSON_DURATION, lesson.getDuration());
         cv.put(KEY_LESSON_WEIGHT, lesson.getWeight());
-        cv.put(KEY_LESSON_CALENDAR_EVENT_ID, lesson.getCalendarEventId());
 
         if(db.insert(TABLE_LESSONS, null, cv) == -1)
             status = false;
@@ -273,8 +272,6 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put(KEY_LESSON_DURATION, lesson.getDuration());
         cv.put(KEY_LESSON_WEIGHT, lesson.getWeight());
 
-        cv.put(KEY_LESSON_CALENDAR_EVENT_ID, lesson.getCalendarEventId());
-
         if(db.insert(TABLE_LESSONS, null, cv) == -1)
             status = false;
 
@@ -291,7 +288,6 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put(KEY_LESSON_DATE, newLesson.getDate());
         cv.put(KEY_LESSON_DURATION, newLesson.getDuration());
         cv.put(KEY_LESSON_WEIGHT, newLesson.getWeight());
-        cv.put(KEY_LESSON_CALENDAR_EVENT_ID, newLesson.getCalendarEventId());
 
         if(db.update(TABLE_LESSONS, cv, KEY_LESSON_ID+" = "+oldLesson.getId(), null) == -1)
             status = false;
@@ -309,7 +305,6 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put(KEY_LESSON_DATE, newLesson.getDate());
         cv.put(KEY_LESSON_DURATION, newLesson.getDuration());
         cv.put(KEY_LESSON_WEIGHT, newLesson.getWeight());
-        cv.put(KEY_LESSON_CALENDAR_EVENT_ID, newLesson.getCalendarEventId());
 
         if(db.update(TABLE_LESSONS, cv, KEY_LESSON_ID+" = "+oldLessonId, null) == -1)
             status = false;
@@ -317,7 +312,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return status;
     }
 
-    //удалить урок
+    //Удалить урок
     public boolean deleteLesson(Lesson lesson){
         boolean status = true;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -325,6 +320,8 @@ public class DBHelper extends SQLiteOpenHelper {
         if(db.delete(TABLE_LESSONS, KEY_LESSON_ID+" = "+ lesson.getId(), null) == -1)
             status = false;
 
+        if(deleteLessonOptions(getLessonOptions(lesson.getId()).getId()))
+            status = false;
 
         return status;
     }
@@ -338,6 +335,25 @@ public class DBHelper extends SQLiteOpenHelper {
             status = false;
 
         return status;
+    }
+
+    public Lesson findLesson(Lesson lesson){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("select * from " + TABLE_LESSONS + " where " + KEY_LESSON_NAME + " = '" + lesson.getName() + "' and " + KEY_LESSON_DATE + " = " + lesson.getDate(), null);
+
+        cursor.moveToFirst();
+        if (cursor.isLast()) {
+            lesson.setId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_ID)));
+            lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
+            lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
+            lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
+            lesson.setDuration(cursor.getFloat(cursor.getColumnIndex(KEY_LESSON_DURATION)));
+            lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
+        }
+
+        cursor.close();
+        return lesson;
     }
 
     //Получить все уроки из БД
@@ -357,7 +373,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
                 lesson.setDuration(cursor.getFloat(cursor.getColumnIndex(KEY_LESSON_DURATION)));
                 lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
-                lesson.setCalendarEventId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_CALENDAR_EVENT_ID)));
 
                 arrayList.add(lesson);
 
@@ -385,7 +400,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
                 lesson.setDuration(cursor.getFloat(cursor.getColumnIndex(KEY_LESSON_DURATION)));
                 lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
-                lesson.setCalendarEventId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_CALENDAR_EVENT_ID)));
 
                 arrayList.add(lesson);
 
@@ -413,7 +427,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
                 lesson.setDuration(cursor.getFloat(cursor.getColumnIndex(KEY_LESSON_DURATION)));
                 lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
-                lesson.setCalendarEventId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_CALENDAR_EVENT_ID)));
 
                 arrayList.add(lesson);
 
@@ -446,7 +459,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
                 lesson.setDuration(cursor.getFloat(cursor.getColumnIndex(KEY_LESSON_DURATION)));
                 lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
-                lesson.setCalendarEventId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_CALENDAR_EVENT_ID)));
 
                 arrayList.add(lesson);
 
@@ -480,7 +492,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
                 lesson.setDuration(cursor.getFloat(cursor.getColumnIndex(KEY_LESSON_DURATION)));
                 lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
-                lesson.setCalendarEventId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_CALENDAR_EVENT_ID)));
 
                 arrayList.add(lesson);
 
@@ -509,7 +520,6 @@ public class DBHelper extends SQLiteOpenHelper {
             lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
             lesson.setDuration(cursor.getFloat(cursor.getColumnIndex(KEY_LESSON_DURATION)));
             lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
-            lesson.setCalendarEventId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_CALENDAR_EVENT_ID)));
         }
         cursor.close();
         return lesson;
@@ -532,7 +542,6 @@ public class DBHelper extends SQLiteOpenHelper {
             lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
             lesson.setDuration(cursor.getFloat(cursor.getColumnIndex(KEY_LESSON_DURATION)));
             lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
-            lesson.setCalendarEventId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_CALENDAR_EVENT_ID)));
         }
         cursor.close();
         return lesson;
@@ -552,7 +561,6 @@ public class DBHelper extends SQLiteOpenHelper {
             lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
             lesson.setDuration(cursor.getFloat(cursor.getColumnIndex(KEY_LESSON_DURATION)));
             lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
-            lesson.setCalendarEventId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_CALENDAR_EVENT_ID)));
         }
         cursor.close();
         return lesson;
@@ -574,6 +582,56 @@ public class DBHelper extends SQLiteOpenHelper {
         return sum;
     }
 
+    //LESSON OPTIONS
+    //Добавить опции урока
+    public boolean insertLessonOptions(LessonOptions lessonOptions){
+        boolean status = true;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_LESSON_OPTIONS_LESSON_ID, lessonOptions.getLessonId());
+        cv.put(KEY_LESSON_OPTIONS_CALENDAR_EVENT_ID, lessonOptions.getCalendarEventId());
+        cv.put(KEY_LESSON_OPTIONS_IS_REPEATABLE, lessonOptions.getIsRepeatable());
+        cv.put(KEY_LESSON_OPTIONS_REPEAT_MODE, lessonOptions.getRepeatMode());
+
+        if(db.insert(TABLE_LESSON_OPTIONS, null, cv) == -1)
+            status = false;
+
+        return status;
+    }
+
+    public LessonOptions getLessonOptions(int lessonId){
+        LessonOptions lessonOptions = new LessonOptions();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from " + TABLE_LESSON_OPTIONS + " where " + KEY_LESSON_OPTIONS_LESSON_ID + " = " + lessonId, null);
+
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+
+            lessonOptions.setId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_OPTIONS_ID)));
+            lessonOptions.setLessonId(lessonId);
+            lessonOptions.setCalendarEventId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_OPTIONS_CALENDAR_EVENT_ID)));
+            lessonOptions.setIsRepeatable(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_OPTIONS_IS_REPEATABLE)));
+            lessonOptions.setRepeatMode(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_OPTIONS_REPEAT_MODE)));
+
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+
+        return lessonOptions;
+    }
+
+    public boolean deleteLessonOptions(int id){
+        boolean status = true;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        if(db.delete(TABLE_LESSON_OPTIONS, KEY_LESSON_OPTIONS_ID + " = " + id, null) == -1)
+            status = false;
+
+        return status;
+    }
 
     //TEST
     //Добавить тест
