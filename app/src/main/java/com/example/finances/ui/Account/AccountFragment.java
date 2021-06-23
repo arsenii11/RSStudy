@@ -171,6 +171,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
                 Intent intent = new Intent(AccountFragment.this.getActivity(), CourseName.class);
                 startActivity(intent);
                 CustomIntent.customType(getContext(),"left-to-right");
+                getActivity().finish();
             }
         });
 

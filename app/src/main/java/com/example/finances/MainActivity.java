@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
 
     private static final int MY_PERMISSIONS_REQUEST_READ_MEDIA = 1;
-    public static boolean ALLOW_ADD_TO_CALENDAR;
+    public static boolean ALLOW_ADD_TO_CALENDAR = false;
 
 
     @RequiresApi(api = Build.VERSION_CODES.P)

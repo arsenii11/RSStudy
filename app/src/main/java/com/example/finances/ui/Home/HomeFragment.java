@@ -1,6 +1,7 @@
 package com.example.finances.ui.Home;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -64,6 +65,7 @@ public class HomeFragment extends Fragment  {
                 Intent intent = new Intent(HomeFragment.this.getActivity(), CourseName.class);
                 startActivity(intent);
                 CustomIntent.customType(getContext(),"fadein-to-fadeout");
+                getActivity().finish();
             }
         });
 
@@ -75,6 +77,7 @@ public class HomeFragment extends Fragment  {
                 intent.putExtra("ADAPTER_MODE", "ADD_LESSON");
                 startActivity(intent);
                 CustomIntent.customType(getContext(),"fadein-to-fadeout");
+                getActivity().finish();
             }
         });
 
@@ -86,6 +89,7 @@ public class HomeFragment extends Fragment  {
                 intent.putExtra("ADAPTER_MODE", "ADD_TEST");
                 startActivity(intent);
                 CustomIntent.customType(getContext(),"fadein-to-fadeout");
+                getActivity().finish();
             }
         });
 
