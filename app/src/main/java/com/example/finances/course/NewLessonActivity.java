@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.content.CursorLoader;
+import androidx.preference.PreferenceManager;
 
 import com.example.finances.MainActivity;
 import com.example.finances.R;
@@ -311,6 +313,8 @@ public class NewLessonActivity extends AppCompatActivity {
     //Добавление урока в системный календарь
     public int addCalendarEvent(String name,long startDate, long endDate){
         CalendarHelper calendarHelper = new CalendarHelper(this);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        ALLOW_ADD_TO_CALENDAR = prefs.getBoolean("AllowAddToCalendar", false);
         if (ALLOW_ADD_TO_CALENDAR){
             return calendarHelper.addCalendarEvent(name, startDate, endDate);
         }
