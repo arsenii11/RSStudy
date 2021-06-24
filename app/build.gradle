@@ -73,6 +73,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'//вспомогательная штука для Glide
     implementation 'com.squareup.picasso:picasso:2.71828'//picasso библиотека
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0' //MPAndroid диаграммы
+    implementation 'com.github.florent37:kotlinpleaseanimate:1.0.2' //анимация для изменения позиции изображения
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta3' //MotionLayout (Анимированные списки)
     implementation 'de.hdodenhof:circleimageview:3.1.0' //круглое ImageView
     implementation 'jp.wasabeef:picasso-transformations:2.4.0' //функции для picasso
@@ -83,7 +84,6 @@ dependencies {
     implementation 'com.github.hajiyevelnur92:intentanimation:1.0' //анимация интент
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0' //не знаю зачем, но без нее смахивание не рабоатет
     implementation 'nz.co.trademe.covert:covert:2.0.0' //Смахивание по элементу списка
-    //implementation project(path: ":covert")
     implementation "ru.tinkoff.decoro:decoro:1.1.1" //красивый ввод
     implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'//calendar
     implementation 'com.github.pchmn:MaterialChipsInput:1.0.8'//выпадающий выбор
