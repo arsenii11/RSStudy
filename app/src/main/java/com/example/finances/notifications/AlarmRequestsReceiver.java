@@ -8,12 +8,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.PersistableBundle;
+import android.text.format.DateUtils;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
 import com.example.finances.database.DBHelper;
 import com.example.finances.database.Lesson;
+import com.example.finances.database.LessonOptions;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,13 +30,13 @@ public class AlarmRequestsReceiver extends BroadcastReceiver {
     @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.e("AlarmRequestReceiver", "check1");
+        //Log.e("AlarmRequestReceiver", "check1");
         switch (intent.getAction()) {
             case ACTION_PERFORM_EXERCISE:
                 scheduleJob(context);
                 break;
             case LESSON_ALARM:
-                Log.e("AlarmRequestReceiver", "check2");
+                //Log.e("AlarmRequestReceiver", "check2");
                 lessonAlarm(context);
                 break;
             default:
@@ -60,13 +62,37 @@ public class AlarmRequestsReceiver extends BroadcastReceiver {
 
     private void lessonAlarm(Context context){
 
-        Log.e("AlarmRequestReceiver", "check3");
+        //Log.e("AlarmRequestReceiver", "check3");
 
         DBHelper dbHelper = new DBHelper(context);
         ArrayList<Lesson> lessons = dbHelper.getAllLessons();
         Calendar now = Calendar.getInstance();
 
         for (Lesson lesson: lessons) {
+
+            /*LessonOptions lessonOptions = dbHelper.getLessonOptions(lesson.getId());
+            if (lessonOptions.getIsRepeatable() > 0){
+                long add = 0;
+
+                switch (lessonOptions.getRepeatMode()){
+                    case 1: add = 604800000; break;
+                    case 2: add = 1209600000; break;
+                    case 3: add = 2419200000L; break;
+                }
+
+                Lesson newLesson = new Lesson();
+                newLesson.setDate(lesson.getDate()+add);
+                newLesson.setCourseId(lesson.getCourseId());
+                newLesson.setWeight(lesson.getWeight());
+                newLesson.setDuration(lesson.getDuration());
+
+                now.setTimeInMillis(newLesson.getDate());
+                String lessonName = dbHelper.getCourse(lesson.getCourseId()).getName() + ", " + DateUtils.formatDateTime(context,
+                        now.getTimeInMillis(),
+                        DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
+                                | DateUtils.FORMAT_SHOW_TIME) + ", " +
+            }*/
+
             int hour = 3600000;
             long latency = lesson.getDate()*1000 - now.getTimeInMillis() - hour;
             if(latency>0) {
