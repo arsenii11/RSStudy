@@ -90,10 +90,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         Intent IntentForBroadcast = new Intent(appContext, AlarmRequestsReceiver.class);
 
-        //IntentForBroadcast.setAction(AlarmRequestsReceiver.ACTION_PERFORM_EXERCISE);
-
         IntentForBroadcast.setAction(AlarmRequestsReceiver.LESSON_ALARM);
-        Log.e("Main", "check");
+        //Log.e("Main", "check");
         appContext.sendBroadcast(IntentForBroadcast);
     }
 

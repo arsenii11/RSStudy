@@ -261,6 +261,7 @@ public class DBHelper extends SQLiteOpenHelper {
         boolean status = true;
         SQLiteDatabase db = this.getWritableDatabase();
         Course parentCourse = getCourse(lesson.getCourseId());
+        parentCourse.setLessons(parentCourse.getLessons()+1);
         if ((parentCourse.getStartDate() > lesson.getDate()) || parentCourse.getStartDate() <= 0) {
             parentCourse.setStartDate(lesson.getDate());
             updateCourse(parentCourse.getId(), parentCourse);
@@ -579,6 +580,23 @@ public class DBHelper extends SQLiteOpenHelper {
             sum = cursor.getFloat(0);
         }
         cursor.close();
+        return sum;
+    }
+
+    public float getLessonDurationByNow(int courseId){
+        float sum = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Course course = getCourse(courseId);
+        Calendar calendar = Calendar.getInstance();
+        long startDate = course.getStartDate();
+        long endDate = calendar.getTimeInMillis()/1000;
+
+        Cursor cursor = db.rawQuery("select SUM("+KEY_LESSON_DURATION+") from " + TABLE_LESSONS + " where " + KEY_LESSON_DATE + " between " + startDate + " and " + endDate + " and " + KEY_LESSON_COURSE_ID + " = " + courseId, null);
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            sum = cursor.getFloat(0);
+        }
+
         return sum;
     }
 
