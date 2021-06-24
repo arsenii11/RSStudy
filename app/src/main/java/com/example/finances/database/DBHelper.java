@@ -583,7 +583,8 @@ public class DBHelper extends SQLiteOpenHelper {
         return sum;
     }
 
-    public float getLessonDurationByNow(int courseId){
+    //Получить длительность уроков с одинаковым родительским курсом с его начала по текущее временя
+    public float getLessonDurationByCourse(int courseId){
         float sum = 0;
         SQLiteDatabase db = this.getReadableDatabase();
         Course course = getCourse(courseId);
