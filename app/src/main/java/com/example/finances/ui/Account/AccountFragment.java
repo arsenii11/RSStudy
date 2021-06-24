@@ -13,6 +13,7 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
@@ -78,6 +79,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     ArrayList<Course> courses = new ArrayList<Course>();
     ArrayList<Lesson> lessons = new ArrayList<Lesson>();
     Button newCourse;
+    CircleImageView profileImage; //изображение профиля
     Button ViewAllBt;
 
     Covert.Config config = new Covert.Config(R.drawable.ic_cancel_grey_24dp, R.color.white, R.color.ErrorText);
@@ -100,6 +102,10 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_account, container, false);
         Context context = getContext();
+
+        profileImage = (CircleImageView) getActivity().findViewById(R.id.ProfileImage);
+
+
         //Список
         setInitialData();
         RecyclerView CoursesList = (RecyclerView) view.findViewById(R.id.list);
@@ -155,6 +161,8 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         if (EduPLace.isEmpty()) {
             eduplace.setText("Not indicated");
         }
+
+
 
 
 
