@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +20,12 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.compose.animation.core.Animatable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,7 +38,9 @@ import com.example.finances.course.LessonAdapter;
 import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
 import com.example.finances.database.Lesson;
+import com.example.finances.helpclasses.SquaredConstraintLayout;
 import com.github.florent37.kotlin.pleaseanimate.PleaseAnim;
+import com.github.florent37.kotlin.pleaseanimate.core.Expectations;
 import com.github.florent37.kotlin.pleaseanimate.core.PleaseAnimManager;
 import com.github.florent37.kotlin.pleaseanimate.core.custom.PleaseAnimCustomManager;
 import com.github.florent37.kotlin.pleaseanimate.core.position.PleaseAnimPositionManager;
@@ -61,6 +67,7 @@ import nz.co.trademe.covert.Covert;
 
 import static android.app.Activity.RESULT_OK;
 import static com.pchmn.materialchips.R2.id.avatar;
+import static com.pchmn.materialchips.R2.id.scrollView;
 
 public class AccountFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, Function2<CheckableChipView, Boolean, Unit>  {
 
@@ -70,12 +77,15 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     private String imagePath;
     private final int PICK_IMAGE_REQUEST = 1;
     private View view;
+    public ConstraintLayout background;
     private Activity activityAccount;
     public ByteArrayOutputStream bos;
     public String FilePath ="";
     public ProgressBar simpleProgressBar;
     public TextView progressText;
     public Uri selectedImageUri;
+    public View backgroundColorTint;
+    public TextView Nickname;
     ArrayList<Course> courses = new ArrayList<Course>();
     ArrayList<Lesson> lessons = new ArrayList<Lesson>();
     Button newCourse;
@@ -95,6 +105,8 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         //получаем путь к изображению
         SharedPreferences accountPhoto = getActivity().getSharedPreferences(APP_PREFERENCES_Path, Context.MODE_PRIVATE);
         FilePath= accountPhoto.getString("key1", "");
+
+
     }
 
 
@@ -103,7 +115,11 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         view = inflater.inflate(R.layout.fragment_account, container, false);
         Context context = getContext();
 
-        profileImage = (CircleImageView) getActivity().findViewById(R.id.ProfileImage);
+        //получаем адрес элементов из верхней части аккаунта
+        profileImage = (CircleImageView) view.findViewById(R.id.ProfileImage);
+        Nickname = view.findViewById(R.id.name);
+        background = view.findViewById(R.id.profileLayout);
+
 
 
         //Список
@@ -111,6 +127,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         RecyclerView CoursesList = (RecyclerView) view.findViewById(R.id.list);
         // RecyclerView LessonsList = (RecyclerView) view.findViewById(R.id.Lessonlist);
 
+        //свайпы для удаления курса из списка
         /*covert = Covert.with(config).setIsActiveCallback(viewHolder -> false).doOnSwipe((viewHolder, swipeDirection) -> {
             TextView textView = viewHolder.itemView.findViewById(R.id.CourseID);
             int id = Integer.parseInt(textView.getText().toString());
@@ -139,7 +156,6 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         //устанавливаем никнейм
         SharedPreferences accNickname = PreferenceManager.getDefaultSharedPreferences(this.getContext());
         String nickname = accNickname.getString("Nickname", "");
-        TextView Nickname = view.findViewById(R.id.name);
         Nickname.setText(nickname);
         if (nickname.isEmpty()) {
             Nickname.setText("Nickname");
@@ -163,7 +179,60 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         }
 
 
+        PleaseAnim pleaseAnim = new PleaseAnim();                                               //--------------------------------kotlin animation-------------------------
+        pleaseAnim.animate(profileImage, 1000f, new Function1<Expectations, Unit>() {
+            @Override
+            public Unit invoke(Expectations expectations) {
+                expectations.topOfItsParent(20f,null);
+                expectations.leftOfItsParent(20f, null);
+                expectations.scale(0.5f,0.5f);
+                return null;
+            }
+        });
+        pleaseAnim.animate(Nickname, 10f, new Function1<Expectations, Unit>() {
+            @Override
+            public Unit invoke(Expectations expectations) {
+                expectations.centerHorizontalInParent();
+                expectations.sameCenterVerticalAs(profileImage);
+                expectations.alpha(0.5f);
+                return null;
+            }
+        });
+        pleaseAnim.animate(Email, 10f, new Function1<Expectations, Unit>() {
+            @Override
+            public Unit invoke(Expectations expectations) {
+             expectations.rightOfItsParent(20f,null);
+             expectations.sameCenterVerticalAs(profileImage);
+                return null;
+            }
+        });
+        pleaseAnim.animate(eduplace, 10f, new Function1<Expectations, Unit>() {
+            @Override
+            public Unit invoke(Expectations expectations) {
+                expectations.rightOfItsParent(20f,null);
+                expectations.belowOf(Email,10f, null);
+                return null;
+            }
+        });
+       /* pleaseAnim.animate(background, 10f, new Function1<Expectations, Unit>() {
+            @Override
+            public Unit invoke(Expectations expectations) {
+            expectations. height(250, Gravity.LEFT, Gravity.TOP,true,false);
 
+                return null;
+            }
+        });*/
+
+        NestedScrollView nestedscroll =  view.findViewById(R.id.nestedscrollAccount);
+        nestedscroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+            float percents = scrollY * 0.5f / v.getMaxScrollAmount();
+            pleaseAnim.setPercent(percents);
+            }
+        });
+
+       // pleaseAnim.animate(view,100,);
 
 
 

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nestedscrollAccount"
     android:layout_width="match_parent"
     android:fitsSystemWindows="true"
     android:layout_height="match_parent"
@@ -10,238 +9,251 @@
     android:tag="unique_tag"
     tools:context=".ui.Account.AccountFragment">
 
-<LinearLayout
-    android:id="@+id/LinerAcc"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-    <com.example.finances.helpclasses.SquaredConstraintLayout
-        android:id="@+id/profileLayout"
+
+
+
+    <LinearLayout
+        android:id="@+id/LinerAcc1"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_weight="2"
-        >
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/ProfileImage"
-            android:layout_width="175dp"
-            android:layout_height="155dp"
-            android:src="@drawable/no_avatar"
-            app:civ_border_color="@color/MMM_purple"
-            app:civ_border_width="2dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.283" />
-
-        <ImageButton
-            android:id="@+id/FirstPhotoButton"
-            android:layout_width="86dp"
-            android:layout_height="103dp"
-            android:layout_alignEnd="@+id/ProfileImage"
-            android:layout_alignRight="@+id/ProfileImage"
-            android:layout_alignBottom="@+id/ProfileImage"
-            android:background="@drawable/round_background"
-            android:backgroundTint="@color/transparent"
-            app:layout_constraintBottom_toBottomOf="@+id/progressBar"
-            app:layout_constraintEnd_toEndOf="@+id/ProfileImage"
-            app:layout_constraintHorizontal_bias="0.259"
-            app:layout_constraintStart_toStartOf="@+id/progressBar"
-            app:layout_constraintTop_toTopOf="@+id/ProfileImage"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:gravity="center"
-            android:text="@string/Nickname_title"
-            android:textColor="@color/Widget2text"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ProfileImage" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="106dp"
-            android:layout_height="138dp"
-            android:layout_gravity="center"
-            app:layout_constraintBottom_toBottomOf="@+id/ProfileImage"
-            app:layout_constraintEnd_toEndOf="@+id/ProfileImage"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="@+id/ProfileImage"
-            app:layout_constraintTop_toTopOf="@+id/ProfileImage" />
-
-        <TextView
-            android:id="@+id/email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="number"
-            android:textColor="@color/diagramText"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/name"
-            app:layout_constraintTop_toBottomOf="@+id/name"
-            />
-
-        <TextView
-            android:id="@+id/progressText"
-            android:layout_width="315dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="12dp"
-            android:gravity="center"
-            android:textSize="24dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar" />
-
-        <TextView
-            android:id="@+id/eduInstitution"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="number"
-            android:textColor="@color/diagramText"
-            android:textSize="11sp"
-            app:layout_constraintStart_toStartOf="@+id/name"
-            app:layout_constraintTop_toBottomOf="@+id/email" />
-
-
-    </com.example.finances.helpclasses.SquaredConstraintLayout>
-
-    <View
-        style="@style/Divider" />
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/CourseListLayout"
-        android:layout_width="match_parent"
-        android:layout_height="275dp"
-        android:layout_weight="1"
-        android:backgroundTint="@color/ListBackGround">
-
-
-        <TextView
-            android:id="@+id/name3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="56dp"
-            android:layout_marginTop="28dp"
-            android:gravity="center"
-            android:text="My awards"
-            android:textColor="@color/Widget2text"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <View
-        style="@style/Divider" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/LessonListLayout"
-        android:layout_width="match_parent"
-        android:layout_height="275dp"
-        android:layout_weight="1"
-        android:backgroundTint="@color/ListBackGround">
-
-        <TextView
-            android:id="@+id/name2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginBottom="12dp"
-            android:gravity="center"
-            android:text="My courses"
-            android:textColor="@color/Widget2text"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/ListContainer"
-            app:layout_constraintStart_toStartOf="@+id/ListContainer"
-            app:layout_constraintTop_toTopOf="parent" />
-
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/ListContainer"
-            android:layout_width="290dp"
-            android:layout_height="164dp"
-            android:background="@drawable/round_background"
-            android:backgroundTint="@color/Widget3"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list"
-            android:layout_width="270dp"
-            android:layout_height="164dp"
-            android:background="@drawable/round_background"
-            android:backgroundTint="@color/Widget3"
-            android:visibility="visible"
+            android:id="@+id/profileLayout"
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            >
 
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ProfileImage"
+                android:layout_width="175dp"
+                android:layout_height="155dp"
+                android:src="@drawable/no_avatar"
+                app:civ_border_color="@color/MMM_purple"
+                app:civ_border_width="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.283" />
 
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <ImageButton
+                android:id="@+id/FirstPhotoButton"
+                android:layout_width="86dp"
+                android:layout_height="103dp"
+                android:layout_alignEnd="@+id/ProfileImage"
+                android:layout_alignRight="@+id/ProfileImage"
+                android:layout_alignBottom="@+id/ProfileImage"
+                android:background="@drawable/round_background"
+                android:backgroundTint="@color/transparent"
+                app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+                app:layout_constraintEnd_toEndOf="@+id/ProfileImage"
+                app:layout_constraintHorizontal_bias="0.259"
+                app:layout_constraintStart_toStartOf="@+id/progressBar"
+                app:layout_constraintTop_toTopOf="@+id/ProfileImage"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:gravity="center"
+                android:text="@string/Nickname_title"
+                android:textColor="@color/Widget2text"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.502"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ProfileImage" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="106dp"
+                android:layout_height="138dp"
+                android:layout_gravity="center"
+                app:layout_constraintBottom_toBottomOf="@+id/ProfileImage"
+                app:layout_constraintEnd_toEndOf="@+id/ProfileImage"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="@+id/ProfileImage"
+                app:layout_constraintTop_toTopOf="@+id/ProfileImage" />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="number"
+                android:textColor="@color/diagramText"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/name"
+                app:layout_constraintTop_toBottomOf="@+id/name"
+                />
+
+            <TextView
+                android:id="@+id/progressText"
+                android:layout_width="315dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:textSize="24dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+
+            <TextView
+                android:id="@+id/eduInstitution"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="number"
+                android:textColor="@color/diagramText"
+                android:textSize="11sp"
+                app:layout_constraintStart_toStartOf="@+id/name"
+                app:layout_constraintTop_toBottomOf="@+id/email" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Button
-            android:id="@+id/courseBt"
-            android:layout_width="105dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="20dp"
-            style="@style/LessonDateButton"
-            android:background="@drawable/buttonbackground_1"
-            android:backgroundTint="@color/plus2"
-            android:gravity="center"
-            android:text="New course"
-            android:textColor="@color/white"
-            android:textSize="10dp"
-            app:cornerRadius="12dp"
-            app:iconPadding="0dp"
-            app:layout_constraintEnd_toEndOf="@+id/ListContainer"
-            app:layout_constraintTop_toBottomOf="@+id/ListContainer" />
+        <View
+            style="@style/Divider" />
 
-        <Button
-            android:id="@+id/ViewAllBt"
-            style="@style/LessonDateButton"
-            android:layout_width="105dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:background="@drawable/buttonbackground_1"
-            android:backgroundTint="@color/plus2"
-            android:gravity="center"
-            android:text="View all"
-            android:textColor="@color/white"
-            android:textSize="10dp"
-            app:cornerRadius="12dp"
-            app:iconPadding="0dp"
-            app:layout_constraintStart_toStartOf="@+id/ListContainer"
-            app:layout_constraintTop_toBottomOf="@+id/ListContainer" />
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/nestedscrollAccount">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <View
-        style="@style/Divider" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:id="@+id/LinerAcc"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        >
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/CourseListLayout"
+            android:layout_width="match_parent"
+            android:layout_height="275dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/ListBackGround">
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/name3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="56dp"
+                android:layout_marginTop="28dp"
+                android:gravity="center"
+                android:text="My awards"
+                android:textColor="@color/Widget2text"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+        <View
+            style="@style/Divider" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/LessonListLayout"
+            android:layout_width="match_parent"
+            android:layout_height="275dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/ListBackGround">
+
+            <TextView
+                android:id="@+id/name2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginBottom="12dp"
+                android:gravity="center"
+                android:text="My courses"
+                android:textColor="@color/Widget2text"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/ListContainer"
+                app:layout_constraintStart_toStartOf="@+id/ListContainer"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ListContainer"
+                android:layout_width="290dp"
+                android:layout_height="164dp"
+                android:background="@drawable/round_background"
+                android:backgroundTint="@color/Widget3"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/list"
+                    android:layout_width="270dp"
+                    android:layout_height="164dp"
+                    android:background="@drawable/round_background"
+                    android:backgroundTint="@color/Widget3"
+                    android:visibility="visible"
+
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/courseBt"
+                android:layout_width="105dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="20dp"
+                style="@style/LessonDateButton"
+                android:background="@drawable/buttonbackground_1"
+                android:backgroundTint="@color/plus2"
+                android:gravity="center"
+                android:text="New course"
+                android:textColor="@color/white"
+                android:textSize="10dp"
+                app:cornerRadius="12dp"
+                app:iconPadding="0dp"
+                app:layout_constraintEnd_toEndOf="@+id/ListContainer"
+                app:layout_constraintTop_toBottomOf="@+id/ListContainer" />
+
+            <Button
+                android:id="@+id/ViewAllBt"
+                style="@style/LessonDateButton"
+                android:layout_width="105dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/buttonbackground_1"
+                android:backgroundTint="@color/plus2"
+                android:gravity="center"
+                android:text="View all"
+                android:textColor="@color/white"
+                android:textSize="10dp"
+                app:cornerRadius="12dp"
+                app:iconPadding="0dp"
+                app:layout_constraintStart_toStartOf="@+id/ListContainer"
+                app:layout_constraintTop_toBottomOf="@+id/ListContainer" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            style="@style/Divider" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            >
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
+    </LinearLayout>
 </LinearLayout>
 
-</androidx.core.widget.NestedScrollView>
