@@ -26,8 +26,7 @@
         <View
             android:layout_width="0dp"
             android:layout_height="375dp" />
-        <View
-            style="@style/Divider" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/CourseListLayout"
             android:layout_width="match_parent"
@@ -163,7 +162,7 @@
     <FrameLayout
         android:id="@+id/LinerAcc1"
         android:layout_width="match_parent"
-        android:layout_height="375dp">
+        android:layout_height="345dp">
         <View
             android:id="@+id/background"
             android:layout_width="match_parent"
@@ -181,7 +180,7 @@
 
             <com.example.finances.helpclasses.SquaredConstraintLayout
                 android:id="@+id/ProfileImageLayout"
-                android:layout_width="175dp"
+                android:layout_width="125dp"
                 android:layout_height="match_parent"
                 android:layout_above="@+id/name"
                 android:layout_centerHorizontal="true"
@@ -190,8 +189,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ProfileImage"
-                    android:layout_width="175dp"
-                    android:layout_height="175dp"
+                    android:layout_width="125dp"
+                    android:layout_height="125dp"
                     android:gravity="center"
                     android:src="@drawable/no_avatar"
                     app:civ_border_color="@color/MMM_purple"
@@ -201,14 +200,15 @@
 
                 <ImageButton
                     android:id="@+id/FirstPhotoButton"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_width="105dp"
+                    android:layout_height="105dp"
                     android:background="@drawable/round_background"
                     android:backgroundTint="@color/transparent"
                     app:layout_constraintBottom_toBottomOf="@+id/ProfileImage"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/ProfileImage" />
+
 
                 <ProgressBar
                     android:id="@+id/progressBar"
@@ -229,8 +229,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/Nickname_title"
-                android:textColor="@color/Widget2text"
-                android:textSize="30dp"
+                android:textColor="@color/diagramText"
+                android:textSize="27dp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.502"
@@ -241,12 +241,22 @@
                 android:id="@+id/email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="number"
-                android:textColor="@color/diagramText"
+                android:text="email@mail.com"
+                android:textColor="@color/gray_dove_light"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/name"
                 app:layout_constraintTop_toBottomOf="@+id/name"
                 />
+
+            <TextView
+                android:id="@+id/nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nickname"
+                android:textColor="@color/gray_dove_light"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/name"
+                app:layout_constraintTop_toBottomOf="@+id/email" />
 
             <TextView
                 android:id="@+id/progressText"
@@ -260,18 +270,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/progressBar" />
-
-            <TextView
-                android:id="@+id/eduInstitution"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="number"
-                android:textColor="@color/diagramText"
-                android:textSize="11sp"
-                app:layout_constraintStart_toStartOf="@+id/name"
-                app:layout_constraintTop_toBottomOf="@+id/email" />
-
-
+            <View
+                android:id="@+id/divideranim"
+                android:layout_marginTop="48dp"
+                style="@style/Divider" />
         </LinearLayout>
 
     </FrameLayout>
