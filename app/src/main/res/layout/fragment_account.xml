@@ -184,7 +184,7 @@
                 android:layout_height="match_parent"
                 android:layout_above="@+id/name"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="63dp"
                 android:layout_marginBottom="16dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -212,8 +212,8 @@
 
                 <ProgressBar
                     android:id="@+id/progressBar"
-                    android:layout_width="106dp"
-                    android:layout_height="138dp"
+                    android:layout_width="105dp"
+                    android:layout_height="105dp"
                     android:layout_gravity="center"
                     app:layout_constraintBottom_toBottomOf="@+id/ProfileImage"
                     app:layout_constraintEnd_toEndOf="@+id/ProfileImage"
