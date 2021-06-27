@@ -93,7 +93,7 @@ public class JobSchedulerService extends JobService {
             options.setLessonId(lesson.getId());
 
             long endDate = lesson.getDate() + (long) lesson.getDuration()*3600000;
-            options.setCalendarEventId(addCalendarEvent(lesson.getName(), lesson.getDate(), endDate));
+            options.setCalendarEventId(addCalendarEvent(parentCourse.getName() + " lesson", lesson.getDate(), endDate));
         }
 
         AlarmJobIntentService.startAction(context, ACTION, TITLE, TEXT, BIG_TEXT);

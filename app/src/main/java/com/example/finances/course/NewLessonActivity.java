@@ -162,7 +162,7 @@ public class NewLessonActivity extends AppCompatActivity {
                     lesson = dbHelper.findLesson(lesson); //Ищем добавленный урок
 
                     lessonOptions.setLessonId(lesson.getId()); //Устанавливаем id урока в опции
-                    lessonOptions.setCalendarEventId(addCalendarEvent(lessonName, dateAndTime.getTimeInMillis(), timeEnd.getTimeInMillis())); //Устанавливаем ID события в календаре
+                    lessonOptions.setCalendarEventId(addCalendarEvent(course.getName() + " lesson", dateAndTime.getTimeInMillis(), timeEnd.getTimeInMillis())); //Устанавливаем ID события в календаре
                     lessonOptions.setIsRepeatable(0); //Ставим режим "не повторять"
 
                     if(COURSE_REPEAT.equals("YES")) {
@@ -193,7 +193,7 @@ public class NewLessonActivity extends AppCompatActivity {
                         //lesson = dbHelper.findLesson(lesson); //Ищем добавленный урок
 
                         lessonOptions.setLessonId(lesson.getId()); ////Устанавливаем id перенесенного урока в опции
-                        lessonOptions.setCalendarEventId(addCalendarEvent(lessonName, dateAndTime.getTimeInMillis(), timeEnd.getTimeInMillis())); //Устанавливаем ID события в календаре
+                        lessonOptions.setCalendarEventId(addCalendarEvent(course.getName() + " lesson", dateAndTime.getTimeInMillis(), timeEnd.getTimeInMillis())); //Устанавливаем ID события в календаре
 
                         //dbHelper.insertLessonOptions(lessonOptions); //Добавляем опции урока в БД
                     }

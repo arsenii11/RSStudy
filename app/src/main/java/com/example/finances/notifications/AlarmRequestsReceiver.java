@@ -73,9 +73,10 @@ public class AlarmRequestsReceiver extends BroadcastReceiver {
             long latency = lesson.getDate()*1000 - now.getTimeInMillis() - hour;
             Log.e("Latency", String.valueOf(latency) + " " + lesson.getDate()*1000 + " " + now.getTimeInMillis());
             if(latency>0) {
+                String name = lesson.getName().split(", ")[0];
                 PersistableBundle bundle = new PersistableBundle();
                 bundle.putString("ACTION", AlarmJobIntentService.LESSON_ALARM);
-                bundle.putString("TITLE", lesson.getName() + " lesson");
+                bundle.putString("TITLE", name + " lesson");
                 bundle.putString("TEXT", "Урок уже через час");
                 bundle.putString("BIG_TEXT", "Урок уже через час, за 15 минут я напомню еще раз :)");
                 bundle.putInt("LESSON_ID",lesson.getId());
