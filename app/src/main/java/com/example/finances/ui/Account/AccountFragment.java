@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -77,11 +78,12 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     private String imagePath;
     private final int PICK_IMAGE_REQUEST = 1;
     private View view;
-    public ConstraintLayout background;
+    public View background;
     private Activity activityAccount;
     public ByteArrayOutputStream bos;
     public String FilePath ="";
     public ProgressBar simpleProgressBar;
+    public SquaredConstraintLayout lay_photo;
     public TextView progressText;
     public Uri selectedImageUri;
     public View backgroundColorTint;
@@ -118,7 +120,8 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         //получаем адрес элементов из верхней части аккаунта
         profileImage = (CircleImageView) view.findViewById(R.id.ProfileImage);
         Nickname = view.findViewById(R.id.name);
-        background = view.findViewById(R.id.profileLayout);
+        background = view.findViewById(R.id.background);
+        lay_photo = view.findViewById(R.id.ProfileImageLayout);
 
 
 
@@ -180,12 +183,21 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
 
 
         PleaseAnim pleaseAnim = new PleaseAnim();                                               //--------------------------------kotlin animation-------------------------
+        pleaseAnim.animate(lay_photo, 1000f, new Function1<Expectations, Unit>() {
+            @Override
+            public Unit invoke(Expectations expectations) {
+                expectations.topOfItsParent(10f,null);
+                expectations.leftOfItsParent(20f, null);
+                expectations.scale(0.6f,0.6f);
+                return null;
+            }
+        });
         pleaseAnim.animate(profileImage, 1000f, new Function1<Expectations, Unit>() {
             @Override
             public Unit invoke(Expectations expectations) {
                 expectations.topOfItsParent(20f,null);
                 expectations.leftOfItsParent(20f, null);
-                expectations.scale(0.5f,0.5f);
+                expectations.scale(0.6f,0.6f);
                 return null;
             }
         });
@@ -193,8 +205,8 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
             @Override
             public Unit invoke(Expectations expectations) {
                 expectations.centerHorizontalInParent();
-                expectations.sameCenterVerticalAs(profileImage);
-                expectations.alpha(0.5f);
+                expectations.topOfItsParent(35f,null);
+                expectations.alpha(1f);
                 return null;
             }
         });
@@ -203,6 +215,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
             public Unit invoke(Expectations expectations) {
              expectations.rightOfItsParent(20f,null);
              expectations.sameCenterVerticalAs(profileImage);
+             expectations.invisible();
                 return null;
             }
         });
@@ -211,23 +224,24 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
             public Unit invoke(Expectations expectations) {
                 expectations.rightOfItsParent(20f,null);
                 expectations.belowOf(Email,10f, null);
+                expectations.invisible();
                 return null;
             }
         });
-       /* pleaseAnim.animate(background, 10f, new Function1<Expectations, Unit>() {
+        pleaseAnim.animate(background, 10f, new Function1<Expectations, Unit>() {
             @Override
             public Unit invoke(Expectations expectations) {
-            expectations. height(250, Gravity.LEFT, Gravity.TOP,true,false);
+            expectations.height(100, Gravity.LEFT, Gravity.TOP,false,true);
 
                 return null;
             }
-        });*/
+        });
 
         NestedScrollView nestedscroll =  view.findViewById(R.id.nestedscrollAccount);
         nestedscroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-            float percents = scrollY * 0.5f / v.getMaxScrollAmount();
+            float percents = scrollY * 1.5f / v.getMaxScrollAmount();
             pleaseAnim.setPercent(percents);
             }
         });
