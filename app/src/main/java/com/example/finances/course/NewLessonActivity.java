@@ -188,14 +188,14 @@ public class NewLessonActivity extends AppCompatActivity {
                         dat = dateAndTime.getTimeInMillis()/1000; //Рассчитываем дату начала перенесенного уока в секундах
                         lesson.setDate(dat); //Устанавливаем дату начала перенесенного урока
 
-                        dbHelper.insertLessonSmart(lesson); //Запускаем умное добавление перенесенного урока
+                        //dbHelper.insertLessonSmart(lesson); //Запускаем умное добавление перенесенного урока
 
-                        lesson = dbHelper.findLesson(lesson); //Ищем добавленный урок
+                        //lesson = dbHelper.findLesson(lesson); //Ищем добавленный урок
 
                         lessonOptions.setLessonId(lesson.getId()); ////Устанавливаем id перенесенного урока в опции
                         lessonOptions.setCalendarEventId(addCalendarEvent(lessonName, dateAndTime.getTimeInMillis(), timeEnd.getTimeInMillis())); //Устанавливаем ID события в календаре
 
-                        dbHelper.insertLessonOptions(lessonOptions); //Добавляем опции урока в БД
+                        //dbHelper.insertLessonOptions(lessonOptions); //Добавляем опции урока в БД
                     }
                     else{
                         dbHelper.insertLessonOptions(lessonOptions); //Добавляем опции урока в БД
@@ -311,7 +311,7 @@ public class NewLessonActivity extends AppCompatActivity {
     };
 
     //Добавление урока в системный календарь
-    public int addCalendarEvent(String name,long startDate, long endDate){
+    private int addCalendarEvent(String name,long startDate, long endDate){
         CalendarHelper calendarHelper = new CalendarHelper(this);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         ALLOW_ADD_TO_CALENDAR = prefs.getBoolean("AllowAddToCalendar", false);

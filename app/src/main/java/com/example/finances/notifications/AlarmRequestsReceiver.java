@@ -30,13 +30,13 @@ public class AlarmRequestsReceiver extends BroadcastReceiver {
     @RequiresApi(api = Build.VERSION_CODES.P)
     @Override
     public void onReceive(Context context, Intent intent) {
-        //Log.e("AlarmRequestReceiver", "check1");
+        Log.e("AlarmRequestReceiver", "check1");
         switch (intent.getAction()) {
             case ACTION_PERFORM_EXERCISE:
                 scheduleJob(context);
                 break;
             case LESSON_ALARM:
-                //Log.e("AlarmRequestReceiver", "check2");
+                Log.e("AlarmRequestReceiver", "check2");
                 lessonAlarm(context);
                 break;
             default:
@@ -62,45 +62,23 @@ public class AlarmRequestsReceiver extends BroadcastReceiver {
 
     private void lessonAlarm(Context context){
 
-        //Log.e("AlarmRequestReceiver", "check3");
+        Log.e("AlarmRequestReceiver", "check3");
 
         DBHelper dbHelper = new DBHelper(context);
         ArrayList<Lesson> lessons = dbHelper.getAllLessons();
         Calendar now = Calendar.getInstance();
 
         for (Lesson lesson: lessons) {
-
-            /*LessonOptions lessonOptions = dbHelper.getLessonOptions(lesson.getId());
-            if (lessonOptions.getIsRepeatable() > 0){
-                long add = 0;
-
-                switch (lessonOptions.getRepeatMode()){
-                    case 1: add = 604800000; break;
-                    case 2: add = 1209600000; break;
-                    case 3: add = 2419200000L; break;
-                }
-
-                Lesson newLesson = new Lesson();
-                newLesson.setDate(lesson.getDate()+add);
-                newLesson.setCourseId(lesson.getCourseId());
-                newLesson.setWeight(lesson.getWeight());
-                newLesson.setDuration(lesson.getDuration());
-
-                now.setTimeInMillis(newLesson.getDate());
-                String lessonName = dbHelper.getCourse(lesson.getCourseId()).getName() + ", " + DateUtils.formatDateTime(context,
-                        now.getTimeInMillis(),
-                        DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
-                                | DateUtils.FORMAT_SHOW_TIME) + ", " +
-            }*/
-
             int hour = 3600000;
             long latency = lesson.getDate()*1000 - now.getTimeInMillis() - hour;
+            Log.e("Latency", String.valueOf(latency) + " " + lesson.getDate()*1000 + " " + now.getTimeInMillis());
             if(latency>0) {
                 PersistableBundle bundle = new PersistableBundle();
                 bundle.putString("ACTION", AlarmJobIntentService.LESSON_ALARM);
                 bundle.putString("TITLE", lesson.getName() + " lesson");
                 bundle.putString("TEXT", "Урок уже через час");
                 bundle.putString("BIG_TEXT", "Урок уже через час, за 15 минут я напомню еще раз :)");
+                bundle.putInt("LESSON_ID",lesson.getId());
 
                 ComponentName jobService = new ComponentName(context, JobSchedulerService.class);
                 JobInfo.Builder exerciseJobBuilder = new JobInfo.Builder(sJobId++, jobService);
@@ -109,6 +87,7 @@ public class AlarmRequestsReceiver extends BroadcastReceiver {
 
                 JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
                 jobScheduler.schedule(exerciseJobBuilder.build());
+                Log.e("Lesson", lesson.getName() + " " + lesson.getDate());
             }
         }
 
