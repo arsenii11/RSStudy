@@ -41,6 +41,17 @@ public class MainAdaptor extends RecyclerView.Adapter<MainAdaptor.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
         String str = array.get(position);
+        if(str.split(", ").length > 3) {
+            String name = str.split(", ")[0] + " lesson";
+            String time = str.split(", ")[2];
+            String dur = str.split(", ")[3];
+            str = name + ", " + time + ", " + dur;
+        }
+        else {
+            String name = str.split(", ")[0];
+            String time = str.split(", ")[2];
+            str = name + ", " + time;
+        }
         holder.nameView.setText(str);
     }
 
