@@ -57,6 +57,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.jar.Attributes;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import jp.wasabeef.picasso.transformations.CropSquareTransformation;
@@ -82,12 +83,14 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     private Activity activityAccount;
     public ByteArrayOutputStream bos;
     public String FilePath ="";
+    public View AnimDivider;
     public ProgressBar simpleProgressBar;
+    public ImageButton accountFullBt;
     public SquaredConstraintLayout lay_photo;
     public TextView progressText;
     public Uri selectedImageUri;
     public View backgroundColorTint;
-    public TextView Nickname;
+    public TextView Surname;
     ArrayList<Course> courses = new ArrayList<Course>();
     ArrayList<Lesson> lessons = new ArrayList<Lesson>();
     Button newCourse;
@@ -119,9 +122,10 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
 
         //получаем адрес элементов из верхней части аккаунта
         profileImage = (CircleImageView) view.findViewById(R.id.ProfileImage);
-        Nickname = view.findViewById(R.id.name);
         background = view.findViewById(R.id.background);
         lay_photo = view.findViewById(R.id.ProfileImageLayout);
+        AnimDivider = view.findViewById(R.id.divideranim);
+       // accountFullBt = view.findViewById(R.id.AccountFullBt);
 
 
 
@@ -157,28 +161,28 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         activityAccount = getActivity();
 
         //устанавливаем никнейм
-        SharedPreferences accNickname = PreferenceManager.getDefaultSharedPreferences(this.getContext());
-        String nickname = accNickname.getString("Nickname", "");
-        Nickname.setText(nickname);
+        SharedPreferences getInfo = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        String nickname = getInfo.getString("Nickname", "");
+        TextView nickname_1 = view.findViewById(R.id.nickname);
+        nickname_1.setText(nickname);
         if (nickname.isEmpty()) {
-            Nickname.setText("Nickname");
+            nickname_1.setText("Not indicated");
         }
+
         //устанавливаем email
-        SharedPreferences accEmail = PreferenceManager.getDefaultSharedPreferences(this.getContext());
-        String email = accNickname.getString("E-mail", "");
+        String email = getInfo.getString("E-mail", "");
         TextView Email = view.findViewById(R.id.email);
         Email.setText(email);
         if (email.isEmpty()) {
             Email.setText("Not indicated");
         }
 
-        //устанавливаем место учебы
-        SharedPreferences eduPlace = PreferenceManager.getDefaultSharedPreferences(this.getContext());
-        String EduPLace = accNickname.getString("Educational institution", "");
-        TextView eduplace = view.findViewById(R.id.eduInstitution);
-        eduplace.setText(EduPLace);
-        if (EduPLace.isEmpty()) {
-            eduplace.setText("Not indicated");
+        //устанавливаем имя
+        String NameSur = getInfo.getString("Surname", "");
+        Surname = view.findViewById(R.id.name);//имя фамилия
+        Surname.setText(NameSur);
+        if (NameSur.isEmpty()) {
+            Surname.setText("@Nickname");
         }
 
 
@@ -188,25 +192,27 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
             public Unit invoke(Expectations expectations) {
                 expectations.topOfItsParent(10f,null);
                 expectations.leftOfItsParent(20f, null);
-                expectations.scale(0.6f,0.6f);
+                expectations.scale(0.72f,0.72f);
                 return null;
             }
         });
         pleaseAnim.animate(profileImage, 1000f, new Function1<Expectations, Unit>() {
             @Override
             public Unit invoke(Expectations expectations) {
-                expectations.topOfItsParent(20f,null);
+                expectations.topOfItsParent(10f,null);
                 expectations.leftOfItsParent(20f, null);
-                expectations.scale(0.6f,0.6f);
+                expectations.scale(0.72f,0.72f);
                 return null;
             }
         });
-        pleaseAnim.animate(Nickname, 10f, new Function1<Expectations, Unit>() {
+        pleaseAnim.animate(Surname, 10f, new Function1<Expectations, Unit>() {
             @Override
             public Unit invoke(Expectations expectations) {
                 expectations.centerHorizontalInParent();
-                expectations.topOfItsParent(35f,null);
+                expectations.topOfItsParent(31f,null);
                 expectations.alpha(1f);
+                expectations.scale(0.85f,0.85f);
+                expectations.textColor(R.color.gray_dove_light);
                 return null;
             }
         });
@@ -219,7 +225,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
                 return null;
             }
         });
-        pleaseAnim.animate(eduplace, 10f, new Function1<Expectations, Unit>() {
+        pleaseAnim.animate(nickname_1, 10f, new Function1<Expectations, Unit>() {
             @Override
             public Unit invoke(Expectations expectations) {
                 expectations.rightOfItsParent(20f,null);
@@ -233,6 +239,13 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
             public Unit invoke(Expectations expectations) {
             expectations.height(100, Gravity.LEFT, Gravity.TOP,false,true);
 
+                return null;
+            }
+        });
+        pleaseAnim.animate(AnimDivider, 10f, new Function1<Expectations, Unit>() {
+            @Override
+            public Unit invoke(Expectations expectations) {
+                expectations.height(5,null,Gravity.BOTTOM,false, true);
                 return null;
             }
         });

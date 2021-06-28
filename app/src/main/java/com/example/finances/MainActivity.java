@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         //устанавливаем место учебы
         String EduPLace = prefs.getString("Educational institution", "");
-        TextView eduplace = findViewById(R.id.eduInstitution);
+        TextView eduplace = findViewById(R.id.nickname);
         try {
             eduplace.setText(EduPLace);
             if (EduPLace.isEmpty()) {

@@ -7,6 +7,10 @@
             app:title="@string/Nickname_title"
             app:useSimpleSummaryProvider="true"/>
         <EditTextPreference
+            app:key="Surname"
+            app:title="@string/Name_title"
+            app:useSimpleSummaryProvider="true"/>
+        <EditTextPreference
             app:key="E-mail"
             app:title="@string/Email_title"
             app:useSimpleSummaryProvider="true"/>
