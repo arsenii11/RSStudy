@@ -10,26 +10,28 @@ import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finances.MainActivity;
 import com.example.finances.R;
+import com.example.finances.calendar.CalendarHelper;
 import com.example.finances.database.DBHelper;
+import com.example.finances.database.Event;
+import com.example.finances.database.LessonOptions;
 import com.example.finances.toolbar.SettingsActivity;
 import com.example.finances.ui.Calendar.MainAdaptor;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import maes.tech.intentanim.CustomIntent;
+import nz.co.trademe.covert.Covert;
 
 
 public class CourseActivity extends AppCompatActivity {
@@ -37,12 +39,19 @@ public class CourseActivity extends AppCompatActivity {
     private int COURSE_ID;
 
     ArrayList<NewEvent> newEvents = new ArrayList<NewEvent>();
-    ArrayList<String> arrayAllList = new ArrayList<String>();
+    ArrayList<Event> events = new ArrayList<Event>();
     TextView labelCourse;
 
+    Covert.Config config = new Covert.Config(R.drawable.ic_cancel_grey_24dp, R.color.white, R.color.ErrorText);
+    Covert covert;
+    DBHelper dbHelper;
+    CalendarHelper calendarHelper;
+
+    MainAdaptor mainAdaptor;
+    RecyclerView eventsList;
 
 
-
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +59,11 @@ public class CourseActivity extends AppCompatActivity {
 
         labelCourse = findViewById(R.id.LableCourseName);
 
+        eventsList = findViewById(R.id.allEventsList);
+        eventsList.setLayoutManager(new LinearLayoutManager(this));
+
+        dbHelper = new DBHelper(this);
+        calendarHelper = new CalendarHelper(this);
 
         //Верхний тулбар
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar3);
@@ -60,30 +74,48 @@ public class CourseActivity extends AppCompatActivity {
 
         COURSE_ID = getIntent().getIntExtra("COURSE_ID", -1);
 
-
-
         setInitialData();
+
         RecyclerView recyclerView = findViewById(R.id.NewEventList);
         NewEventAdapter adapter = new NewEventAdapter(this, newEvents, COURSE_ID);
         recyclerView.setAdapter(adapter);
 
-        RecyclerView allLessonsList = findViewById(R.id.allEventsList);
-        allLessonsList.setLayoutManager(new LinearLayoutManager(this));
-        MainAdaptor mainAdaptor = new MainAdaptor(this, arrayAllList);
-        allLessonsList.setAdapter(mainAdaptor);
+        covert = Covert.with(config).setIsActiveCallback(viewHolder -> false).doOnSwipe((viewHolder, swipeDirection) -> {
+            TextView idView = viewHolder.itemView.findViewById(R.id.EventID);
+            TextView typeView = viewHolder.itemView.findViewById(R.id.EventType);
+            int eventId= Integer.parseInt(idView.getText().toString());
+            String eventType = typeView.getText().toString();
+
+            if (eventType.equals("LESSON")){
+                LessonOptions lessonOptions = dbHelper.getLessonOptions(eventId);
+                if (lessonOptions.getCalendarEventId() > -1)
+                    calendarHelper.deleteCalendarEvent(lessonOptions.getCalendarEventId());
+                dbHelper.deleteLesson(eventId);
+            } else if (eventType.equals("TEST")){
+                dbHelper.deleteTest(eventId);
+            }
+
+            setInitialData();
+            mainAdaptor = new MainAdaptor(this, events, true, covert);
+            eventsList.setAdapter(mainAdaptor);
+
+            return null;
+        }).attachTo(eventsList);
+
+
+        mainAdaptor = new MainAdaptor(this, events, true, covert);
+        eventsList.setAdapter(mainAdaptor);
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void setInitialData(){
         newEvents.add(new NewEvent ("lesson"));
         newEvents.add(new NewEvent ("test"));
 
-        DBHelper dbHelper = new DBHelper(this);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            arrayAllList = dbHelper.getAllEvents(COURSE_ID);
+        events = dbHelper.getAllEvents(COURSE_ID);
 
-            labelCourse.setText(dbHelper.getCourse(COURSE_ID).getName());
-        }
+        labelCourse.setText(dbHelper.getCourse(COURSE_ID).getName());
 
     }
 

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finances.R;
 import com.example.finances.database.DBHelper;
+import com.example.finances.database.Event;
 import com.example.finances.database.Lesson;
 import com.example.finances.database.Test;
 import com.google.android.material.snackbar.Snackbar;
@@ -25,7 +26,7 @@ import java.util.Calendar;
 public class CalendarFragment extends Fragment {
 
     CalendarView calendarView;
-    ArrayList<String> array = new ArrayList<String>();
+    ArrayList<Event> events = new ArrayList<Event>();
     MainAdaptor mainAdaptor;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -39,7 +40,7 @@ public class CalendarFragment extends Fragment {
         setInitialData(calendar.getTimeInMillis());
         RecyclerView LessonsList = (RecyclerView) view.findViewById(R.id.Lessonlist_calendar);
         Context context = getContext();
-        mainAdaptor = new MainAdaptor(context, array);
+        mainAdaptor = new MainAdaptor(context, events, false, null);
         LessonsList.setAdapter(mainAdaptor);
 
         calendarView = view.findViewById(R.id.calendarView);
@@ -52,7 +53,7 @@ public class CalendarFragment extends Fragment {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(year, month, dayOfMonth);
                 setInitialData(calendar.getTimeInMillis());
-                mainAdaptor = new MainAdaptor(context, array);
+                mainAdaptor = new MainAdaptor(context, events, false, null);
                 LessonsList.setAdapter(mainAdaptor);
             }
         });
@@ -65,7 +66,7 @@ public class CalendarFragment extends Fragment {
     private void setInitialData(long datetime) {
         try {
             DBHelper dbHelper = new DBHelper(this.getContext());
-            array = dbHelper.getEventFromDaySortByTime(datetime);
+            events = dbHelper.getEventFromDaySortByTime(datetime);
         }
         catch (Exception e){
             e.printStackTrace();

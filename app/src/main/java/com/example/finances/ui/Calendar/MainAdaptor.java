@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finances.R;
+import com.example.finances.database.Event;
 import com.example.finances.database.Lesson;
 import com.example.finances.database.Test;
 
@@ -18,15 +19,21 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import nz.co.trademe.covert.Covert;
+
 public class MainAdaptor extends RecyclerView.Adapter<MainAdaptor.ViewHolder> {
 
     private final LayoutInflater inflater;
-    private final ArrayList<String> array;
+    private final ArrayList<Event> events;
+    private boolean swipeEnabled;
+    private final Covert covert;
 
 
-    public MainAdaptor(Context context, ArrayList<String> array)  {
+    public MainAdaptor(Context context, ArrayList<Event> events, boolean swipeEnabled, Covert covert)  {
         this.inflater = LayoutInflater.from(context);
-        this.array = array;
+        this.events = events;
+        this.covert = covert;
+        this.swipeEnabled = swipeEnabled;
     }
 
 
@@ -40,7 +47,12 @@ public class MainAdaptor extends RecyclerView.Adapter<MainAdaptor.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
-        String str = array.get(position);
+
+        if(swipeEnabled)
+            covert.drawCornerFlag(holder);
+
+        Event event = events.get(position);
+        String str = event.getName();
         if(str.split(", ").length > 3) {
             String name = str.split(", ")[0] + " lesson";
             String time = str.split(", ")[2];
@@ -53,18 +65,24 @@ public class MainAdaptor extends RecyclerView.Adapter<MainAdaptor.ViewHolder> {
             str = name + ", " + time;
         }
         holder.nameView.setText(str);
+        holder.eventId.setText(String.valueOf(event.getEventId()));
+        holder.eventType.setText(event.getEventType().name().toUpperCase());
     }
 
     @Override
     public int getItemCount() {
-        return array.size();
+        return events.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         final TextView nameView;
+        final TextView eventId;
+        final TextView eventType;
         ViewHolder(View view){
             super(view);
             nameView = (TextView) view.findViewById(R.id.LessonItem);
+            eventId = view.findViewById(R.id.EventID);
+            eventType = view.findViewById(R.id.EventType);
         }
     }
 

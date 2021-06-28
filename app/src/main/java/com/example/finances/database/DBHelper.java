@@ -865,33 +865,29 @@ public class DBHelper extends SQLiteOpenHelper {
 
     //Получить названия всех событий (уроков или тестов) за определенный день, отсортированных по времени
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public ArrayList<String> getEventFromDaySortByTime(long datetime){
-        ArrayList<String> array = new ArrayList<String>();
+    public ArrayList<Event> getEventFromDaySortByTime(long datetime){
         ArrayList<Event> events = new ArrayList<Event>();
         ArrayList<Lesson> lessons = getLessonsFromDaySortByTime(datetime);
         ArrayList<Test> tests = getTestsFromDaySortByTime(datetime);
 
-        lessons.forEach(lesson -> events.add(new Event(lesson.getId(), lesson.getName(), lesson.getCourseId(), lesson.getDate(), Event.EventType.Lesson)));
-        tests.forEach(test -> events.add(new Event(test.getId(), test.getName(), test.getCourseId(), test.getDate(), Event.EventType.Test)));
+        lessons.forEach(lesson -> events.add(new Event(lesson.getId(), lesson.getId(),lesson.getName(), lesson.getCourseId(), lesson.getDate(), Event.EventType.Lesson)));
+        tests.forEach(test -> events.add(new Event(test.getId(), test.getId(),test.getName(), test.getCourseId(), test.getDate(), Event.EventType.Test)));
 
         events.sort(((o1, o2) -> Long.compare(o1.getDate(), o2.getDate())));
 
-        events.forEach(event -> array.add(event.getName()));
-        return array;
+        return events;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public ArrayList<String> getAllEvents(int courseId){
-        ArrayList<String> array = new ArrayList<String>();
+    public ArrayList<Event> getAllEvents(int courseId){
         ArrayList<Event> events = new ArrayList<Event>();
         ArrayList<Lesson> lessons = getAllLessons(courseId);
         ArrayList<Test> tests = getAllTests(courseId);
 
-        lessons.forEach(lesson -> events.add(new Event(lesson.getId(), lesson.getName(), lesson.getCourseId(), lesson.getDate(), Event.EventType.Lesson)));
-        tests.forEach(test -> events.add(new Event(test.getId(), test.getName(), test.getCourseId(), test.getDate(), Event.EventType.Test)));
+        lessons.forEach(lesson -> events.add(new Event(lesson.getId(), lesson.getId(),lesson.getName(), lesson.getCourseId(), lesson.getDate(), Event.EventType.Lesson)));
+        tests.forEach(test -> events.add(new Event(test.getId(), test.getId(),test.getName(), test.getCourseId(), test.getDate(), Event.EventType.Test)));
 
-        events.forEach(event -> array.add(event.getName()));
-        return array;
+        return events;
     }
 
 }
