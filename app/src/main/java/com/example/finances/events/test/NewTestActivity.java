@@ -30,7 +30,7 @@ import maes.tech.intentanim.CustomIntent;
 
 public class NewTestActivity extends AppCompatActivity {
 
-    Calendar dateAndTime=Calendar.getInstance();
+    Calendar dateAndTime = Calendar.getInstance();
     TextView currentDateTime;
     Button next;
     int COURSE_ID;
@@ -39,7 +39,7 @@ public class NewTestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_test);
+        setContentView(R.layout.activity_test_new);
         COURSE_ID = getIntent().getIntExtra("COURSE_ID", -1);
         currentDateTime=(TextView)findViewById(R.id.currentDateTime);
         next = findViewById(R.id.buttonTestNext);
@@ -66,6 +66,7 @@ public class NewTestActivity extends AppCompatActivity {
                 dbHelper.insertTest(test);
 
                 Intent intent = new Intent(NewTestActivity.this, CourseActivity.class);
+                intent.putExtra("COURSE_ID", COURSE_ID);
                 startActivity(intent);
                 CustomIntent.customType(NewTestActivity.this,"left-to-right");
                 finish();

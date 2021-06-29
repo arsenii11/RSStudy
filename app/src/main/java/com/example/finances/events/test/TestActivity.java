@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -20,6 +21,7 @@ import maes.tech.intentanim.CustomIntent;
 public class TestActivity extends AppCompatActivity {
 
     TextView testLabel; //TextView названия теста
+    Button rescheduleTest; //Кнопка перенести теста
 
     private int TEST_ID; //ID теста
 
@@ -31,16 +33,26 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test_info);
 
         testLabel = findViewById(R.id.LabelTestName); //Ищем в view TextView, предназначенный для названия теста
+        rescheduleTest = findViewById(R.id.rescheduleTest); //Ищем в view Button, предназначенную для переноса теста
 
         TEST_ID = getIntent().getIntExtra("TEST_ID", -1); //Получаем значение ID из переданных данных вызванного намерения
 
         dbHelper = new DBHelper(this); //Создаем новый обработчик запросов к БД
 
         setInitialData(); //Вызываем функцию установки значений из БД
+
+        //Устанавливаем функцию при нажатии на кнопку перести урок
+        rescheduleTest.setOnClickListener(v -> {
+            Intent intent = new Intent(TestActivity.this, RescheduleTestActivity.class); //Создаем намерение перехода на активность с переносом текущего теста
+            intent.putExtra("TEST_ID", TEST_ID); //Передаем в намерение id теста
+            startActivity(intent); //Запускаем намерение
+            CustomIntent.customType(TestActivity.this,"left-to-right"); //Добавляем анимацию к переходу
+            finish();
+        });
     }
 
     private void setInitialData(){
-        testLabel.setText(dbHelper.getLesson(TEST_ID).getName()); //Устанавливаем название теста
+        testLabel.setText(dbHelper.getTest(TEST_ID).getName()); //Устанавливаем название теста
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

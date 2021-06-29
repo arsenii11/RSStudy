@@ -71,7 +71,7 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Lesson:"
+        android:text="Test:"
         android:textSize="25dp"
         app:layout_constraintBottom_toTopOf="@+id/currentDateTime"
         app:layout_constraintStart_toStartOf="@+id/currentDateTime" />

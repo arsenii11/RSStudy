@@ -832,6 +832,24 @@ public class DBHelper extends SQLiteOpenHelper {
         return test;
     }
 
+    //Получить урок по ID
+    public Test getTest(int testId){
+        Test test = new Test();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from " + TABLE_TESTS + " where " + KEY_TEST_ID + " = " + testId, null);
+
+        if(cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            test.setId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_ID)));
+            test.setName(cursor.getString(cursor.getColumnIndex(KEY_TEST_NAME)));
+            test.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_TEST_COURSE_ID)));
+            test.setDate(cursor.getLong(cursor.getColumnIndex(KEY_TEST_DATE)));
+            test.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_TEST_WEIGHT)));
+        }
+        cursor.close();
+        return test;
+    }
+
     //TOTAL
     public Object getEventFromNowSortByTime(){
         Lesson lesson = getLessonFromNowSortByTime();

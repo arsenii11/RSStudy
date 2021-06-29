@@ -50,7 +50,7 @@ public class NewLessonActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_lesson);
+        setContentView(R.layout.activity_lesson_new);
 
         //Устанавливаем текущую дату и время в календари
         dateAndTime = Calendar.getInstance();
