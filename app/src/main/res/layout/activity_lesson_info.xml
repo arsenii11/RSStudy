@@ -25,7 +25,23 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar3"
         app:layout_constraintVertical_bias="0.172" />
 
-
+    <Button
+        android:id="@+id/rescheduleLesson"
+        style="@style/LessonDateButton"
+        android:layout_width="211dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="268dp"
+        android:background="@drawable/buttonbackground_1"
+        android:backgroundTint="@color/plus2"
+        android:gravity="center"
+        android:text="Reschedule Lesson"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        app:cornerRadius="12dp"
+        app:iconPadding="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LabelLessonName" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

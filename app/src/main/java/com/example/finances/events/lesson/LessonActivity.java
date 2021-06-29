@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -13,6 +14,8 @@ import com.example.finances.MainActivity;
 import com.example.finances.R;
 import com.example.finances.database.DBHelper;
 import com.example.finances.events.course.CourseActivity;
+import com.example.finances.events.test.RescheduleTestActivity;
+import com.example.finances.events.test.TestActivity;
 import com.example.finances.toolbar.SettingsActivity;
 
 import maes.tech.intentanim.CustomIntent;
@@ -20,6 +23,7 @@ import maes.tech.intentanim.CustomIntent;
 public class LessonActivity extends AppCompatActivity {
 
     TextView lessonLabel; //TextView названия урока
+    Button rescheduleLesson; //Кнопка перенести урок
 
     private int LESSON_ID; //ID урока
 
@@ -31,12 +35,22 @@ public class LessonActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lesson_info);
 
         lessonLabel = findViewById(R.id.LabelLessonName); //Ищем в view TextView, предназначенный для названия урока
+        rescheduleLesson = findViewById(R.id.rescheduleLesson); //Ищем в view Button, предназначенную для переноса урока
 
         LESSON_ID = getIntent().getIntExtra("LESSON_ID", -1); //Получаем значение ID из переданных данных вызванного намерения
 
         dbHelper = new DBHelper(this); //Создаем новый обработчик запросов к БД
 
         setInitialData(); //Вызываем функцию установки значений из БД
+
+        //Устанавливаем функцию при нажатии на кнопку перести урок
+        rescheduleLesson.setOnClickListener(v -> {
+            Intent intent = new Intent(LessonActivity.this, RescheduleLessonActivity.class); //Создаем намерение перехода на активность с переносом текущего теста
+            intent.putExtra("LESSON_ID", LESSON_ID); //Передаем в намерение id теста
+            startActivity(intent); //Запускаем намерение
+            CustomIntent.customType(LessonActivity.this,"left-to-right"); //Добавляем анимацию к переходу
+            finish();
+        });
     }
 
     private void setInitialData(){

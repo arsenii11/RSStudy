@@ -132,6 +132,10 @@
             android:name=".events.test.RescheduleTestActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".events.lesson.RescheduleLessonActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

@@ -10,6 +10,8 @@ import android.os.Build;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import com.example.finances.helpclasses.SquaredConstraintLayout;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -309,6 +311,30 @@ public class DBHelper extends SQLiteOpenHelper {
 
         if(db.update(TABLE_LESSONS, cv, KEY_LESSON_ID+" = "+oldLessonId, null) == -1)
             status = false;
+
+        return status;
+    }
+
+    public boolean updateLessonSmart(int lessonId, Lesson lesson){
+        boolean status = true;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Course parentCourse = getCourse(lesson.getCourseId());
+        Lesson mainLesson = getLesson(lessonId);
+
+        if(parentCourse.getStartDate() == mainLesson.getDate()){
+            Cursor cursor = db.rawQuery("select * from " + TABLE_LESSONS + " where " + KEY_COURSE_ID + " = " + lesson.getCourseId() + " and " + KEY_LESSON_DATE + " > " + mainLesson.getDate(), null);
+            if(cursor.getCount() > 0){
+                cursor.moveToFirst();
+                long date = cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE));
+                parentCourse.setStartDate(date);
+            }
+            else {
+                parentCourse.setStartDate(lesson.getDate());
+            }
+            updateCourse(lesson.getCourseId(), parentCourse);
+        }
+
+        status = updateLesson(lessonId, lesson);
 
         return status;
     }
@@ -647,6 +673,22 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         if(db.delete(TABLE_LESSON_OPTIONS, KEY_LESSON_OPTIONS_ID + " = " + id, null) == -1)
+            status = false;
+
+        return status;
+    }
+
+    public boolean updateLessonOptions(int id, LessonOptions lessonOptions){
+        boolean status = true;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_LESSON_OPTIONS_LESSON_ID, lessonOptions.getLessonId());
+        cv.put(KEY_LESSON_OPTIONS_CALENDAR_EVENT_ID, lessonOptions.getCalendarEventId());
+        cv.put(KEY_LESSON_OPTIONS_IS_REPEATABLE, lessonOptions.getIsRepeatable());
+        cv.put(KEY_LESSON_OPTIONS_REPEAT_MODE, lessonOptions.getRepeatMode());
+
+        if(db.update(TABLE_LESSON_OPTIONS, cv, KEY_LESSON_OPTIONS_ID + " = " + id, null) == -1)
             status = false;
 
         return status;

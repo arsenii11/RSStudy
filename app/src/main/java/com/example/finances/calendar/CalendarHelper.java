@@ -67,8 +67,10 @@ public class CalendarHelper {
 
     //Функция удаления события из календаря
     public void deleteCalendarEvent(int eventId){
-        Uri uri = ContentUris.withAppendedId(events, eventId);
-        contentResolver.delete(uri, null, null);
+        if(eventId > -1) {
+            Uri uri = ContentUris.withAppendedId(events, eventId);
+            contentResolver.delete(uri, null, null);
+        }
     }
 
     //Функция удаления всех событий в календаре по ID родительского курса
@@ -78,5 +80,19 @@ public class CalendarHelper {
             LessonOptions lessonOptions = dbHelper.getLessonOptions(lesson.getId());
             if (lessonOptions.getCalendarEventId() > -1) deleteCalendarEvent(lessonOptions.getCalendarEventId());
         });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.R)
+    public void updateCalendarEvent(int eventId, String name, long startDate, long endDate){
+        if(eventId > -1) {
+            Uri uri = ContentUris.withAppendedId(events, eventId);
+            ContentValues calendarEvent = new ContentValues(); //Создаем массив для отправляемых данных
+            calendarEvent.put(CalendarContract.Events.CALENDAR_ID, calendarId); //ID календаря
+            calendarEvent.put(CalendarContract.Events.TITLE, name); //Название события
+            calendarEvent.put(CalendarContract.Events.DTSTART, startDate); //Дата начала события
+            calendarEvent.put(CalendarContract.Events.DTEND, endDate); //Дата окончания
+            calendarEvent.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().getDisplayName()); //Временная зона (без неё не отправляется запрос)
+            contentResolver.update(events, calendarEvent, null);
+        }
     }
 }

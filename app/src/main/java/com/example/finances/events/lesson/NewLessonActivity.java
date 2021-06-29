@@ -116,6 +116,12 @@ public class NewLessonActivity extends AppCompatActivity {
 
                 int hours = Integer.parseInt(endTime.split(":")[0])-Integer.parseInt(currentTime.split(":")[0]);
                 float minutes = Float.parseFloat(endTime.split(":")[1]) - Float.parseFloat(currentTime.split(":")[1]);
+
+                if(minutes<0){
+                    hours--;
+                    minutes += 60;
+                }
+
                 String hoursStr = String.valueOf(hours);
                 String minutesStr = String.valueOf(minutes).split("\\.")[0];
                 minutesStr = minutesStr.length() < 2 ? "0" + minutesStr : minutesStr;
@@ -150,7 +156,9 @@ public class NewLessonActivity extends AppCompatActivity {
                     lessonOptions.setLessonId(lesson.getId()); //Устанавливаем id урока в опции
                     lessonOptions.setCalendarEventId(addCalendarEvent(course.getName() + " lesson", dateAndTime.getTimeInMillis(), timeEnd.getTimeInMillis())); //Устанавливаем ID события в календаре
                     lessonOptions.setIsRepeatable(0); //Ставим режим "не повторять"
+                    lessonOptions.setRepeatMode(0); //Ставим повтор урока раз в неделю
 
+                    //Добавляем опции урока в БД
                     if(COURSE_REPEAT.equals("YES")) {
 
                         lessonOptions.setIsRepeatable(1); //Устанавливаем режим "повторять"
@@ -161,31 +169,8 @@ public class NewLessonActivity extends AppCompatActivity {
                         else if(COURSE_REPEAT_MODE.equals("WEEKLY")) { add = 604800000L; lessonOptions.setRepeatMode(1); }
                         else if(COURSE_REPEAT_MODE.equals("EVERY 2 WEEKS")) { add = 1209600000L; lessonOptions.setRepeatMode(2);}
 
-                        dbHelper.insertLessonOptions(lessonOptions); //Добавляем опции урока в БД
-
-                        //Добавляем к календарям время переноса
-                        dateAndTime.setTimeInMillis(dateAndTime.getTimeInMillis() + add);
-                        timeEnd.setTimeInMillis(timeEnd.getTimeInMillis() + add);
-                        setInitialDateTime();
-
-                        lessonName = course.getName() + ", " + currentDateTime.getText().toString() + ", " + endDateTime.getText().toString() + " hours"; //Вычисляем имя перенесенного урока
-                        lesson.setName(lessonName); //Устанавливаем имя перенесенного урока
-
-                        dat = dateAndTime.getTimeInMillis()/1000; //Рассчитываем дату начала перенесенного уока в секундах
-                        lesson.setDate(dat); //Устанавливаем дату начала перенесенного урока
-
-                        //dbHelper.insertLessonSmart(lesson); //Запускаем умное добавление перенесенного урока
-
-                        //lesson = dbHelper.findLesson(lesson); //Ищем добавленный урок
-
-                        lessonOptions.setLessonId(lesson.getId()); ////Устанавливаем id перенесенного урока в опции
-                        lessonOptions.setCalendarEventId(addCalendarEvent(course.getName() + " lesson", dateAndTime.getTimeInMillis(), timeEnd.getTimeInMillis())); //Устанавливаем ID события в календаре
-
-                        //dbHelper.insertLessonOptions(lessonOptions); //Добавляем опции урока в БД
                     }
-                    else{
-                        dbHelper.insertLessonOptions(lessonOptions); //Добавляем опции урока в БД
-                    }
+                    dbHelper.insertLessonOptions(lessonOptions); //Добавляем опции урока в БД
 
                     //Проверяем, нужно ли предложить создать еще один урок
                     if(CURRENT_LESSON<LESSONS){

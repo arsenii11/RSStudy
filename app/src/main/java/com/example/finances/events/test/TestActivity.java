@@ -21,7 +21,7 @@ import maes.tech.intentanim.CustomIntent;
 public class TestActivity extends AppCompatActivity {
 
     TextView testLabel; //TextView названия теста
-    Button rescheduleTest; //Кнопка перенести теста
+    Button rescheduleTest; //Кнопка перенести тест
 
     private int TEST_ID; //ID теста
 
@@ -41,7 +41,7 @@ public class TestActivity extends AppCompatActivity {
 
         setInitialData(); //Вызываем функцию установки значений из БД
 
-        //Устанавливаем функцию при нажатии на кнопку перести урок
+        //Устанавливаем функцию при нажатии на кнопку перести тест
         rescheduleTest.setOnClickListener(v -> {
             Intent intent = new Intent(TestActivity.this, RescheduleTestActivity.class); //Создаем намерение перехода на активность с переносом текущего теста
             intent.putExtra("TEST_ID", TEST_ID); //Передаем в намерение id теста
