@@ -57,7 +57,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class AccountFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, Function2<CheckableChipView, Boolean, Unit>  {
 
-    public static final String APP_PREFERENCES_Path = "Nickname" ;
+    public static final String APP_PREFERENCES_Path = "Path";
     private final int GALLERY_REQUEST = 1;
     public SharedPreferences profile;
     private String imagePath;
@@ -65,7 +65,6 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     private View view;
     public View background;
     private Activity activityAccount;
-    public ByteArrayOutputStream bos;
     public String FilePath ="";
     public View AnimDivider;
     public ProgressBar simpleProgressBar;
@@ -91,11 +90,6 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //получаем путь к изображению
-        SharedPreferences accountPhoto = getActivity().getSharedPreferences(APP_PREFERENCES_Path, Context.MODE_PRIVATE);
-        FilePath= accountPhoto.getString("key1", "");
-
-
     }
 
 
@@ -103,6 +97,11 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_account, container, false);
         Context context = getContext();
+
+
+        //получаем путь к изображению
+        SharedPreferences accountPhoto = getActivity().getSharedPreferences(APP_PREFERENCES_Path, Context.MODE_PRIVATE);
+        FilePath= accountPhoto.getString("key1", "");
 
         //получаем адрес элементов из верхней части аккаунта
         profileImage = (CircleImageView) view.findViewById(R.id.ProfileImage);
@@ -166,7 +165,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         Surname = view.findViewById(R.id.name);//имя фамилия
         Surname.setText(NameSur);
         if (NameSur.isEmpty()) {
-            Surname.setText("@Nickname");
+            Surname.setText("Nickname");
         }
 
 
@@ -196,7 +195,6 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
                 expectations.topOfItsParent(31f,null);
                 expectations.alpha(1f);
                 expectations.scale(0.85f,0.85f);
-                expectations.textColor(R.color.gray_dove_light);
                 return null;
             }
         });
@@ -247,20 +245,6 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
 
 
 
-
-        //устанавливаю строку из SharedPreferences
-        File ff = new File(FilePath);
-        if (ff.isFile()) {
-            try {
-                CircleImageView profileImage = view.findViewById(R.id.ProfileImage);
-                Picasso.get()
-                        .load(new File(FilePath))
-                        .transform(new CropSquareTransformation())
-                        .into(profileImage);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
 
         //Кнопка нового курса
         newCourse = view.findViewById(R.id.courseBt);
@@ -319,6 +303,20 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     public void onStart() {
         super.onStart();
         simpleProgressBar.setVisibility(View.INVISIBLE);
+        //устанавливаю строку из SharedPreferences
+        File ff = new File(FilePath);
+        if (ff.isFile()) {
+            try {
+                CircleImageView profileImage = view.findViewById(R.id.ProfileImage);
+                Picasso.get()
+                        .load(new File(FilePath))
+                        .transform(new CropSquareTransformation())
+                        .into(profileImage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
 
 
     }
@@ -326,7 +324,6 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     @Override
     public void onResume(){
         super.onResume();
-
      /*   CheckableChipView hide_courses = (CheckableChipView) view.findViewById(R.id.hide_courses);
         if(hide_courses.isChecked()){
             hide_courses.setOnCheckedChangeListener(AccountFragment.this);
@@ -409,7 +406,9 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         @Override
         protected String doInBackground(Void... params) {
 
-            f = new File(context.getFilesDir(), fileNameToSave);
+
+
+            f = new File(context.getFilesDir(), fileNameToSave+".jpg");
             try {
                 f.createNewFile();
             } catch (IOException e) {
@@ -417,18 +416,13 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
             }
 
             try {
-                //Convert bitmap to byte array
-                bos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG,25 , bos); // YOU can also save it in JPEG
-                byte[] bitmapdata = bos.toByteArray();
-
                 //write the bytes in file
                 FileOutputStream fos = new FileOutputStream(f);
-                fos.write(bitmapdata);
+                bitmap.compress(Bitmap.CompressFormat.JPEG,25 , fos);
                 fos.flush();
                 fos.close();
                 FilePath = f.getPath();
-                profile = getActivity().getSharedPreferences(APP_PREFERENCES_Path,Context.MODE_PRIVATE);
+                profile = getActivity().getSharedPreferences(APP_PREFERENCES_Path, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = profile.edit();
                 editor.putString("key1", String.valueOf(FilePath)).apply();
             }catch (Exception e){
@@ -470,6 +464,8 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
                     .transform(new CropSquareTransformation())
                     .into(profileImage);
 
+
+
         }
 
         @Override
@@ -483,3 +479,5 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         }
     }
 }
+
+
