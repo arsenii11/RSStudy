@@ -1,4 +1,4 @@
-package com.example.finances.course;
+package com.example.finances.events.course;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +16,7 @@ import com.example.finances.MainActivity;
 import com.example.finances.R;
 import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
+import com.example.finances.events.lesson.NewLessonActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import maes.tech.intentanim.CustomIntent;

@@ -1,4 +1,4 @@
-package com.example.finances.course;
+package com.example.finances.events.test;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,6 +20,7 @@ import com.example.finances.R;
 import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
 import com.example.finances.database.Test;
+import com.example.finances.events.course.CourseActivity;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 

@@ -1,4 +1,4 @@
-package com.example.finances.course;
+package com.example.finances.events.course;
 
 import android.content.Context;
 import android.content.Intent;
@@ -37,7 +37,7 @@ public class CourseListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.courses_list);
+        setContentView(R.layout.activity_courses_list);
         setInitialData();
         RecyclerView CoursesList = (RecyclerView) findViewById(R.id.CoursesList);
         Context context = getApplicationContext();

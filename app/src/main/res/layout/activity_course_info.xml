@@ -14,7 +14,7 @@
     </include>
 
     <TextView
-        android:id="@+id/LableCourseName"
+        android:id="@+id/LabelCourseName"
         style="@style/TextView.Primary.Header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -1,4 +1,4 @@
-package com.example.finances.course;
+package com.example.finances.events.newevent;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finances.R;
+import com.example.finances.events.lesson.NewLessonActivity;
+import com.example.finances.events.test.NewTestActivity;
 
 import java.util.List;
 
@@ -20,7 +22,7 @@ public class NewEventAdapter extends RecyclerView.Adapter<NewEventAdapter.ViewHo
     private final List<NewEvent> NewEventStates;
     private int COURSE_ID;
 
-    NewEventAdapter(Context context,List<NewEvent> NewEventStates, int COURSE_ID){
+    public NewEventAdapter(Context context, List<NewEvent> NewEventStates, int COURSE_ID){
         this.NewEventStates = NewEventStates;
         this.inflater = LayoutInflater.from(context);
         this.COURSE_ID = COURSE_ID;

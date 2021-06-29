@@ -79,7 +79,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".course.CourseName"
+            android:name=".events.course.CourseName"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/EnterTheme">
@@ -88,7 +88,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".course.CourseLength"
+            android:name=".events.course.CourseLength"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/EnterTheme">
@@ -97,7 +97,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".course.CourseActivity"
+            android:name=".events.course.CourseActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -105,19 +105,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".course.NewTestActivity"
+            android:name=".events.test.NewTestActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".course.CourseListActivity"
+            android:name=".events.course.CourseListActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".course.NewLessonActivity"
+            android:name=".events.lesson.NewLessonActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".course.CourseRepeat"
+            android:name=".events.course.CourseRepeat"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".events.lesson.LessonActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".events.test.TestActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
     </application>

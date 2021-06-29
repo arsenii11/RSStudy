@@ -1,4 +1,4 @@
-package com.example.finances.course;
+package com.example.finances.events.newevent;
 
 public class NewEvent {
 

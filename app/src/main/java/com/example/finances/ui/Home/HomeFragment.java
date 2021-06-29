@@ -1,7 +1,6 @@
 package com.example.finances.ui.Home;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,9 +13,9 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.finances.R;
-import com.example.finances.course.CourseName;
+import com.example.finances.events.course.CourseName;
 import com.example.finances.database.DBHelper;
-import com.example.finances.course.CourseListActivity;
+import com.example.finances.events.course.CourseListActivity;
 import com.github.mikephil.charting.charts.PieChart;
 
 import java.text.DateFormat;

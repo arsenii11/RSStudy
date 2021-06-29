@@ -13,7 +13,6 @@ import androidx.annotation.RequiresApi;
 import androidx.preference.PreferenceManager;
 
 import com.example.finances.calendar.CalendarHelper;
-import com.example.finances.course.NewLessonActivity;
 import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
 import com.example.finances.database.Lesson;

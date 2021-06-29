@@ -1,4 +1,4 @@
-package com.example.finances.course;
+package com.example.finances.events.course;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,10 +13,6 @@ import com.example.finances.MainActivity;
 import com.example.finances.R;
 
 import maes.tech.intentanim.CustomIntent;
-
-interface NameCourse{
-    void setName(String s);
-}
 
 public class CourseName extends AppCompatActivity {
 

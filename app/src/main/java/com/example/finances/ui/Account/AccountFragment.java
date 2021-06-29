@@ -1,6 +1,5 @@
 package com.example.finances.ui.Account;
 
-import android.animation.Animator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -14,50 +13,37 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
-import androidx.compose.animation.core.Animatable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finances.R;
-import com.example.finances.course.CourseAdapter;
-import com.example.finances.course.CourseListActivity;
-import com.example.finances.course.CourseName;
-import com.example.finances.course.LessonAdapter;
+import com.example.finances.events.course.CourseAdapter;
+import com.example.finances.events.course.CourseListActivity;
+import com.example.finances.events.course.CourseName;
 import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
 import com.example.finances.database.Lesson;
 import com.example.finances.helpclasses.SquaredConstraintLayout;
 import com.github.florent37.kotlin.pleaseanimate.PleaseAnim;
 import com.github.florent37.kotlin.pleaseanimate.core.Expectations;
-import com.github.florent37.kotlin.pleaseanimate.core.PleaseAnimManager;
-import com.github.florent37.kotlin.pleaseanimate.core.custom.PleaseAnimCustomManager;
-import com.github.florent37.kotlin.pleaseanimate.core.position.PleaseAnimPositionManager;
 import com.github.okdroid.checkablechipview.CheckableChipView;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.jar.Attributes;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import jp.wasabeef.picasso.transformations.CropSquareTransformation;
@@ -68,8 +54,6 @@ import maes.tech.intentanim.CustomIntent;
 import nz.co.trademe.covert.Covert;
 
 import static android.app.Activity.RESULT_OK;
-import static com.pchmn.materialchips.R2.id.avatar;
-import static com.pchmn.materialchips.R2.id.scrollView;
 
 public class AccountFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, Function2<CheckableChipView, Boolean, Unit>  {
 

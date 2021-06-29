@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context=".course.CourseListActivity">
+    tools:context=".events.course.CourseListActivity">
     <include
         android:id="@+id/toolbarCourseList"
         layout="@layout/toolbar">

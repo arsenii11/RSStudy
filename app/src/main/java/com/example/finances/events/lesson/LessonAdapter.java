@@ -1,4 +1,4 @@
-package com.example.finances.course;
+package com.example.finances.events.lesson;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finances.R;
 import com.example.finances.database.Lesson;
+import com.example.finances.events.course.CourseActivity;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.ViewHolder
     @Override
     public LessonAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = inflater.inflate(R.layout.list_item, parent, false);
+        View view = inflater.inflate(R.layout.list_course_item, parent, false);
         return new ViewHolder(view);
     }
 
