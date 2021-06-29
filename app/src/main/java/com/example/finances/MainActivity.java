@@ -123,7 +123,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         @Override
     protected void onDestroy(){
         super.onDestroy();
-
     }
 
     private void readDataExternal() {
