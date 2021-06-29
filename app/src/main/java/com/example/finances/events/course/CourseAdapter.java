@@ -65,7 +65,9 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), CourseActivity.class);
                 switch (mode){
-                    case OpenCourse: intent = new Intent(v.getContext(), CourseActivity.class); break;
+                    case OpenCourse: intent = new Intent(v.getContext(), CourseActivity.class);
+                    v.onFinishTemporaryDetach();
+                    break;
                     case AddTest: intent = new Intent(v.getContext(), NewTestActivity.class); break;
                     case AddLesson: intent = new Intent(v.getContext(), NewLessonActivity.class);
                 }

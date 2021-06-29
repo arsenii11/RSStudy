@@ -120,6 +120,12 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
     }
 
+        @Override
+    protected void onDestroy(){
+        super.onDestroy();
+
+    }
+
     private void readDataExternal() {
         //Можно потом подумать, но у меня все работает и без него
     }
@@ -151,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
                 CustomIntent.customType(this,"fadein-to-fadeout");
-
+                finish();
 
             } catch (Exception E) {
 
@@ -163,6 +169,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 Intent intent = new Intent(MainActivity.this, About.class);
                 startActivity(intent);
                 CustomIntent.customType(this,"fadein-to-fadeout");
+                finish();
             }
 
             catch (Exception E){

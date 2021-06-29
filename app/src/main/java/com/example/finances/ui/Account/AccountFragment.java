@@ -25,6 +25,9 @@ import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.signature.MediaStoreSignature;
+import com.bumptech.glide.signature.ObjectKey;
 import com.example.finances.R;
 import com.example.finances.events.course.CourseAdapter;
 import com.example.finances.events.course.CourseListActivity;
@@ -43,6 +46,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.Signature;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -57,7 +61,6 @@ import static android.app.Activity.RESULT_OK;
 
 public class AccountFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, Function2<CheckableChipView, Boolean, Unit>  {
 
-    public static final String APP_PREFERENCES_Path = "Path";
     private final int GALLERY_REQUEST = 1;
     public SharedPreferences profile;
     private String imagePath;
@@ -65,7 +68,6 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     private View view;
     public View background;
     private Activity activityAccount;
-    public String FilePath ="";
     public View AnimDivider;
     public ProgressBar simpleProgressBar;
     public ImageButton accountFullBt;
@@ -74,6 +76,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     public Uri selectedImageUri;
     public View backgroundColorTint;
     public TextView Surname;
+
     ArrayList<Course> courses = new ArrayList<Course>();
     ArrayList<Lesson> lessons = new ArrayList<Lesson>();
     Button newCourse;
@@ -99,16 +102,15 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         Context context = getContext();
 
 
-        //получаем путь к изображению
-        SharedPreferences accountPhoto = getActivity().getSharedPreferences(APP_PREFERENCES_Path, Context.MODE_PRIVATE);
-        FilePath= accountPhoto.getString("key1", "");
-
         //получаем адрес элементов из верхней части аккаунта
         profileImage = (CircleImageView) view.findViewById(R.id.ProfileImage);
         background = view.findViewById(R.id.background);
         lay_photo = view.findViewById(R.id.ProfileImageLayout);
         AnimDivider = view.findViewById(R.id.divideranim);
        // accountFullBt = view.findViewById(R.id.AccountFullBt);
+
+        //устанавливаем изображение
+        setProfileImage();
 
 
 
@@ -279,6 +281,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
                 ListCoursesList.putExtra("ADAPTER_MODE", "OPEN_COURSE");
                 startActivity(ListCoursesList);
                 CustomIntent.customType(getContext(),"fadein-to-fadeout");
+                getActivity().finish();
             }
         });
 
@@ -304,20 +307,6 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         super.onStart();
         simpleProgressBar.setVisibility(View.INVISIBLE);
         //устанавливаю строку из SharedPreferences
-        File ff = new File(FilePath);
-        if (ff.isFile()) {
-            try {
-                CircleImageView profileImage = view.findViewById(R.id.ProfileImage);
-                Picasso.get()
-                        .load(new File(FilePath))
-                        .transform(new CropSquareTransformation())
-                        .into(profileImage);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-
 
     }
 
@@ -349,11 +338,8 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-
-            ImageView profileImage =  getActivity().findViewById(R.id.ProfileImage);
+            CircleImageView profileImage =  getActivity().findViewById(R.id.ProfileImage);
             profileImage.setImageResource(R.drawable.no_avatar);
-
-            View a = getView();
             selectedImageUri = data.getData();
             Context c = getContext();
             Bitmap bitmap;
@@ -405,9 +391,6 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
 
         @Override
         protected String doInBackground(Void... params) {
-
-
-
             f = new File(context.getFilesDir(), fileNameToSave+".jpg");
             try {
                 f.createNewFile();
@@ -421,10 +404,6 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
                 bitmap.compress(Bitmap.CompressFormat.JPEG,25 , fos);
                 fos.flush();
                 fos.close();
-                FilePath = f.getPath();
-                profile = getActivity().getSharedPreferences(APP_PREFERENCES_Path, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = profile.edit();
-                editor.putString("key1", String.valueOf(FilePath)).apply();
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -456,15 +435,8 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
             }
             simpleProgressBar.setVisibility(View.INVISIBLE);
             progressText.setVisibility(View.INVISIBLE);
-
-            CircleImageView profileImage = (CircleImageView) getActivity().findViewById(R.id.ProfileImage);
-            //устанавливаем изображение
-            Picasso.get()
-                    .load(selectedImageUri)
-                    .transform(new CropSquareTransformation())
-                    .into(profileImage);
-
-
+            CircleImageView profileImage = view.findViewById(R.id.ProfileImage);
+            Glide.with(getContext()).load(selectedImageUri).into(profileImage);
 
         }
 
@@ -476,6 +448,17 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
             simpleProgressBar.setVisibility(View.VISIBLE);
             progressText.setText("Выполнено : " + values[0] + "/100");
             progressText.clearComposingText();
+        }
+    }
+    public void setProfileImage(){
+        File Photo = new File("data/data/com.example.finances/files/ProfileFoto.jpg");
+        if (Photo.exists()) {
+            try {
+                CircleImageView profileImage = view.findViewById(R.id.ProfileImage);
+                Glide.with(this).load(Photo).signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))).into(profileImage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }
