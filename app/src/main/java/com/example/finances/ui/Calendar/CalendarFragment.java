@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
+import android.widget.ImageView;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -25,6 +26,7 @@ public class CalendarFragment extends Fragment {
     CalendarView calendarView;
     ArrayList<Event> events = new ArrayList<Event>();
     MainAdaptor mainAdaptor;
+    ImageView NoEvents;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -32,6 +34,8 @@ public class CalendarFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
 
         Calendar calendar = Calendar.getInstance();
+
+        NoEvents = view.findViewById(R.id.noevents);
 
         //Список курсов и уроков
         setInitialData(calendar.getTimeInMillis());
@@ -64,6 +68,12 @@ public class CalendarFragment extends Fragment {
         try {
             DBHelper dbHelper = new DBHelper(this.getContext());
             events = dbHelper.getEventFromDaySortByTime(datetime);
+            if(events.size() == 0){
+                NoEvents.setVisibility(View.VISIBLE);
+            }
+            else{
+                NoEvents.setVisibility(View.INVISIBLE);
+            }
         }
         catch (Exception e){
             e.printStackTrace();
