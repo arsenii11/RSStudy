@@ -145,13 +145,14 @@ public class NewLessonActivity extends AppCompatActivity {
 
 
                 //Запускаем умное добавление урока в БД
-                if(dbHelper.insertLessonSmart(lesson)){
+                long lessonId = dbHelper.insertLessonSmart(lesson);
+                if(lessonId != -1){
 
                     CURRENT_LESSON++; //Увеличиваем счетчик установленных уроков
 
                     LessonOptions lessonOptions = new LessonOptions(); //Создаем новые опции для урока
 
-                    lesson = dbHelper.findLesson(lesson); //Ищем добавленный урок
+                    lesson = dbHelper.getLesson(lessonId); //Ищем добавленный урок
 
                     lessonOptions.setLessonId(lesson.getId()); //Устанавливаем id урока в опции
                     lessonOptions.setCalendarEventId(addCalendarEvent(course.getName() + " lesson", dateAndTime.getTimeInMillis(), timeEnd.getTimeInMillis())); //Устанавливаем ID события в календаре

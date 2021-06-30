@@ -81,8 +81,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     //COURSE
     //Добавить курс
-    public boolean insertCourse(Course course){
-        boolean status = true;
+    public long insertCourse(Course course){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(KEY_COURSE_NAME, course.getName());
@@ -92,10 +91,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put(KEY_COURSE_LESSONS, course.getLessons());
         cv.put(KEY_COURSE_COMPLETED_LESSONS, course.getLessonsCompleted());
 
-        if(db.insert(TABLE_COURSES, null, cv) == -1)
-            status = false;
-
-        return status;
+        return db.insert(TABLE_COURSES, null, cv);
     }
 
     //Обновить существующий курс
@@ -203,30 +199,12 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     //Получить курс по ID
-    public Course getCourse(int courseId){
+    public Course getCourse(long courseId){
         Course course = new Course();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from "+TABLE_COURSES+" where "+KEY_COURSE_ID+"="+courseId, null);
         if(cursor.getCount() > 0) {
             cursor.moveToFirst();
-            course.setId(courseId);
-            course.setName(cursor.getString(cursor.getColumnIndex(KEY_COURSE_NAME)));
-            course.setStartDate(cursor.getLong(cursor.getColumnIndex(KEY_COURSE_START_DATE)));
-            course.setEndDate(cursor.getLong(cursor.getColumnIndex(KEY_COURSE_END_DATE)));
-            course.setFinished(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_FINISHED)));
-            course.setLessons(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_LESSONS)));
-            course.setLessonsCompleted(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_COMPLETED_LESSONS)));
-        }
-        cursor.close();
-        return  course;
-    }
-
-    //Найти курс
-    public Course findCourse(Course course){
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from "+TABLE_COURSES+" where "+KEY_COURSE_NAME+"='"+course.getName()+"' and "+KEY_COURSE_LESSONS+"="+course.getLessons(), null);
-        cursor.moveToFirst();
-        if (cursor.isLast()) {
             course.setId(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_ID)));
             course.setName(cursor.getString(cursor.getColumnIndex(KEY_COURSE_NAME)));
             course.setStartDate(cursor.getLong(cursor.getColumnIndex(KEY_COURSE_START_DATE)));
@@ -237,13 +215,11 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return course;
-
     }
 
     //LESSON
     //Добавить урок
-    public boolean insertLesson(Lesson lesson){
-        boolean status = true;
+    public long insertLesson(Lesson lesson){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(KEY_LESSON_NAME, lesson.getName());
@@ -252,15 +228,11 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put(KEY_LESSON_DURATION, lesson.getDuration());
         cv.put(KEY_LESSON_WEIGHT, lesson.getWeight());
 
-        if(db.insert(TABLE_LESSONS, null, cv) == -1)
-            status = false;
-
-        return status;
+        return db.insert(TABLE_LESSONS, null, cv);
     }
 
     //Умное добавление урока (изменяется дата начала родительского курса)
-    public boolean insertLessonSmart(Lesson lesson){
-        boolean status = true;
+    public long insertLessonSmart(Lesson lesson){
         SQLiteDatabase db = this.getWritableDatabase();
         Course parentCourse = getCourse(lesson.getCourseId());
         parentCourse.setLessons(parentCourse.getLessons()+1);
@@ -275,10 +247,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cv.put(KEY_LESSON_DURATION, lesson.getDuration());
         cv.put(KEY_LESSON_WEIGHT, lesson.getWeight());
 
-        if(db.insert(TABLE_LESSONS, null, cv) == -1)
-            status = false;
-
-        return status;
+        return db.insert(TABLE_LESSONS, null, cv);
     }
 
     //Обновить существующий урок
@@ -362,25 +331,6 @@ public class DBHelper extends SQLiteOpenHelper {
             status = false;
 
         return status;
-    }
-
-    public Lesson findLesson(Lesson lesson){
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.rawQuery("select * from " + TABLE_LESSONS + " where " + KEY_LESSON_NAME + " = '" + lesson.getName() + "' and " + KEY_LESSON_DATE + " = " + lesson.getDate(), null);
-
-        cursor.moveToFirst();
-        if (cursor.isLast()) {
-            lesson.setId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_ID)));
-            lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
-            lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
-            lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
-            lesson.setDuration(cursor.getFloat(cursor.getColumnIndex(KEY_LESSON_DURATION)));
-            lesson.setWeight(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_WEIGHT)));
-        }
-
-        cursor.close();
-        return lesson;
     }
 
     //Получить все уроки из БД
@@ -575,14 +525,14 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     //Получить урок по ID
-    public Lesson getLesson(int lessonId){
+    public Lesson getLesson(long lessonId){
         Lesson lesson = new Lesson();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from "+TABLE_LESSONS+" where "+KEY_LESSON_ID+" = "+lessonId, null);
 
         if(cursor.getCount() > 0) {
             cursor.moveToFirst();
-            lesson.setId(lessonId);
+            lesson.setId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_ID)));
             lesson.setName(cursor.getString(cursor.getColumnIndex(KEY_LESSON_NAME)));
             lesson.setCourseId(cursor.getInt(cursor.getColumnIndex(KEY_LESSON_COURSE_ID)));
             lesson.setDate(cursor.getLong(cursor.getColumnIndex(KEY_LESSON_DATE)));
