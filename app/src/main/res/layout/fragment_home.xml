@@ -14,8 +14,6 @@
     android:id="@+id/mainlay"
     android:orientation="vertical">
 
-
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="210dp">
@@ -30,7 +28,6 @@
           android:gravity="center"
           android:text="No events planned"
           android:textSize="30dp"/>
-
     </RelativeLayout>
 
 <!--первая линия -->
