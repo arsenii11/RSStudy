@@ -7,6 +7,7 @@ public class Event {
     private String name;
     private int courseId;
     private long date;
+    private float duration;
     private EventType eventType;
 
     public enum EventType{
@@ -16,12 +17,13 @@ public class Event {
 
     public Event() {}
 
-    public Event(int id, int eventId,String name, int courseId, long date, EventType eventType) {
+    public Event(int id, int eventId,String name, int courseId, long date, float duration, EventType eventType) {
         this.id = id;
         this.eventId = eventId;
         this.name = name;
         this.courseId = courseId;
         this.date = date;
+        this.duration = duration;
         this.eventType = eventType;
     }
 
@@ -43,6 +45,10 @@ public class Event {
 
     public long getDate() {
         return date;
+    }
+
+    public float getDuration() {
+        return duration;
     }
 
     public EventType getEventType() {
@@ -67,6 +73,10 @@ public class Event {
 
     public void setDate(long date) {
         this.date = date;
+    }
+
+    public void setDuration(float duration) {
+        this.duration = duration;
     }
 
     public void setEventType(EventType eventType) {
