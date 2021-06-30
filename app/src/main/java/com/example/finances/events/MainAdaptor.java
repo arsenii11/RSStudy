@@ -56,18 +56,23 @@ public class MainAdaptor extends RecyclerView.Adapter<MainAdaptor.ViewHolder> {
         Event event = events.get(position);
         Event.EventType eventType = event.getEventType();
 
+        String fromTo = "";
+
         String str = event.getName();
         if(eventType == Event.EventType.Lesson) {
             String name = str.split(", ")[0] + " lesson";
-            String time = str.split(", ")[2];
-            String dur = str.split(", ")[3];
-            str = name + ", " + time + ", " + dur;
+            str = name;
+            String hours = String.valueOf(event.getDuration()).split("\\.")[0];
+            //String minutes
+            //fromTo = str.split(", ")[2]+" - "+
         }
         else {
             String name = str.split(", ")[0];
             String time = str.split(", ")[2];
             str = name + ", " + time;
         }
+
+
 
         holder.nameView.setText(str);
         holder.eventId.setText(String.valueOf(event.getEventId()));
@@ -97,11 +102,13 @@ public class MainAdaptor extends RecyclerView.Adapter<MainAdaptor.ViewHolder> {
         final TextView nameView;
         final TextView eventId;
         final TextView eventType;
+        final TextView duration;
         ViewHolder(View view){
             super(view);
             nameView = (TextView) view.findViewById(R.id.LessonItem);
             eventId = view.findViewById(R.id.EventID);
             eventType = view.findViewById(R.id.EventType);
+            duration = view.findViewById(R.id.duration);
         }
     }
 
