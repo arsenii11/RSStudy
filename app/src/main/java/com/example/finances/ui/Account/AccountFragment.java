@@ -313,7 +313,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     @Override
     public void onResume(){
         super.onResume();
-     /*   CheckableChipView hide_courses = (CheckableChipView) view.findViewById(R.id.hide_courses);
+     /* CheckableChipView hide_courses = (CheckableChipView) view.findViewById(R.id.hide_courses);
         if(hide_courses.isChecked()){
             hide_courses.setOnCheckedChangeListener(AccountFragment.this);
             RecyclerView CoursesList = (RecyclerView) view.findViewById(R.id.list);
