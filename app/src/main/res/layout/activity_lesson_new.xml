@@ -196,7 +196,6 @@
             android:text="Every 2 weeks"
             android:textSize="40dp" />
 
-
     </com.google.android.material.chip.ChipGroup>
 
 
