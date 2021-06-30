@@ -128,7 +128,7 @@ public class NewLessonActivity extends AppCompatActivity {
                 dur =  hoursStr + ":" + minutesStr;
 
 
-                String lessonName = course.getName() + ", " + currentDateTime.getText().toString() + ", " + dur + " hours"; //Вычисляем имя урока
+                String lessonName = course.getName() + ". " + currentDateTime.getText().toString() + ". " + dur + " hours"; //Вычисляем имя урока
                 lesson.setName(lessonName); //Устанавливаем имя урока
 
                 lesson.setCourseId(COURSE_ID); //устанавливаем уроку ID родительского курса

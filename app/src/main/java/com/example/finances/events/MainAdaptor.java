@@ -58,15 +58,15 @@ public class MainAdaptor extends RecyclerView.Adapter<MainAdaptor.ViewHolder> {
 
         String str = event.getName();
         if(eventType == Event.EventType.Lesson) {
-            String name = str.split(", ")[0] + " lesson";
-            String time = str.split(", ")[2];
-            String dur = str.split(", ")[3];
-            str = name + ", " + time + ", " + dur;
+            String name = str.split(". ")[0] + " lesson";
+            String time = str.split(". ")[2];
+            String dur = str.split(". ")[3];
+            str = name + ". " + time + ". " + dur;
         }
         else {
-            String name = str.split(", ")[0];
-            String time = str.split(", ")[2];
-            str = name + ", " + time;
+            String name = str.split(". ")[0];
+            String time = str.split(". ")[2];
+            str = name + ". " + time;
         }
 
         holder.nameView.setText(str);
