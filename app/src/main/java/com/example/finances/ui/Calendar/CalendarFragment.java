@@ -37,7 +37,7 @@ public class CalendarFragment extends Fragment {
         setInitialData(calendar.getTimeInMillis());
         RecyclerView LessonsList = (RecyclerView) view.findViewById(R.id.Lessonlist_calendar);
         Context context = getContext();
-        mainAdaptor = new MainAdaptor(context, events, false, null);
+        mainAdaptor = new MainAdaptor(context, events, false, false, null);
         LessonsList.setAdapter(mainAdaptor);
 
         calendarView = view.findViewById(R.id.calendarView);
@@ -50,7 +50,7 @@ public class CalendarFragment extends Fragment {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(year, month, dayOfMonth);
                 setInitialData(calendar.getTimeInMillis());
-                mainAdaptor = new MainAdaptor(context, events, false, null);
+                mainAdaptor = new MainAdaptor(context, events, false, false, null);
                 LessonsList.setAdapter(mainAdaptor);
             }
         });

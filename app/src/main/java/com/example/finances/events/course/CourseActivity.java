@@ -91,14 +91,14 @@ public class CourseActivity extends AppCompatActivity {
             }
 
             setInitialData();
-            mainAdaptor = new MainAdaptor(this, events, true, covert);
+            mainAdaptor = new MainAdaptor(this, events, true, true, covert);
             eventsList.setAdapter(mainAdaptor);
 
             return null;
         }).attachTo(eventsList);
 
 
-        mainAdaptor = new MainAdaptor(this, events, true, covert);
+        mainAdaptor = new MainAdaptor(this, events, true, true, covert);
         eventsList.setAdapter(mainAdaptor);
 
     }
