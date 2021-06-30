@@ -43,6 +43,14 @@ public class LessonActivity extends AppCompatActivity {
 
         setInitialData(); //Вызываем функцию установки значений из БД
 
+
+        //Верхний тулбар
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar4);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         //Устанавливаем функцию при нажатии на кнопку перести урок
         rescheduleLesson.setOnClickListener(v -> {
             Intent intent = new Intent(LessonActivity.this, RescheduleLessonActivity.class); //Создаем намерение перехода на активность с переносом текущего теста
