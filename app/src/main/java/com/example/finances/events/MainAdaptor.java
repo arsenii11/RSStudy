@@ -2,6 +2,7 @@ package com.example.finances.events;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.example.finances.events.test.TestActivity;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import maes.tech.intentanim.CustomIntent;
 import nz.co.trademe.covert.Covert;
@@ -26,6 +28,7 @@ import nz.co.trademe.covert.Covert;
 public class MainAdaptor extends RecyclerView.Adapter<MainAdaptor.ViewHolder> {
 
     private final LayoutInflater inflater;
+    private final Context context;
     private final ArrayList<Event> events;
     private boolean swipeEnabled;
     private final Covert covert;
@@ -33,6 +36,7 @@ public class MainAdaptor extends RecyclerView.Adapter<MainAdaptor.ViewHolder> {
 
     public MainAdaptor(Context context, ArrayList<Event> events, boolean swipeEnabled, Covert covert)  {
         this.inflater = LayoutInflater.from(context);
+        this.context = context;
         this.events = events;
         this.covert = covert;
         this.swipeEnabled = swipeEnabled;
@@ -56,27 +60,35 @@ public class MainAdaptor extends RecyclerView.Adapter<MainAdaptor.ViewHolder> {
         Event event = events.get(position);
         Event.EventType eventType = event.getEventType();
 
-        String fromTo = "";
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(event.getDate()*1000);
 
-        String str = event.getName();
+        String name = event.getName();
+        String fromTo = DateUtils.formatDateTime(context,
+                calendar.getTimeInMillis(),
+                DateUtils.FORMAT_SHOW_TIME);
+
         if(eventType == Event.EventType.Lesson) {
-            String name = str.split(", ")[0] + " lesson";
-            str = name;
-            String hours = String.valueOf(event.getDuration()).split("\\.")[0];
-            //String minutes
-            //fromTo = str.split(", ")[2]+" - "+
+            name = name.split(", ")[0] + " lesson";
+
+            calendar.setTimeInMillis(calendar.getTimeInMillis() + (long) (event.getDuration()*3600000));
+
+            String to = DateUtils.formatDateTime(context,
+                    calendar.getTimeInMillis(),
+                    DateUtils.FORMAT_SHOW_TIME);
+
+            fromTo += " – " + to;
         }
         else {
-            String name = str.split(", ")[0];
-            String time = str.split(", ")[2];
-            str = name + ", " + time;
+            name = name.split(", ")[0];
         }
 
 
 
-        holder.nameView.setText(str);
+        holder.nameView.setText(name);
         holder.eventId.setText(String.valueOf(event.getEventId()));
         holder.eventType.setText(eventType.name().toUpperCase());
+        holder.duration.setText(fromTo);
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent;
