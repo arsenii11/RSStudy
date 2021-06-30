@@ -67,11 +67,11 @@ public class CourseLength extends AppCompatActivity {
                 course.setLessons(content);
 
                 DBHelper dbh = new DBHelper(getApplicationContext());
-
-                if(dbh.insertCourse(course) && !cn.equals("0")) {
+                long courseId = dbh.insertCourse(course);
+                if( courseId != -1 && !cn.equals("0")) {
                     Snackbar snackbar = Snackbar.make(view1, "Record inserted successfully", Snackbar.LENGTH_LONG);
                     snackbar.show();
-                    course = dbh.findCourse(course);
+                    course = dbh.getCourse(courseId);
                     Intent intent = new Intent(CourseLength.this, NewLessonActivity.class);
                     intent.putExtra("COURSE_ID", course.getId());
                     intent.putExtra("LESSONS", course.getLessons());

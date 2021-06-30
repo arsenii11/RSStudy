@@ -82,9 +82,9 @@ public class JobSchedulerService extends JobService {
                             | DateUtils.FORMAT_SHOW_TIME) + ", " + dur + " hours";
             lesson.setName(lessonName);
 
-            dbHelper.insertLessonSmart(lesson);
+            long lessonId = dbHelper.insertLessonSmart(lesson);
 
-            lesson = dbHelper.findLesson(lesson);
+            lesson = dbHelper.getLesson(lessonId);
 
             LessonOptions options = new LessonOptions();
             options.setIsRepeatable(lessonOptions.getIsRepeatable());
