@@ -4,7 +4,7 @@
 
 ### Table of Contests
 - [Description](https://github.com/arsenii11/RSStudy#description) 
-- [How to use](###How-to-use)
+- [How to use](https://github.com/arsenii11/RSStudy#how-to-use)
 - [Bug reports](###Bug-reports)
 - [Built with](###Built-with)
 - [About authors](https://github.com/arsenii11/RSStudy#about-authors)
