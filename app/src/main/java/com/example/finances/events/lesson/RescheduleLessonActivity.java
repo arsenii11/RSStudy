@@ -8,15 +8,11 @@ import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.finances.MainActivity;
 import com.example.finances.R;
 import com.example.finances.calendar.CalendarHelper;
 import com.example.finances.database.Course;
@@ -34,11 +30,12 @@ public class RescheduleLessonActivity extends AppCompatActivity {
 
     private int LESSON_ID; //ID урока
 
-    Calendar dateAndTime; //Календарь начала
-    Calendar timeEnd; //Календарь конца
+    Calendar startCalendar; //Календарь начала
+    Calendar endCalendar; //Календарь конца
 
-    TextView currentDateTime; //Строка с датой начала
-    TextView endDateTime; //Строка с датой конца
+    TextView startDate; //Строка с датой начала
+    TextView startTime; //Строка с временем начала
+    TextView endTime; //Строка с датой конца
 
     Button next; //Кнопка дальше
 
@@ -56,14 +53,15 @@ public class RescheduleLessonActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lesson_reschedule);
 
-        dateAndTime = Calendar.getInstance(); //Инициализируем календарь с датой начала
-        timeEnd = Calendar.getInstance(); //Инициализируем календарь с датой конца
+        startCalendar = Calendar.getInstance(); //Инициализируем календарь с датой начала
+        endCalendar = Calendar.getInstance(); //Инициализируем календарь с датой конца
 
         dbHelper = new DBHelper(this); //Инициализируем обработчик к БД
         calendarHelper = new CalendarHelper(this); //Инициализируем обработчик к календарю
 
-        currentDateTime = findViewById(R.id.currentDateTime); //Получаем из View Text View, предназначенный для даты начала
-        endDateTime = findViewById(R.id.endDateTime); //Получаем из View Text View, предназначенный для даты конца
+        startDate = findViewById(R.id.startDate); //Получаем из View Text View, предназначенный для даты начала
+        startTime = findViewById(R.id.startTime); //Получаем из View Text View, предназначенный для времени начала
+        endTime = findViewById(R.id.endTime); //Получаем из View Text View, предназначенный для времени конца
 
         next = findViewById(R.id.buttonLessonNext); //Получаем из View Button, предназначенную для подтверждения изменения
 
@@ -80,8 +78,8 @@ public class RescheduleLessonActivity extends AppCompatActivity {
         Lesson lesson = dbHelper.getLesson(LESSON_ID); //Получаем экземпляр урока из БД
         LessonOptions lessonOptions = dbHelper.getLessonOptions(LESSON_ID); //Получаем экземпляр опций урока из БД
 
-        dateAndTime.setTimeInMillis(lesson.getDate()*1000); //Устанавливаем в календарь начала текущую дату урока
-        timeEnd.setTimeInMillis(lesson.getDate()*1000 + (long) (lesson.getDuration()*3600000)); //Устанавливаем в календарь конца текущую дату урока + его длительность
+        startCalendar.setTimeInMillis(lesson.getDate()*1000); //Устанавливаем в календарь начала текущую дату урока
+        endCalendar.setTimeInMillis(lesson.getDate()*1000 + (long) (lesson.getDuration()*3600000)); //Устанавливаем в календарь конца текущую дату урока + его длительность
 
         //В зависимости от повторения урока отмечаем нужный чип
         switch (lessonOptions.getIsRepeatable()){
@@ -108,8 +106,7 @@ public class RescheduleLessonActivity extends AppCompatActivity {
 
             Course course = dbHelper.getCourse(lesson.getCourseId()); //Получаем родительский курс из БД по его ID
 
-            String currentTime = currentDateTime.getText().toString().split(", ")[1]; //Получаем из TextView время начала урока
-            if(currentDateTime.getText().toString().split(", ").length == 3) currentTime = currentDateTime.getText().toString().split(", ")[2]; //проверка на формат даты вида "June 16, 2021"
+            String currentTime = startTime.getText().toString(); //Получаем из TextView время начала урока
             if(currentTime.split(" ").length > 1){
                 if(currentTime.split(" ")[1].equals("AM")) {
                     currentTime = currentTime.split(" ")[0];
@@ -122,24 +119,24 @@ public class RescheduleLessonActivity extends AppCompatActivity {
                 }
             }
 
-            String endTime = endDateTime.getText().toString(); //Получаем из TextView время окончания урока
-            if(endTime.split(" ").length > 1){
-                if(endTime.split(" ")[1].equals("AM")) {
-                    endTime = endTime.split(" ")[0];
-                    if(endTime.split(":")[0].equals("12")) endTime = "0:"+endTime.split(":")[1];
+            String endTimeStr = endTime.getText().toString(); //Получаем из TextView время окончания урока
+            if(endTimeStr.split(" ").length > 1){
+                if(endTimeStr.split(" ")[1].equals("AM")) {
+                    endTimeStr = endTimeStr.split(" ")[0];
+                    if(endTimeStr.split(":")[0].equals("12")) endTimeStr = "0:"+endTimeStr.split(":")[1];
                 }
                 else{
-                    endTime = endTime.split(" ")[0];
-                    int hours = Integer.parseInt(endTime.split(":")[0]) + 12;
-                    endTime = String.valueOf(hours) + ":" + endTime.split(":")[1];
+                    endTimeStr = endTimeStr.split(" ")[0];
+                    int hours = Integer.parseInt(endTimeStr.split(":")[0]) + 12;
+                    endTimeStr = String.valueOf(hours) + ":" + endTimeStr.split(":")[1];
                 }
             }
 
             //Рассчитываем длительность урока в формате HH:MM
-            String dur = endDateTime.getText().toString();
+            String dur = this.endTime.getText().toString();
 
-            int hours = Integer.parseInt(endTime.split(":")[0])-Integer.parseInt(currentTime.split(":")[0]);
-            float minutes = Float.parseFloat(endTime.split(":")[1]) - Float.parseFloat(currentTime.split(":")[1]);
+            int hours = Integer.parseInt(endTimeStr.split(":")[0])-Integer.parseInt(currentTime.split(":")[0]);
+            float minutes = Float.parseFloat(endTimeStr.split(":")[1]) - Float.parseFloat(currentTime.split(":")[1]);
 
             if(minutes<0){
                 hours--;
@@ -152,11 +149,11 @@ public class RescheduleLessonActivity extends AppCompatActivity {
             dur =  hoursStr + ":" + minutesStr;
 
 
-            String lessonName = course.getName() + ", " + currentDateTime.getText().toString() + ", " + dur + " hours"; //Вычисляем имя урока
+            String lessonName = course.getName() + ", " + startDate.getText().toString() + ", " + startTime.getText().toString() + ", " + dur + " hours"; //Вычисляем имя урока
             lesson.setName(lessonName); //Устанавливаем имя урока
 
 
-            long dat = dateAndTime.getTimeInMillis()/1000; //Рассчитываем дату начала урока в секундах
+            long dat = startCalendar.getTimeInMillis()/1000; //Рассчитываем дату начала урока в секундах
             lesson.setDate(dat); //Устанавливаем дату начала
 
             //Рассчитываем и устанавливаем длительность урока в виде десятичной дроби
@@ -170,11 +167,11 @@ public class RescheduleLessonActivity extends AppCompatActivity {
             //Запускаем умное добавление урока в БД
             if(dbHelper.updateLessonSmart(LESSON_ID, lesson)) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    calendarHelper.updateCalendarEvent(lessonOptions.getCalendarEventId(), course.getName(), dateAndTime.getTimeInMillis(), timeEnd.getTimeInMillis());
+                    calendarHelper.updateCalendarEvent(lessonOptions.getCalendarEventId(), course.getName(), startCalendar.getTimeInMillis(), endCalendar.getTimeInMillis());
                 }
                 else{
                     calendarHelper.deleteCalendarEvent(lessonOptions.getCalendarEventId());
-                    lessonOptions.setCalendarEventId(calendarHelper.addCalendarEvent(course.getName(), dateAndTime.getTimeInMillis(), timeEnd.getTimeInMillis()));
+                    lessonOptions.setCalendarEventId(calendarHelper.addCalendarEvent(course.getName(), startCalendar.getTimeInMillis(), endCalendar.getTimeInMillis()));
                 }
                 lessonOptions.setIsRepeatable(0); //Ставим режим "не повторять"
 
@@ -210,65 +207,70 @@ public class RescheduleLessonActivity extends AppCompatActivity {
     // отображаем диалоговое окно для выбора даты
     public void setDate(View v) {
         new DatePickerDialog(this, d,
-                dateAndTime.get(Calendar.YEAR),
-                dateAndTime.get(Calendar.MONTH),
-                dateAndTime.get(Calendar.DAY_OF_MONTH))
+                startCalendar.get(Calendar.YEAR),
+                startCalendar.get(Calendar.MONTH),
+                startCalendar.get(Calendar.DAY_OF_MONTH))
                 .show();
     }
 
     // отображаем диалоговое окно для выбора времени
     public void setTime(View v) {
         new TimePickerDialog(this, t,
-                dateAndTime.get(Calendar.HOUR_OF_DAY),
-                dateAndTime.get(Calendar.MINUTE), true)
+                startCalendar.get(Calendar.HOUR_OF_DAY),
+                startCalendar.get(Calendar.MINUTE), true)
                 .show();
     }
 
     //отображаем диалоговое окно для выбора времени окончания
     public void setEndTime(View v) {
         new TimePickerDialog(this, te,
-                timeEnd.get(Calendar.HOUR_OF_DAY),
-                timeEnd.get(Calendar.MINUTE), true)
+                endCalendar.get(Calendar.HOUR_OF_DAY),
+                endCalendar.get(Calendar.MINUTE), true)
                 .show();
     }
 
 
     // установка даты и времени в TextView
     private void setInitialDateTime() {
-        //В TextView начала урока
-        currentDateTime.setText(DateUtils.formatDateTime(this,
-                dateAndTime.getTimeInMillis(),
-                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
-                        | DateUtils.FORMAT_SHOW_TIME));
 
-        //В TextView конца урока
-        endDateTime.setText(DateUtils.formatDateTime(this,
-                timeEnd.getTimeInMillis(),
+        //В TextView даты начала
+        startDate.setText(DateUtils.formatDateTime(this,
+                startCalendar.getTimeInMillis(),
+                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
+
+        //В TextView времени начала
+        startTime.setText(DateUtils.formatDateTime(this,
+                startCalendar.getTimeInMillis(),
+                DateUtils.FORMAT_SHOW_TIME));
+
+        //В TextView времени конца урока
+        endTime.setText(DateUtils.formatDateTime(this,
+                endCalendar.getTimeInMillis(),
                 DateUtils.FORMAT_SHOW_TIME));
     }
 
     // установка обработчика выбора времени
     TimePickerDialog.OnTimeSetListener t = (view, hourOfDay, minute) -> {
-            dateAndTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
-            dateAndTime.set(Calendar.MINUTE, minute);
+            startCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            startCalendar.set(Calendar.MINUTE, minute);
             setInitialDateTime();
     };
 
     TimePickerDialog.OnTimeSetListener te = (view, hourOfDay, minute) -> {
-            timeEnd.set(Calendar.HOUR_OF_DAY, hourOfDay);
-            timeEnd.set(Calendar.MINUTE, minute);
+            endCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            endCalendar.set(Calendar.MINUTE, minute);
             setInitialDateTime();
     };
 
     // установка обработчика выбора даты
     DatePickerDialog.OnDateSetListener d = (view, year, monthOfYear, dayOfMonth) -> {
-            dateAndTime.set(Calendar.YEAR, year);
-            dateAndTime.set(Calendar.MONTH, monthOfYear);
-            dateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            startCalendar.set(Calendar.YEAR, year);
+            startCalendar.set(Calendar.MONTH, monthOfYear);
+            startCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-            timeEnd.set(Calendar.YEAR, year);
-            timeEnd.set(Calendar.MONTH, monthOfYear);
-            timeEnd.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            endCalendar.set(Calendar.YEAR, year);
+            endCalendar.set(Calendar.MONTH, monthOfYear);
+            endCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             setInitialDateTime();
     };
 }

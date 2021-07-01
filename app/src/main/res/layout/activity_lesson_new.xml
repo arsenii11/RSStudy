@@ -73,7 +73,7 @@
         app:layout_constraintTop_toBottomOf="@+id/timeButton" />
 
     <TextView
-        android:id="@+id/currentDateTime"
+        android:id="@+id/startDate"
         style="@style/LessonDateButton"
         android:layout_width="270dp"
         android:layout_marginTop="56dp"
@@ -83,21 +83,31 @@
         app:layout_constraintTop_toBottomOf="@+id/timeButton2" />
 
     <TextView
-        android:id="@+id/endDateTime"
+        android:id="@+id/startTime"
         style="@style/LessonDateButton"
         android:layout_width="270dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/buttonbackground_1"
         android:gravity="center"
-        app:layout_constraintStart_toStartOf="@+id/currentDateTime"
-        app:layout_constraintTop_toBottomOf="@+id/currentDateTime" />
+        app:layout_constraintStart_toStartOf="@+id/startDate"
+        app:layout_constraintTop_toBottomOf="@+id/startDate" />
+
+    <TextView
+        android:id="@+id/endTime"
+        style="@style/LessonDateButton"
+        android:layout_width="270dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/buttonbackground_1"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="@+id/startTime"
+        app:layout_constraintTop_toBottomOf="@+id/startTime" />
 
     <Button
         android:id="@+id/buttonLessonNext"
         style="@style/LessonDateButton"
         android:layout_width="211dp"
         android:layout_height="60dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="224dp"
         android:background="@drawable/buttonbackground_1"
         android:backgroundTint="@color/plus2"
         android:gravity="center"
@@ -114,10 +124,11 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="Lesson:"
         android:textSize="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/currentDateTime"
-        app:layout_constraintStart_toStartOf="@+id/currentDateTime" />
+        app:layout_constraintStart_toStartOf="@+id/timeButton2"
+        app:layout_constraintTop_toBottomOf="@+id/timeButton2" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipInputRep"

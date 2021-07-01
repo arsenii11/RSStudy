@@ -34,10 +34,11 @@ import static com.example.finances.MainActivity.ALLOW_ADD_TO_CALENDAR;
 
 public class NewLessonActivity extends AppCompatActivity {
 
-    Calendar dateAndTime; //Календарь начала
-    Calendar timeEnd; //Календарь конца
-    TextView currentDateTime; //Строка с датой начала
-    TextView endDateTime; //Строка с датой конца
+    Calendar startCalendar; //Календарь начала
+    Calendar endCalendar; //Календарь конца
+    TextView startDate; //Строка с датой начала
+    TextView startTime; //Строка с временем начала
+    TextView endTime; //Строка со временем конца
     Button next; //Кнопка дальше
     int COURSE_ID; //ID родительского курса
     int LESSONS; //Количество уроков, которые нужно сейчас добавить
@@ -53,8 +54,8 @@ public class NewLessonActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lesson_new);
 
         //Устанавливаем текущую дату и время в календари
-        dateAndTime = Calendar.getInstance();
-        timeEnd = Calendar.getInstance();
+        startCalendar = Calendar.getInstance();
+        endCalendar = Calendar.getInstance();
 
         //Получаем значения из intent
         Intent i = getIntent();
@@ -62,8 +63,9 @@ public class NewLessonActivity extends AppCompatActivity {
         LESSONS = i.getIntExtra("LESSONS", -1);
         CURRENT_LESSON = i.getIntExtra("CURRENT_LESSON", -1);
 
-        currentDateTime=(TextView)findViewById(R.id.currentDateTime); //Ищем TextView для даты начала
-        endDateTime = (TextView) findViewById(R.id.endDateTime); //Ищем TextView для даты конца
+        startDate = findViewById(R.id.startDate); //Ищем TextView для даты начала
+        startTime = findViewById(R.id.startTime); //Ищем TextView для времени начала
+        endTime = findViewById(R.id.endTime); //Ищем TextView для времени конца
 
         groupRepeat = findViewById(R.id.chipInputRep); //Ищем группу чипов для выбора повторения урока
         groupHow = findViewById(R.id.chipInputHow); //Ищем группу чипов для выбора режма повторения урока
@@ -85,8 +87,7 @@ public class NewLessonActivity extends AppCompatActivity {
                 Lesson lesson = new Lesson(); //Создаем пустой урок
                 Course course = dbHelper.getCourse(COURSE_ID); //Получаем родительский курс из БД по его ID
 
-                String currentTime = currentDateTime.getText().toString().split(", ")[1]; //Получаем из TextView время начала урока
-                if(currentDateTime.getText().toString().split(", ").length == 3) currentTime = currentDateTime.getText().toString().split(", ")[2]; //проверка на формат даты вида "June 16, 2021"
+                String currentTime = startTime.getText().toString(); //Получаем из TextView время начала урока
                 if(currentTime.split(" ").length > 1){
                     if(currentTime.split(" ")[1].equals("AM")) {
                         currentTime = currentTime.split(" ")[0];
@@ -99,23 +100,23 @@ public class NewLessonActivity extends AppCompatActivity {
                     }
                 }
 
-                String endTime = endDateTime.getText().toString(); //Получаем из TextView время окончания урока
-                if(endTime.split(" ").length > 1){
-                    if(endTime.split(" ")[1].equals("AM")) {
-                        endTime = endTime.split(" ")[0];
-                        if(endTime.split(":")[0].equals("12")) endTime = "0:"+endTime.split(":")[1];
+                String endTimeStr = endTime.getText().toString(); //Получаем из TextView время окончания урока
+                if(endTimeStr.split(" ").length > 1){
+                    if(endTimeStr.split(" ")[1].equals("AM")) {
+                        endTimeStr = endTimeStr.split(" ")[0];
+                        if(endTimeStr.split(":")[0].equals("12")) endTimeStr = "0:"+endTimeStr.split(":")[1];
                     }
                     else{
-                        endTime = endTime.split(" ")[0];
-                        int hours = Integer.parseInt(endTime.split(":")[0]) + 12;
-                        endTime = String.valueOf(hours) + ":" + endTime.split(":")[1];
+                        endTimeStr = endTimeStr.split(" ")[0];
+                        int hours = Integer.parseInt(endTimeStr.split(":")[0]) + 12;
+                        endTimeStr = String.valueOf(hours) + ":" + endTimeStr.split(":")[1];
                     }
                 }
                 //Рассчитываем длительность урока в формате HH:MM
-                String dur = endDateTime.getText().toString();
+                String dur = NewLessonActivity.this.endTime.getText().toString();
 
-                int hours = Integer.parseInt(endTime.split(":")[0])-Integer.parseInt(currentTime.split(":")[0]);
-                float minutes = Float.parseFloat(endTime.split(":")[1]) - Float.parseFloat(currentTime.split(":")[1]);
+                int hours = Integer.parseInt(endTimeStr.split(":")[0])-Integer.parseInt(currentTime.split(":")[0]);
+                float minutes = Float.parseFloat(endTimeStr.split(":")[1]) - Float.parseFloat(currentTime.split(":")[1]);
 
                 if(minutes<0){
                     hours--;
@@ -128,12 +129,12 @@ public class NewLessonActivity extends AppCompatActivity {
                 dur =  hoursStr + ":" + minutesStr;
 
 
-                String lessonName = course.getName() + ", " + currentDateTime.getText().toString() + ", " + dur + " hours"; //Вычисляем имя урока
+                String lessonName = course.getName() + ", " + startDate.getText().toString() + ", " + startTime.getText().toString() + ", " + dur + " hours"; //Вычисляем имя урока
                 lesson.setName(lessonName); //Устанавливаем имя урока
 
                 lesson.setCourseId(COURSE_ID); //устанавливаем уроку ID родительского курса
 
-                long dat = dateAndTime.getTimeInMillis()/1000; //Рассчитываем дату начала урока в секундах
+                long dat = startCalendar.getTimeInMillis()/1000; //Рассчитываем дату начала урока в секундах
                 lesson.setDate(dat); //Устанавливаем дату начала
 
                 //Рассчитываем и устанавливаем длительность урока в виде десятичной дроби
@@ -155,9 +156,9 @@ public class NewLessonActivity extends AppCompatActivity {
                     lesson = dbHelper.getLesson(lessonId); //Ищем добавленный урок
 
                     lessonOptions.setLessonId(lesson.getId()); //Устанавливаем id урока в опции
-                    lessonOptions.setCalendarEventId(addCalendarEvent(course.getName() + " lesson", dateAndTime.getTimeInMillis(), timeEnd.getTimeInMillis())); //Устанавливаем ID события в календаре
+                    lessonOptions.setCalendarEventId(addCalendarEvent(course.getName() + " lesson", startCalendar.getTimeInMillis(), endCalendar.getTimeInMillis())); //Устанавливаем ID события в календаре
                     lessonOptions.setIsRepeatable(0); //Ставим режим "не повторять"
-                    lessonOptions.setRepeatMode(0); //Ставим повтор урока раз в неделю
+                    lessonOptions.setRepeatMode(1); //Ставим повтор урока раз в неделю
 
                     //Добавляем опции урока в БД
                     if(COURSE_REPEAT.equals("YES")) {
@@ -212,25 +213,25 @@ public class NewLessonActivity extends AppCompatActivity {
     // отображаем диалоговое окно для выбора даты
     public void setDate(View v) {
         new DatePickerDialog(this, d,
-                dateAndTime.get(Calendar.YEAR),
-                dateAndTime.get(Calendar.MONTH),
-                dateAndTime.get(Calendar.DAY_OF_MONTH))
+                startCalendar.get(Calendar.YEAR),
+                startCalendar.get(Calendar.MONTH),
+                startCalendar.get(Calendar.DAY_OF_MONTH))
                 .show();
     }
 
     // отображаем диалоговое окно для выбора времени
     public void setTime(View v) {
         new TimePickerDialog(this, t,
-                dateAndTime.get(Calendar.HOUR_OF_DAY),
-                dateAndTime.get(Calendar.MINUTE), true)
+                startCalendar.get(Calendar.HOUR_OF_DAY),
+                startCalendar.get(Calendar.MINUTE), true)
                 .show();
     }
 
     //отображаем диалоговое окно для выбора времени окончания
     public void setEndTime(View v) {
         new TimePickerDialog(this, te,
-                timeEnd.get(Calendar.HOUR_OF_DAY),
-                timeEnd.get(Calendar.MINUTE), true)
+                endCalendar.get(Calendar.HOUR_OF_DAY),
+                endCalendar.get(Calendar.MINUTE), true)
                 .show();
     }
 
@@ -238,23 +239,27 @@ public class NewLessonActivity extends AppCompatActivity {
     // установка даты и времени в TextView
     private void setInitialDateTime() {
 
-        //В TextView начала урока
-        currentDateTime.setText(DateUtils.formatDateTime(this,
-                dateAndTime.getTimeInMillis(),
-                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
-                        | DateUtils.FORMAT_SHOW_TIME));
+        //В TextView даты начала
+        startDate.setText(DateUtils.formatDateTime(this,
+                startCalendar.getTimeInMillis(),
+                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
 
-        //В TextView конца урока
-        endDateTime.setText(DateUtils.formatDateTime(this,
-                timeEnd.getTimeInMillis(),
+        //В TextView времени начала
+        startTime.setText(DateUtils.formatDateTime(this,
+                startCalendar.getTimeInMillis(),
+                DateUtils.FORMAT_SHOW_TIME));
+
+        //В TextView времени конца урока
+        endTime.setText(DateUtils.formatDateTime(this,
+                endCalendar.getTimeInMillis(),
                 DateUtils.FORMAT_SHOW_TIME));
     }
 
     // установка обработчика выбора времени
     TimePickerDialog.OnTimeSetListener t = new TimePickerDialog.OnTimeSetListener() {
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            dateAndTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
-            dateAndTime.set(Calendar.MINUTE, minute);
+            startCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            startCalendar.set(Calendar.MINUTE, minute);
             setInitialDateTime();
         }
     };
@@ -262,8 +267,8 @@ public class NewLessonActivity extends AppCompatActivity {
     TimePickerDialog.OnTimeSetListener te = new TimePickerDialog.OnTimeSetListener() {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            timeEnd.set(Calendar.HOUR_OF_DAY, hourOfDay);
-            timeEnd.set(Calendar.MINUTE, minute);
+            endCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            endCalendar.set(Calendar.MINUTE, minute);
             setInitialDateTime();
         }
     };
@@ -271,13 +276,13 @@ public class NewLessonActivity extends AppCompatActivity {
     // установка обработчика выбора даты
     DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            dateAndTime.set(Calendar.YEAR, year);
-            dateAndTime.set(Calendar.MONTH, monthOfYear);
-            dateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            startCalendar.set(Calendar.YEAR, year);
+            startCalendar.set(Calendar.MONTH, monthOfYear);
+            startCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-            timeEnd.set(Calendar.YEAR, year);
-            timeEnd.set(Calendar.MONTH, monthOfYear);
-            timeEnd.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            endCalendar.set(Calendar.YEAR, year);
+            endCalendar.set(Calendar.MONTH, monthOfYear);
+            endCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             setInitialDateTime();
         }
     };
