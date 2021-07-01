@@ -19,7 +19,7 @@ You must have Android version 9 or above to use the app. <br />
 [Get it on Google Play](https://play.google.com/store/apps)
 
 ### Bug reports
-If you discover a problem with RS:Study, we would like to know about it. <br />Contact us by writing an email to [rsstydyrediss@gmail,com](rsstydyrediss@gmail,com)
+If you discover a problem with RS:Study, we would like to know about it. <br />Contact us by writing an email to [rsstydyrediss@gmail.com](rsstydyrediss@gmail.com)
 
 ### Built with
 - Java
