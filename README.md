@@ -6,7 +6,7 @@
 - [Description](https://github.com/arsenii11/RSStudy#description) 
 - [How to use](https://github.com/arsenii11/RSStudy#how-to-use)
 - [Bug reports](https://github.com/arsenii11/RSStudy#bug-reports)
-- [Built with](###Built-with)
+- [Built with](https://github.com/arsenii11/RSStudy###Built-with)
 - [About authors](https://github.com/arsenii11/RSStudy#about-authors)
 
 ### Description
