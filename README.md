@@ -7,7 +7,7 @@
 - [How to use](###How-to-use)
 - [Bug reports](###Bug-reports)
 - [Built with](###Built-with)
-- [About authors](###About-authors)
+- [About authors](https://github.com/arsenii11/RSStudy#about-authors)
 
 ### Description
 
