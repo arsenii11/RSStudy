@@ -9,6 +9,7 @@ import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -39,7 +40,7 @@ public class NewLessonActivity extends AppCompatActivity {
     TextView startDate; //Строка с датой начала
     TextView startTime; //Строка с временем начала
     TextView endTime; //Строка со временем конца
-    Button next; //Кнопка дальше
+    ImageButton next; //Кнопка дальше
     int COURSE_ID; //ID родительского курса
     int LESSONS; //Количество уроков, которые нужно сейчас добавить
     int CURRENT_LESSON; //Текущее количество добавленных уроков
