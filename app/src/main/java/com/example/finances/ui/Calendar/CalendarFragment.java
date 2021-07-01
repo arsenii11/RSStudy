@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -27,6 +28,7 @@ public class CalendarFragment extends Fragment {
     ArrayList<Event> events = new ArrayList<Event>();
     MainAdaptor mainAdaptor;
     ImageView NoEvents;
+    TextView NoEventsText;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -36,6 +38,7 @@ public class CalendarFragment extends Fragment {
         Calendar calendar = Calendar.getInstance();
 
         NoEvents = view.findViewById(R.id.noevents);
+        NoEventsText = view.findViewById(R.id.noeventsText);
 
         //Список курсов и уроков
         setInitialData(calendar.getTimeInMillis());
@@ -70,9 +73,11 @@ public class CalendarFragment extends Fragment {
             events = dbHelper.getEventFromDaySortByTime(datetime);
             if(events.size() == 0){
                 NoEvents.setVisibility(View.VISIBLE);
+                NoEventsText.setVisibility(View.VISIBLE);
             }
             else{
                 NoEvents.setVisibility(View.INVISIBLE);
+                NoEventsText.setVisibility(View.INVISIBLE);
             }
         }
         catch (Exception e){

@@ -63,12 +63,13 @@
         app:layout_constraintVertical_bias="0.336" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/noeventsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/nokora_bold"
         android:text="No events this day!"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/noevents"
         app:layout_constraintStart_toStartOf="@+id/noevents"
         app:layout_constraintTop_toBottomOf="@+id/noevents" />
