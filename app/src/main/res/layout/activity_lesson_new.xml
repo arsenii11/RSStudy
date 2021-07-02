@@ -16,9 +16,9 @@
     <View
         android:id="@+id/view"
         android:layout_width="375dp"
-        android:layout_height="240dp"
+        android:layout_height="220dp"
         android:layout_marginTop="60dp"
-        android:background="@drawable/widget_middle"
+        android:background="@drawable/widget_lessonblock"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,8 +41,7 @@
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp"
         android:gravity="left"
         android:onClick="setDate"
         android:text="Date"
@@ -133,9 +132,11 @@
          />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/chip"
+        android:id="@+id/repeatSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:useMaterialThemeColors="false"
+        app:thumbTint="@color/plus1"
         android:layout_marginStart="6dp"
         android:scaleX="1.25"
         android:scaleY="1.25"
@@ -167,42 +168,6 @@
         app:layout_constraintEnd_toStartOf="@+id/LabelLesson"
         app:layout_constraintTop_toTopOf="@+id/LabelLesson" />
 
-
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chipInputRep"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="344dp"
-        android:textSize="5dp"
-        app:checkedChip="@id/chip_yes"
-        app:hint="Select a type"
-        app:layout_constraintStart_toStartOf="@+id/chipInputHow"
-        app:layout_constraintTop_toTopOf="@+id/dateButton"
-        app:singleSelection="true">
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_yes"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:gravity="center"
-            android:text="Yes"
-            android:textSize="40dp" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_no"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:gravity="center"
-            android:text="No"
-            android:textSize="40dp" />
-
-
-    </com.google.android.material.chip.ChipGroup>
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipInputHow"

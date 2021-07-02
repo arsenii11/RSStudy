@@ -25,6 +25,7 @@ import com.example.finances.database.Lesson;
 import com.example.finances.database.LessonOptions;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.Calendar;
 
@@ -44,6 +45,7 @@ public class NewLessonActivity extends AppCompatActivity {
     int COURSE_ID; //ID родительского курса
     int LESSONS; //Количество уроков, которые нужно сейчас добавить
     int CURRENT_LESSON; //Текущее количество добавленных уроков
+    SwitchMaterial repeatOnOff;
     String COURSE_REPEAT; //Повторяется ли урок
     String COURSE_REPEAT_MODE; //Режим повторения
     ChipGroup groupRepeat; //Группа чипов для выбора потворения урока
@@ -68,7 +70,8 @@ public class NewLessonActivity extends AppCompatActivity {
         startTime = findViewById(R.id.startTime); //Ищем TextView для времени начала
         endTime = findViewById(R.id.endTime); //Ищем TextView для времени конца
 
-        groupRepeat = findViewById(R.id.chipInputRep); //Ищем группу чипов для выбора повторения урока
+
+        repeatOnOff = findViewById(R.id.repeatSwitch); //Переключает повтор on/off
         groupHow = findViewById(R.id.chipInputHow); //Ищем группу чипов для выбора режма повторения урока
 
         next = findViewById(R.id.buttonLessonNext); //Ищем кнопку дальше
@@ -78,10 +81,13 @@ public class NewLessonActivity extends AppCompatActivity {
             @Override
             public void onClick(View view1) {
 
-                Chip selectedChipRepeat = findViewById(groupRepeat.getCheckedChipId()); //Ищем выделенный вариант потворения урока
+
                 Chip selectedChipHow = findViewById(groupHow.getCheckedChipId()); //Ищем выделенный режим повторения урока
 
-                COURSE_REPEAT = selectedChipRepeat.getText().toString().toUpperCase();
+                if(repeatOnOff.isChecked()){
+                    COURSE_REPEAT = "YES";
+                }
+
                 COURSE_REPEAT_MODE = selectedChipHow.getText().toString().toUpperCase();
 
                 DBHelper dbHelper = new DBHelper(getApplicationContext()); //заполняем БД
@@ -208,8 +214,9 @@ public class NewLessonActivity extends AppCompatActivity {
             }
         });
 
-
     }
+
+
 
     // отображаем диалоговое окно для выбора даты
     public void setDate(View v) {
