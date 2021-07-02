@@ -101,7 +101,6 @@
         android:layout_marginStart="184dp"
         android:gravity="left"
         android:text="__ ____ __"
-        android:textColor="@color/gray_dove_light"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/dateButton"
         app:layout_constraintStart_toStartOf="@+id/dateButton"
@@ -112,7 +111,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textColor="@color/gray_dove_light"
         android:textSize="20dp"
         android:text="__:__"
         app:layout_constraintBottom_toBottomOf="@+id/timeButton"
@@ -123,6 +121,7 @@
         android:id="@+id/endTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/san_francisco_apple"
         android:gravity="center"
         android:textSize="20dp"
         android:text="__:__"
@@ -144,14 +143,16 @@
         app:layout_constraintStart_toStartOf="@+id/endTime"
         app:layout_constraintTop_toBottomOf="@+id/timeButton2" />
 
-    <ImageButton
+    <Button
         android:id="@+id/buttonLessonNext"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="40dp"
-        android:background="@null"
-        android:src="@drawable/outline_add_lesson"
-        android:tint="@color/Widget2text"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="add"
+        android:textAllCaps="false"
+        android:textColor="@color/plus1"
+        android:textSize="25dp"
         app:layout_constraintBottom_toBottomOf="@+id/LabelLesson"
         app:layout_constraintStart_toEndOf="@+id/LabelLesson"
         app:layout_constraintTop_toTopOf="@+id/LabelLesson" />

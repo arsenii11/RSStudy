@@ -41,7 +41,7 @@ public class NewLessonActivity extends AppCompatActivity {
     TextView startDate; //Строка с датой начала
     TextView startTime; //Строка с временем начала
     TextView endTime; //Строка со временем конца
-    ImageButton next; //Кнопка дальше
+    Button next; //Кнопка дальше
     int COURSE_ID; //ID родительского курса
     int LESSONS; //Количество уроков, которые нужно сейчас добавить
     int CURRENT_LESSON; //Текущее количество добавленных уроков
