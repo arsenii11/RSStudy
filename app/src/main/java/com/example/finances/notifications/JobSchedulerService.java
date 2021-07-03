@@ -70,7 +70,7 @@ public class JobSchedulerService extends JobService {
             switch (lessonOptions.getRepeatMode()){
                 case 1: add = 604800000L; break;
                 case 2: add = 1209600000L; break;
-                case 3: add = 1814400000L; break;
+                case 3: add = 2419200000L; break;
             }
 
             calendar.setTimeInMillis(calendar.getTimeInMillis() + add);
@@ -93,6 +93,8 @@ public class JobSchedulerService extends JobService {
 
             long endDate = lesson.getDate() + (long) lesson.getDuration()*3600000;
             options.setCalendarEventId(addCalendarEvent(parentCourse.getName() + " lesson", lesson.getDate(), endDate));
+
+            dbHelper.insertLessonOptions(options);
         }
 
         AlarmJobIntentService.startAction(context, ACTION, TITLE, TEXT, BIG_TEXT);

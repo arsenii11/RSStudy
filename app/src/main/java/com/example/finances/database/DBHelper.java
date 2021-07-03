@@ -330,6 +330,9 @@ public class DBHelper extends SQLiteOpenHelper {
         if(db.delete(TABLE_LESSONS, KEY_LESSON_ID+" = "+ lessonId, null) == -1)
             status = false;
 
+        if(deleteLessonOptions(getLessonOptions(lessonId).getId()))
+            status = false;
+
         return status;
     }
 
