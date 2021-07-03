@@ -16,6 +16,7 @@ import androidx.annotation.RequiresApi;
 import com.example.finances.database.DBHelper;
 import com.example.finances.database.Lesson;
 import com.example.finances.database.LessonOptions;
+import com.example.finances.database.Test;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -77,8 +78,8 @@ public class AlarmRequestsReceiver extends BroadcastReceiver {
                 PersistableBundle bundle = new PersistableBundle();
                 bundle.putString("ACTION", AlarmJobIntentService.LESSON_ALARM);
                 bundle.putString("TITLE", name + " lesson");
-                bundle.putString("TEXT", "Урок уже через час");
-                bundle.putString("BIG_TEXT", "Урок уже через час, за 15 минут я напомню еще раз :)");
+                bundle.putString("TEXT", "in an hour");
+                bundle.putString("BIG_TEXT", "in an hour");
                 bundle.putInt("LESSON_ID",lesson.getId());
 
                 ComponentName jobService = new ComponentName(context, JobSchedulerService.class);
@@ -91,6 +92,5 @@ public class AlarmRequestsReceiver extends BroadcastReceiver {
                 Log.e("Lesson", lesson.getName() + " " + lesson.getDate());
             }
         }
-
     }
 }
