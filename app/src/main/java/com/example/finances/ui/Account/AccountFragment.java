@@ -62,6 +62,7 @@ import static android.app.Activity.RESULT_OK;
 public class AccountFragment extends Fragment implements CompoundButton.OnCheckedChangeListener, Function2<CheckableChipView, Boolean, Unit>  {
 
     private final int GALLERY_REQUEST = 1;
+    public static final String APP_PREFERENCES_Path = "Nickname" ;
     public SharedPreferences profile;
     private String imagePath;
     private final int PICK_IMAGE_REQUEST = 1;
@@ -69,6 +70,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     public View background;
     private Activity activityAccount;
     public View AnimDivider;
+    public String FilePath ="";
     public ProgressBar simpleProgressBar;
     public ImageButton accountFullBt;
     public SquaredConstraintLayout lay_photo;
@@ -76,6 +78,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     public Uri selectedImageUri;
     public View backgroundColorTint;
     public TextView Surname;
+    public boolean flag;
 
     ArrayList<Course> courses = new ArrayList<Course>();
     ArrayList<Lesson> lessons = new ArrayList<Lesson>();
@@ -92,6 +95,8 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        flag = true;
+
 
     }
 
@@ -151,7 +156,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         TextView nickname_1 = view.findViewById(R.id.nickname);
         nickname_1.setText(nickname);
         if (nickname.isEmpty()) {
-            nickname_1.setText("Not indicated");
+            nickname_1.setText("@Nickname");
         }
 
         //устанавливаем email
@@ -159,7 +164,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         TextView Email = view.findViewById(R.id.email);
         Email.setText(email);
         if (email.isEmpty()) {
-            Email.setText("Not indicated");
+            Email.setText("nickname@email.com");
         }
 
         //устанавливаем имя
@@ -167,7 +172,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         Surname = view.findViewById(R.id.name);//имя фамилия
         Surname.setText(NameSur);
         if (NameSur.isEmpty()) {
-            Surname.setText("Nickname");
+            Surname.setText("Name Surname");
         }
 
 
@@ -234,12 +239,22 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
             }
         });
 
+        pleaseAnim.animate(simpleProgressBar, 10f, new Function1<Expectations, Unit>() {
+            @Override
+            public Unit invoke(Expectations expectations) {
+                expectations.invisible();
+                flag = false;
+                return null;
+            }
+        });
+
         NestedScrollView nestedscroll =  view.findViewById(R.id.nestedscrollAccount);
         nestedscroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-            float percents = scrollY * 1.5f / v.getMaxScrollAmount();
+            float percents = scrollY * 2f / v.getMaxScrollAmount();
             pleaseAnim.setPercent(percents);
+
             }
         });
 
@@ -404,6 +419,10 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
                 bitmap.compress(Bitmap.CompressFormat.JPEG,25 , fos);
                 fos.flush();
                 fos.close();
+                FilePath = f.getPath();
+                profile = getActivity().getSharedPreferences(APP_PREFERENCES_Path,Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = profile.edit();
+                editor.putString("key1", String.valueOf(FilePath)).apply();
             }catch (Exception e){
                 e.printStackTrace();
             }
@@ -434,6 +453,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
                 e.printStackTrace();
             }
             simpleProgressBar.setVisibility(View.INVISIBLE);
+
             progressText.setVisibility(View.INVISIBLE);
             CircleImageView profileImage = view.findViewById(R.id.ProfileImage);
             Glide.with(getContext()).load(selectedImageUri).into(profileImage);
@@ -443,15 +463,17 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
-
+            if(flag){
             progressText.setVisibility(View.VISIBLE);
-            simpleProgressBar.setVisibility(View.VISIBLE);
+            simpleProgressBar.setVisibility(View.VISIBLE);}
             progressText.setText("Выполнено : " + values[0] + "/100");
             progressText.clearComposingText();
         }
     }
     public void setProfileImage(){
-        File Photo = new File("data/data/com.example.finances/files/ProfileFoto.jpg");
+        SharedPreferences accountPhoto = getActivity().getSharedPreferences(APP_PREFERENCES_Path, Context.MODE_PRIVATE);
+        FilePath= accountPhoto.getString("key1", "");
+        File Photo = new File(FilePath);
         if (Photo.exists()) {
             try {
                 CircleImageView profileImage = view.findViewById(R.id.ProfileImage);

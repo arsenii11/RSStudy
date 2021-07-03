@@ -20,7 +20,7 @@
 
     <!-- Account Preferences -->
     <string name="Name_title">Name Surname</string>
-    <string name="Nickname_title">Nickname</string>
+    <string name="Nickname_title">Name Surname</string>
     <string name="Email_title">E-mail</string>
     <string name="Educational_title">Educational institution</string>
 
