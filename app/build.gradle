@@ -26,8 +26,8 @@ android {
         applicationId "com.rediss.rsstudy.release"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 3
-        versionName "3.0"
+        versionCode 4
+        versionName "3.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
