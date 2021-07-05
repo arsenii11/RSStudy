@@ -173,14 +173,14 @@
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chipInputHow"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="384dp"
+        android:layout_width="299dp"
+        android:layout_height="115dp"
+        android:layout_marginTop="184dp"
         android:textSize="5dp"
         app:checkedChip="@id/chip_yes"
         app:hint="Select a type"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.535"
+        app:layout_constraintHorizontal_bias="0.366"
         app:layout_constraintStart_toStartOf="@+id/view"
         app:layout_constraintTop_toTopOf="@+id/timeButton"
         app:singleSelection="true">
