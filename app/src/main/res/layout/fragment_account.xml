@@ -26,6 +26,7 @@
                 android:layout_width="0dp"
                 android:layout_height="345dp" />
 
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/CourseListLayout"
                 android:layout_width="match_parent"
@@ -38,14 +39,14 @@
                     android:id="@+id/name3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="60dp"
+                    android:layout_marginBottom="12dp"
                     android:gravity="center"
                     android:text="My awards"
                     android:textColor="@color/Widget2text"
                     android:textSize="20dp"
                     android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/divideranim" />
+                    app:layout_constraintBottom_toTopOf="@+id/textView2"
+                    app:layout_constraintStart_toStartOf="@+id/textView2" />
 
                 <View
                     android:id="@+id/divideranim"
@@ -54,33 +55,46 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+
+                <View
+                    android:layout_width="310dp"
+                    android:layout_height="90dp"
+                    android:background="@drawable/widget_lessonblock"
+                    android:backgroundTint="@color/hole"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView2"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView2"
+                    app:layout_constraintHorizontal_bias="0.24"
+                    app:layout_constraintStart_toStartOf="@+id/textView2"
+                    app:layout_constraintTop_toTopOf="@+id/textView2" />
+
                 <TextView
                     android:id="@+id/textView2"
-                    android:layout_width="250dp"
+                    android:layout_width="210dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nokora_regular"
-                    android:gravity="center"
+                    android:gravity="left"
                     android:text="No awards available yet"
-                    android:textSize="30dp"
+                    android:textColor="@color/diagramText"
+                    android:textSize="24dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintHorizontal_bias="0.308"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/divideranim"
-                    app:layout_constraintVertical_bias="0.352" />
+                    app:layout_constraintVertical_bias="0.295" />
+
 
                 <ImageView
+                    android:id="@+id/imageView2"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="12dp"
                     android:src="@drawable/trophy"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/textView2"
-                    app:layout_constraintStart_toStartOf="@+id/textView2"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2"
-                    app:layout_constraintVertical_bias="0.32" />
+                    app:layout_constraintBottom_toBottomOf="@+id/textView2"
+                    app:layout_constraintStart_toEndOf="@+id/textView2"
+                    app:layout_constraintTop_toTopOf="@+id/textView2"
+                    app:layout_constraintVertical_bias="0.566" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
             <View style="@style/Divider" />
 

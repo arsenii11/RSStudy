@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="hole">@color/black</color>
+    <color name="hole">#292929</color>
     <color name="diagramText">#FFFFFF</color>
     <color name="enterpurple">#6644E6</color>
     <color name="button_course">@color/gray_dove_light</color>

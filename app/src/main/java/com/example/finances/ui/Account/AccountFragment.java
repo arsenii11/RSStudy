@@ -198,8 +198,8 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         pleaseAnim.animate(Surname, 10f, new Function1<Expectations, Unit>() {
             @Override
             public Unit invoke(Expectations expectations) {
-                expectations.centerHorizontalInParent();
-                expectations.topOfItsParent(31f,null);
+                expectations.rightOf(profileImage,10f, null);
+                expectations.sameCenterVerticalAs(profileImage);
                 expectations.alpha(1f);
                 expectations.scale(0.85f,0.85f);
                 return null;

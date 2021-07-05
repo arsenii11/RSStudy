@@ -302,48 +302,7 @@
             android:fontFamily="@font/nokora_bold"
             android:gravity="center"
             android:textSize="30dp"/>
-
     </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <com.example.finances.helpclasses.SquaredConstraintLayout
-            android:id="@+id/box5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5">
-            <FrameLayout
-                style="@style/BlockHome"
-                android:backgroundTint="@color/ListBackGround"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-            </FrameLayout>
-
-
-
-        </com.example.finances.helpclasses.SquaredConstraintLayout>
-
-        <com.example.finances.helpclasses.SquaredConstraintLayout
-            android:id="@+id/box6"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5">
-            <FrameLayout
-                style="@style/BlockHome"
-                android:backgroundTint="@color/teal_200"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-            </FrameLayout>
-        </com.example.finances.helpclasses.SquaredConstraintLayout>
-    </LinearLayout>
 </LinearLayout>
 </LinearLayout>
 </ScrollView>

@@ -10,8 +10,11 @@ import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -36,7 +39,7 @@ import maes.tech.intentanim.CustomIntent;
 import static com.example.finances.MainActivity.ALLOW_ADD_TO_CALENDAR;
 
 
-public class NewLessonActivity extends AppCompatActivity {
+public class NewLessonActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
 
     Calendar startCalendar; //Календарь начала
     Calendar endCalendar; //Календарь конца
@@ -50,8 +53,7 @@ public class NewLessonActivity extends AppCompatActivity {
     SwitchMaterial repeatOnOff;
     String COURSE_REPEAT; //Повторяется ли урок
     String COURSE_REPEAT_MODE; //Режим повторения
-    ChipGroup groupRepeat; //Группа чипов для выбора потворения урока
-    ChipGroup groupHow; //Группа чипов для выбора режима повторения урока
+    RadioGroup radioGroup; //Группа RadioButton для выбора режима повторения урока
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +76,11 @@ public class NewLessonActivity extends AppCompatActivity {
 
 
         repeatOnOff = findViewById(R.id.repeatSwitch); //Переключает повтор on/off
-        groupHow = findViewById(R.id.chipInputHow); //Ищем группу чипов для выбора режма повторения урока
+        radioGroup = findViewById(R.id.radioGroup); //Ищем группу RadioButton для выбора режма повторения урока
 
         next = findViewById(R.id.buttonLessonNext); //Ищем кнопку дальше
+
+        repeatOnOff.setOnCheckedChangeListener(this);
 
         //Назначаем действия при клике на кнопку дальше
         next.setOnClickListener(new View.OnClickListener() {
@@ -85,13 +89,16 @@ public class NewLessonActivity extends AppCompatActivity {
 
                 if ((startCalendar.getTimeInMillis() < endCalendar.getTimeInMillis()) && !startTime.getText().toString().contains("__") && !endTime.getText().toString().contains("__")) {
 
-                    Chip selectedChipHow = findViewById(groupHow.getCheckedChipId()); //Ищем выделенный режим повторения урока
+                    int checkedRadioButtonId = radioGroup.getCheckedRadioButtonId();//Ищем выделенный режим повторения урока
+
+                    // Найдём переключатель по его id
+                    RadioButton modRadioButton = findViewById(checkedRadioButtonId);
 
                     if (repeatOnOff.isChecked()) {
                         COURSE_REPEAT = "YES";
                     }
 
-                    COURSE_REPEAT_MODE = selectedChipHow.getText().toString().toUpperCase();
+                    COURSE_REPEAT_MODE =  modRadioButton.getText().toString().toUpperCase();
 
                     DBHelper dbHelper = new DBHelper(getApplicationContext()); //заполняем БД
                     Lesson lesson = new Lesson(); //Создаем пустой урок
@@ -183,7 +190,7 @@ public class NewLessonActivity extends AppCompatActivity {
                             } else if (COURSE_REPEAT_MODE.equals("WEEKLY")) {
                                 add = 604800000L;
                                 lessonOptions.setRepeatMode(1);
-                            } else if (COURSE_REPEAT_MODE.equals("EVERY 2 WEEKS")) {
+                            } else if (COURSE_REPEAT_MODE.equals("EVERY TWO WEEKS")) {
                                 add = 1209600000L;
                                 lessonOptions.setRepeatMode(2);
                             }
@@ -223,7 +230,7 @@ public class NewLessonActivity extends AppCompatActivity {
                 else{
                     AlertDialog.Builder builder = new AlertDialog.Builder(NewLessonActivity.this);
                     builder.setTitle("Error!")
-                            .setMessage("Please, choose the correct date and time")
+                            .setMessage("Please choose correct date and time")
                             .setCancelable(true)
                             .setNegativeButton("Ok", ((dialog, which) -> {
                                 dialog.cancel();
@@ -324,5 +331,12 @@ public class NewLessonActivity extends AppCompatActivity {
             return calendarHelper.addCalendarEvent(name, startDate, endDate);
         }
         else return -1;
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if(isChecked){
+        radioGroup.setVisibility(View.VISIBLE);}
+        else{radioGroup.setVisibility(View.INVISIBLE);}
     }
 }
