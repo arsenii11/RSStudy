@@ -4,7 +4,7 @@
     <PreferenceCategory app:title="@string/account_header">
         <EditTextPreference
             app:key="Nickname"
-            app:title="@string/Nickname_title"
+            app:title="Nickname"
             app:useSimpleSummaryProvider="true"/>
         <EditTextPreference
             app:key="Surname"
