@@ -313,6 +313,10 @@ public class DBHelper extends SQLiteOpenHelper {
         boolean status = true;
         SQLiteDatabase db = this.getWritableDatabase();
 
+        Course parentCourse = getCourse(lesson.getCourseId());
+        parentCourse.setLessons(parentCourse.getLessons()-1);
+        updateCourse(parentCourse.getId(), parentCourse);
+
         if(db.delete(TABLE_LESSONS, KEY_LESSON_ID+" = "+ lesson.getId(), null) == -1)
             status = false;
 
@@ -326,6 +330,11 @@ public class DBHelper extends SQLiteOpenHelper {
     public boolean deleteLesson(int lessonId){
         boolean status = true;
         SQLiteDatabase db = this.getWritableDatabase();
+
+        Lesson lesson = getLesson(lessonId);
+        Course parentCourse = getCourse(lesson.getCourseId());
+        parentCourse.setLessons(parentCourse.getLessons()-1);
+        updateCourse(parentCourse.getId(), parentCourse);
 
         if(db.delete(TABLE_LESSONS, KEY_LESSON_ID+" = "+ lessonId, null) == -1)
             status = false;

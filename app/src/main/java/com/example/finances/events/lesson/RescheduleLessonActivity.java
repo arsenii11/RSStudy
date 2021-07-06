@@ -3,15 +3,20 @@ package com.example.finances.events.lesson;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import com.example.finances.R;
 import com.example.finances.calendar.CalendarHelper;
@@ -21,10 +26,13 @@ import com.example.finances.database.Lesson;
 import com.example.finances.database.LessonOptions;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.Calendar;
 
 import maes.tech.intentanim.CustomIntent;
+
+import static com.example.finances.MainActivity.ALLOW_ADD_TO_CALENDAR;
 
 public class RescheduleLessonActivity extends AppCompatActivity {
 
@@ -42,8 +50,8 @@ public class RescheduleLessonActivity extends AppCompatActivity {
     String COURSE_REPEAT; //Повторяется ли урок
     String COURSE_REPEAT_MODE; //Режим повторения
 
-    ChipGroup groupRepeat; //Группа чипов для выбора потворения урока
-    ChipGroup groupHow; //Группа чипов для выбора режима повторения урока
+    RadioGroup radioGroup; //Группа RadioButton для выбора режима повторения урока
+    SwitchMaterial repeatOnOff; //Перключатель повтора урока
 
     DBHelper dbHelper; //Обработчик запросов к БД
     CalendarHelper calendarHelper; //Обработчик запрсоов к календарю
@@ -65,13 +73,9 @@ public class RescheduleLessonActivity extends AppCompatActivity {
 
         next = findViewById(R.id.buttonLessonNext); //Получаем из View Button, предназначенную для подтверждения изменения
 
-        groupRepeat = findViewById(R.id.chipInputRep); //Получаем из View ChipGroup, предназначенную для выбора переноса
-        groupHow = findViewById(R.id.chipInputHow); //Получаем из View ChipGroup, предназначенную для выбора типа переноса
-        Chip yesChip = findViewById(R.id.chip_yes); //Получаем из View чип с вариантом "yes"
-        Chip noChip = findViewById(R.id.chip_no); //Получаем из View чип с вариантом "no"
-        Chip monthChip = findViewById(R.id.chip_month); //Получаем из View чип с вариантом "monthly"
-        Chip weekChip = findViewById(R.id.chip_week); //Получаем из View чип с вариантом "weekly"
-        Chip weeks2Chip = findViewById(R.id.chip_2weeks); //Получаем из View чип с вариантом "every 2 weeks"
+        repeatOnOff = findViewById(R.id.repeatSwitch); //ищем переключатель повтора on/off
+        radioGroup = findViewById(R.id.radioGroup); //Ищем группу RadioButton для выбора режма повторения урока
+
 
         LESSON_ID = getIntent().getIntExtra("LESSON_ID", -1); //Получаем ID урока из данных вызванного намерения
 
@@ -83,26 +87,38 @@ public class RescheduleLessonActivity extends AppCompatActivity {
 
         //В зависимости от повторения урока отмечаем нужный чип
         switch (lessonOptions.getIsRepeatable()){
-            case 0: noChip.setChecked(true); break; //Урок не повторяется
-            case 1: yesChip.setChecked(true); break; //Урок повторяется
+            case 0: repeatOnOff.setChecked(false); radioGroup.setVisibility(View.INVISIBLE); break; //Урок не повторяется
+            case 1: repeatOnOff.setChecked(true); radioGroup.setVisibility(View.VISIBLE); break; //Урок повторяется
         }
 
-        //В зависимости от режима повторения урока отмечаем нужный чип
+        //В зависимости от режима повторения урока отмечаем нужный вариант в Radio Group
         switch (lessonOptions.getRepeatMode()){
-            case 1: weekChip.setChecked(true); break; //Урок потворяется раз в неделю
-            case 2: weeks2Chip.setChecked(true); break; //Урок повторяется раз в 2 недели
-            case 3: monthChip.setChecked(true); break; //Урок повторяется раз в месяц
+            case 1: radioGroup.check(R.id.radioWeekly); break; //Урок потворяется раз в неделю
+            case 2: radioGroup.check(R.id.radio2Weeks); break; //Урок повторяется раз в 2 недели
+            case 3: radioGroup.check(R.id.radioMonthly); break; //Урок повторяется раз в месяц
         }
 
         setInitialDateTime(); //Вызываем функцию установки даты начала и даты конца в TextView
 
+        repeatOnOff.setOnCheckedChangeListener(((buttonView, isChecked) -> {
+            if(isChecked)
+                radioGroup.setVisibility(View.VISIBLE);
+            else
+                radioGroup.setVisibility(View.INVISIBLE);
+        }));
+
         //Устанавливаем функцию при нажатии на кнопку дальше
         next.setOnClickListener(v -> {
-            Chip selectedChipRepeat = findViewById(groupRepeat.getCheckedChipId()); //Ищем выделенный вариант потворения урока
-            Chip selectedChipHow = findViewById(groupHow.getCheckedChipId()); //Ищем выделенный режим повторения урока
 
-            COURSE_REPEAT = selectedChipRepeat.getText().toString().toUpperCase();
-            COURSE_REPEAT_MODE = selectedChipHow.getText().toString().toUpperCase();
+            //Определям режим повторения
+            if (repeatOnOff.isChecked())
+                COURSE_REPEAT = "YES";
+            else
+                COURSE_REPEAT = "NO";
+
+            //Ищем выбранный режим повтора
+            RadioButton modeRadioButton = findViewById(radioGroup.getCheckedRadioButtonId());
+            COURSE_REPEAT_MODE =  modeRadioButton.getText().toString().toUpperCase();
 
             Course course = dbHelper.getCourse(lesson.getCourseId()); //Получаем родительский курс из БД по его ID
 
@@ -171,7 +187,7 @@ public class RescheduleLessonActivity extends AppCompatActivity {
                 }
                 else{
                     calendarHelper.deleteCalendarEvent(lessonOptions.getCalendarEventId());
-                    lessonOptions.setCalendarEventId(calendarHelper.addCalendarEvent(course.getName(), startCalendar.getTimeInMillis(), endCalendar.getTimeInMillis()));
+                    lessonOptions.setCalendarEventId(addCalendarEvent(course.getName(), startCalendar.getTimeInMillis(), endCalendar.getTimeInMillis()));
                 }
                 lessonOptions.setIsRepeatable(0); //Ставим режим "не повторять"
 
@@ -273,4 +289,15 @@ public class RescheduleLessonActivity extends AppCompatActivity {
             endCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             setInitialDateTime();
     };
+
+    //Добавление урока в системный календарь
+    private int addCalendarEvent(String name,long startDate, long endDate){
+        CalendarHelper calendarHelper = new CalendarHelper(this);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        ALLOW_ADD_TO_CALENDAR = prefs.getBoolean("AllowAddToCalendar", false);
+        if (ALLOW_ADD_TO_CALENDAR){
+            return calendarHelper.addCalendarEvent(name, startDate, endDate);
+        }
+        else return -1;
+    }
 }
