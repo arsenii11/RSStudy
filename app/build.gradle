@@ -26,15 +26,19 @@ android {
         applicationId "com.rediss.rsstudy.release"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 4
-        versionName "3.2"
+        versionCode 6
+        versionName "3.31"
+        ndk {
+            debugSymbolLevel "FULL"
+        }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
