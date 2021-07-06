@@ -117,10 +117,6 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".events.course.CourseRepeat"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
-        <activity
             android:name=".events.lesson.LessonActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"></activity>

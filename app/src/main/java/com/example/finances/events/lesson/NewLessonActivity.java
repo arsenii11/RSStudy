@@ -50,10 +50,10 @@ public class NewLessonActivity extends AppCompatActivity implements CompoundButt
     int COURSE_ID; //ID родительского курса
     int LESSONS; //Количество уроков, которые нужно сейчас добавить
     int CURRENT_LESSON; //Текущее количество добавленных уроков
-    SwitchMaterial repeatOnOff;
     String COURSE_REPEAT; //Повторяется ли урок
     String COURSE_REPEAT_MODE; //Режим повторения
     RadioGroup radioGroup; //Группа RadioButton для выбора режима повторения урока
+    SwitchMaterial repeatOnOff; //Перключатель повтора урока
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +75,7 @@ public class NewLessonActivity extends AppCompatActivity implements CompoundButt
         endTime = findViewById(R.id.endTime); //Ищем TextView для времени конца
 
 
-        repeatOnOff = findViewById(R.id.repeatSwitch); //Переключает повтор on/off
+        repeatOnOff = findViewById(R.id.repeatSwitch); //ищем переключатель повтора on/off
         radioGroup = findViewById(R.id.radioGroup); //Ищем группу RadioButton для выбора режма повторения урока
 
         next = findViewById(R.id.buttonLessonNext); //Ищем кнопку дальше
@@ -89,16 +89,15 @@ public class NewLessonActivity extends AppCompatActivity implements CompoundButt
 
                 if ((startCalendar.getTimeInMillis() < endCalendar.getTimeInMillis()) && !startTime.getText().toString().contains("__") && !endTime.getText().toString().contains("__")) {
 
-                    int checkedRadioButtonId = radioGroup.getCheckedRadioButtonId();//Ищем выделенный режим повторения урока
-
-                    // Найдём переключатель по его id
-                    RadioButton modRadioButton = findViewById(checkedRadioButtonId);
-
-                    if (repeatOnOff.isChecked()) {
+                    //Определям режим повторения
+                    if (repeatOnOff.isChecked())
                         COURSE_REPEAT = "YES";
-                    }
+                    else
+                        COURSE_REPEAT = "NO";
 
-                    COURSE_REPEAT_MODE =  modRadioButton.getText().toString().toUpperCase();
+                    //Ищем выбранный режим повтора
+                    RadioButton modeRadioButton = findViewById(radioGroup.getCheckedRadioButtonId());
+                    COURSE_REPEAT_MODE =  modeRadioButton.getText().toString().toUpperCase();
 
                     DBHelper dbHelper = new DBHelper(getApplicationContext()); //заполняем БД
                     Lesson lesson = new Lesson(); //Создаем пустой урок
