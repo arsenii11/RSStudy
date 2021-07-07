@@ -1,25 +1,32 @@
 package com.example.finances.ui.Home;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finances.R;
+import com.example.finances.database.Course;
+import com.example.finances.events.course.CourseAdapter;
 import com.example.finances.events.course.CourseName;
 import com.example.finances.database.DBHelper;
 import com.example.finances.events.course.CourseListActivity;
+import com.example.finances.ui.Account.AccountFragment;
 import com.github.mikephil.charting.charts.PieChart;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -41,14 +48,32 @@ public class HomeFragment extends Fragment  {
     TextView nextEvent;
     TextView numberHours;
     TextView hr7days;
+    ArrayList<Course> courses = new ArrayList<Course>();
+
+    Button newCourse;
+    Button ViewAllBt;
+
+    DBHelper dbHelper;
+    CourseAdapter courseAdapter;
 
     @SuppressLint("ResourceType")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        Context context = getContext();
 
         calendar = Calendar.getInstance();
+
+        ViewAllBt = view.findViewById(R.id.ViewAllBt);
+
+        //Список
+        setInitialData();
+        RecyclerView CoursesList = (RecyclerView) view.findViewById(R.id.list);
+        courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, false, null);
+
+        // устанавливаем для списка адаптер
+        CoursesList.setAdapter(courseAdapter);
 
         //переменные для виджета количества часов за 7 дней
         hr7days = view.findViewById(R.id.hoursthisweekText);
@@ -96,39 +121,32 @@ public class HomeFragment extends Fragment  {
         int DescriptionColor = getResources().getColor(R.color.diagramText);
         int myColor = getResources().getColor(R.color.hole);
 
-       /* pieChart = (PieChart) view.findViewById(R.id.Piechart);
-        pieChart.setUsePercentValues(true);
-        pieChart.getDescription().setEnabled(false);
 
-        pieChart.setExtraOffsets(5,5,5,20);
-        pieChart.setDragDecelerationFrictionCoef(0.95f);
-
-
-        pieChart.setDrawHoleEnabled(false);
-        pieChart.setHoleColor(myColor);
-        pieChart.setTransparentCircleRadius(50f);
-
-        ArrayList<PieEntry> yValues = new ArrayList<>();
-
-        //yValues.add(new PieEntry(34,""));
-        yValues.add(new PieEntry(17,"C++"));
-        yValues.add(new PieEntry(14,"English"));
+        //Кнопка нового курса
+        newCourse = view.findViewById(R.id.courseBt);
+        newCourse.setClipToOutline(true);
+        newCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeFragment.this.getActivity(), CourseName.class);
+                startActivity(intent);
+                CustomIntent.customType(getContext(),"left-to-right");
+                getActivity().finish();
+            }
+        });
 
 
-        pieChart.animateY(1100, Easing.EaseInOutCirc);
-
-        PieDataSet dataSet= new PieDataSet(yValues, "");
-        dataSet.setSliceSpace(3f);
-        dataSet.setSelectionShift(5f);
-
-        dataSet.setColors( Diagram_colors, getContext());
-
-
-        PieData data = new PieData(dataSet);
-        data.setValueTextSize(10f);
-        data.setValueTextColor(Color.YELLOW);
-
-        pieChart.setData(data);*/
+        //Кнопка раскрывающая список курсов
+        ViewAllBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent ListCoursesList = new Intent(HomeFragment.this.getActivity(), CourseListActivity.class);
+                ListCoursesList.putExtra("ADAPTER_MODE", "OPEN_COURSE");
+                startActivity(ListCoursesList);
+                CustomIntent.customType(getContext(),"fadein-to-fadeout");
+                getActivity().finish();
+            }
+        });
 
         nextEvent = (TextView) view.findViewById(R.id.nextevent);
         try {
@@ -197,7 +215,16 @@ public class HomeFragment extends Fragment  {
             handler.postDelayed(this, 1000);
         }
     };
-
+    //добавляем значения
+    private void setInitialData() {
+        try {
+            dbHelper = new DBHelper(this.getContext());
+            courses = dbHelper.getAllCourses();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }
 
 

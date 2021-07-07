@@ -5,25 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:theme="@style/ToolbarTheme"
-    android:background="#8377DD"
+    android:background="@color/background_main"
     >
+<View
+    android:layout_width="20dp"
+    android:layout_height="0dp" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/toolbar_image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/no_avatar"/>
 
-    <com.sdsmdg.harjot.longshadows.LongShadowsWrapper
-        xmlns:android="http://schemas.android.com/apk/res/android"
+  <!--  <com.sdsmdg.harjot.longshadows.LongShadowsWrapper
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.sdsmdg.harjot.longshadows.LongShadowsTextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="RS:Study"
-            android:padding="11dp"
-            android:textSize="25dp"
             android:fontFamily="@font/inter_black"
+            android:padding="11dp"
+            android:text="RS:Study"
             android:textColor="@color/white"
+            android:textSize="25dp"
             app:shadow_angle="30"
-            app:shadow_length="25"/>
+            app:shadow_length="25" />
     </com.sdsmdg.harjot.longshadows.LongShadowsWrapper>
+
+-->
 
 
 

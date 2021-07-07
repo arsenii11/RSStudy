@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.MediaStoreSignature;
 import com.bumptech.glide.signature.ObjectKey;
+import com.example.finances.MainActivity;
 import com.example.finances.R;
 import com.example.finances.events.course.CourseAdapter;
 import com.example.finances.events.course.CourseListActivity;
@@ -82,7 +83,6 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
 
     ArrayList<Course> courses = new ArrayList<Course>();
     ArrayList<Lesson> lessons = new ArrayList<Lesson>();
-    Button newCourse;
     CircleImageView profileImage; //изображение профиля
     Button ViewAllBt;
 
@@ -116,30 +116,6 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
 
         //устанавливаем изображение
         setProfileImage();
-
-
-
-        //Список
-        setInitialData();
-        RecyclerView CoursesList = (RecyclerView) view.findViewById(R.id.list);
-        // RecyclerView LessonsList = (RecyclerView) view.findViewById(R.id.Lessonlist);
-
-        //свайпы для удаления курса из списка
-        /*covert = Covert.with(config).setIsActiveCallback(viewHolder -> false).doOnSwipe((viewHolder, swipeDirection) -> {
-            TextView textView = viewHolder.itemView.findViewById(R.id.CourseID);
-            int id = Integer.parseInt(textView.getText().toString());
-            dbHelper.deleteCourse(id);
-            setInitialData();
-            courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, false, null);
-            CoursesList.setAdapter(courseAdapter);
-            return null;
-        }).attachTo(CoursesList);*/
-
-        courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, false, null);
-
-        // устанавливаем для списка адаптер
-        CoursesList.setAdapter(courseAdapter);
-
 
         ImageButton PhotoButton = view.findViewById(R.id.FirstPhotoButton);
         simpleProgressBar = view.findViewById(R.id.progressBar);
@@ -263,21 +239,6 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
 
 
 
-        //Кнопка нового курса
-        newCourse = view.findViewById(R.id.courseBt);
-        newCourse.setClipToOutline(true);
-        newCourse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AccountFragment.this.getActivity(), CourseName.class);
-                startActivity(intent);
-                CustomIntent.customType(getContext(),"left-to-right");
-                getActivity().finish();
-            }
-        });
-
-
-
         //кнопка выбора изображения
         PhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -288,32 +249,8 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
             }
         });
 
-        //Кнопка раскрывающая список курсов
-        ViewAllBt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent ListCoursesList = new Intent(AccountFragment.this.getActivity(), CourseListActivity.class);
-                ListCoursesList.putExtra("ADAPTER_MODE", "OPEN_COURSE");
-                startActivity(ListCoursesList);
-                CustomIntent.customType(getContext(),"fadein-to-fadeout");
-                getActivity().finish();
-            }
-        });
 
         return view;
-    }
-
-
-    //добавляем значения
-    private void setInitialData() {
-        try {
-            dbHelper = new DBHelper(this.getContext());
-            courses = dbHelper.getAllCourses();
-            lessons = dbHelper.getAllLessons();
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
     }
 
 
@@ -457,7 +394,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
             progressText.setVisibility(View.INVISIBLE);
             CircleImageView profileImage = view.findViewById(R.id.ProfileImage);
             Glide.with(getContext()).load(selectedImageUri).into(profileImage);
-
+            ((MainActivity) getActivity()).setToolbarImage();
         }
 
         @Override
@@ -465,9 +402,9 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
             super.onProgressUpdate(values);
             if(flag){
             progressText.setVisibility(View.VISIBLE);
-            simpleProgressBar.setVisibility(View.VISIBLE);}
+            simpleProgressBar.setVisibility(View.VISIBLE);
             progressText.setText("Выполнено : " + values[0] + "/100");
-            progressText.clearComposingText();
+            progressText.clearComposingText();}
         }
     }
     public void setProfileImage(){

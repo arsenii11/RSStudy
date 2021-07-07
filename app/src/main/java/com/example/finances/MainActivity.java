@@ -28,6 +28,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.signature.ObjectKey;
 import com.example.finances.database.DBHelper;
 import com.example.finances.database.Lesson;
 import com.example.finances.notifications.AlarmRequestsReceiver;
@@ -35,10 +37,14 @@ import com.example.finances.toolbar.About;
 import com.example.finances.toolbar.SettingsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import maes.tech.intentanim.CustomIntent;
+
+import static com.example.finances.ui.Account.AccountFragment.APP_PREFERENCES_Path;
 
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -68,6 +74,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         //Обновляем состояние будильника
         myAlarm();
+
+        //изображение на toolbar
+        setToolbarImage();
 
         //регистрируем обработчик настроек
         Context context = getApplicationContext();
@@ -254,5 +263,19 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
         ActivityCompat.requestPermissions(this,permissions,1);
+    }
+
+    public void setToolbarImage(){
+        SharedPreferences accountPhoto = getSharedPreferences(APP_PREFERENCES_Path, Context.MODE_PRIVATE);
+        String FilePath = accountPhoto.getString("key1", "");
+        File Photo = new File(FilePath);
+        if (Photo.exists()) {
+            try {
+                CircleImageView profileImage = findViewById(R.id.toolbar_image);
+                Glide.with(this).load(Photo).signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))).into(profileImage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
