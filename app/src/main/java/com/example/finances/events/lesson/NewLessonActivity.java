@@ -176,15 +176,16 @@ public class NewLessonActivity extends AppCompatActivity implements CompoundButt
                         lessonOptions.setIsRepeatable(0); //Ставим режим "не повторять"
                         lessonOptions.setRepeatMode(1); //Ставим повтор урока раз в неделю
 
+                        long add = 0;
                         //Добавляем опции урока в БД
                         if (COURSE_REPEAT.equals("YES")) {
 
                             lessonOptions.setIsRepeatable(1); //Устанавливаем режим "повторять"
 
                             //Рассчитываем добавочные миллисекудны и устанавливаем режим повтора урока в опции
-                            long add = 0;
+
                             if (COURSE_REPEAT_MODE.equals("MONTHLY")) {
-                                add = 1814400000L;
+                                add = 2419200000L;
                                 lessonOptions.setRepeatMode(3);
                             } else if (COURSE_REPEAT_MODE.equals("WEEKLY")) {
                                 add = 604800000L;
@@ -196,6 +197,47 @@ public class NewLessonActivity extends AppCompatActivity implements CompoundButt
 
                         }
                         dbHelper.insertLessonOptions(lessonOptions); //Добавляем опции урока в БД
+
+                        if(lessonOptions.getIsRepeatable() > 0){
+                            int k = 0;
+                            switch (lessonOptions.getRepeatMode()){
+                                case 1: k = 4; break;
+                                case 2: k = 2; break;
+                                case 3: k = 1; break;
+                            }
+
+                            for (int i = 1; i <= k; i++) {
+
+                                Lesson lessonPer = new Lesson();
+                                lessonPer.setDuration(lesson.getDuration());
+                                lessonPer.setCourseId(lesson.getCourseId());
+                                lessonPer.setWeight(lesson.getWeight());
+
+
+                                startCalendar.setTimeInMillis(startCalendar.getTimeInMillis() + add);
+                                lessonPer.setDate(startCalendar.getTimeInMillis() / 1000);
+
+                                String lessonNamePer = course.getName() + ", " + DateUtils.formatDateTime(NewLessonActivity.this,
+                                        startCalendar.getTimeInMillis(),
+                                        DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
+                                                | DateUtils.FORMAT_SHOW_TIME) + ", " + dur + " hours";
+                                lessonPer.setName(lessonNamePer);
+
+                                long lessonPerId = dbHelper.insertLessonSmart(lessonPer);
+
+                                lessonPer = dbHelper.getLesson(lessonPerId);
+
+                                LessonOptions options = new LessonOptions();
+                                options.setIsRepeatable(lessonOptions.getIsRepeatable());
+                                options.setRepeatMode(lessonOptions.getRepeatMode());
+                                options.setLessonId(lessonPer.getId());
+
+                                long endDate = lessonPer.getDate() + (long) lessonPer.getDuration() * 3600000;
+                                options.setCalendarEventId(addCalendarEvent(course.getName() + " lesson", lessonPer.getDate(), endDate));
+
+                                dbHelper.insertLessonOptions(options);
+                            }
+                        }
 
                         //Проверяем, нужно ли предложить создать еще один урок
                         if (CURRENT_LESSON < LESSONS) {
