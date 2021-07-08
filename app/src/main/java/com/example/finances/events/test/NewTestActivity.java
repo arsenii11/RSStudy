@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -55,6 +56,10 @@ public class NewTestActivity extends AppCompatActivity {
                 test.setCourseId(COURSE_ID);
                 long dat = dateAndTime.getTimeInMillis()/1000;
                 test.setDate(dat);
+
+
+                ImageView toolbarImage = findViewById(R.id.toolbar_image);
+                toolbarImage.setVisibility(View.INVISIBLE);
 
                 switch (selectedChip.getText().toString()){
                     case "Test": test.setWeight(0); testName+= " test"; break;

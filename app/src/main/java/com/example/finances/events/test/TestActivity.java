@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -34,6 +36,9 @@ public class TestActivity extends AppCompatActivity {
 
         testLabel = findViewById(R.id.LabelTestName); //Ищем в view TextView, предназначенный для названия теста
         rescheduleTest = findViewById(R.id.rescheduleTest); //Ищем в view Button, предназначенную для переноса теста
+
+        ImageView toolbarImage = findViewById(R.id.toolbar_image);
+        toolbarImage.setVisibility(View.INVISIBLE);
 
         TEST_ID = getIntent().getIntExtra("TEST_ID", -1); //Получаем значение ID из переданных данных вызванного намерения
 

@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         NavigationUI.setupWithNavController(navView, navController);
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
 
         LongShadowsWrapper titleshadow = findViewById(R.id.toolbar_shadowtext);
         titleshadow.setVisibility(View.INVISIBLE);

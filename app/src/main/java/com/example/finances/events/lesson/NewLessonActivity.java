@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -63,6 +64,9 @@ public class NewLessonActivity extends AppCompatActivity implements CompoundButt
         //Устанавливаем текущую дату и время в календари
         startCalendar = Calendar.getInstance();
         endCalendar = Calendar.getInstance();
+
+        ImageView toolbarImage = findViewById(R.id.toolbar_image);
+        toolbarImage.setVisibility(View.INVISIBLE);
 
         //Получаем значения из intent
         Intent i = getIntent();

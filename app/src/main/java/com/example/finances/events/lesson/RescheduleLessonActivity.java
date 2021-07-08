@@ -10,6 +10,7 @@ import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -60,6 +61,9 @@ public class RescheduleLessonActivity extends AppCompatActivity {
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lesson_reschedule);
+
+        ImageView toolbarImage = findViewById(R.id.toolbar_image);
+        toolbarImage.setVisibility(View.INVISIBLE);
 
         startCalendar = Calendar.getInstance(); //Инициализируем календарь с датой начала
         endCalendar = Calendar.getInstance(); //Инициализируем календарь с датой конца

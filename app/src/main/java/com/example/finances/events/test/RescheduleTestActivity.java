@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -49,6 +50,9 @@ public class RescheduleTestActivity extends AppCompatActivity {
         chipInput.setSingleSelection(true); //Устанавливаем одиночный режим для группы с чипами
         Chip testChip = findViewById(R.id.chip_test); //Получаем из View чип с вариантом "test"
         Chip examChip = findViewById(R.id.chip_exam); //Получаем из View чип с вариантом "exam"
+
+        ImageView toolbarImage = findViewById(R.id.toolbar_image);
+        toolbarImage.setVisibility(View.INVISIBLE);
 
         next = findViewById(R.id.buttonTestNext); //Получаем из View кнопку дальше
         currentDateTime = findViewById(R.id.currentDateTime); //получаем из View TextView, предназначенный для даты теста
