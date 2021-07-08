@@ -27,7 +27,7 @@
             android:fontFamily="@font/inter_black"
             android:padding="11dp"
             android:text="RS:Study"
-            android:textColor="@color/white"
+            android:textColor="@color/MMM_purple"
             android:textSize="25dp"
             app:shadow_angle="30"
             app:shadow_length="25" />
