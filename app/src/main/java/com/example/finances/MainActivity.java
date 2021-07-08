@@ -38,6 +38,7 @@ import com.example.finances.toolbar.About;
 import com.example.finances.toolbar.SettingsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sdsmdg.harjot.longshadows.LongShadowsFrameLayoutWrapper;
+import com.sdsmdg.harjot.longshadows.LongShadowsWrapper;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
-        LongShadowsFrameLayoutWrapper titleshadow = findViewById(R.id.toolbar_shadowtext);
+        LongShadowsWrapper titleshadow = findViewById(R.id.toolbar_shadowtext);
         titleshadow.setVisibility(View.INVISIBLE);
 
 
