@@ -73,6 +73,8 @@ public class JobSchedulerService extends JobService {
                 case 3: add = 2419200000L; break;
             }
 
+            add += 2419200000L;
+
             calendar.setTimeInMillis(calendar.getTimeInMillis() + add);
             lesson.setDate(calendar.getTimeInMillis()/1000);
 
