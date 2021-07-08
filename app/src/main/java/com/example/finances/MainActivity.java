@@ -15,6 +15,7 @@ import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -36,6 +37,7 @@ import com.example.finances.notifications.AlarmRequestsReceiver;
 import com.example.finances.toolbar.About;
 import com.example.finances.toolbar.SettingsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.sdsmdg.harjot.longshadows.LongShadowsFrameLayoutWrapper;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -70,7 +72,11 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         NavigationUI.setupWithNavController(navView, navController);
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+
+        LongShadowsFrameLayoutWrapper titleshadow = findViewById(R.id.toolbar_shadowtext);
+        titleshadow.setVisibility(View.INVISIBLE);
+
 
         //Обновляем состояние будильника
         myAlarm();

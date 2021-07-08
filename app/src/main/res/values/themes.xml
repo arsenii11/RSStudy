@@ -23,7 +23,7 @@
         <!-- android:textColorPrimary is the color of the title text in the Toolbar  -->
         <item name="android:textColorPrimary">@color/diagramText</item>
         <!-- actionMenuTextColor is the color of the text of action (menu) items  -->
-        <item name="actionMenuTextColor">@android:color/holo_green_light</item>
+        <item name="actionMenuTextColor">@color/background_main</item>
         <!-- Tints the input fields like checkboxes and text fields -->
         <item name="colorAccent">@color/black</item>
         <!-- Applies to views in their normal state. -->

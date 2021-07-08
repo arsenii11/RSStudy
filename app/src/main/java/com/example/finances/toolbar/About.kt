@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.finances.MainActivity
@@ -19,6 +21,9 @@ class About : AppCompatActivity() {
         supportActionBar!!.setDisplayShowTitleEnabled(false)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
+
+        val toolbarImage = findViewById<ImageView>(R.id.toolbar_image)
+        toolbarImage.visibility = View.INVISIBLE
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

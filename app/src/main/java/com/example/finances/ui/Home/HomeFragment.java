@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.finances.MainActivity;
 import com.example.finances.R;
 import com.example.finances.database.Course;
 import com.example.finances.events.course.CourseAdapter;
@@ -74,6 +75,8 @@ public class HomeFragment extends Fragment  {
 
         // устанавливаем для списка адаптер
         CoursesList.setAdapter(courseAdapter);
+
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("home");
 
         //переменные для виджета количества часов за 7 дней
         hr7days = view.findViewById(R.id.hoursthisweekText);

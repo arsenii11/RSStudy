@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.finances.MainActivity;
 import com.example.finances.R;
 import com.example.finances.database.DBHelper;
 import com.example.finances.database.Event;
@@ -46,6 +47,8 @@ public class CalendarFragment extends Fragment {
         Context context = getContext();
         mainAdaptor = new MainAdaptor(context, events, false, false, null);
         LessonsList.setAdapter(mainAdaptor);
+
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("calendar");
 
         calendarView = view.findViewById(R.id.calendarView);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {

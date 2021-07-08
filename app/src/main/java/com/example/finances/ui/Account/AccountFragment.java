@@ -122,6 +122,7 @@ public class AccountFragment extends Fragment implements CompoundButton.OnChecke
         progressText = view.findViewById(R.id.progressText);
         ViewAllBt = view.findViewById(R.id.ViewAllBt);
 
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("account");
 
         //Получаем activity
         activityAccount = getActivity();
