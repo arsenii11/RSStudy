@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -73,9 +74,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         NavigationUI.setupWithNavController(navView, navController);
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        LongShadowsWrapper titleshadow = findViewById(R.id.toolbar_shadowtext);
-        titleshadow.setVisibility(View.INVISIBLE);
+
+
 
 
         //Обновляем состояние будильника
@@ -95,6 +97,17 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         if(checkSelfPermission(Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) requestPermission();
         if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) requestPermission();
         if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) requestPermission();
+
+        ImageButton toolbar_button = toolbar.findViewById(R.id.toolbar_image_button);
+        toolbar_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent AccOunt = new Intent(MainActivity.this,Account.class);
+                startActivity(AccOunt);
+                finish();
+            }
+        });
+
     }
 
 

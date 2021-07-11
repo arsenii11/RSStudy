@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,8 +45,7 @@ public class HomeFragment extends Fragment  {
     ImageButton plusLesson;
     ImageButton plusTest;
     Calendar calendar;
-    TextView dayofweek;
-    TextView currenttime;
+
     TextView nextEvent;
     TextView numberHours;
     TextView hr7days;
@@ -76,15 +76,15 @@ public class HomeFragment extends Fragment  {
         // устанавливаем для списка адаптер
         CoursesList.setAdapter(courseAdapter);
 
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle("home");
 
-        //переменные для виджета количества часов за 7 дней
-        hr7days = view.findViewById(R.id.hoursthisweekText);
-        numberHours = view.findViewById(R.id.hoursnumber);
+        androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar) getActivity().findViewById(R.id.toolbar);
+        TextView titleshadow = toolbar.findViewById(R.id.toolbar_shadowtext);
+        titleshadow.setText("Home");
+
 
         //widget add something
         plusCourse = view.findViewById(R.id.buttonpluscourse);
-        setInitialdata();
+
 
         plusCourse.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,9 +120,6 @@ public class HomeFragment extends Fragment  {
             }
         });
 
-        //Диаграма
-        int DescriptionColor = getResources().getColor(R.color.diagramText);
-        int myColor = getResources().getColor(R.color.hole);
 
 
         //Кнопка нового курса
@@ -162,62 +159,28 @@ public class HomeFragment extends Fragment  {
         }
 
 
-        //widget new event
+        /*//widget new event
         String mydate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
         TextView datetext = getActivity().findViewById(R.id.textdate);
         try {
         datetext.setText(mydate);}
         catch (Exception e){
             e.printStackTrace();
-        }
+        }*/
 
 
-        dayofweek = view.findViewById(R.id.dayofweek);
-        currenttime = view.findViewById(R.id.textViewTime);
         //widget time/day of week
 
 
         //dayofweek.setText(setCurrentDate());
         //currenttime.setText(setCurrentTime());
-        task.run();
 
 
         return view;
     }
 
 
-    private void setInitialdata(){
-        DBHelper dbHelper = new DBHelper(this.getContext());
-        int duration = (int) dbHelper.getLessonDurationInTime(calendar.getTimeInMillis()-604800000, calendar.getTimeInMillis());
-        numberHours.setText(String.valueOf(duration));
-        if(duration==1){
-        hr7days.setText("hour last\n 7 days");}
-        else{hr7days.setText("hours last\n 7 days");}
-    }
 
-    private String setCurrentTime() {
-        Date currentDate = new Date();
-        DateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
-        String timeText = timeFormat.format(currentDate);
-        return  timeText;
-    }
-
-    public String setCurrentDate(){
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
-        Date d = new Date();
-        String dayOfTheWeek = sdf.format(d);
-        return dayOfTheWeek.substring(0,3);
-    }
-
-    private Handler handler = new Handler();
-    private Runnable task = new Runnable() {
-        @Override
-        public void run() {
-            dayofweek.setText(setCurrentDate());
-            currenttime.setText(setCurrentTime());
-            handler.postDelayed(this, 1000);
-        }
-    };
     //добавляем значения
     private void setInitialData() {
         try {

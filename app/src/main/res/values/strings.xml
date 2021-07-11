@@ -2,7 +2,7 @@
     <string name="app_name">RS:Study</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Calendar</string>
-    <string name="title_notifications">Account</string>
+    <string name="title_statistics">Statistics</string>
     <string name="item2">Item2</string>
     <string name="setting">Item3</string>
     <string name="dark">Item4</string>

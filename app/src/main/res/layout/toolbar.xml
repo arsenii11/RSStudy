@@ -8,30 +8,46 @@
     android:background="@color/background_main"
     >
 <View
-    android:layout_width="20dp"
+    android:layout_width="25dp"
     android:layout_height="0dp" />
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/toolbar_image"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/no_avatar"/>
+        android:layout_height="40dp">
 
-    <com.sdsmdg.harjot.longshadows.LongShadowsWrapper
-        android:id="@+id/toolbar_shadowtext"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <ImageButton
+            android:id="@+id/toolbar_image_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <com.sdsmdg.harjot.longshadows.LongShadowsTextView
-            android:layout_width="wrap_content"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/toolbar_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/no_avatar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        <TextView
+            android:id="@+id/toolbar_shadowtext"
+            android:layout_width="220dp"
             android:layout_height="match_parent"
             android:fontFamily="@font/inter_black"
-            android:padding="11dp"
+            android:gravity="center"
             android:text="RS:Study"
             android:textColor="@color/MMM_purple"
-            android:textSize="25dp"
-            app:shadow_angle="30"
-            app:shadow_length="25" />
-    </com.sdsmdg.harjot.longshadows.LongShadowsWrapper>
+            android:textSize="25dp" />
+
 
 
 

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -48,7 +49,11 @@ public class CalendarFragment extends Fragment {
         mainAdaptor = new MainAdaptor(context, events, false, false, null);
         LessonsList.setAdapter(mainAdaptor);
 
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle("calendar");
+        androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar) getActivity().findViewById(R.id.toolbar);
+        TextView titleshadow = toolbar.findViewById(R.id.toolbar_shadowtext);
+        titleshadow.setText("Calendar");
+
+
 
         calendarView = view.findViewById(R.id.calendarView);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {

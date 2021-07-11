@@ -6,6 +6,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -50,6 +52,9 @@ public class CourseListActivity extends AppCompatActivity {
             case "OPEN_COURSE": mode = CourseAdapter.AdapterMode.OpenCourse; break;
             default: mode = CourseAdapter.AdapterMode.OpenCourse; break;
         }
+
+        ImageView toolbarImage = findViewById(R.id.toolbar_image);
+        toolbarImage.setVisibility(View.INVISIBLE);
         //свайаы блин
         covert = Covert.with(config).setIsActiveCallback(viewHolder -> false).doOnSwipe((viewHolder, swipeDirection) -> {
             TextView textView = viewHolder.itemView.findViewById(R.id.CourseID);

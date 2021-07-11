@@ -14,6 +14,7 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.example.finances.MainActivity;
 import com.example.finances.R;
+import com.example.finances.ui.Home.HomeFragment;
 
 import maes.tech.intentanim.CustomIntent;
 
