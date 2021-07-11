@@ -55,6 +55,7 @@ public class NewLessonActivity extends AppCompatActivity implements CompoundButt
     String COURSE_REPEAT_MODE; //Режим повторения
     RadioGroup radioGroup; //Группа RadioButton для выбора режима повторения урока
     SwitchMaterial repeatOnOff; //Перключатель повтора урока
+    ImageButton exit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +79,8 @@ public class NewLessonActivity extends AppCompatActivity implements CompoundButt
         startTime = findViewById(R.id.startTime); //Ищем TextView для времени начала
         endTime = findViewById(R.id.endTime); //Ищем TextView для времени конца
 
+        exit = findViewById(R.id.buttonLessonClose);//Ищем кнопку выхода из активности
+
 
         repeatOnOff = findViewById(R.id.repeatSwitch); //ищем переключатель повтора on/off
         radioGroup = findViewById(R.id.radioGroup); //Ищем группу RadioButton для выбора режма повторения урока
@@ -85,6 +88,16 @@ public class NewLessonActivity extends AppCompatActivity implements CompoundButt
         next = findViewById(R.id.buttonLessonNext); //Ищем кнопку дальше
 
         repeatOnOff.setOnCheckedChangeListener(this);
+
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NewLessonActivity.this, MainActivity.class);
+                startActivity(intent);
+                CustomIntent.customType(NewLessonActivity.this, "right-to-left");
+                finish();
+            }
+        });
 
         //Назначаем действия при клике на кнопку дальше
         next.setOnClickListener(new View.OnClickListener() {
