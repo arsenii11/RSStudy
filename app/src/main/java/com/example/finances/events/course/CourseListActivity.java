@@ -105,7 +105,7 @@ public class CourseListActivity extends AppCompatActivity {
         try {
             dbHelper = new DBHelper(this);
             calendarHelper = new CalendarHelper(this);
-            courses = dbHelper.getAllCourses();
+            courses = dbHelper.getAllActiveCourses();
         }
         catch (Exception e){
             e.printStackTrace();

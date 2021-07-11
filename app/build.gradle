@@ -26,8 +26,8 @@ android {
         applicationId "com.rediss.rsstudy.release"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 6
-        versionName "3.31"
+        versionCode 7
+        versionName "4"
         ndk {
             debugSymbolLevel "FULL"
         }
@@ -37,8 +37,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

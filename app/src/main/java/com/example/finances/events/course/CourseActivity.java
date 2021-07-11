@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.finances.MainActivity;
 import com.example.finances.R;
 import com.example.finances.calendar.CalendarHelper;
+import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
 import com.example.finances.database.Event;
 import com.example.finances.database.LessonOptions;
@@ -24,6 +26,7 @@ import com.example.finances.toolbar.SettingsActivity;
 import com.example.finances.events.MainAdaptor;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import maes.tech.intentanim.CustomIntent;
 import nz.co.trademe.covert.Covert;
@@ -35,10 +38,13 @@ public class CourseActivity extends AppCompatActivity {
 
     ArrayList<NewEvent> newEvents = new ArrayList<NewEvent>();
     ArrayList<Event> events = new ArrayList<Event>();
+
     TextView labelCourse;
+    Button endCourse;
 
     Covert.Config config = new Covert.Config(R.drawable.ic_cancel_grey_24dp, R.color.white, R.color.ErrorText);
     Covert covert;
+
     DBHelper dbHelper;
     CalendarHelper calendarHelper;
 
@@ -53,6 +59,7 @@ public class CourseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_course_info);
 
         labelCourse = findViewById(R.id.LabelCourseName);
+        endCourse = findViewById(R.id.buttonEndCourse);
 
         eventsList = findViewById(R.id.allEventsList);
         eventsList.setLayoutManager(new LinearLayoutManager(this));
@@ -97,6 +104,12 @@ public class CourseActivity extends AppCompatActivity {
             return null;
         }).attachTo(eventsList);
 
+        endCourse.setOnClickListener(v -> {
+            Course course = dbHelper.getCourse(COURSE_ID);
+            course.setEndDate(Calendar.getInstance().getTimeInMillis()/1000);
+            course.setFinished(1);
+            dbHelper.updateCourse(COURSE_ID, course);
+        });
 
         mainAdaptor = new MainAdaptor(this, events, true, true, covert);
         eventsList.setAdapter(mainAdaptor);
