@@ -6,15 +6,17 @@ public class LessonOptions {
     private int calendarEventId;
     private int isRepeatable;
     private int repeatMode;
+    private String description;
 
     public LessonOptions() {}
 
-    public LessonOptions(int id, int lessonId, int calendarEventId, int isRepeatable, int repeatMode){
+    public LessonOptions(int id, int lessonId, int calendarEventId, int isRepeatable, int repeatMode, String description){
         this.id = id;
         this.lessonId = lessonId;
         this.calendarEventId = calendarEventId;
         this.isRepeatable = isRepeatable;
         this.repeatMode = repeatMode;
+        this.description = description;
     }
 
     public int getId() {
@@ -37,6 +39,10 @@ public class LessonOptions {
         return repeatMode;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -55,5 +61,9 @@ public class LessonOptions {
 
     public void setRepeatMode(int repeatMode) {
         this.repeatMode = repeatMode;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

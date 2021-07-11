@@ -179,6 +179,7 @@ public class NewLessonActivity extends AppCompatActivity implements CompoundButt
                         lessonOptions.setCalendarEventId(addCalendarEvent(course.getName() + " lesson", startCalendar.getTimeInMillis(), endCalendar.getTimeInMillis())); //Устанавливаем ID события в календаре
                         lessonOptions.setIsRepeatable(0); //Ставим режим "не повторять"
                         lessonOptions.setRepeatMode(1); //Ставим повтор урока раз в неделю
+                        lessonOptions.setDescription(""); //Ставим пустое описание
 
                         long add = 0;
                         //Добавляем опции урока в БД
@@ -235,6 +236,7 @@ public class NewLessonActivity extends AppCompatActivity implements CompoundButt
                                 options.setIsRepeatable(lessonOptions.getIsRepeatable());
                                 options.setRepeatMode(lessonOptions.getRepeatMode());
                                 options.setLessonId(lessonPer.getId());
+                                options.setDescription("");
 
                                 long endDate = lessonPer.getDate() + (long) lessonPer.getDuration() * 3600000;
                                 options.setCalendarEventId(addCalendarEvent(course.getName() + " lesson", lessonPer.getDate(), endDate));
