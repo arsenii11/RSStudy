@@ -92,23 +92,13 @@ public class AccountFragment extends Fragment  {
     @SuppressLint("ResourceType")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_account, container, false);
 
         Context context = getContext();
 
         calendar = Calendar.getInstance();
 
         ViewAllBt = view.findViewById(R.id.ViewAllBt);
-
-        //Список
-        setInitialData();
-        RecyclerView CoursesList = (RecyclerView) view.findViewById(R.id.list);
-        courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, false, null);
-
-        // устанавливаем для списка адаптер
-        CoursesList.setAdapter(courseAdapter);
-
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle("home");
 
         //переменные для виджета количества часов за 7 дней
         hr7days = view.findViewById(R.id.hoursthisweekText);
@@ -119,51 +109,27 @@ public class AccountFragment extends Fragment  {
 
         //widget add something
         plusCourse = view.findViewById(R.id.buttonpluscourse);
-        setInitialdata();
 
+        //Список
+        setInitialData();
+        //RecyclerView CoursesList = (RecyclerView) view.findViewById(R.id.list);
+        //courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, false, null);
 
+        // устанавливаем для списка адаптер
+        //CoursesList.setAdapter(courseAdapter);
 
-        //Диаграма
-        int DescriptionColor = getResources().getColor(R.color.diagramText);
-        int myColor = getResources().getColor(R.color.hole);
-
-
-
-
-
-
-
-        //widget new event
-        String mydate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-        /*TextView datetext = getActivity().findViewById(R.id.textdate);
-        try {
-            datetext.setText(mydate);}
-        catch (Exception e){
-            e.printStackTrace();
-        }*/
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("home");
 
 
 
         //widget time/day of week
-
-
-        //dayofweek.setText(setCurrentDate());
-        //currenttime.setText(setCurrentTime());
+        dayofweek.setText(setCurrentDate());
+        currenttime.setText(setCurrentTime());
         task.run();
-
 
         return view;
     }
 
-
-    private void setInitialdata(){
-        DBHelper dbHelper = new DBHelper(this.getContext());
-        int duration = (int) dbHelper.getLessonDurationInTime(calendar.getTimeInMillis()-604800000, calendar.getTimeInMillis());
-        numberHours.setText(String.valueOf(duration));
-        if(duration==1){
-            hr7days.setText("hour last\n 7 days");}
-        else{hr7days.setText("hours last\n 7 days");}
-    }
 
     private String setCurrentTime() {
         Date currentDate = new Date();
@@ -190,12 +156,13 @@ public class AccountFragment extends Fragment  {
     };
     //добавляем значения
     private void setInitialData() {
-        try {
-            dbHelper = new DBHelper(this.getContext());
-            courses = dbHelper.getAllCourses();
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+        dbHelper = new DBHelper(this.getContext());
+        courses = dbHelper.getAllCourses();
+        int duration = (int) dbHelper.getLessonDurationInTime(calendar.getTimeInMillis()-604800000, calendar.getTimeInMillis());
+        numberHours.setText(String.valueOf(duration));
+        if(duration==1)
+            hr7days.setText("hour last\n 7 days");
+        else
+            hr7days.setText("hours last\n 7 days");
     }
 }
