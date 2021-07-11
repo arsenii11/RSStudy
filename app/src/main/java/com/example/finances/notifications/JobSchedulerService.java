@@ -92,6 +92,7 @@ public class JobSchedulerService extends JobService {
             options.setIsRepeatable(lessonOptions.getIsRepeatable());
             options.setRepeatMode(lessonOptions.getRepeatMode());
             options.setLessonId(lesson.getId());
+            options.setDescription("");
 
             long endDate = lesson.getDate() + (long) lesson.getDuration()*3600000;
             options.setCalendarEventId(addCalendarEvent(parentCourse.getName() + " lesson", lesson.getDate(), endDate));
