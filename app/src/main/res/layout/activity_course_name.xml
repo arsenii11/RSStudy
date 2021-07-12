@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Course name?"
-        android:textSize="20dp"
+        android:textSize="24dp"
         android:fontFamily="@font/nokora_regular"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,8 +34,8 @@
 
     <Button
         android:id="@+id/buttonNext"
-        android:layout_width="90dp"
-        android:layout_height="40dp"
+        android:layout_width="110dp"
+        android:layout_height="50dp"
         style="@style/LessonDateButton"
         android:background="@drawable/buttonbackground_1"
         android:backgroundTint="@color/plus2"
