@@ -102,7 +102,10 @@ public class Account extends AppCompatActivity implements CompoundButton.OnCheck
 
      //   ((MainActivity) .getSupportActionBar().setTitle("account");
 
-
+        setInitialData();
+        RecyclerView CoursesList = findViewById(R.id.list);
+        courseAdapter = new CourseAdapter(this, courses, CourseAdapter.AdapterMode.OpenCourse, false, null);
+        CoursesList.setAdapter(courseAdapter);
 
         //устанавливаем никнейм
         SharedPreferences getInfo = PreferenceManager.getDefaultSharedPreferences(this);
@@ -261,7 +264,11 @@ public class Account extends AppCompatActivity implements CompoundButton.OnCheck
     }
 
 
-
+    //добавляем значения
+    private void setInitialData() {
+        dbHelper = new DBHelper(this);
+        courses = dbHelper.getAllFinishedCourses();
+    }
 
 
 

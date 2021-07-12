@@ -69,11 +69,11 @@ public class StatisticsFragment extends Fragment  {
 
         //Список
         setInitialData();
-        RecyclerView CoursesList = view.findViewById(R.id.list);
-        courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, false, null);
+        //RecyclerView CoursesList = view.findViewById(R.id.list);
+        //courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, false, null);
 
         // устанавливаем для списка адаптер
-        CoursesList.setAdapter(courseAdapter);
+        //CoursesList.setAdapter(courseAdapter);
 
         androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar) getActivity().findViewById(R.id.toolbar);
         TextView titleshadow = toolbar.findViewById(R.id.toolbar_shadowtext);
