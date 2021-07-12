@@ -95,6 +95,7 @@
                     app:layout_constraintStart_toEndOf="@+id/textView2"
                     app:layout_constraintTop_toTopOf="@+id/textView2"
                     app:layout_constraintVertical_bias="0.566" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View style="@style/Divider" />
@@ -107,6 +108,14 @@
                 android:backgroundTint="@color/ListBackGround">
 
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/list"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:visibility="visible"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_editor_absoluteX="1dp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View style="@style/Divider" />

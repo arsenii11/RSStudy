@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finances.R;
 import com.example.finances.events.course.CourseAdapter;
@@ -68,8 +69,8 @@ public class StatisticsFragment extends Fragment  {
 
         //Список
         setInitialData();
-        //RecyclerView CoursesList = (RecyclerView) view.findViewById(R.id.list);
-        //courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, false, null);
+        RecyclerView CoursesList = view.findViewById(R.id.list);
+        courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, false, null);
 
         // устанавливаем для списка адаптер
         //CoursesList.setAdapter(courseAdapter);
@@ -115,7 +116,7 @@ public class StatisticsFragment extends Fragment  {
     //добавляем значения
     private void setInitialData() {
         dbHelper = new DBHelper(this.getContext());
-        courses = dbHelper.getAllCourses();
+        courses = dbHelper.getAllFinishedCourses();
         int duration = (int) dbHelper.getLessonDurationInTime(calendar.getTimeInMillis()-604800000, calendar.getTimeInMillis());
         numberHours.setText(String.valueOf(duration));
         if(duration==1)
