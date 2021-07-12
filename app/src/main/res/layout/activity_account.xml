@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:tag="unique_tag_1"
-    tools:context=".Account">
+    tools:context=".ui.Account">
 
 
     <!-- Верх аккаунта-->

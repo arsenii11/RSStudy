@@ -15,7 +15,7 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.Finances">
-        <activity android:name=".Account"></activity>
+        <activity android:name=".ui.Account"></activity>
 
         <receiver
             android:name=".notifications.NotificationReceiver"
