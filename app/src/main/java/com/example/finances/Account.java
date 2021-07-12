@@ -29,7 +29,6 @@ import com.example.finances.database.DBHelper;
 import com.example.finances.database.Lesson;
 import com.example.finances.events.course.CourseAdapter;
 import com.example.finances.helpclasses.SquaredConstraintLayout;
-import com.example.finances.ui.Account.AccountFragment;
 import com.github.florent37.kotlin.pleaseanimate.PleaseAnim;
 import com.github.florent37.kotlin.pleaseanimate.core.Expectations;
 import com.github.okdroid.checkablechipview.CheckableChipView;

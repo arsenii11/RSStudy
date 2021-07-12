@@ -2,19 +2,13 @@ package com.example.finances;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -23,7 +17,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -32,23 +25,14 @@ import androidx.preference.PreferenceManager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.ObjectKey;
-import com.example.finances.database.DBHelper;
-import com.example.finances.database.Lesson;
 import com.example.finances.notifications.AlarmRequestsReceiver;
-import com.example.finances.toolbar.About;
-import com.example.finances.toolbar.SettingsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.sdsmdg.harjot.longshadows.LongShadowsFrameLayoutWrapper;
-import com.sdsmdg.harjot.longshadows.LongShadowsWrapper;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import maes.tech.intentanim.CustomIntent;
 
-import static com.example.finances.ui.Account.AccountFragment.APP_PREFERENCES_Path;
+import static com.example.finances.ui.Statistics.StatisticsFragment.APP_PREFERENCES_Path;
 
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
@@ -88,8 +72,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         //регистрируем обработчик настроек
         Context context = getApplicationContext();
-        SharedPreferences prefs =
-                PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         prefs.registerOnSharedPreferenceChangeListener(this);
 
         //Проверка разрешений
@@ -168,44 +151,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 break; } }
 
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        menu.getItem(0).setVisible(false);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.item4) {
-            try {
-                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivity(intent);
-                CustomIntent.customType(this,"fadein-to-fadeout");
-                finish();
-
-            } catch (Exception E) {
-
-            }
-        }
-
-        if(id == R.id.item2){
-            try{
-                Intent intent = new Intent(MainActivity.this, About.class);
-                startActivity(intent);
-                CustomIntent.customType(this,"fadein-to-fadeout");
-                finish();
-            }
-
-            catch (Exception E){
-
-            }
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {

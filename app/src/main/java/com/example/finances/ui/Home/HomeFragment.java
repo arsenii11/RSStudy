@@ -4,34 +4,26 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.finances.MainActivity;
 import com.example.finances.R;
 import com.example.finances.database.Course;
 import com.example.finances.events.course.CourseAdapter;
 import com.example.finances.events.course.CourseName;
 import com.example.finances.database.DBHelper;
 import com.example.finances.events.course.CourseListActivity;
-import com.example.finances.ui.Account.AccountFragment;
 import com.github.mikephil.charting.charts.PieChart;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 import maes.tech.intentanim.CustomIntent;
 

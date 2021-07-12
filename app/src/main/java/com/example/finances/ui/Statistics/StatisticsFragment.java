@@ -1,57 +1,24 @@
-package com.example.finances.ui.Account;
+package com.example.finances.ui.Statistics;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.MediaStore;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
-import androidx.preference.PreferenceManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.signature.MediaStoreSignature;
-import com.bumptech.glide.signature.ObjectKey;
 import com.example.finances.MainActivity;
 import com.example.finances.R;
 import com.example.finances.events.course.CourseAdapter;
-import com.example.finances.events.course.CourseListActivity;
-import com.example.finances.events.course.CourseName;
 import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
-import com.example.finances.database.Lesson;
-import com.example.finances.helpclasses.SquaredConstraintLayout;
-import com.github.florent37.kotlin.pleaseanimate.PleaseAnim;
-import com.github.florent37.kotlin.pleaseanimate.core.Expectations;
-import com.github.okdroid.checkablechipview.CheckableChipView;
-import com.google.android.material.snackbar.Snackbar;
-import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.security.Signature;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -59,17 +26,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-import jp.wasabeef.picasso.transformations.CropSquareTransformation;
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
-import kotlin.jvm.functions.Function2;
-import maes.tech.intentanim.CustomIntent;
-import nz.co.trademe.covert.Covert;
-
-import static android.app.Activity.RESULT_OK;
-
-public class AccountFragment extends Fragment  {
+public class StatisticsFragment extends Fragment  {
 
     ImageButton plusCourse;
     ImageButton plusLesson;
@@ -118,7 +75,9 @@ public class AccountFragment extends Fragment  {
         // устанавливаем для списка адаптер
         //CoursesList.setAdapter(courseAdapter);
 
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle("home");
+        androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar) getActivity().findViewById(R.id.toolbar);
+        TextView titleshadow = toolbar.findViewById(R.id.toolbar_shadowtext);
+        titleshadow.setText("Calendar");
 
 
 

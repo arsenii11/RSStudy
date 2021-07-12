@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:tag="unique_tag"
-    tools:context=".ui.Account.AccountFragment">
+    tools:context=".ui.Statistics.StatisticsFragment">
 
 
     //линия виджетов

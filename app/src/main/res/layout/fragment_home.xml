@@ -121,10 +121,6 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="1000dp"
-    android:orientation="vertical">
 
 
 
@@ -153,15 +149,13 @@
 
         <Button
             android:id="@+id/courseBt"
-            style="@style/LessonDateButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="105dp"
             android:layout_height="50dp"
-            android:layout_marginEnd="44dp"
-            android:background="@drawable/buttonbackground_1"
-            android:backgroundTint="@color/plus2"
+            android:layout_marginEnd="34dp"
             android:gravity="center"
             android:text="New course"
-            android:textColor="@color/white"
+            android:textColor="@color/plus2"
             android:textSize="10dp"
             app:cornerRadius="12dp"
             app:iconPadding="0dp"
@@ -170,15 +164,13 @@
 
         <Button
             android:id="@+id/ViewAllBt"
-            style="@style/LessonDateButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="105dp"
             android:layout_height="50dp"
-            android:layout_marginStart="44dp"
-            android:background="@drawable/buttonbackground_1"
-            android:backgroundTint="@color/plus2"
+            android:layout_marginStart="34dp"
             android:gravity="center"
             android:text="View all"
-            android:textColor="@color/white"
+            android:textColor="@color/plus2"
             android:textSize="10dp"
             app:cornerRadius="12dp"
             app:iconPadding="0dp"
@@ -189,27 +181,27 @@
             android:id="@+id/name2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="56dp"
             android:gravity="center"
             android:text="My courses"
             android:textColor="@color/diagramText"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/ViewAllBt" />
+            app:layout_constraintEnd_toStartOf="@+id/courseBt"
+            app:layout_constraintStart_toEndOf="@+id/ViewAllBt"
+            app:layout_constraintTop_toTopOf="@+id/courseBt" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="400dp"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-</LinearLayout>
 </LinearLayout>
 </ScrollView>
