@@ -73,7 +73,7 @@ public class StatisticsFragment extends Fragment  {
         courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, false, null);
 
         // устанавливаем для списка адаптер
-        //CoursesList.setAdapter(courseAdapter);
+        CoursesList.setAdapter(courseAdapter);
 
         androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar) getActivity().findViewById(R.id.toolbar);
         TextView titleshadow = toolbar.findViewById(R.id.toolbar_shadowtext);
