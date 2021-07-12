@@ -61,8 +61,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(" create table " + TABLE_COURSES + "(" + KEY_COURSE_ID + " integer primary key, " + KEY_COURSE_NAME +" text, " + KEY_COURSE_START_DATE+ " integer, " + KEY_COURSE_END_DATE + " integer, " + KEY_COURSE_FINISHED + " integer, " + KEY_COURSE_LESSONS + " integer, " + KEY_COURSE_COMPLETED_LESSONS + " integer " + ")");
         db.execSQL(" create table " + TABLE_LESSONS + "(" + KEY_LESSON_ID + " integer primary key, " + KEY_LESSON_NAME +" text, " + KEY_LESSON_COURSE_ID + " integer, " + KEY_LESSON_DATE + " text, " + KEY_LESSON_DURATION + " real, " + KEY_LESSON_WEIGHT + " integer " + ")");
-        db.execSQL(" create table " + TABLE_LESSON_OPTIONS + "(" + KEY_LESSON_OPTIONS_ID + " integer primary key, " + KEY_LESSON_OPTIONS_LESSON_ID + " integer, " + KEY_LESSON_OPTIONS_CALENDAR_EVENT_ID + " integer, " + KEY_LESSON_OPTIONS_IS_REPEATABLE + " integer, " + KEY_LESSON_OPTIONS_REPEAT_MODE + " integer " + ")");
-        db.execSQL(" create table " + TABLE_TESTS + "(" + KEY_TEST_ID + " integer primary key, " + KEY_TEST_NAME +" text, " + KEY_TEST_COURSE_ID + " integer, " + KEY_TEST_DATE + " text, " + KEY_TEST_WEIGHT + " integer, " + KEY_LESSON_OPTIONS_DESCRIPTION + " text" +")");
+        db.execSQL(" create table " + TABLE_LESSON_OPTIONS + "(" + KEY_LESSON_OPTIONS_ID + " integer primary key, " + KEY_LESSON_OPTIONS_LESSON_ID + " integer, " + KEY_LESSON_OPTIONS_CALENDAR_EVENT_ID + " integer, " + KEY_LESSON_OPTIONS_IS_REPEATABLE + " integer, " + KEY_LESSON_OPTIONS_REPEAT_MODE + " integer, " + KEY_LESSON_OPTIONS_DESCRIPTION + " text" + ")");
+        db.execSQL(" create table " + TABLE_TESTS + "(" + KEY_TEST_ID + " integer primary key, " + KEY_TEST_NAME +" text, " + KEY_TEST_COURSE_ID + " integer, " + KEY_TEST_DATE + " text, " + KEY_TEST_WEIGHT + " integer " +")");
     }
 
     //Обновление версии БД

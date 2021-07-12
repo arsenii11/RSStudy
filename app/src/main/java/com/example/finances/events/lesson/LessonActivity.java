@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.finances.MainActivity;
 import com.example.finances.R;
 import com.example.finances.database.DBHelper;
+import com.example.finances.database.Lesson;
+import com.example.finances.database.LessonOptions;
 import com.example.finances.events.course.CourseActivity;
 import com.example.finances.events.test.RescheduleTestActivity;
 import com.example.finances.events.test.TestActivity;
@@ -27,6 +30,7 @@ public class LessonActivity extends AppCompatActivity {
 
     TextView lessonLabel; //TextView названия урока
     Button rescheduleLesson; //Кнопка перенести урок
+    EditText lessonDescription; //EditText для заметок
 
     private int LESSON_ID; //ID урока
 
@@ -39,6 +43,7 @@ public class LessonActivity extends AppCompatActivity {
 
         lessonLabel = findViewById(R.id.LabelLessonName); //Ищем в view TextView, предназначенный для названия урока
         rescheduleLesson = findViewById(R.id.rescheduleLesson); //Ищем в view Button, предназначенную для переноса урока
+        lessonDescription = findViewById(R.id.lessonDescription); //Ищем в view EditText, предназначенный для ввода и вывода заметок урока
 
         LESSON_ID = getIntent().getIntExtra("LESSON_ID", -1); //Получаем значение ID из переданных данных вызванного намерения
 
@@ -74,6 +79,7 @@ public class LessonActivity extends AppCompatActivity {
 
     private void setInitialData(){
         lessonLabel.setText(dbHelper.getLesson(LESSON_ID).getName()); //Устанавливаем название урока
+        lessonDescription.setText(dbHelper.getLessonOptions(LESSON_ID).getDescription()); //Устанавливаем заметки к уроку
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -107,5 +113,14 @@ public class LessonActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        LessonOptions lessonOptions = dbHelper.getLessonOptions(LESSON_ID);
+        lessonOptions.setDescription(lessonDescription.getText().toString());
+        dbHelper.updateLessonOptions(lessonOptions.getId(), lessonOptions);
     }
 }
