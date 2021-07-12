@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.finances.MainActivity
@@ -24,6 +26,8 @@ class About : AppCompatActivity() {
 
         val toolbarImage = findViewById<ImageView>(R.id.toolbar_image)
         toolbarImage.visibility = View.INVISIBLE
+        val settings = findViewById<ImageButton>(R.id.settings_bt)
+        settings.visibility = View.INVISIBLE
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

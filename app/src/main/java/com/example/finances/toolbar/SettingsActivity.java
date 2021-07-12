@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,7 +39,8 @@ public class SettingsActivity extends AppCompatActivity {
 
         ImageView toolbarImage = findViewById(R.id.toolbar_image);
         toolbarImage.setVisibility(View.INVISIBLE);
-
+        ImageButton settings = findViewById(R.id.settings_bt);
+        settings.setVisibility(View.INVISIBLE);
     }
 
 

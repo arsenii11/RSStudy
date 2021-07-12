@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -26,11 +27,13 @@ import androidx.preference.PreferenceManager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.ObjectKey;
 import com.example.finances.notifications.AlarmRequestsReceiver;
+import com.example.finances.toolbar.SettingsActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import maes.tech.intentanim.CustomIntent;
 
 import static com.example.finances.ui.Statistics.StatisticsFragment.APP_PREFERENCES_Path;
 
@@ -69,6 +72,18 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         //изображение на toolbar
         setToolbarImage();
+
+
+        ImageButton settings = findViewById(R.id.settings_bt);
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
+                CustomIntent.customType(MainActivity.this,"fadein-to-fadeout");
+                finish();
+            }
+        });
 
         //регистрируем обработчик настроек
         Context context = getApplicationContext();

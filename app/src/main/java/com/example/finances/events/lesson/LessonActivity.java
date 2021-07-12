@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,8 +46,6 @@ public class LessonActivity extends AppCompatActivity {
 
         setInitialData(); //Вызываем функцию установки значений из БД
 
-        ImageView toolbarImage = findViewById(R.id.toolbar_image);
-        toolbarImage.setVisibility(View.INVISIBLE);
 
         //Верхний тулбар
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar4);
@@ -54,6 +53,14 @@ public class LessonActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        //скрываем изображение на toolbar
+        ImageView toolbarImage = findViewById(R.id.toolbar_image);
+        toolbarImage.setVisibility(View.INVISIBLE);
+        ImageButton settings = findViewById(R.id.settings_bt);
+        settings.setVisibility(View.INVISIBLE);
+        TextView titleshadow = toolbar.findViewById(R.id.toolbar_shadowtext);
+        titleshadow.setVisibility(View.INVISIBLE);
 
         //Устанавливаем функцию при нажатии на кнопку перести урок
         rescheduleLesson.setOnClickListener(v -> {
