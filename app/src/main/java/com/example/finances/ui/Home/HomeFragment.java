@@ -84,7 +84,7 @@ public class HomeFragment extends Fragment  {
                 Intent intent = new Intent(HomeFragment.this.getActivity(), CourseName.class);
                 startActivity(intent);
                 CustomIntent.customType(getContext(),"fadein-to-fadeout");
-                getActivity().finish();
+
             }
         });
 
@@ -96,7 +96,6 @@ public class HomeFragment extends Fragment  {
                 intent.putExtra("ADAPTER_MODE", "ADD_LESSON");
                 startActivity(intent);
                 CustomIntent.customType(getContext(),"fadein-to-fadeout");
-                getActivity().finish();
             }
         });
 
@@ -108,7 +107,6 @@ public class HomeFragment extends Fragment  {
                 intent.putExtra("ADAPTER_MODE", "ADD_TEST");
                 startActivity(intent);
                 CustomIntent.customType(getContext(),"fadein-to-fadeout");
-                getActivity().finish();
             }
         });
 
@@ -123,7 +121,7 @@ public class HomeFragment extends Fragment  {
                 Intent intent = new Intent(HomeFragment.this.getActivity(), CourseName.class);
                 startActivity(intent);
                 CustomIntent.customType(getContext(),"left-to-right");
-                getActivity().finish();
+
             }
         });
 
@@ -136,7 +134,7 @@ public class HomeFragment extends Fragment  {
                 ListCoursesList.putExtra("ADAPTER_MODE", "OPEN_COURSE");
                 startActivity(ListCoursesList);
                 CustomIntent.customType(getContext(),"fadein-to-fadeout");
-                getActivity().finish();
+
             }
         });
 

@@ -92,8 +92,6 @@ public class NewLessonActivity extends AppCompatActivity implements CompoundButt
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(NewLessonActivity.this, MainActivity.class);
-                startActivity(intent);
                 CustomIntent.customType(NewLessonActivity.this, "right-to-left");
                 finish();
             }

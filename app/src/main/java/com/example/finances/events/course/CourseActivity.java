@@ -136,37 +136,4 @@ public class CourseActivity extends AppCompatActivity {
         labelCourse.setText(dbHelper.getCourse(COURSE_ID).getName());
 
     }
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        menu.getItem(0).setVisible(false);
-        return true;
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.item4) {
-            try {
-                Intent intent = new Intent(CourseActivity.this, SettingsActivity.class);
-                startActivity(intent);
-                CustomIntent.customType(this,"fadein-to-fadeout");
-
-
-            } catch (Exception E) {
-
-            }
-        }
-        if (id == android.R.id.home) {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            CustomIntent.customType(this, "fadein-to-fadeout");
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

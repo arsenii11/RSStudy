@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -53,8 +54,7 @@ public class CourseListActivity extends AppCompatActivity {
             default: mode = CourseAdapter.AdapterMode.OpenCourse; break;
         }
 
-        ImageView toolbarImage = findViewById(R.id.toolbar_image);
-        toolbarImage.setVisibility(View.INVISIBLE);
+
         //свайаы блин
         covert = Covert.with(config).setIsActiveCallback(viewHolder -> false).doOnSwipe((viewHolder, swipeDirection) -> {
             TextView textView = viewHolder.itemView.findViewById(R.id.CourseID);
@@ -77,6 +77,12 @@ public class CourseListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+
+        ImageView toolbarImage = findViewById(R.id.toolbar_image);
+        toolbarImage.setVisibility(View.INVISIBLE);
+        ImageButton settings = findViewById(R.id.settings_bt);
+        settings.setVisibility(View.INVISIBLE);
+
     }
 
 
@@ -84,6 +90,7 @@ public class CourseListActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         menu.getItem(1).setVisible(false);
+        menu.getItem(0).setVisible(false);
         return true;
     }
 
@@ -93,7 +100,7 @@ public class CourseListActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             Intent intent = new Intent(this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             CustomIntent.customType(this,"fadein-to-fadeout");
             finish();

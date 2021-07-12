@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.ObjectKey;
+import com.example.finances.MainActivity;
 import com.example.finances.R;
 import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
@@ -380,7 +381,6 @@ public class Account extends AppCompatActivity implements CompoundButton.OnCheck
             progressText.setVisibility(View.INVISIBLE);
             CircleImageView profileImage = findViewById(R.id.ProfileImage);
             Glide.with(getApplicationContext()).load(selectedImageUri).into(profileImage);
-           // ((MainActivity)setToolbarImage();
         }
 
         @Override

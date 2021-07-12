@@ -9,22 +9,139 @@
     android:tag="unique_tag"
     tools:context=".ui.Statistics.StatisticsFragment">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        />
+
 
     //линия виджетов
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="210dp"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_centerInParent="true"
+            android:layout_width="340dp"
+            android:layout_height="160dp"
+            android:background="@drawable/widget_middle"
+            android:backgroundTint="@color/Widget3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        //Количество часов занятий за неделю
-        <com.example.finances.helpclasses.SquaredConstraintLayout
-            android:id="@+id/box3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileWidgetImage"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/no_avatar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.054"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/username_wdgt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="3dp"
+                android:text="USERNAME"
+                android:textSize="20dp"
+                app:layout_constraintStart_toEndOf="@+id/profileWidgetImage"
+                app:layout_constraintTop_toTopOf="@+id/profileWidgetImage" />
+
+            <TextView
+                android:id="@+id/hourseGeneral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="hours"
+                android:textSize="14dp"
+                app:layout_constraintStart_toStartOf="@+id/username_wdgt"
+                app:layout_constraintTop_toBottomOf="@+id/username_wdgt" />
+
+            <TextView
+                android:id="@+id/course1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="18dp"
+                android:text="course1  65 h"
+                android:textSize="12dp"
+                app:layout_constraintStart_toStartOf="@+id/profileWidgetImage"
+                app:layout_constraintTop_toBottomOf="@+id/profileWidgetImage" />
+
+            <TextView
+                android:id="@+id/course2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="course2  99 h"
+                android:textSize="12dp"
+                app:layout_constraintStart_toStartOf="@+id/course1"
+                app:layout_constraintTop_toBottomOf="@+id/course1" />
+
+            <TextView
+                android:id="@+id/course3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="course3  199 h"
+                android:textSize="12dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="@+id/course2"
+                app:layout_constraintTop_toBottomOf="@+id/course2" />
+
+            <TextView
+                android:id="@+id/lsn1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="100dp"
+                android:text="65 lessons"
+                android:textSize="12dp"
+                app:layout_constraintBottom_toBottomOf="@+id/course1"
+                app:layout_constraintStart_toEndOf="@+id/course1"
+                app:layout_constraintTop_toTopOf="@+id/course1" />
+
+            <TextView
+                android:id="@+id/lsn2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="99 lessons"
+                android:textSize="12dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="@+id/lsn1"
+                app:layout_constraintTop_toBottomOf="@+id/lsn1"
+
+                />
+
+            <TextView
+                android:id="@+id/lsn3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="199 lessons"
+                android:textSize="12dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="@+id/lsn2"
+                app:layout_constraintTop_toBottomOf="@+id/lsn2"
+                />
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="210dp"
+            >
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                style="@style/BlockHome"
+                android:layout_centerInParent="true"
+                android:layout_width="340dp"
+                android:layout_height="160dp"
+                android:background="@drawable/widget_middle"
                 android:backgroundTint="@color/Widget2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -36,15 +153,14 @@
                     android:id="@+id/hoursthisweekText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="72dp"
                     android:fontFamily="@font/nokora_bold"
                     android:gravity="center"
                     android:text="hours last\n 7 days"
                     android:textColor="@color/white"
                     android:textSize="17dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintEnd_toEndOf="@+id/hoursnumber"
+                    app:layout_constraintStart_toStartOf="@+id/hoursnumber"
+                    app:layout_constraintTop_toBottomOf="@+id/hoursnumber" />
 
                 <TextView
                     android:id="@+id/hoursnumber"
@@ -56,65 +172,44 @@
                     android:textSize="45dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.242"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.315" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        </com.example.finances.helpclasses.SquaredConstraintLayout>
-
-        <com.example.finances.helpclasses.SquaredConstraintLayout
-            android:id="@+id/box2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                style="@style/BlockHome"
-                android:layout_width="140dp"
-                android:layout_height="140dp"
-                android:backgroundTint="@color/Widget2"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
+                    app:layout_constraintVertical_bias="0.2" />
 
                 <TextView
                     android:id="@+id/textViewTime"
                     style="@style/TextView.Primary.Bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
                     android:fontFamily="@font/nokora_bold"
                     android:text="12:00"
                     android:textColor="@color/Widget2text"
                     android:textSize="35dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.789"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.473" />
+                    app:layout_constraintTop_toTopOf="@+id/hoursnumber" />
 
                 <TextView
                     android:id="@+id/dayofweek"
                     style="@style/TextView.Primary.Bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="-10dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/nokora_bold"
                     android:text="WED"
                     android:textColor="@color/Widget2text"
                     android:textSize="20dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.756" />
+                    app:layout_constraintEnd_toEndOf="@+id/textViewTime"
+                    app:layout_constraintStart_toStartOf="@+id/textViewTime"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewTime" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.example.finances.helpclasses.SquaredConstraintLayout>
-    </LinearLayout>
+
+        </RelativeLayout>
+
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 

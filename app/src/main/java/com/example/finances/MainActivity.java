@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     @Override
     protected void onResume(){
         super.onResume();
+        setToolbarImage();
 
        //Проверяем настройки
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -258,3 +259,4 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         }
     }
 }
+

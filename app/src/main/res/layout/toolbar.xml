@@ -46,15 +46,15 @@
 
         <TextView
             android:id="@+id/toolbar_shadowtext"
-            android:layout_width="220dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:fontFamily="@font/inter_black"
-            android:gravity="center"
             android:text="RS:Study"
             android:textColor="@color/MMM_purple"
             android:textSize="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.456"
             app:layout_constraintStart_toStartOf="@+id/constraintLayout"
             app:layout_constraintTop_toTopOf="parent" />
 

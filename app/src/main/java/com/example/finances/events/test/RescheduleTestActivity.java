@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -51,8 +52,6 @@ public class RescheduleTestActivity extends AppCompatActivity {
         Chip testChip = findViewById(R.id.chip_test); //Получаем из View чип с вариантом "test"
         Chip examChip = findViewById(R.id.chip_exam); //Получаем из View чип с вариантом "exam"
 
-        ImageView toolbarImage = findViewById(R.id.toolbar_image);
-        toolbarImage.setVisibility(View.INVISIBLE);
 
         next = findViewById(R.id.buttonTestNext); //Получаем из View кнопку дальше
         currentDateTime = findViewById(R.id.currentDateTime); //получаем из View TextView, предназначенный для даты теста
@@ -108,11 +107,18 @@ public class RescheduleTestActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        ImageView toolbarImage = findViewById(R.id.toolbar_image);
+        toolbarImage.setVisibility(View.INVISIBLE);
+        ImageButton settings = findViewById(R.id.settings_bt);
+        settings.setVisibility(View.INVISIBLE);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        menu.getItem(0).setVisible(false);
+        menu.getItem(1).setVisible(false);
         return true;
     }
 

@@ -2,6 +2,7 @@ package com.example.finances.ui.Statistics;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -14,17 +15,24 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.signature.ObjectKey;
 import com.example.finances.R;
 import com.example.finances.events.course.CourseAdapter;
 import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.pchmn.materialchips.R2.id.container;
 
 public class StatisticsFragment extends Fragment  {
 
@@ -33,6 +41,7 @@ public class StatisticsFragment extends Fragment  {
     ImageButton plusTest;
     Calendar calendar;
     TextView dayofweek;
+    private View view;
     TextView currenttime;
     TextView nextEvent;
     public static final String APP_PREFERENCES_Path = "Nickname" ;
@@ -49,9 +58,11 @@ public class StatisticsFragment extends Fragment  {
     @SuppressLint("ResourceType")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_statistics, container, false);
+        view = inflater.inflate(R.layout.fragment_statistics, container, false);
 
         Context context = getContext();
+
+        setProfileWidgetImage();
 
         calendar = Calendar.getInstance();
 
@@ -77,7 +88,7 @@ public class StatisticsFragment extends Fragment  {
 
         androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar) getActivity().findViewById(R.id.toolbar);
         TextView titleshadow = toolbar.findViewById(R.id.toolbar_shadowtext);
-        titleshadow.setText("Calendar");
+        titleshadow.setText("Statistics");
 
 
 
@@ -88,6 +99,17 @@ public class StatisticsFragment extends Fragment  {
 
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+
+
+    }
+
+
 
 
     private String setCurrentTime() {
@@ -124,4 +146,19 @@ public class StatisticsFragment extends Fragment  {
         else
             hr7days.setText("hours last\n 7 days");
     }
+
+    public void setProfileWidgetImage() {
+        SharedPreferences accountPhoto = getActivity().getSharedPreferences(APP_PREFERENCES_Path, Context.MODE_PRIVATE);
+        String FilePath = accountPhoto.getString("key1", "");
+        File Photo = new File(FilePath);
+        if (Photo.exists()) {
+            try {
+                CircleImageView profilewidgetImage = view.findViewById(R.id.profileWidgetImage);
+                Glide.with(this).load(Photo).signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))).into(profilewidgetImage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
