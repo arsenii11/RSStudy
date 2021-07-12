@@ -185,7 +185,7 @@ public class HomeFragment extends Fragment  {
     private void setInitialData() {
         try {
             dbHelper = new DBHelper(this.getContext());
-            courses = dbHelper.getAllCourses();
+            courses = dbHelper.getAllActiveCourses();
         }
         catch (Exception e){
             e.printStackTrace();
