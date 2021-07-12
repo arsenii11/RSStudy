@@ -206,20 +206,20 @@
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="40dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:src="@drawable/roundlogo"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.441"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-           />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="RS:Study"
-            android:textSize="30dp"
+            android:textSize="10dp"
             android:textColor="@color/diagramText"
             android:layout_marginStart="10dp"
             android:textStyle="bold"
