@@ -105,7 +105,7 @@ public class StatisticsFragment extends Fragment  {
         super.onResume();
 
 
-
+        setProfileWidgetImage();
 
     }
 

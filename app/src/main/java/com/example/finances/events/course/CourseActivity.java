@@ -126,6 +126,29 @@ public class CourseActivity extends AppCompatActivity {
 
     }
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        menu.getItem(1).setVisible(false);
+        menu.getItem(0).setVisible(false);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            CustomIntent.customType(this,"fadein-to-fadeout");
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+
+
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void setInitialData(){
         newEvents.add(new NewEvent ("lesson"));
