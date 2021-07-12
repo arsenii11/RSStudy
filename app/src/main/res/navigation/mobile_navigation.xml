@@ -21,5 +21,5 @@
         android:id="@+id/navigation_account"
         android:name="com.example.finances.ui.Statistics.StatisticsFragment"
         android:label="@string/title_statistics"
-        tools:layout="@layout/fragment_account" />
+        tools:layout="@layout/fragment_statistics" />
 </navigation>

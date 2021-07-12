@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.finances.MainActivity;
 import com.example.finances.R;
 import com.example.finances.events.course.CourseAdapter;
 import com.example.finances.database.Course;
@@ -49,7 +48,7 @@ public class StatisticsFragment extends Fragment  {
     @SuppressLint("ResourceType")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_account, container, false);
+        View view = inflater.inflate(R.layout.fragment_statistics, container, false);
 
         Context context = getContext();
 
