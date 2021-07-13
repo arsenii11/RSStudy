@@ -78,19 +78,38 @@ public class StatisticsFragment extends Fragment  {
         //widget add something
         plusCourse = view.findViewById(R.id.buttonpluscourse);
 
-        //Список
-        setInitialData();
-        //RecyclerView CoursesList = view.findViewById(R.id.list);
-        //courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, false, null);
 
-        // устанавливаем для списка адаптер
-        //CoursesList.setAdapter(courseAdapter);
+        setInitialData();
 
         androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar) getActivity().findViewById(R.id.toolbar);
         TextView titleshadow = toolbar.findViewById(R.id.toolbar_shadowtext);
         titleshadow.setText("Statistics");
 
+        //Виджет со статистикой по курсам
 
+        ArrayList<TextView> courseViews = new ArrayList<>();
+        courseViews.add(view.findViewById(R.id.course1));
+        courseViews.add(view.findViewById(R.id.course2));
+        courseViews.add(view.findViewById(R.id.course3));
+
+        ArrayList<TextView> lsnViews = new ArrayList<>();
+        lsnViews.add(view.findViewById(R.id.lsn1));
+        lsnViews.add(view.findViewById(R.id.lsn2));
+        lsnViews.add(view.findViewById(R.id.lsn3));
+
+        int k = Math.min(courses.size(), 3);
+        for(int i = 0; i < k; i++){
+                Course course = courses.get(i);
+                TextView courseView = courseViews.get(i);
+                TextView lsnView = lsnViews.get(i);
+
+                String courseText = course.getName() + "  " + String.valueOf((int) dbHelper.getLessonDurationByCourse(course.getId())) + " h";
+                courseView.setText(courseText);
+
+                String addTxt = course.getLessons() == 1 ? "lesson" : "lessons";
+                String lessonText = course.getLessons() + " " + addTxt;
+                lsnView.setText(lessonText);
+        }
 
         //widget time/day of week
         dayofweek.setText(setCurrentDate());
@@ -138,7 +157,7 @@ public class StatisticsFragment extends Fragment  {
     //добавляем значения
     private void setInitialData() {
         dbHelper = new DBHelper(this.getContext());
-        courses = dbHelper.getAllFinishedCourses();
+        courses = dbHelper.getCoursesSortByLessons();
         int duration = (int) dbHelper.getLessonDurationInTime(calendar.getTimeInMillis()-604800000, calendar.getTimeInMillis());
         numberHours.setText(String.valueOf(duration));
         if(duration==1)

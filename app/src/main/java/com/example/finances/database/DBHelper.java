@@ -278,6 +278,30 @@ public class DBHelper extends SQLiteOpenHelper {
         return course;
     }
 
+    public ArrayList<Course> getCoursesSortByLessons(){
+        ArrayList<Course> courses = new ArrayList<Course>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from " + TABLE_COURSES + " order by " + KEY_COURSE_LESSONS + " desc", null);
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+
+            while (!cursor.isAfterLast()) {
+                Course course = new Course();
+                course.setId(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_ID)));
+                course.setName(cursor.getString(cursor.getColumnIndex(KEY_COURSE_NAME)));
+                course.setStartDate(cursor.getLong(cursor.getColumnIndex(KEY_COURSE_START_DATE)));
+                course.setEndDate(cursor.getLong(cursor.getColumnIndex(KEY_COURSE_END_DATE)));
+                course.setFinished(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_FINISHED)));
+                course.setLessons(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_LESSONS)));
+                course.setLessonsCompleted(cursor.getInt(cursor.getColumnIndex(KEY_COURSE_COMPLETED_LESSONS)));
+                courses.add(course);
+                cursor.moveToNext();
+            }
+        }
+        cursor.close();
+        return courses;
+    }
+
     //LESSON
     //Добавить урок
     public long insertLesson(Lesson lesson){
@@ -632,7 +656,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return sum;
     }
 
-    //Получить длительность уроков с одинаковым родительским курсом с его начала по текущее временя
+    //Получить длительность уроков с одинаковым родительским курсом с его начала по текущее время
     public float getLessonDurationByCourse(int courseId){
         float sum = 0;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -641,7 +665,7 @@ public class DBHelper extends SQLiteOpenHelper {
         long startDate = course.getStartDate();
         long endDate = calendar.getTimeInMillis()/1000;
 
-        Cursor cursor = db.rawQuery("select SUM("+KEY_LESSON_DURATION+") from " + TABLE_LESSONS + " where " + KEY_LESSON_DATE + " between " + startDate + " and " + endDate + " and " + KEY_LESSON_COURSE_ID + " = " + courseId, null);
+        Cursor cursor = db.rawQuery("select SUM("+KEY_LESSON_DURATION+") from " + TABLE_LESSONS + " where " + KEY_LESSON_DATE + " <= " + endDate + " and " + KEY_LESSON_COURSE_ID + " = " + courseId, null);
         if(cursor.getCount() > 0){
             cursor.moveToFirst();
             sum = cursor.getFloat(0);

@@ -64,7 +64,6 @@ public class CourseLength extends AppCompatActivity {
                 Intent i = getIntent();
                 Course course = new Course();
                 course.setName(i.getStringExtra("COURSE_NAME"));
-                course.setLessons(content);
 
                 DBHelper dbh = new DBHelper(getApplicationContext());
                 long courseId = dbh.insertCourse(course);
@@ -75,17 +74,15 @@ public class CourseLength extends AppCompatActivity {
                     intent.putExtra("LESSONS", course.getLessons());
                     intent.putExtra("CURRENT_LESSON", 0);
                     startActivity(intent);
-                    CustomIntent.customType(CourseLength.this,"left-to-right");
-                    finish();
                 }
                 else {
 
 
                     Intent intent = new Intent(CourseLength.this, MainActivity.class);
                     startActivity(intent);
-                    CustomIntent.customType(CourseLength.this,"left-to-right");
-                    finish();
                 }
+                CustomIntent.customType(CourseLength.this,"left-to-right");
+                finish();
             }
         });
 
