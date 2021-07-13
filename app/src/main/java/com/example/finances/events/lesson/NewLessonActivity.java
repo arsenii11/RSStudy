@@ -40,7 +40,7 @@ import maes.tech.intentanim.CustomIntent;
 import static com.example.finances.MainActivity.ALLOW_ADD_TO_CALENDAR;
 
 
-public class NewLessonActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
+public class NewLessonActivity extends AppCompatActivity {
 
     Calendar startCalendar; //Календарь начала
     Calendar endCalendar; //Календарь конца
@@ -68,6 +68,8 @@ public class NewLessonActivity extends AppCompatActivity implements CompoundButt
 
         ImageView toolbarImage = findViewById(R.id.toolbar_image);
         toolbarImage.setVisibility(View.INVISIBLE);
+        ImageButton settings = findViewById(R.id.settings_bt);
+        settings.setVisibility(View.INVISIBLE);
 
         //Получаем значения из intent
         Intent i = getIntent();
@@ -87,7 +89,12 @@ public class NewLessonActivity extends AppCompatActivity implements CompoundButt
 
         next = findViewById(R.id.buttonLessonNext); //Ищем кнопку дальше
 
-        repeatOnOff.setOnCheckedChangeListener(this);
+        repeatOnOff.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked)
+                radioGroup.setVisibility(View.VISIBLE);
+            else
+                radioGroup.setVisibility(View.INVISIBLE);
+        });
 
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -391,10 +398,4 @@ public class NewLessonActivity extends AppCompatActivity implements CompoundButt
         else return -1;
     }
 
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if(isChecked){
-        radioGroup.setVisibility(View.VISIBLE);}
-        else{radioGroup.setVisibility(View.INVISIBLE);}
-    }
 }

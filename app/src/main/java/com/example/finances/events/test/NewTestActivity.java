@@ -2,6 +2,7 @@ package com.example.finances.events.test;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -23,8 +24,10 @@ import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
 import com.example.finances.database.Test;
 import com.example.finances.events.course.CourseActivity;
+import com.example.finances.events.lesson.NewLessonActivity;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.Calendar;
 
@@ -33,60 +36,74 @@ import maes.tech.intentanim.CustomIntent;
 public class NewTestActivity extends AppCompatActivity {
 
     Calendar dateAndTime = Calendar.getInstance();
-    TextView currentDateTime;
+    TextView startDate;
+    TextView startTime;
     Button next;
     int COURSE_ID;
-    ChipGroup chipInput;
+    SwitchMaterial mode; //Переключатель вида теста
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_new);
         COURSE_ID = getIntent().getIntExtra("COURSE_ID", -1);
-        currentDateTime=(TextView)findViewById(R.id.currentDateTime);
+
+        startDate = findViewById(R.id.startDate);
+        startTime = findViewById(R.id.startTime);
+
+        mode = findViewById(R.id.modeSwitch);
+
         next = findViewById(R.id.buttonTestNext);
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DBHelper dbHelper = new DBHelper(getApplicationContext());
+        next.setOnClickListener(v -> {
+
+            if(!startTime.getText().toString().contains("__") && !startDate.getText().toString().contains("__")) {
+
+                DBHelper dbHelper = new DBHelper(this);
                 Test test = new Test();
-                Chip selectedChip = findViewById(chipInput.getCheckedChipId());
+
                 Course course = dbHelper.getCourse(COURSE_ID);
                 String testName = course.getName();
 
                 test.setCourseId(COURSE_ID);
-                long dat = dateAndTime.getTimeInMillis()/1000;
+                long dat = dateAndTime.getTimeInMillis() / 1000;
                 test.setDate(dat);
 
 
                 ImageView toolbarImage = findViewById(R.id.toolbar_image);
                 toolbarImage.setVisibility(View.INVISIBLE);
 
-                switch (selectedChip.getText().toString()){
-                    case "Test": test.setWeight(0); testName+= " test"; break;
-                    case "Exam": test.setWeight(1); testName+= " exam"; break;
+                if (mode.isChecked()) {
+                    test.setWeight(1);
+                    testName += " exam";
+                } else {
+                    test.setWeight(0);
+                    testName += " test";
                 }
 
-                testName += ", " + currentDateTime.getText();
+
+                testName += ", " + startDate.getText();
                 test.setName(testName);
                 dbHelper.insertTest(test);
 
                 Intent intent = new Intent(NewTestActivity.this, CourseActivity.class);
                 intent.putExtra("COURSE_ID", COURSE_ID);
                 startActivity(intent);
-                CustomIntent.customType(NewTestActivity.this,"left-to-right");
+                CustomIntent.customType(NewTestActivity.this, "left-to-right");
                 finish();
+            }
+            else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(NewTestActivity.this);
+                builder.setTitle("Error!")
+                        .setMessage("Please choose correct date and time")
+                        .setCancelable(true)
+                        .setNegativeButton("Ok", ((dialog, which) -> {
+                            dialog.cancel();
+                        }))
+                        .create()
+                        .show();
             }
         });
 
-        chipInput = (ChipGroup) findViewById(R.id.chipInput);
-        chipInput.setSingleSelection(true);
-
-        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar2);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         ImageView toolbarImage = findViewById(R.id.toolbar_image);
         toolbarImage.setVisibility(View.INVISIBLE);
@@ -136,28 +153,26 @@ public class NewTestActivity extends AppCompatActivity {
     // установка начальных даты и времени
     private void setInitialDateTime() {
 
-        currentDateTime.setText(DateUtils.formatDateTime(this,
+        startDate.setText(DateUtils.formatDateTime(this,
                 dateAndTime.getTimeInMillis(),
-                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
-                        | DateUtils.FORMAT_SHOW_TIME));
+                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
+
+        startTime.setText(DateUtils.formatDateTime(this,
+                dateAndTime.getTimeInMillis(), DateUtils.FORMAT_SHOW_TIME));
     }
 
     // установка обработчика выбора времени
-    TimePickerDialog.OnTimeSetListener t=new TimePickerDialog.OnTimeSetListener() {
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            dateAndTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
-            dateAndTime.set(Calendar.MINUTE, minute);
-            setInitialDateTime();
-        }
+    TimePickerDialog.OnTimeSetListener t = (view, hourOfDay, minute) -> {
+        dateAndTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        dateAndTime.set(Calendar.MINUTE, minute);
+        setInitialDateTime();
     };
 
     // установка обработчика выбора даты
-    DatePickerDialog.OnDateSetListener d=new DatePickerDialog.OnDateSetListener() {
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            dateAndTime.set(Calendar.YEAR, year);
-            dateAndTime.set(Calendar.MONTH, monthOfYear);
-            dateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            setInitialDateTime();
-        }
+    DatePickerDialog.OnDateSetListener d = (view, year, monthOfYear, dayOfMonth) -> {
+        dateAndTime.set(Calendar.YEAR, year);
+        dateAndTime.set(Calendar.MONTH, monthOfYear);
+        dateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        setInitialDateTime();
     };
 }
