@@ -47,14 +47,13 @@ import kotlin.jvm.functions.Function1;
 import kotlin.jvm.functions.Function2;
 import nz.co.trademe.covert.Covert;
 
-public class Account extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, Function2<CheckableChipView, Boolean, Unit> {
+public class Account extends AppCompatActivity implements  Function2<CheckableChipView, Boolean, Unit> {
 
     private final int GALLERY_REQUEST = 1;
     public static final String APP_PREFERENCES_Path = "Nickname" ;
     public SharedPreferences profile;
-    private String imagePath;
+
     private final int PICK_IMAGE_REQUEST = 1;
-    private View view;
     public View background;
     private Activity activityAccount;
     public View AnimDivider;
@@ -64,17 +63,12 @@ public class Account extends AppCompatActivity implements CompoundButton.OnCheck
     public SquaredConstraintLayout lay_photo;
     public TextView progressText;
     public Uri selectedImageUri;
-    public View backgroundColorTint;
     public TextView Surname;
     public boolean flag;
 
-    ArrayList<Course> courses = new ArrayList<Course>();
-    ArrayList<Lesson> lessons = new ArrayList<Lesson>();
     CircleImageView profileImage; //изображение профиля
     Button ViewAllBt;
 
-    Covert.Config config = new Covert.Config(R.drawable.ic_cancel_grey_24dp, R.color.white, R.color.ErrorText);
-    Covert covert;
 
     DBHelper dbHelper;
     CourseAdapter courseAdapter;
@@ -101,12 +95,7 @@ public class Account extends AppCompatActivity implements CompoundButton.OnCheck
         progressText = findViewById(R.id.progressText);
         ViewAllBt = findViewById(R.id.ViewAllBt);
 
-     //   ((MainActivity) .getSupportActionBar().setTitle("account");
 
-        setInitialData();
-        RecyclerView CoursesList = findViewById(R.id.list);
-        courseAdapter = new CourseAdapter(this, courses, CourseAdapter.AdapterMode.OpenCourse, false, null);
-        CoursesList.setAdapter(courseAdapter);
 
         //устанавливаем никнейм
         SharedPreferences getInfo = PreferenceManager.getDefaultSharedPreferences(this);
@@ -132,92 +121,6 @@ public class Account extends AppCompatActivity implements CompoundButton.OnCheck
         if (NameSur.isEmpty()) {
             Surname.setText("Name Surname");
         }
-
-
-        PleaseAnim pleaseAnim = new PleaseAnim();                                               //--------------------------------kotlin animation-------------------------
-        pleaseAnim.animate(lay_photo, 1000f, new Function1<Expectations, Unit>() {
-            @Override
-            public Unit invoke(Expectations expectations) {
-                expectations.topOfItsParent(10f,null);
-                expectations.leftOfItsParent(20f, null);
-                expectations.scale(0.72f,0.72f);
-                return null;
-            }
-        });
-        pleaseAnim.animate(profileImage, 1000f, new Function1<Expectations, Unit>() {
-            @Override
-            public Unit invoke(Expectations expectations) {
-                expectations.topOfItsParent(10f,null);
-                expectations.leftOfItsParent(20f, null);
-                expectations.scale(0.72f,0.72f);
-                return null;
-            }
-        });
-        pleaseAnim.animate(Surname, 10f, new Function1<Expectations, Unit>() {
-            @Override
-            public Unit invoke(Expectations expectations) {
-                expectations.rightOf(profileImage,10f, null);
-                expectations.sameCenterVerticalAs(profileImage);
-                expectations.alpha(1f);
-                expectations.scale(0.85f,0.85f);
-                return null;
-            }
-        });
-        pleaseAnim.animate(Email, 10f, new Function1<Expectations, Unit>() {
-            @Override
-            public Unit invoke(Expectations expectations) {
-                expectations.rightOfItsParent(20f,null);
-                expectations.sameCenterVerticalAs(profileImage);
-                expectations.invisible();
-                return null;
-            }
-        });
-        pleaseAnim.animate(nickname_1, 10f, new Function1<Expectations, Unit>() {
-            @Override
-            public Unit invoke(Expectations expectations) {
-                expectations.rightOfItsParent(20f,null);
-                expectations.belowOf(Email,10f, null);
-                expectations.invisible();
-                return null;
-            }
-        });
-        pleaseAnim.animate(background, 10f, new Function1<Expectations, Unit>() {
-            @Override
-            public Unit invoke(Expectations expectations) {
-                expectations.height(100, Gravity.LEFT, Gravity.TOP,false,true);
-
-                return null;
-            }
-        });
-        pleaseAnim.animate(AnimDivider, 10f, new Function1<Expectations, Unit>() {
-            @Override
-            public Unit invoke(Expectations expectations) {
-                expectations.height(5,null,Gravity.BOTTOM,false, true);
-                return null;
-            }
-        });
-
-        pleaseAnim.animate(simpleProgressBar, 10f, new Function1<Expectations, Unit>() {
-            @Override
-            public Unit invoke(Expectations expectations) {
-                expectations.invisible();
-                flag = false;
-                return null;
-            }
-        });
-
-        NestedScrollView nestedscroll =  findViewById(R.id.nestedscrollAccount);
-        nestedscroll.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                float percents = scrollY * 2f / v.getMaxScrollAmount();
-                pleaseAnim.setPercent(percents);
-
-            }
-        });
-
-        // pleaseAnim.animate(view,100,);
-
 
 
 
@@ -256,20 +159,6 @@ public class Account extends AppCompatActivity implements CompoundButton.OnCheck
         }*/
     }
 
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        RecyclerView CoursesList = (RecyclerView) findViewById(R.id.list);
-        CoursesList.setVisibility(View.INVISIBLE);
-        Snackbar snackbar = Snackbar.make(view, "Hello Android", Snackbar.LENGTH_LONG);
-        snackbar.show();
-    }
-
-
-    //добавляем значения
-    private void setInitialData() {
-        dbHelper = new DBHelper(this);
-        courses = dbHelper.getAllFinishedCourses();
-    }
 
 
 

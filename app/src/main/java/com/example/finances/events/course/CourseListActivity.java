@@ -36,6 +36,7 @@ public class CourseListActivity extends AppCompatActivity {
     Covert.Config config = new Covert.Config(R.drawable.ic_cancel_grey_24dp, R.color.white, R.color.ErrorText);
     Covert covert;
 
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class CourseListActivity extends AppCompatActivity {
             case "OPEN_COURSE": mode = CourseAdapter.AdapterMode.OpenCourse; break;
             default: mode = CourseAdapter.AdapterMode.OpenCourse; break;
         }
+
 
 
         //свайаы блин

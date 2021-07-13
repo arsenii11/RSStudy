@@ -119,8 +119,8 @@ public class LessonActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        LessonOptions lessonOptions = dbHelper.getLessonOptions(LESSON_ID);
+       /* LessonOptions lessonOptions = dbHelper.getLessonOptions(LESSON_ID);
         lessonOptions.setDescription(lessonDescription.getText().toString());
-        dbHelper.updateLessonOptions(lessonOptions.getId(), lessonOptions);
+        dbHelper.updateLessonOptions(lessonOptions.getId(), lessonOptions);*/
     }
 }

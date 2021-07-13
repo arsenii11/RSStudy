@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -25,6 +27,7 @@ import com.example.finances.database.DBHelper;
 import com.example.finances.database.Test;
 import com.example.finances.events.course.CourseActivity;
 import com.example.finances.events.lesson.NewLessonActivity;
+import com.example.finances.events.lesson.RescheduleLessonActivity;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.switchmaterial.SwitchMaterial;
@@ -39,8 +42,10 @@ public class NewTestActivity extends AppCompatActivity {
     TextView startDate;
     TextView startTime;
     Button next;
+    RadioGroup radioGroup; //Группа RadioButton для выбора test/exam
     int COURSE_ID;
-    SwitchMaterial mode; //Переключатель вида теста
+    ImageButton exit; //выход из активности
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +56,8 @@ public class NewTestActivity extends AppCompatActivity {
         startDate = findViewById(R.id.startDate);
         startTime = findViewById(R.id.startTime);
 
-        mode = findViewById(R.id.modeSwitch);
+
+        radioGroup = findViewById(R.id.radioGroupTstEx);
 
         next = findViewById(R.id.buttonTestNext);
         next.setOnClickListener(v -> {
@@ -68,7 +74,10 @@ public class NewTestActivity extends AppCompatActivity {
                 long dat = dateAndTime.getTimeInMillis() / 1000;
                 test.setDate(dat);
 
-                if (mode.isChecked()) {
+                RadioButton modeRadioButton = findViewById(radioGroup.getCheckedRadioButtonId());
+                String MODE =  modeRadioButton.getText().toString().toUpperCase();
+
+                if (MODE.equals("EXAM")) {
                     test.setWeight(1);
                     testName += " exam";
                 } else {
@@ -100,6 +109,14 @@ public class NewTestActivity extends AppCompatActivity {
             }
         });
 
+        exit = findViewById(R.id.buttonTestClose);//Ищем кнопку выхода из активности
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CustomIntent.customType(NewTestActivity.this, "right-to-left");
+                finish();
+            }
+        });
 
         ImageView toolbarImage = findViewById(R.id.toolbar_image);
         toolbarImage.setVisibility(View.INVISIBLE);

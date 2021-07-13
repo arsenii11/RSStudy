@@ -72,9 +72,9 @@
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="false"
         android:gravity="left"
         android:text="Test"
-        android:clickable="false"
         android:textAllCaps="false"
         android:textColor="@color/gray_dove_light"
         android:textSize="25dp"
@@ -86,15 +86,14 @@
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="212dp"
         android:clickable="false"
         android:gravity="left"
         android:text="Exam"
         android:textAllCaps="false"
         android:textColor="@color/gray_dove_light"
         android:textSize="25dp"
-        app:layout_constraintStart_toStartOf="@+id/timeButton"
-        app:layout_constraintTop_toBottomOf="@+id/timeButton" />
+        app:layout_constraintStart_toStartOf="@+id/test"
+        app:layout_constraintTop_toBottomOf="@+id/test" />
 
     <TextView
         android:id="@+id/startDate"
@@ -121,20 +120,6 @@
         app:layout_constraintTop_toBottomOf="@+id/dateButton" />
 
 
-    <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/modeSwitch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:scaleX="1.25"
-        android:scaleY="1.25"
-        app:layout_constraintBottom_toBottomOf="@+id/test"
-        app:layout_constraintEnd_toStartOf="@+id/exam"
-        app:layout_constraintStart_toEndOf="@+id/test"
-        app:layout_constraintTop_toBottomOf="@+id/timeButton"
-        app:thumbTint="@color/plus1"
-        app:useMaterialThemeColors="false" />
-
     <Button
         android:id="@+id/buttonTestNext"
         style="@style/Widget.MaterialComponents.Button.TextButton"
@@ -160,5 +145,31 @@
         app:layout_constraintBottom_toBottomOf="@+id/LabelTest"
         app:layout_constraintEnd_toStartOf="@+id/LabelTest"
         app:layout_constraintTop_toTopOf="@+id/LabelTest" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupTstEx"
+        android:layout_width="106dp"
+        android:layout_height="109dp"
+        app:layout_constraintEnd_toEndOf="@+id/startTime"
+        app:layout_constraintStart_toStartOf="@+id/startTime"
+        app:layout_constraintTop_toTopOf="@+id/test">
+
+        <RadioButton
+            android:id="@+id/radioTest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Test" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="10dp" />
+
+        <RadioButton
+            android:id="@+id/radioExam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exam" />
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

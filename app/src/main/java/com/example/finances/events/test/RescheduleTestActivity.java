@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -35,11 +37,16 @@ public class RescheduleTestActivity extends AppCompatActivity {
     TextView startDate; //TextView с выбранной датой
     TextView startTime; //TextView с выбранным временем
 
+    RadioButton TestRd;// кнопка теста
+    RadioButton ExamRd;//кнопка экзамена
+
     DBHelper dbHelper; //Обработчик запросов к БД
 
     Button next; //Кнопка дальше
 
-    SwitchMaterial mode; //Переключатель вида теста
+    RadioGroup radioGroup; //Группа RadioButton для выбора test/exam
+
+    ImageButton exit; //выход из активности
 
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -50,7 +57,9 @@ public class RescheduleTestActivity extends AppCompatActivity {
         next = findViewById(R.id.buttonTestNext); //Получаем из View кнопку дальше
         startDate = findViewById(R.id.startDate); //Получаем из View TextView, предназначенный для даты теста
         startTime = findViewById(R.id.startTime); //Получаем из View TextView, предназначенный для времени теста
-        mode = findViewById(R.id.modeSwitch); //получаем из View SwitchMaterial, предназначенный для вида теста
+        radioGroup = findViewById(R.id.radioGroupTstEx);
+        TestRd = findViewById(R.id.radioTest);
+        ExamRd = findViewById(R.id.radioExam);
 
         TEST_ID = getIntent().getIntExtra("TEST_ID", -1); //Получаем ID теста из переданных данных вызванного намерения
 
@@ -62,8 +71,9 @@ public class RescheduleTestActivity extends AppCompatActivity {
 
         //В зависимости от веса теста отмечаем нужный чип
         switch (test.getWeight()){
-            case 0: mode.setChecked(false); break; //Вес 0 — чип "test"
-            case 1: mode.setChecked(true); break; //Вес 1 — чип "exam"
+
+            case 0: TestRd.setChecked(true); break; //Вес 0 — чип "test"
+            case 1: ExamRd.setChecked(true); break; //Вес 1 — чип "exam"
         }
 
         setInitialDateTime(); //Вызываем функцию установки даты теста в TextView
@@ -79,7 +89,10 @@ public class RescheduleTestActivity extends AppCompatActivity {
             test.setDate(dat); //Устанавливаем новую дату теста
 
             //В зависимости от выбранного вида теста устанавливаем название
-            if (mode.isChecked()) {
+            RadioButton modeRadioButton = findViewById(radioGroup.getCheckedRadioButtonId());
+            String MODE =  modeRadioButton.getText().toString().toUpperCase();
+
+            if (MODE.equals("EXAM")) {
                 test.setWeight(1);
                 testName += " exam";
             } else {
@@ -97,6 +110,15 @@ public class RescheduleTestActivity extends AppCompatActivity {
             startActivity(intent); //Запускаем намерение
             CustomIntent.customType(RescheduleTestActivity.this,"left-to-right"); //Добавляем анимацию к переходу
             finish();
+        });
+
+        exit = findViewById(R.id.buttonTestClose);//Ищем кнопку выхода из активности
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CustomIntent.customType(RescheduleTestActivity.this, "right-to-left");
+                finish();
+            }
         });
 
         ImageView toolbarImage = findViewById(R.id.toolbar_image);

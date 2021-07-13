@@ -55,7 +55,7 @@ public class NewLessonActivity extends AppCompatActivity {
     String COURSE_REPEAT_MODE; //Режим повторения
     RadioGroup radioGroup; //Группа RadioButton для выбора режима повторения урока
     SwitchMaterial repeatOnOff; //Перключатель повтора урока
-    ImageButton exit;
+    ImageButton exit; //выход из активности
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

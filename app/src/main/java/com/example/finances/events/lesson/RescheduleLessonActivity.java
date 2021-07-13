@@ -10,6 +10,7 @@ import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -57,6 +58,9 @@ public class RescheduleLessonActivity extends AppCompatActivity {
     DBHelper dbHelper; //Обработчик запросов к БД
     CalendarHelper calendarHelper; //Обработчик запрсоов к календарю
 
+
+    ImageButton exit; //выход из активности
+
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +93,14 @@ public class RescheduleLessonActivity extends AppCompatActivity {
         startCalendar.setTimeInMillis(lesson.getDate()*1000); //Устанавливаем в календарь начала текущую дату урока
         endCalendar.setTimeInMillis(lesson.getDate()*1000 + (long) (lesson.getDuration()*3600000)); //Устанавливаем в календарь конца текущую дату урока + его длительность
 
+        exit = findViewById(R.id.buttonLessonClose);//Ищем кнопку выхода из активности
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CustomIntent.customType(RescheduleLessonActivity.this, "right-to-left");
+                finish();
+            }
+        });
         //В зависимости от повторения урока отмечаем нужный чип
         switch (lessonOptions.getIsRepeatable()){
             case 0: repeatOnOff.setChecked(false); radioGroup.setVisibility(View.INVISIBLE); break; //Урок не повторяется

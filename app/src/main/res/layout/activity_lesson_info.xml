@@ -30,13 +30,13 @@
         style="@style/LessonDateButton"
         android:layout_width="211dp"
         android:layout_height="80dp"
-        android:layout_marginTop="268dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/buttonbackground_1"
         android:backgroundTint="@color/plus2"
         android:gravity="center"
         android:text="Reschedule Lesson"
         android:textColor="@color/white"
-        android:textSize="25dp"
+        android:textSize="20dp"
         app:cornerRadius="12dp"
         app:iconPadding="0dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,6 +45,7 @@
 
     <EditText
         android:id="@+id/lessonDescription"
+        android:visibility="invisible"
         android:layout_width="210dp"
         android:layout_height="210dp"
         android:layout_marginTop="20dp"
