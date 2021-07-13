@@ -68,10 +68,6 @@ public class NewTestActivity extends AppCompatActivity {
                 long dat = dateAndTime.getTimeInMillis() / 1000;
                 test.setDate(dat);
 
-
-                ImageView toolbarImage = findViewById(R.id.toolbar_image);
-                toolbarImage.setVisibility(View.INVISIBLE);
-
                 if (mode.isChecked()) {
                     test.setWeight(1);
                     testName += " exam";

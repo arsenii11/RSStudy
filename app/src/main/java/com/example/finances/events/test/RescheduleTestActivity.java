@@ -8,11 +8,9 @@ import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,9 +19,9 @@ import com.example.finances.R;
 import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
 import com.example.finances.database.Test;
-import com.example.finances.events.course.CourseActivity;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.Calendar;
 
@@ -34,27 +32,25 @@ public class RescheduleTestActivity extends AppCompatActivity {
     private int TEST_ID; //ID теста
 
     Calendar dateAndTime = Calendar.getInstance(); //Календарь с выбранной датой и временем
-    TextView currentDateTime; //TextView с выбранной датой и временем
+    TextView startDate; //TextView с выбранной датой
+    TextView startTime; //TextView с выбранным временем
 
     DBHelper dbHelper; //Обработчик запросов к БД
 
     Button next; //Кнопка дальше
 
-    ChipGroup chipInput; //Группа чипов для выбора типа теста: тест или экзамен
+    SwitchMaterial mode; //Переключатель вида теста
 
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_reschedule);
 
-        chipInput = findViewById(R.id.chipInput); //Получаем из View группу с чипами для выбора типа теста
-        chipInput.setSingleSelection(true); //Устанавливаем одиночный режим для группы с чипами
-        Chip testChip = findViewById(R.id.chip_test); //Получаем из View чип с вариантом "test"
-        Chip examChip = findViewById(R.id.chip_exam); //Получаем из View чип с вариантом "exam"
-
 
         next = findViewById(R.id.buttonTestNext); //Получаем из View кнопку дальше
-        currentDateTime = findViewById(R.id.currentDateTime); //получаем из View TextView, предназначенный для даты теста
+        startDate = findViewById(R.id.startDate); //Получаем из View TextView, предназначенный для даты теста
+        startTime = findViewById(R.id.startTime); //Получаем из View TextView, предназначенный для времени теста
+        mode = findViewById(R.id.modeSwitch); //получаем из View SwitchMaterial, предназначенный для вида теста
 
         TEST_ID = getIntent().getIntExtra("TEST_ID", -1); //Получаем ID теста из переданных данных вызванного намерения
 
@@ -66,15 +62,14 @@ public class RescheduleTestActivity extends AppCompatActivity {
 
         //В зависимости от веса теста отмечаем нужный чип
         switch (test.getWeight()){
-            case 0: testChip.setChecked(true); break; //Вес 0 — чип "test"
-            case 1: examChip.setChecked(true); break; //Вес 1 — чип "exam"
+            case 0: mode.setChecked(false); break; //Вес 0 — чип "test"
+            case 1: mode.setChecked(true); break; //Вес 1 — чип "exam"
         }
 
         setInitialDateTime(); //Вызываем функцию установки даты теста в TextView
 
         //Устанавливаем функцию при нажатии на кнопку дальше
         next.setOnClickListener(v -> {
-            Chip selectedChip = findViewById(chipInput.getCheckedChipId()); //Получаем из View выбранный чип с видом теста
 
             Course course = dbHelper.getCourse(test.getCourseId()); //Получаем из БД родительский курс
 
@@ -84,12 +79,15 @@ public class RescheduleTestActivity extends AppCompatActivity {
             test.setDate(dat); //Устанавливаем новую дату теста
 
             //В зависимости от выбранного вида теста устанавливаем название
-            switch (selectedChip.getText().toString()){
-                case "Test": test.setWeight(0); testName+= " test"; break; //Вес 0 — вид "test"
-                case "Exam": test.setWeight(1); testName+= " exam"; break; //Вес 1 — вид "exam"
+            if (mode.isChecked()) {
+                test.setWeight(1);
+                testName += " exam";
+            } else {
+                test.setWeight(0);
+                testName += " test";
             }
 
-            testName += ", " + currentDateTime.getText(); //Добавляем в название теста его дату и время
+            testName += ", " + startDate.getText(); //Добавляем в название теста его дату и время
             test.setName(testName); //Устанавливаем новое название теста
 
             dbHelper.updateTest(TEST_ID, test); //Обновляем инофрмацию в БД новыми значениями
@@ -100,13 +98,6 @@ public class RescheduleTestActivity extends AppCompatActivity {
             CustomIntent.customType(RescheduleTestActivity.this,"left-to-right"); //Добавляем анимацию к переходу
             finish();
         });
-
-        //Что-то связанное с тулбаром
-        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         ImageView toolbarImage = findViewById(R.id.toolbar_image);
         toolbarImage.setVisibility(View.INVISIBLE);
@@ -141,10 +132,12 @@ public class RescheduleTestActivity extends AppCompatActivity {
 
     // установка начальных даты и времени
     private void setInitialDateTime() {
-        currentDateTime.setText(DateUtils.formatDateTime(this,
+        startDate.setText(DateUtils.formatDateTime(this,
                 dateAndTime.getTimeInMillis(),
-                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
-                        | DateUtils.FORMAT_SHOW_TIME));
+                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR));
+
+        startTime.setText(DateUtils.formatDateTime(this,
+                dateAndTime.getTimeInMillis(), DateUtils.FORMAT_SHOW_TIME));
     }
 
     // установка обработчика выбора времени

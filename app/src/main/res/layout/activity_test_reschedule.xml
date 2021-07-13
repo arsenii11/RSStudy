@@ -13,120 +13,152 @@
         layout="@layout/toolbar">
     </include>
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="335dp"
+        android:layout_height="220dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/widget_lessonblock"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LabelTest" />
+
     <TextView
         android:id="@+id/LabelTest"
         style="@style/TextView.Primary.Header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Reschedule Test"
-        android:textSize="40dp"
+        android:layout_marginTop="36dp"
+        android:text="New test"
+        android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.152"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <Button
         android:id="@+id/dateButton"
-        style="@style/LessonDateButton"
-        android:layout_width="165dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="88dp"
-        android:background="@drawable/buttonbackground_1"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:gravity="left"
         android:onClick="setDate"
-        android:text="select date"
+        android:text="Date"
         android:textAllCaps="false"
-        app:cornerRadius="12dp"
-        app:iconPadding="0dp"
-        app:layout_constraintStart_toStartOf="@+id/LabelTest"
-        app:layout_constraintTop_toBottomOf="@+id/LabelTest" />
+        android:textColor="@color/gray_dove_light"
+        android:textSize="25dp"
+        app:layout_constraintStart_toStartOf="@+id/view"
+        app:layout_constraintTop_toTopOf="@+id/view" />
+
 
     <Button
         android:id="@+id/timeButton"
-        style="@style/LessonDateButton"
-        android:layout_width="165dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/buttonbackground_1"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
         android:onClick="setTime"
-        android:text="select time"
+        android:textColor="@color/gray_dove_light"
+        android:gravity="left"
+        android:textSize="25dp"
+        android:text="Start"
         android:textAllCaps="false"
-        app:cornerRadius="12dp"
-        app:iconPadding="0dp"
         app:layout_constraintStart_toStartOf="@+id/dateButton"
         app:layout_constraintTop_toBottomOf="@+id/dateButton" />
 
 
-    <TextView
-        android:id="@+id/currentDateTime"
-        style="@style/LessonDateButton"
-        android:layout_width="270dp"
-        android:layout_marginTop="56dp"
-        android:background="@drawable/buttonbackground_1"
-        android:gravity="center"
+    <Button
+        android:id="@+id/test"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="Test"
+        android:clickable="false"
+        android:textAllCaps="false"
+        android:textColor="@color/gray_dove_light"
+        android:textSize="25dp"
+        app:layout_constraintStart_toStartOf="@+id/timeButton"
+        app:layout_constraintTop_toBottomOf="@+id/timeButton" />
+
+    <Button
+        android:id="@+id/exam"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="212dp"
+        android:clickable="false"
+        android:gravity="left"
+        android:text="Exam"
+        android:textAllCaps="false"
+        android:textColor="@color/gray_dove_light"
+        android:textSize="25dp"
         app:layout_constraintStart_toStartOf="@+id/timeButton"
         app:layout_constraintTop_toBottomOf="@+id/timeButton" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/startDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Test:"
-        android:textSize="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/currentDateTime"
-        app:layout_constraintStart_toStartOf="@+id/currentDateTime" />
+        android:layout_marginStart="176dp"
+        android:gravity="left"
+        android:text="__ ____ __"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="@+id/dateButton"
+        app:layout_constraintStart_toStartOf="@+id/dateButton"
+        app:layout_constraintTop_toTopOf="@+id/dateButton"
+        app:layout_constraintVertical_bias="0.517" />
+
+    <TextView
+        android:id="@+id/startTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:text="__:__"
+        app:layout_constraintBottom_toBottomOf="@+id/timeButton"
+        app:layout_constraintStart_toStartOf="@+id/startDate"
+        app:layout_constraintTop_toBottomOf="@+id/dateButton" />
+
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/modeSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:scaleX="1.25"
+        android:scaleY="1.25"
+        app:layout_constraintBottom_toBottomOf="@+id/test"
+        app:layout_constraintEnd_toStartOf="@+id/exam"
+        app:layout_constraintStart_toEndOf="@+id/test"
+        app:layout_constraintTop_toBottomOf="@+id/timeButton"
+        app:thumbTint="@color/plus1"
+        app:useMaterialThemeColors="false" />
 
     <Button
         android:id="@+id/buttonTestNext"
-        style="@style/LessonDateButton"
-        android:layout_width="211dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="160dp"
-        android:background="@drawable/buttonbackground_1"
-        android:backgroundTint="@color/plus2"
-        android:gravity="center"
-        android:text="Complete"
-        android:textColor="@color/white"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="save"
+        android:textAllCaps="false"
+        android:textColor="@color/plus1"
         android:textSize="25dp"
-        app:cornerRadius="12dp"
-        app:iconPadding="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timeButton" />
+        app:layout_constraintBottom_toBottomOf="@+id/LabelTest"
+        app:layout_constraintStart_toEndOf="@+id/LabelTest"
+        app:layout_constraintTop_toTopOf="@+id/LabelTest" />
 
-
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chipInput"
-        android:layout_width="211dp"
+    <ImageButton
+        android:id="@+id/buttonTestClose"
+        android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="8dp"
-        android:textSize="5dp"
-        app:hint="Select a type"
-        app:layout_constraintStart_toStartOf="@+id/LabelTest"
-        app:layout_constraintTop_toBottomOf="@+id/LabelTest">
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_test"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:gravity="center"
-            android:text="Test"
-            android:textSize="40dp" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_exam"
-            style="@style/Widget.MaterialComponents.Chip.Choice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:gravity="center"
-            android:text="Exam"
-            android:textSize="40dp" />
-
-
-    </com.google.android.material.chip.ChipGroup>
-
+        android:layout_marginEnd="40dp"
+        android:background="@null"
+        android:src="@drawable/close_lesson"
+        android:tint="@color/Widget2text"
+        app:layout_constraintBottom_toBottomOf="@+id/LabelTest"
+        app:layout_constraintEnd_toStartOf="@+id/LabelTest"
+        app:layout_constraintTop_toTopOf="@+id/LabelTest" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
