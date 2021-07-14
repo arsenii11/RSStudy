@@ -27,8 +27,8 @@ android {
         applicationId "com.rediss.rsstudy.release"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 7
-        versionName "4"
+        versionCode 9
+        versionName "First Release"
         ndk {
             debugSymbolLevel "FULL"
         }
