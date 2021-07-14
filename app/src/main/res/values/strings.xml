@@ -25,7 +25,7 @@
     <string name="Educational_title">Educational institution</string>
 
     <!-- Theme preferences -->
-    <string name="Application_theme_change">Application team change</string>
+    <string name="Application_theme_change">Application theme change</string>
     <string name="Auto_theme_on">Auto
     </string>
     <string name="Auto_theme_off">Manual</string>

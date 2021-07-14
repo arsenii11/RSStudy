@@ -156,7 +156,6 @@
 
     <View
         android:id="@+id/view4"
-
         style="@style/DivideListElement"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
