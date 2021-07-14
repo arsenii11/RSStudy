@@ -306,14 +306,11 @@ public class Account extends AppCompatActivity implements  Function2<CheckableCh
             // update your UI or take action after
             // exp; make progressbar gone
             try {
-                progressText.setText("Выполнено : " + 100 + "/100");
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             simpleProgressBar.setVisibility(View.INVISIBLE);
-
-            progressText.setVisibility(View.INVISIBLE);
             CircleImageView profileImage = findViewById(R.id.ProfileImage);
             Glide.with(getApplicationContext()).load(selectedImageUri).into(profileImage);
         }
@@ -322,10 +319,8 @@ public class Account extends AppCompatActivity implements  Function2<CheckableCh
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
             if(flag){
-                progressText.setVisibility(View.VISIBLE);
                 simpleProgressBar.setVisibility(View.VISIBLE);
-                progressText.setText("Выполнено : " + values[0] + "/100");
-                progressText.clearComposingText();}
+            }
         }
     }
     public void setProfileImage(){
