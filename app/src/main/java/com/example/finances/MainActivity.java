@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         //устанавливаем email
 
         String email = prefs.getString("E-mail", "");
-        TextView Email = findViewById(R.id.email);
+        TextView Email = findViewById(R.id.edutext);
         try {
             Email.setText(email);
             if (email.isEmpty()) {

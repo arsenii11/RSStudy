@@ -1,6 +1,7 @@
 package com.example.finances.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.NestedScrollView;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,8 +30,10 @@ import com.example.finances.R;
 import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
 import com.example.finances.database.Lesson;
+import com.example.finances.events.course.ClosedCourses;
 import com.example.finances.events.course.CourseAdapter;
 import com.example.finances.helpclasses.SquaredConstraintLayout;
+import com.example.finances.toolbar.SettingsActivity;
 import com.github.florent37.kotlin.pleaseanimate.PleaseAnim;
 import com.github.florent37.kotlin.pleaseanimate.core.Expectations;
 import com.github.okdroid.checkablechipview.CheckableChipView;
@@ -45,6 +48,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 import kotlin.jvm.functions.Function2;
+import maes.tech.intentanim.CustomIntent;
 import nz.co.trademe.covert.Covert;
 
 public class Account extends AppCompatActivity implements  Function2<CheckableChipView, Boolean, Unit> {
@@ -65,6 +69,9 @@ public class Account extends AppCompatActivity implements  Function2<CheckableCh
     public Uri selectedImageUri;
     public TextView Surname;
     public boolean flag;
+    ImageButton Settings;
+    ImageButton ClosedCourses;
+    ImageButton Close;
 
     CircleImageView profileImage; //изображение профиля
     Button ViewAllBt;
@@ -79,12 +86,17 @@ public class Account extends AppCompatActivity implements  Function2<CheckableCh
         setContentView(R.layout.activity_account);
         flag = true;
 
+        //exit button
+        Close = findViewById(R.id.CloseAccount);
+
+
+        //получаем адреса двух кнопок в ряду
+        Settings = findViewById(R.id.settingsbtacc);
+        ClosedCourses = findViewById(R.id.finishedCrsBt);
 
         //получаем адрес элементов из верхней части аккаунта
         profileImage = (CircleImageView) findViewById(R.id.ProfileImage);
-        background = findViewById(R.id.background);
         lay_photo = findViewById(R.id.ProfileImageLayout);
-        AnimDivider = findViewById(R.id.divideranim);
         // accountFullBt = view.findViewById(R.id.AccountFullBt);
 
         //устанавливаем изображение
@@ -92,7 +104,6 @@ public class Account extends AppCompatActivity implements  Function2<CheckableCh
 
         ImageButton PhotoButton = findViewById(R.id.FirstPhotoButton);
         simpleProgressBar = findViewById(R.id.progressBar);
-        progressText = findViewById(R.id.progressText);
         ViewAllBt = findViewById(R.id.ViewAllBt);
 
 
@@ -107,11 +118,11 @@ public class Account extends AppCompatActivity implements  Function2<CheckableCh
         }
 
         //устанавливаем email
-        String email = getInfo.getString("E-mail", "");
-        TextView Email = findViewById(R.id.email);
+        String email = getInfo.getString("Educational institution", "");
+        TextView Email = findViewById(R.id.edutext);
         Email.setText(email);
         if (email.isEmpty()) {
-            Email.setText("nickname@email.com");
+            Email.setText("");
         }
 
         //устанавливаем имя
@@ -121,6 +132,41 @@ public class Account extends AppCompatActivity implements  Function2<CheckableCh
         if (NameSur.isEmpty()) {
             Surname.setText("Name Surname");
         }
+
+
+
+        Close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Account.this, MainActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                CustomIntent.customType(Account.this,"fadein-to-fadeout");
+                finish();
+            }
+        });
+
+        Settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Account.this, SettingsActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                CustomIntent.customType(Account.this,"fadein-to-fadeout");
+                finish();
+            }
+        });
+
+        ClosedCourses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Account.this, ClosedCourses.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                CustomIntent.customType(Account.this,"fadein-to-fadeout");
+                finish();
+            }
+        });
 
 
 
