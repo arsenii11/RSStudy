@@ -115,7 +115,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Settings"
+        android:text="Closed courses"
         android:textColor="@color/diagramText"
         android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="@+id/view3"
