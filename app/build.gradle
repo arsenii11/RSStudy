@@ -27,8 +27,8 @@ android {
         applicationId "com.rediss.rsstudy.release"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 9
-        versionName "First Release"
+        versionCode 12
+        versionName "Post release"
         ndk {
             debugSymbolLevel "FULL"
         }
@@ -93,6 +93,7 @@ dependencies {
     implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'//calendar
     implementation 'com.github.pchmn:MaterialChipsInput:1.0.8'//выпадающий выбор
     implementation 'com.github.dmytrodanylyk:android-morphing-button:98a4986e56' //кнопка с галочкой
+    implementation 'com.android.billingclient:billing:4.0.0' //библиотека для платных функций
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
