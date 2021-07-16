@@ -177,7 +177,7 @@
             android:id="@+id/name2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="6dp"
+            android:layout_marginBottom="10dp"
             android:gravity="center"
             android:text="My courses"
             android:textColor="@color/diagramText"
