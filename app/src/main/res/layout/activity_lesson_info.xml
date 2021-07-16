@@ -18,12 +18,23 @@
         style="@style/TextView.Primary.Header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:text="Lesson"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar4"
-        app:layout_constraintVertical_bias="0.172" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar4" />
+
+    <TextView
+        android:id="@+id/labelLessonName2"
+        style="@style/TextView.Primary.Header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Notes:"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/lessonDescription"
+        app:layout_constraintStart_toStartOf="@+id/lessonDescription" />
 
     <Button
         android:id="@+id/rescheduleLesson"
@@ -45,11 +56,11 @@
 
     <EditText
         android:id="@+id/lessonDescription"
-        android:visibility="invisible"
-        android:layout_width="210dp"
-        android:layout_height="210dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="@+id/rescheduleLesson"
+        android:layout_width="293dp"
+        android:layout_height="287dp"
+        android:layout_marginTop="124dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rescheduleLesson" />
 
 
