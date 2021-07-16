@@ -12,6 +12,7 @@ android {
 
     buildFeatures {
         compose true
+        viewBinding true
     }
 
     composeOptions {
@@ -95,7 +96,9 @@ dependencies {
     implementation 'com.github.pchmn:MaterialChipsInput:1.0.8'//выпадающий выбор
     implementation 'com.github.dmytrodanylyk:android-morphing-button:98a4986e56' //кнопка с галочкой
 
-    implementation 'com.google.firebase:firebase-analytics'//google firebase
+    implementation 'com.google.firebase:firebase-analytics'//google firebase analytics
+    implementation 'com.google.firebase:firebase-messaging'// cloud notifications
+
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

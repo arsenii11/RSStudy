@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.finances.QuestionsActivity;
 import com.example.finances.R;
 import com.example.finances.database.Course;
 import com.example.finances.events.course.CourseAdapter;
@@ -46,6 +47,8 @@ public class HomeFragment extends Fragment  {
     Button newCourse;
     Button ViewAllBt;
 
+    ImageButton Questions;
+
     DBHelper dbHelper;
     CourseAdapter courseAdapter;
 
@@ -59,6 +62,8 @@ public class HomeFragment extends Fragment  {
         calendar = Calendar.getInstance();
 
         ViewAllBt = view.findViewById(R.id.ViewAllBt);
+
+        Questions = view.findViewById(R.id.QuestionsBT);
 
         //Список
         setInitialData();
@@ -125,6 +130,16 @@ public class HomeFragment extends Fragment  {
             }
         });
 
+        Questions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeFragment.this.getActivity(), QuestionsActivity.class);
+                startActivity(intent);
+                CustomIntent.customType(getContext(),"left-to-right");
+                getActivity().finish();
+            }
+        });
+
 
         //Кнопка раскрывающая список курсов
         ViewAllBt.setOnClickListener(new View.OnClickListener() {
@@ -147,24 +162,6 @@ public class HomeFragment extends Fragment  {
         catch (Exception e) {
             e.printStackTrace();
         }
-
-
-        /*//widget new event
-        String mydate = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-        TextView datetext = getActivity().findViewById(R.id.textdate);
-        try {
-        datetext.setText(mydate);}
-        catch (Exception e){
-            e.printStackTrace();
-        }*/
-
-
-        //widget time/day of week
-
-
-        //dayofweek.setText(setCurrentDate());
-        //currenttime.setText(setCurrentTime());
-
 
         return view;
     }

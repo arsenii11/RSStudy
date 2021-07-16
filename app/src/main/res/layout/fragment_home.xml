@@ -131,7 +131,7 @@
     android:layout_height="wrap_content">
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/QuestionsBT"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/transparent"
@@ -222,6 +222,7 @@
             android:textSize="10dp"
             android:textColor="@color/diagramText"
             android:layout_marginStart="10dp"
+            android:fontFamily="@font/nokora_bold"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/imageView3"
             app:layout_constraintStart_toEndOf="@+id/imageView3"
