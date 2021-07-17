@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "834625510011",
+    "project_id": "rs-study-d4962",
+    "storage_bucket": "rs-study-d4962.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:834625510011:android:649b6f7826cc809627e0de",
+        "android_client_info": {
+          "package_name": "com.rediss.rsstudy.release"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "834625510011-hvrcq12nu5gv76rav97btoop2t34gtte.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnJbbL2sznhfX5KFRenBpBRlCmIgSaqLU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "834625510011-hvrcq12nu5gv76rav97btoop2t34gtte.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

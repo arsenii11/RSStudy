@@ -5,7 +5,7 @@
         <item name="buttonStyle">@style/NotCapsButton</item>
         <item name="colorPrimaryDark">@color/Widget1</item>
         <item name="colorPrimary">@color/MMM_purple</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimaryVariant">@color/MMM_purple</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/Widget2</item>
@@ -40,6 +40,12 @@
         <item name="android:textSize">21sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+    <style name="Theme.Finances.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.Finances.AppBarOverlay" parent="Theme.Finances" />
+    <style name="Theme.Finances.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 </resources>

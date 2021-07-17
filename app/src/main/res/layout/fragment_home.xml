@@ -131,7 +131,7 @@
     android:layout_height="wrap_content">
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/QuestionsBT"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/transparent"
@@ -152,40 +152,40 @@
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_marginEnd="34dp"
+            android:layout_marginStart="10dp"
             android:gravity="center"
             android:text="New course"
             android:textColor="@color/plus2"
             android:textSize="13dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/name2" />
 
         <Button
             android:id="@+id/ViewAllBt"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:layout_marginStart="34dp"
+            android:layout_marginEnd="10dp"
             android:gravity="center"
             android:text="View all"
             android:textColor="@color/plus2"
             android:textSize="13dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toStartOf="@+id/name2" />
 
         <TextView
             android:id="@+id/name2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:gravity="center"
             android:text="My courses"
             android:textColor="@color/diagramText"
             android:textSize="24dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/courseBt"
-            app:layout_constraintStart_toEndOf="@+id/ViewAllBt"
-            app:layout_constraintTop_toTopOf="@+id/courseBt" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -222,6 +222,7 @@
             android:textSize="10dp"
             android:textColor="@color/diagramText"
             android:layout_marginStart="10dp"
+            android:fontFamily="@font/nokora_bold"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/imageView3"
             app:layout_constraintStart_toEndOf="@+id/imageView3"
