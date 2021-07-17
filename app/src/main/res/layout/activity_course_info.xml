@@ -31,13 +31,14 @@
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
         android:text="Close 🏁"
         android:textAllCaps="false"
         android:textColor="@color/DivideLineList"
-        android:textSize="24dp"
-        app:layout_constraintEnd_toEndOf="@+id/LabelCourseName"
-        app:layout_constraintStart_toStartOf="@+id/LabelCourseName"
-        app:layout_constraintTop_toBottomOf="@+id/LabelCourseName" />
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/LabelCourseName"
+        app:layout_constraintStart_toEndOf="@+id/LabelCourseName"
+        app:layout_constraintTop_toTopOf="@+id/LabelCourseName" />
 
     <TextView
         android:id="@+id/LableNewEvent"

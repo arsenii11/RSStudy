@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.example.finances.MainActivity;
 import com.example.finances.R;
 import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
@@ -61,6 +62,20 @@ public class ClosedCourses extends AppCompatActivity {
         menu.getItem(1).setVisible(false);
         menu.getItem(0).setVisible(false);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            Intent intent = new Intent(this, AccountActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            CustomIntent.customType(this,"fadein-to-fadeout");
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     //добавляем значения

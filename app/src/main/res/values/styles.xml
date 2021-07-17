@@ -105,4 +105,8 @@
         <item name="android:editTextColor">@color/buttontext_1</item>
 
     </style>
+
+    <style name="ClearButton">
+        <item name="android:background">@drawable/buttonbackground_1</item>
+    </style>
 </resources>

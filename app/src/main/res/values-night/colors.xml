@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="hole">#292929</color>
+    <color name="hole">#9A292929</color>
     <color name="diagramText">#FFFFFF</color>
     <color name="enterpurple">#6644E6</color>
-    <color name="button_course">@color/gray_dove_light</color>
+
     <color name="ListBackGround">#70B42CD3</color>
     <color name="DivideLine">#C8C3C3</color>
     <color name="DivideLineList">#CAC1C1</color>
     <color name="background_main">#101010</color>
     <color name="MMM_purple">#8377DD</color>
     <color name="blue">#2C1AB5</color>
+    <color name="info">#B7B3D2</color>
 
      <color name="Widget1">#ABA4DB</color>
     <color name="Widget2">#604EE7</color>
     <color name="Widget3">#070037</color>
-
     <color name="Widget2text">#B7B3D2</color>
 
     <!--Цвета виджета из трех плюсов-->

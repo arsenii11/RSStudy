@@ -134,7 +134,6 @@ public class HomeFragment extends Fragment  {
             Intent intent = new Intent(HomeFragment.this.getActivity(), QuestionsActivity.class);
             startActivity(intent);
             CustomIntent.customType(getContext(),"left-to-right");
-            getActivity().finish();
         });
 
 

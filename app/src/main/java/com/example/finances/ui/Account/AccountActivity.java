@@ -124,6 +124,7 @@ public class AccountActivity extends AppCompatActivity implements  Function2<Che
 
 
 
+
         Close.setOnClickListener(v -> {
             Intent intent = new Intent(AccountActivity.this, MainActivity.class);
             startActivity(intent);
