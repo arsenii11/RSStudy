@@ -3,14 +3,12 @@ package com.example.finances.events.lesson;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -29,8 +27,7 @@ import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
 import com.example.finances.database.Lesson;
 import com.example.finances.database.LessonOptions;
-import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipGroup;
+import com.example.finances.events.course.CourseActivity;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.Calendar;
@@ -57,6 +54,8 @@ public class NewLessonActivity extends AppCompatActivity {
     SwitchMaterial repeatOnOff; //Перключатель повтора урока
     ImageButton exit; //выход из активности
 
+    private String ACTIVITY; //название активности, вызвавшей намерение
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,11 +76,21 @@ public class NewLessonActivity extends AppCompatActivity {
         LESSONS = i.getIntExtra("LESSONS", -1);
         CURRENT_LESSON = i.getIntExtra("CURRENT_LESSON", -1);
 
+        ACTIVITY = i.getStringExtra("ACTIVITY");
+        Intent finishIntent;
+        switch (ACTIVITY){
+            case "MAIN": finishIntent = new Intent(NewLessonActivity.this, MainActivity.class); break;
+            case "COURSE": finishIntent = new Intent(NewLessonActivity.this, CourseActivity.class);
+                            finishIntent.putExtra("COURSE_ID", COURSE_ID);
+                            break;
+            default: finishIntent = new Intent(NewLessonActivity.this, MainActivity.class); break;
+        }
+
         startDate = findViewById(R.id.startDate); //Ищем TextView для даты начала
         startTime = findViewById(R.id.startTime); //Ищем TextView для времени начала
         endTime = findViewById(R.id.endTime); //Ищем TextView для времени конца
 
-        exit = findViewById(R.id.buttonLessonClose);//Ищем кнопку выхода из активности
+        exit = findViewById(R.id.buttonLessonClose); //Ищем кнопку выхода из активности
 
 
         repeatOnOff = findViewById(R.id.repeatSwitch); //ищем переключатель повтора on/off
@@ -96,213 +105,209 @@ public class NewLessonActivity extends AppCompatActivity {
                 radioGroup.setVisibility(View.INVISIBLE);
         });
 
-        exit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CustomIntent.customType(NewLessonActivity.this, "right-to-left");
-                finish();
-            }
+        exit.setOnClickListener(v -> {
+            startActivity(finishIntent);
+            CustomIntent.customType(NewLessonActivity.this, "right-to-left");
+            finish();
         });
 
         //Назначаем действия при клике на кнопку дальше
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view1) {
+        next.setOnClickListener(v -> {
 
-                if ((startCalendar.getTimeInMillis() < endCalendar.getTimeInMillis()) && !startTime.getText().toString().contains("__") && !endTime.getText().toString().contains("__")) {
+            if ((startCalendar.getTimeInMillis() < endCalendar.getTimeInMillis()) && !startTime.getText().toString().contains("__") && !endTime.getText().toString().contains("__")) {
 
-                    //Определям режим повторения
-                    if (repeatOnOff.isChecked())
-                        COURSE_REPEAT = "YES";
-                    else
-                        COURSE_REPEAT = "NO";
+                //Определям режим повторения
+                if (repeatOnOff.isChecked())
+                    COURSE_REPEAT = "YES";
+                else
+                    COURSE_REPEAT = "NO";
 
-                    //Ищем выбранный режим повтора
-                    RadioButton modeRadioButton = findViewById(radioGroup.getCheckedRadioButtonId());
-                    COURSE_REPEAT_MODE =  modeRadioButton.getText().toString().toUpperCase();
+                //Ищем выбранный режим повтора
+                RadioButton modeRadioButton = findViewById(radioGroup.getCheckedRadioButtonId());
+                COURSE_REPEAT_MODE =  modeRadioButton.getText().toString().toUpperCase();
 
-                    DBHelper dbHelper = new DBHelper(getApplicationContext()); //заполняем БД
-                    Lesson lesson = new Lesson(); //Создаем пустой урок
-                    Course course = dbHelper.getCourse(COURSE_ID); //Получаем родительский курс из БД по его ID
+                DBHelper dbHelper = new DBHelper(getApplicationContext()); //заполняем БД
+                Lesson lesson = new Lesson(); //Создаем пустой урок
+                Course course = dbHelper.getCourse(COURSE_ID); //Получаем родительский курс из БД по его ID
 
-                    String currentTime = startTime.getText().toString(); //Получаем из TextView время начала урока
-                    if (currentTime.split(" ").length > 1) {
-                        if (currentTime.split(" ")[1].equals("AM")) {
-                            currentTime = currentTime.split(" ")[0];
-                            if (currentTime.split(":")[0].equals("12"))
-                                currentTime = "0:" + currentTime.split(":")[1];
-                        } else {
-                            currentTime = currentTime.split(" ")[0];
-                            int hours = Integer.parseInt(currentTime.split(":")[0]) + 12;
-                            currentTime = String.valueOf(hours) + ":" + currentTime.split(":")[1];
-                        }
+                String currentTime = startTime.getText().toString(); //Получаем из TextView время начала урока
+                if (currentTime.split(" ").length > 1) {
+                    if (currentTime.split(" ")[1].equals("AM")) {
+                        currentTime = currentTime.split(" ")[0];
+                        if (currentTime.split(":")[0].equals("12"))
+                            currentTime = "0:" + currentTime.split(":")[1];
+                    } else {
+                        currentTime = currentTime.split(" ")[0];
+                        int hours = Integer.parseInt(currentTime.split(":")[0]) + 12;
+                        currentTime = hours + ":" + currentTime.split(":")[1];
                     }
+                }
 
-                    String endTimeStr = endTime.getText().toString(); //Получаем из TextView время окончания урока
-                    if (endTimeStr.split(" ").length > 1) {
-                        if (endTimeStr.split(" ")[1].equals("AM")) {
-                            endTimeStr = endTimeStr.split(" ")[0];
-                            if (endTimeStr.split(":")[0].equals("12"))
-                                endTimeStr = "0:" + endTimeStr.split(":")[1];
-                        } else {
-                            endTimeStr = endTimeStr.split(" ")[0];
-                            int hours = Integer.parseInt(endTimeStr.split(":")[0]) + 12;
-                            endTimeStr = String.valueOf(hours) + ":" + endTimeStr.split(":")[1];
-                        }
+                String endTimeStr = endTime.getText().toString(); //Получаем из TextView время окончания урока
+                if (endTimeStr.split(" ").length > 1) {
+                    if (endTimeStr.split(" ")[1].equals("AM")) {
+                        endTimeStr = endTimeStr.split(" ")[0];
+                        if (endTimeStr.split(":")[0].equals("12"))
+                            endTimeStr = "0:" + endTimeStr.split(":")[1];
+                    } else {
+                        endTimeStr = endTimeStr.split(" ")[0];
+                        int hours = Integer.parseInt(endTimeStr.split(":")[0]) + 12;
+                        endTimeStr = hours + ":" + endTimeStr.split(":")[1];
                     }
-                    //Рассчитываем длительность урока в формате HH:MM
-                    String dur = NewLessonActivity.this.endTime.getText().toString();
+                }
+                //Рассчитываем длительность урока в формате HH:MM
+                String dur;
 
-                    int hours = Integer.parseInt(endTimeStr.split(":")[0]) - Integer.parseInt(currentTime.split(":")[0]);
-                    float minutes = Float.parseFloat(endTimeStr.split(":")[1]) - Float.parseFloat(currentTime.split(":")[1]);
+                int hours = Integer.parseInt(endTimeStr.split(":")[0]) - Integer.parseInt(currentTime.split(":")[0]);
+                float minutes = Float.parseFloat(endTimeStr.split(":")[1]) - Float.parseFloat(currentTime.split(":")[1]);
 
-                    if (minutes < 0) {
-                        hours--;
-                        minutes += 60;
-                    }
+                if (minutes < 0) {
+                    hours--;
+                    minutes += 60;
+                }
 
-                    String hoursStr = String.valueOf(hours);
-                    String minutesStr = String.valueOf(minutes).split("\\.")[0];
-                    minutesStr = minutesStr.length() < 2 ? "0" + minutesStr : minutesStr;
-                    dur = hoursStr + ":" + minutesStr;
-
-
-                    String lessonName = course.getName() + ", " + startDate.getText().toString() + ", " + startTime.getText().toString() + ", " + dur + " hours"; //Вычисляем имя урока
-                    lesson.setName(lessonName); //Устанавливаем имя урока
-
-                    lesson.setCourseId(COURSE_ID); //устанавливаем уроку ID родительского курса
-
-                    long dat = startCalendar.getTimeInMillis() / 1000; //Рассчитываем дату начала урока в секундах
-                    lesson.setDate(dat); //Устанавливаем дату начала
-
-                    //Рассчитываем и устанавливаем длительность урока в виде десятичной дроби
-                    try {
-                        lesson.setDuration(Integer.parseInt(dur.split(":")[0]) + Float.parseFloat(dur.split(":")[1]) / 60);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                String hoursStr = String.valueOf(hours);
+                String minutesStr = String.valueOf(minutes).split("\\.")[0];
+                minutesStr = minutesStr.length() < 2 ? "0" + minutesStr : minutesStr;
+                dur = hoursStr + ":" + minutesStr;
 
 
-                    //Запускаем умное добавление урока в БД
-                    long lessonId = dbHelper.insertLessonSmart(lesson);
-                    if (lessonId != -1) {
+                String lessonName = course.getName() + ", " + startDate.getText().toString() + ", " + startTime.getText().toString() + ", " + dur + " hours"; //Вычисляем имя урока
+                lesson.setName(lessonName); //Устанавливаем имя урока
 
-                        CURRENT_LESSON++; //Увеличиваем счетчик установленных уроков
+                lesson.setCourseId(COURSE_ID); //устанавливаем уроку ID родительского курса
 
-                        LessonOptions lessonOptions = new LessonOptions(); //Создаем новые опции для урока
+                long dat = startCalendar.getTimeInMillis() / 1000; //Рассчитываем дату начала урока в секундах
+                lesson.setDate(dat); //Устанавливаем дату начала
 
-                        lesson = dbHelper.getLesson(lessonId); //Ищем добавленный урок
+                //Рассчитываем и устанавливаем длительность урока в виде десятичной дроби
+                try {
+                    lesson.setDuration(Integer.parseInt(dur.split(":")[0]) + Float.parseFloat(dur.split(":")[1]) / 60);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-                        lessonOptions.setLessonId(lesson.getId()); //Устанавливаем id урока в опции
-                        lessonOptions.setCalendarEventId(addCalendarEvent(course.getName() + " lesson", startCalendar.getTimeInMillis(), endCalendar.getTimeInMillis())); //Устанавливаем ID события в календаре
-                        lessonOptions.setIsRepeatable(0); //Ставим режим "не повторять"
-                        lessonOptions.setRepeatMode(1); //Ставим повтор урока раз в неделю
-                        lessonOptions.setDescription(""); //Ставим пустое описание
 
-                        long add = 0;
-                        //Добавляем опции урока в БД
-                        if (COURSE_REPEAT.equals("YES")) {
+                //Запускаем умное добавление урока в БД
+                long lessonId = dbHelper.insertLessonSmart(lesson);
+                if (lessonId != -1) {
 
-                            lessonOptions.setIsRepeatable(1); //Устанавливаем режим "повторять"
+                    CURRENT_LESSON++; //Увеличиваем счетчик установленных уроков
 
-                            //Рассчитываем добавочные миллисекудны и устанавливаем режим повтора урока в опции
+                    LessonOptions lessonOptions = new LessonOptions(); //Создаем новые опции для урока
 
-                            if (COURSE_REPEAT_MODE.equals("MONTHLY")) {
+                    lesson = dbHelper.getLesson(lessonId); //Ищем добавленный урок
+
+                    lessonOptions.setLessonId(lesson.getId()); //Устанавливаем id урока в опции
+                    lessonOptions.setCalendarEventId(addCalendarEvent(course.getName() + " lesson", startCalendar.getTimeInMillis(), endCalendar.getTimeInMillis())); //Устанавливаем ID события в календаре
+                    lessonOptions.setIsRepeatable(0); //Ставим режим "не повторять"
+                    lessonOptions.setRepeatMode(1); //Ставим повтор урока раз в неделю
+                    lessonOptions.setDescription(""); //Ставим пустое описание
+
+                    long add = 0;
+                    //Добавляем опции урока в БД
+                    if (COURSE_REPEAT.equals("YES")) {
+
+                        lessonOptions.setIsRepeatable(1); //Устанавливаем режим "повторять"
+
+                        //Рассчитываем добавочные миллисекудны и устанавливаем режим повтора урока в опции
+
+                        switch (COURSE_REPEAT_MODE) {
+                            case "MONTHLY":
                                 add = 2419200000L;
                                 lessonOptions.setRepeatMode(3);
-                            } else if (COURSE_REPEAT_MODE.equals("WEEKLY")) {
+                                break;
+                            case "WEEKLY":
                                 add = 604800000L;
                                 lessonOptions.setRepeatMode(1);
-                            } else if (COURSE_REPEAT_MODE.equals("EVERY TWO WEEKS")) {
+                                break;
+                            case "EVERY TWO WEEKS":
                                 add = 1209600000L;
                                 lessonOptions.setRepeatMode(2);
-                            }
-
-                        }
-                        dbHelper.insertLessonOptions(lessonOptions); //Добавляем опции урока в БД
-
-                        if(lessonOptions.getIsRepeatable() > 0){
-                            int k = 0;
-                            switch (lessonOptions.getRepeatMode()){
-                                case 1: k = 4; break;
-                                case 2: k = 2; break;
-                                case 3: k = 1; break;
-                            }
-
-                            for (int i = 1; i <= k; i++) {
-
-                                Lesson lessonPer = new Lesson();
-                                lessonPer.setDuration(lesson.getDuration());
-                                lessonPer.setCourseId(lesson.getCourseId());
-                                lessonPer.setWeight(lesson.getWeight());
-
-
-                                startCalendar.setTimeInMillis(startCalendar.getTimeInMillis() + add);
-                                lessonPer.setDate(startCalendar.getTimeInMillis() / 1000);
-
-                                String lessonNamePer = course.getName() + ", " + DateUtils.formatDateTime(NewLessonActivity.this,
-                                        startCalendar.getTimeInMillis(),
-                                        DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
-                                                | DateUtils.FORMAT_SHOW_TIME) + ", " + dur + " hours";
-                                lessonPer.setName(lessonNamePer);
-
-                                long lessonPerId = dbHelper.insertLessonSmart(lessonPer);
-
-                                lessonPer = dbHelper.getLesson(lessonPerId);
-
-                                LessonOptions options = new LessonOptions();
-                                options.setIsRepeatable(lessonOptions.getIsRepeatable());
-                                options.setRepeatMode(lessonOptions.getRepeatMode());
-                                options.setLessonId(lessonPer.getId());
-                                options.setDescription("");
-
-                                long endDate = lessonPer.getDate() + (long) lessonPer.getDuration() * 3600000;
-                                options.setCalendarEventId(addCalendarEvent(course.getName() + " lesson", lessonPer.getDate(), endDate));
-
-                                dbHelper.insertLessonOptions(options);
-                            }
+                                break;
                         }
 
-                        //Проверяем, нужно ли предложить создать еще один урок
-                        if (CURRENT_LESSON < LESSONS) {
+                    }
+                    dbHelper.insertLessonOptions(lessonOptions); //Добавляем опции урока в БД
 
-                            //Создаем новое намерение и отправляем вместе с ним данные
-                            Intent intent = new Intent(NewLessonActivity.this, NewLessonActivity.class);
-                            intent.putExtra("COURSE_ID", COURSE_ID);
-                            intent.putExtra("LESSONS", LESSONS);
-                            intent.putExtra("CURRENT_LESSON", CURRENT_LESSON);
-                            intent.putExtra("COURSE_REPEAT", COURSE_REPEAT);
-                            intent.putExtra("COURSE_REPEAT_MODE", COURSE_REPEAT_MODE);
-
-                            finish();
-                            startActivity(intent);
-                            CustomIntent.customType(NewLessonActivity.this, "left-to-right");
-                        } else {
-                            //Возврат на главный экран
-                            Intent intent = new Intent(NewLessonActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            CustomIntent.customType(NewLessonActivity.this, "left-to-right");
-                            finish();
+                    if(lessonOptions.getIsRepeatable() > 0){
+                        int k = 0;
+                        switch (lessonOptions.getRepeatMode()){
+                            case 1: k = 4; break;
+                            case 2: k = 2; break;
+                            case 3: k = 1; break;
                         }
+
+                        for (int i1 = 1; i1 <= k; i1++) {
+
+                            Lesson lessonPer = new Lesson();
+                            lessonPer.setDuration(lesson.getDuration());
+                            lessonPer.setCourseId(lesson.getCourseId());
+                            lessonPer.setWeight(lesson.getWeight());
+
+
+                            startCalendar.setTimeInMillis(startCalendar.getTimeInMillis() + add);
+                            lessonPer.setDate(startCalendar.getTimeInMillis() / 1000);
+
+                            String lessonNamePer = course.getName() + ", " + DateUtils.formatDateTime(NewLessonActivity.this,
+                                    startCalendar.getTimeInMillis(),
+                                    DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
+                                            | DateUtils.FORMAT_SHOW_TIME) + ", " + dur + " hours";
+                            lessonPer.setName(lessonNamePer);
+
+                            long lessonPerId = dbHelper.insertLessonSmart(lessonPer);
+
+                            lessonPer = dbHelper.getLesson(lessonPerId);
+
+                            LessonOptions options = new LessonOptions();
+                            options.setIsRepeatable(lessonOptions.getIsRepeatable());
+                            options.setRepeatMode(lessonOptions.getRepeatMode());
+                            options.setLessonId(lessonPer.getId());
+                            options.setDescription("");
+
+                            long endDate = lessonPer.getDate() + (long) lessonPer.getDuration() * 3600000;
+                            options.setCalendarEventId(addCalendarEvent(course.getName() + " lesson", lessonPer.getDate(), endDate));
+
+                            dbHelper.insertLessonOptions(options);
+                        }
+                    }
+
+                    //Проверяем, нужно ли предложить создать еще один урок
+                    if (CURRENT_LESSON < LESSONS) {
+
+                        //Создаем новое намерение и отправляем вместе с ним данные
+                        Intent intent = new Intent(NewLessonActivity.this, NewLessonActivity.class);
+                        intent.putExtra("COURSE_ID", COURSE_ID);
+                        intent.putExtra("LESSONS", LESSONS);
+                        intent.putExtra("CURRENT_LESSON", CURRENT_LESSON);
+                        intent.putExtra("COURSE_REPEAT", COURSE_REPEAT);
+                        intent.putExtra("COURSE_REPEAT_MODE", COURSE_REPEAT_MODE);
+                        intent.putExtra("ACTIVITY", ACTIVITY);
+
+                        finish();
+                        startActivity(intent);
+                        CustomIntent.customType(NewLessonActivity.this, "left-to-right");
                     } else {
                         //Возврат на главный экран
-                        Intent intent = new Intent(NewLessonActivity.this, MainActivity.class);
-                        startActivity(intent);
+                        startActivity(finishIntent);
                         CustomIntent.customType(NewLessonActivity.this, "left-to-right");
                         finish();
                     }
+                } else {
+                    //Возврат на главный экран
+                    startActivity(finishIntent);
+                    CustomIntent.customType(NewLessonActivity.this, "left-to-right");
+                    finish();
                 }
-                else{
-                    AlertDialog.Builder builder = new AlertDialog.Builder(NewLessonActivity.this);
-                    builder.setTitle("Error!")
-                            .setMessage("Please choose correct date and time")
-                            .setCancelable(true)
-                            .setNegativeButton("Ok", ((dialog, which) -> {
-                                dialog.cancel();
-                            }))
-                            .create()
-                            .show();
-                }
+            }
+            else{
+                AlertDialog.Builder builder = new AlertDialog.Builder(NewLessonActivity.this);
+                builder.setTitle("Error!")
+                        .setMessage("Please choose correct date and time")
+                        .setCancelable(true)
+                        .setNegativeButton("Ok", ((dialog, which) -> dialog.cancel()))
+                        .create()
+                        .show();
             }
         });
 

@@ -38,6 +38,7 @@ import nz.co.trademe.covert.Covert;
 public class CourseActivity extends AppCompatActivity {
 
     private int COURSE_ID;
+    private final String ACTIVITY = "COURSE";
 
     ArrayList<NewEvent> newEvents = new ArrayList<NewEvent>();
     ArrayList<Event> events = new ArrayList<Event>();
@@ -84,12 +85,14 @@ public class CourseActivity extends AppCompatActivity {
         TextView titleshadow = toolbar.findViewById(R.id.toolbar_shadowtext);
         titleshadow.setVisibility(View.INVISIBLE);
 
-        COURSE_ID = getIntent().getIntExtra("COURSE_ID", -1);
+        Intent i = getIntent();
+        COURSE_ID = i.getIntExtra("COURSE_ID", -1);
+        //ACTIVITY = i.getStringExtra("ACTIVITY");
 
         setInitialData();
 
         RecyclerView recyclerView = findViewById(R.id.NewEventList);
-        NewEventAdapter adapter = new NewEventAdapter(this, newEvents, COURSE_ID);
+        NewEventAdapter adapter = new NewEventAdapter(this, newEvents, COURSE_ID, ACTIVITY);
         recyclerView.setAdapter(adapter);
 
         covert = Covert.with(config).setIsActiveCallback(viewHolder -> false).doOnSwipe((viewHolder, swipeDirection) -> {
@@ -108,7 +111,7 @@ public class CourseActivity extends AppCompatActivity {
             }
 
             setInitialData();
-            mainAdaptor = new MainAdaptor(this, events, true, true, covert);
+            mainAdaptor = new MainAdaptor(this, events, true, true, covert, ACTIVITY);
             eventsList.setAdapter(mainAdaptor);
 
             return null;
@@ -121,7 +124,7 @@ public class CourseActivity extends AppCompatActivity {
             dbHelper.updateCourse(COURSE_ID, course);
         });
 
-        mainAdaptor = new MainAdaptor(this, events, true, true, covert);
+        mainAdaptor = new MainAdaptor(this, events, true, true, covert, ACTIVITY);
         eventsList.setAdapter(mainAdaptor);
 
     }

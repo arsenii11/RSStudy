@@ -39,6 +39,7 @@ import static com.example.finances.MainActivity.ALLOW_ADD_TO_CALENDAR;
 public class RescheduleLessonActivity extends AppCompatActivity {
 
     private int LESSON_ID; //ID урока
+    private String ACTIVITY;
 
     Calendar startCalendar; //Календарь начала
     Calendar endCalendar; //Календарь конца
@@ -84,8 +85,9 @@ public class RescheduleLessonActivity extends AppCompatActivity {
         repeatOnOff = findViewById(R.id.repeatSwitch); //ищем переключатель повтора on/off
         radioGroup = findViewById(R.id.radioGroup); //Ищем группу RadioButton для выбора режма повторения урока
 
-
-        LESSON_ID = getIntent().getIntExtra("LESSON_ID", -1); //Получаем ID урока из данных вызванного намерения
+        Intent i = getIntent();
+        LESSON_ID = i.getIntExtra("LESSON_ID", -1); //Получаем ID урока из данных вызванного намерения
+        ACTIVITY = i.getStringExtra("ACTIVITY");
 
         Lesson lesson = dbHelper.getLesson(LESSON_ID); //Получаем экземпляр урока из БД
         LessonOptions lessonOptions = dbHelper.getLessonOptions(LESSON_ID); //Получаем экземпляр опций урока из БД
@@ -94,12 +96,9 @@ public class RescheduleLessonActivity extends AppCompatActivity {
         endCalendar.setTimeInMillis(lesson.getDate()*1000 + (long) (lesson.getDuration()*3600000)); //Устанавливаем в календарь конца текущую дату урока + его длительность
 
         exit = findViewById(R.id.buttonLessonClose);//Ищем кнопку выхода из активности
-        exit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CustomIntent.customType(RescheduleLessonActivity.this, "right-to-left");
-                finish();
-            }
+        exit.setOnClickListener(v -> {
+            CustomIntent.customType(RescheduleLessonActivity.this, "right-to-left");
+            finish();
         });
         //В зависимости от повторения урока отмечаем нужный чип
         switch (lessonOptions.getIsRepeatable()){
@@ -147,7 +146,7 @@ public class RescheduleLessonActivity extends AppCompatActivity {
                 else{
                     currentTime = currentTime.split(" ")[0];
                     int hours = Integer.parseInt(currentTime.split(":")[0]) + 12;
-                    currentTime = String.valueOf(hours) + ":" + currentTime.split(":")[1];
+                    currentTime = hours + ":" + currentTime.split(":")[1];
                 }
             }
 
@@ -160,12 +159,12 @@ public class RescheduleLessonActivity extends AppCompatActivity {
                 else{
                     endTimeStr = endTimeStr.split(" ")[0];
                     int hours = Integer.parseInt(endTimeStr.split(":")[0]) + 12;
-                    endTimeStr = String.valueOf(hours) + ":" + endTimeStr.split(":")[1];
+                    endTimeStr = hours + ":" + endTimeStr.split(":")[1];
                 }
             }
 
             //Рассчитываем длительность урока в формате HH:MM
-            String dur = this.endTime.getText().toString();
+            String dur;
 
             int hours = Integer.parseInt(endTimeStr.split(":")[0])-Integer.parseInt(currentTime.split(":")[0]);
             float minutes = Float.parseFloat(endTimeStr.split(":")[1]) - Float.parseFloat(currentTime.split(":")[1]);

@@ -26,6 +26,8 @@ public class CourseLength extends AppCompatActivity {
     Spinner spinner; //меню выбора количества уроков в неделю
     int lessons; //Выбранное количество уроков в неделю
 
+    private String ACTIVITY;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,14 @@ public class CourseLength extends AppCompatActivity {
         String[] numbers = {"0", "1", "2", "3", "4", "5", "6", "7"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, numbers);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        Intent i = getIntent(); //Получаем намерение, которое вызвало эту активность
+        ACTIVITY = i.getStringExtra("ACTIVITY"); //Получаем название активности, с которой началось действие
+        Intent finishIntent;
+        switch (ACTIVITY){
+            case "MAIN": finishIntent = new Intent(CourseLength.this, MainActivity.class); break;
+            default: finishIntent = new Intent(CourseLength.this, MainActivity.class); break;
+        }
 
         spinner.setAdapter(adapter); //Устанавливаем адптер в меню
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -53,7 +63,7 @@ public class CourseLength extends AppCompatActivity {
 
         next = findViewById(R.id.buttonNext2);
         next.setOnClickListener(v -> {
-            Intent i = getIntent();
+
             Course course = new Course();
             course.setName(i.getStringExtra("COURSE_NAME"));
 
@@ -65,11 +75,11 @@ public class CourseLength extends AppCompatActivity {
                 intent.putExtra("COURSE_ID", course.getId());
                 intent.putExtra("LESSONS", lessons);
                 intent.putExtra("CURRENT_LESSON", 0);
+                intent.putExtra("ACTIVITY", ACTIVITY);
                 startActivity(intent);
             }
             else {
-                Intent intent = new Intent(CourseLength.this, MainActivity.class);
-                startActivity(intent);
+                startActivity(finishIntent);
             }
             CustomIntent.customType(CourseLength.this,"left-to-right");
             finish();
@@ -78,16 +88,9 @@ public class CourseLength extends AppCompatActivity {
 
         close = findViewById(R.id.closeButton2);
         close.setOnClickListener(v -> {
-            Intent intent = new Intent(CourseLength.this, MainActivity.class);
-            startActivity(intent);
+            startActivity(finishIntent);
             CustomIntent.customType(CourseLength.this,"fadein-to-fadeout");
             finish();
-
-            if(CourseName.instance != null) {
-                try {
-                    CourseName.instance.finish();
-                } catch (Exception e) {}
-            }
 
         });
     }

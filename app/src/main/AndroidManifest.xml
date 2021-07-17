@@ -17,7 +17,7 @@
         android:theme="@style/Theme.Finances">
         <activity android:name=".QuestionsActivity"/>
         <activity android:name=".events.course.ClosedCourses" />
-        <activity android:name=".ui.Account" />
+        <activity android:name=".ui.Account.AccountActivity" />
 
         <receiver
             android:name=".notifications.NotificationReceiver"

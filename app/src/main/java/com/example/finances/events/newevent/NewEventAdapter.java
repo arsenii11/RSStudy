@@ -20,12 +20,14 @@ import maes.tech.intentanim.CustomIntent;
 public class NewEventAdapter extends RecyclerView.Adapter<NewEventAdapter.ViewHolder> {
     private final LayoutInflater inflater;
     private final List<NewEvent> NewEventStates;
-    private int COURSE_ID;
+    private final int COURSE_ID;
+    private final String ACTIVITY;
 
-    public NewEventAdapter(Context context, List<NewEvent> NewEventStates, int COURSE_ID){
+    public NewEventAdapter(Context context, List<NewEvent> NewEventStates, int COURSE_ID, String ACTIVITY){
         this.NewEventStates = NewEventStates;
         this.inflater = LayoutInflater.from(context);
         this.COURSE_ID = COURSE_ID;
+        this.ACTIVITY = ACTIVITY;
     }
     public NewEventAdapter.ViewHolder  onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -37,26 +39,21 @@ public class NewEventAdapter extends RecyclerView.Adapter<NewEventAdapter.ViewHo
     public void onBindViewHolder(NewEventAdapter.ViewHolder holder, int position) {
         NewEvent newevent = NewEventStates.get(position);
         holder.newEventName.setText(newevent.getNewEventname());
-        holder.itemView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-              if(holder.newEventName.getText().toString().equals("lesson")){
-                  Intent intent = new Intent(v.getContext(), NewLessonActivity.class);
-                  intent.putExtra("COURSE_ID", COURSE_ID);
-                  intent.putExtra("CURRENT_LESSON", 0);
-                  intent.putExtra("LESSONS", 1);
-                  intent.putExtra("COURSE_REPEAT", "NO");
-                  v.getContext().startActivity(intent);
-                  CustomIntent.customType(v.getContext(),"left-to-right");
-              }
-              else{
-                  Intent intent = new Intent(v.getContext(), NewTestActivity.class);
-                  intent.putExtra("COURSE_ID", COURSE_ID);
-                  v.getContext().startActivity(intent);
-                  CustomIntent.customType(v.getContext(),"left-to-right");
-              }
+        holder.itemView.setOnClickListener(v -> {
+          Intent intent = new Intent(v.getContext(), NewLessonActivity.class);
+          if(holder.newEventName.getText().toString().equals("lesson")){
+              intent.putExtra("COURSE_ID", COURSE_ID);
+              intent.putExtra("CURRENT_LESSON", 0);
+              intent.putExtra("LESSONS", 1);
+              intent.putExtra("COURSE_REPEAT", "NO");
+          }
+          else{
+              intent.putExtra("COURSE_ID", COURSE_ID);
+          }
 
-            }
+          intent.putExtra("ACTIVITY", ACTIVITY);
+          v.getContext().startActivity(intent);
+          CustomIntent.customType(v.getContext(),"left-to-right");
         });
 
     }

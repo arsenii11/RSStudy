@@ -16,48 +16,43 @@ import maes.tech.intentanim.CustomIntent;
 
 public class CourseName extends AppCompatActivity {
 
-    public static CourseName instance = null;
-
     Button next;
     ImageButton close;
+
+    private String ACTIVITY;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_name);
 
-        instance = this;
-
         final EditText contentEditText = findViewById(R.id.editTextCourseName);
 
-        next = findViewById(R.id.buttonNext);
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String content = contentEditText.getText().toString();
+        ACTIVITY = getIntent().getStringExtra("ACTIVITY");
+        Intent finishIntent;
+        switch (ACTIVITY){
+            case "MAIN": finishIntent = new Intent(CourseName.this, MainActivity.class); break;
+            default: finishIntent = new Intent(CourseName.this, MainActivity.class); break;
+        }
 
-                Intent intent = new Intent(CourseName.this, CourseLength.class);
-                intent.putExtra("COURSE_NAME", content);
-                startActivity(intent);
-                CustomIntent.customType(CourseName.this,"left-to-right");
-            }
+        next = findViewById(R.id.buttonNext);
+        next.setOnClickListener(v -> {
+            String content = contentEditText.getText().toString();
+
+            Intent intent = new Intent(CourseName.this, CourseLength.class);
+            intent.putExtra("COURSE_NAME", content);
+            intent.putExtra("ACTIVITY", ACTIVITY);
+            startActivity(intent);
+            CustomIntent.customType(CourseName.this,"left-to-right");
+            finish();
         });
 
         close = findViewById(R.id.closeButton);
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CourseName.this, MainActivity.class);
-                startActivity(intent);
-                CustomIntent.customType(CourseName.this,"fadein-to-fadeout");
-                finish();
-            }
+        close.setOnClickListener(v -> {
+            startActivity(finishIntent);
+            CustomIntent.customType(CourseName.this,"fadein-to-fadeout");
+            finish();
         });
 
-    }
-
-    @Override
-    public void finish() {
-        super.finish();
-        instance = null;
     }
 }

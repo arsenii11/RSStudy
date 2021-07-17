@@ -36,6 +36,8 @@ import static com.pchmn.materialchips.R2.id.container;
 
 public class StatisticsFragment extends Fragment  {
 
+    private final String ACTIVITY = "MAIN";
+
     ImageButton plusCourse;
     ImageButton plusLesson;
     ImageButton plusTest;
@@ -59,8 +61,6 @@ public class StatisticsFragment extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_statistics, container, false);
-
-        Context context = getContext();
 
         setProfileWidgetImage();
 
@@ -103,7 +103,7 @@ public class StatisticsFragment extends Fragment  {
                 TextView courseView = courseViews.get(i);
                 TextView lsnView = lsnViews.get(i);
 
-                String courseText = course.getName() + "  " + String.valueOf((int) dbHelper.getLessonDurationByCourse(course.getId())) + " h";
+                String courseText = course.getName() + "  " + (int) dbHelper.getLessonDurationByCourse(course.getId()) + " h";
                 courseView.setText(courseText);
 
                 String addTxt = course.getLessons() == 1 ? "lesson" : "lessons";

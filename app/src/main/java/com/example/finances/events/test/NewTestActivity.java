@@ -38,6 +38,8 @@ import maes.tech.intentanim.CustomIntent;
 
 public class NewTestActivity extends AppCompatActivity {
 
+    private String ACTIVITY;
+
     Calendar dateAndTime = Calendar.getInstance();
     TextView startDate;
     TextView startTime;
@@ -51,7 +53,18 @@ public class NewTestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_new);
-        COURSE_ID = getIntent().getIntExtra("COURSE_ID", -1);
+
+        Intent i = getIntent();
+        COURSE_ID = i.getIntExtra("COURSE_ID", -1);
+        ACTIVITY = i.getStringExtra("ACTIVITY");
+        Intent finishIntent;
+        switch (ACTIVITY){
+            case "MAIN": finishIntent = new Intent(NewTestActivity.this, MainActivity.class); break;
+            case "COURSE": finishIntent = new Intent(NewTestActivity.this, CourseActivity.class);
+                finishIntent.putExtra("COURSE_ID", COURSE_ID);
+                break;
+            default: finishIntent = new Intent(NewTestActivity.this, MainActivity.class); break;
+        }
 
         startDate = findViewById(R.id.startDate);
         startTime = findViewById(R.id.startTime);
@@ -90,9 +103,8 @@ public class NewTestActivity extends AppCompatActivity {
                 test.setName(testName);
                 dbHelper.insertTest(test);
 
-                Intent intent = new Intent(NewTestActivity.this, CourseActivity.class);
-                intent.putExtra("COURSE_ID", COURSE_ID);
-                startActivity(intent);
+                finishIntent.putExtra("COURSE_ID", COURSE_ID);
+                startActivity(finishIntent);
                 CustomIntent.customType(NewTestActivity.this, "left-to-right");
                 finish();
             }
@@ -109,13 +121,11 @@ public class NewTestActivity extends AppCompatActivity {
             }
         });
 
-        exit = findViewById(R.id.buttonTestClose);//Ищем кнопку выхода из активности
-        exit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CustomIntent.customType(NewTestActivity.this, "right-to-left");
-                finish();
-            }
+        exit = findViewById(R.id.buttonTestClose); //Ищем кнопку выхода из активности
+        exit.setOnClickListener(v -> {
+            CustomIntent.customType(NewTestActivity.this, "right-to-left");
+            startActivity(finishIntent);
+            finish();
         });
 
         ImageView toolbarImage = findViewById(R.id.toolbar_image);

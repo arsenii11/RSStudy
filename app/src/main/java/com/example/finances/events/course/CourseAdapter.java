@@ -35,13 +35,15 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     private final AdapterMode mode;
     private boolean swipeEnabled;
     private final Covert covert;
+    private final String ACTIVITY;
 
-    public CourseAdapter(Context context, ArrayList<Course> courses, AdapterMode mode, boolean swipeEnabled, Covert covert) {
+    public CourseAdapter(Context context, ArrayList<Course> courses, AdapterMode mode, boolean swipeEnabled, Covert covert, String ACTIVITY) {
         this.courses = courses;
         this.inflater = LayoutInflater.from(context);
         this.mode = mode;
         this.covert = covert;
         this.swipeEnabled = swipeEnabled;
+        this.ACTIVITY = ACTIVITY;
     }
     @Override
     public CourseAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -60,21 +62,21 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         holder.nameView.setText(course.getName());
         holder.idView.setText(String.valueOf(course.getId()));
 
-        holder.itemView.setOnClickListener (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), CourseActivity.class);
-                switch (mode){
-                    case OpenCourse: intent = new Intent(v.getContext(), CourseActivity.class);
+        holder.itemView.setOnClickListener (v -> {
+            Intent intent = new Intent(v.getContext(), CourseActivity.class);
+
+            switch (mode){
+                case OpenCourse: intent = new Intent(v.getContext(), CourseActivity.class);
                     v.onFinishTemporaryDetach();
                     break;
-                    case AddTest: intent = new Intent(v.getContext(), NewTestActivity.class); break;
-                    case AddLesson: intent = new Intent(v.getContext(), NewLessonActivity.class);
-                }
-                intent.putExtra("COURSE_ID", course.getId());
-                v.getContext().startActivity(intent);
-                CustomIntent.customType(v.getContext(),"left-to-right");
+                case AddTest: intent = new Intent(v.getContext(), NewTestActivity.class); break;
+                case AddLesson: intent = new Intent(v.getContext(), NewLessonActivity.class); break;
             }
+
+            intent.putExtra("COURSE_ID", course.getId());
+            intent.putExtra("ACTIVITY", ACTIVITY);
+            v.getContext().startActivity(intent);
+            CustomIntent.customType(v.getContext(),"left-to-right");
         });
     }
 

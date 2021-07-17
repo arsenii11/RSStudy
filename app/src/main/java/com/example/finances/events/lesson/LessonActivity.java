@@ -28,6 +28,8 @@ import maes.tech.intentanim.CustomIntent;
 
 public class LessonActivity extends AppCompatActivity {
 
+    private final String ACTIVITY = "LESSON";
+
     TextView lessonLabel; //TextView названия урока
     Button rescheduleLesson; //Кнопка перенести урок
     EditText lessonDescription; //EditText для заметок
@@ -71,6 +73,7 @@ public class LessonActivity extends AppCompatActivity {
         rescheduleLesson.setOnClickListener(v -> {
             Intent intent = new Intent(LessonActivity.this, RescheduleLessonActivity.class); //Создаем намерение перехода на активность с переносом текущего теста
             intent.putExtra("LESSON_ID", LESSON_ID); //Передаем в намерение id теста
+            intent.putExtra("ACTIVITY", ACTIVITY);
             startActivity(intent); //Запускаем намерение
             CustomIntent.customType(LessonActivity.this,"left-to-right"); //Добавляем анимацию к переходу
             finish();

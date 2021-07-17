@@ -33,15 +33,17 @@ public class MainAdaptor extends RecyclerView.Adapter<MainAdaptor.ViewHolder> {
     private final boolean dateShow; //Флаг показывать ли дату
     private final boolean swipeEnabled; //Флаг включены ли свайпы
     private final Covert covert;
+    private final String ACTIVITY;
 
 
-    public MainAdaptor(Context context, ArrayList<Event> events, boolean dateShow, boolean swipeEnabled, Covert covert)  {
+    public MainAdaptor(Context context, ArrayList<Event> events, boolean dateShow, boolean swipeEnabled, Covert covert, String ACTIVITY)  {
         this.inflater = LayoutInflater.from(context);
         this.context = context;
         this.events = events;
         this.dateShow = dateShow;
         this.swipeEnabled = swipeEnabled;
         this.covert = covert;
+        this.ACTIVITY = ACTIVITY;
     }
 
 
@@ -112,6 +114,7 @@ public class MainAdaptor extends RecyclerView.Adapter<MainAdaptor.ViewHolder> {
                 intent = new Intent(v.getContext(), TestActivity.class); //Переход на активность с информацией о тесте
                 intent.putExtra("TEST_ID", event.getId()); //Предаем в намерение id теста
             }
+            intent.putExtra("ACTIVITY", ACTIVITY);
             v.getContext().startActivity(intent); //Запускаем намерение
             CustomIntent.customType(v.getContext(),"left-to-right"); //Добавляем анимацию перехода
         });

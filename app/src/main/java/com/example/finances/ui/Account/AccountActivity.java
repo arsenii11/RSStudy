@@ -1,10 +1,7 @@
-package com.example.finances.ui;
+package com.example.finances.ui.Account;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.widget.NestedScrollView;
 import androidx.preference.PreferenceManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,10 +12,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -27,31 +22,25 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.ObjectKey;
 import com.example.finances.MainActivity;
 import com.example.finances.R;
-import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
-import com.example.finances.database.Lesson;
 import com.example.finances.events.course.ClosedCourses;
 import com.example.finances.events.course.CourseAdapter;
 import com.example.finances.helpclasses.SquaredConstraintLayout;
 import com.example.finances.toolbar.SettingsActivity;
-import com.github.florent37.kotlin.pleaseanimate.PleaseAnim;
-import com.github.florent37.kotlin.pleaseanimate.core.Expectations;
 import com.github.okdroid.checkablechipview.CheckableChipView;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
 import kotlin.jvm.functions.Function2;
 import maes.tech.intentanim.CustomIntent;
-import nz.co.trademe.covert.Covert;
 
-public class Account extends AppCompatActivity implements  Function2<CheckableChipView, Boolean, Unit> {
+public class AccountActivity extends AppCompatActivity implements  Function2<CheckableChipView, Boolean, Unit> {
+
+    private final String ACTIVITY = "ACCOUNT";
 
     private final int GALLERY_REQUEST = 1;
     public static final String APP_PREFERENCES_Path = "Nickname" ;
@@ -135,49 +124,36 @@ public class Account extends AppCompatActivity implements  Function2<CheckableCh
 
 
 
-        Close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Account.this, MainActivity.class);
-                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                CustomIntent.customType(Account.this,"fadein-to-fadeout");
-                finish();
-            }
+        Close.setOnClickListener(v -> {
+            Intent intent = new Intent(AccountActivity.this, MainActivity.class);
+            startActivity(intent);
+            CustomIntent.customType(AccountActivity.this,"fadein-to-fadeout");
+            finish();
         });
 
-        Settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Account.this, SettingsActivity.class);
-                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                CustomIntent.customType(Account.this,"fadein-to-fadeout");
-                finish();
-            }
+        Settings.setOnClickListener(v -> {
+            Intent intent = new Intent(AccountActivity.this, SettingsActivity.class);
+            intent.putExtra("ACTIVITY", ACTIVITY);
+            startActivity(intent);
+            CustomIntent.customType(AccountActivity.this,"fadein-to-fadeout");
+            finish();
         });
 
-        ClosedCourses.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Account.this, ClosedCourses.class);
-                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                CustomIntent.customType(Account.this,"fadein-to-fadeout");
-                finish();
-            }
+        ClosedCourses.setOnClickListener(v -> {
+            Intent intent = new Intent(AccountActivity.this, ClosedCourses.class);
+            intent.putExtra("ACTIVITY", ACTIVITY);
+            startActivity(intent);
+            CustomIntent.customType(AccountActivity.this,"fadein-to-fadeout");
+            finish();
         });
 
 
 
         //кнопка выбора изображения
-        PhotoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-                photoPickerIntent.setType("image/*");
-                startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
-            }
+        PhotoButton.setOnClickListener(v -> {
+            Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+            photoPickerIntent.setType("image/*");
+            startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
         });
 
 

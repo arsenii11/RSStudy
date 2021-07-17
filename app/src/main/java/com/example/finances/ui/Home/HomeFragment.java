@@ -31,7 +31,7 @@ import maes.tech.intentanim.CustomIntent;
 
 public class HomeFragment extends Fragment  {
 
-
+    private final String ACTIVITY = "MAIN";
 
     PieChart pieChart;
     ImageButton plusCourse;
@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment  {
         //Список
         setInitialData();
         RecyclerView CoursesList = (RecyclerView) view.findViewById(R.id.list);
-        courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, false, null);
+        courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, false, null, ACTIVITY);
 
         // устанавливаем для списка адаптер
         CoursesList.setAdapter(courseAdapter);
@@ -83,36 +83,36 @@ public class HomeFragment extends Fragment  {
         plusCourse = view.findViewById(R.id.buttonpluscourse);
 
 
-        plusCourse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeFragment.this.getActivity(), CourseName.class);
-                startActivity(intent);
-                CustomIntent.customType(getContext(),"fadein-to-fadeout");
+        plusCourse.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeFragment.this.getActivity(), CourseName.class);
 
-            }
+            intent.putExtra("ACTIVITY", ACTIVITY);
+
+            startActivity(intent);
+            CustomIntent.customType(getContext(),"fadein-to-fadeout");
+
         });
 
         plusLesson = view.findViewById(R.id.buttonpluslesson);
-        plusLesson.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeFragment.this.getActivity(), CourseListActivity.class);
-                intent.putExtra("ADAPTER_MODE", "ADD_LESSON");
-                startActivity(intent);
-                CustomIntent.customType(getContext(),"fadein-to-fadeout");
-            }
+        plusLesson.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeFragment.this.getActivity(), CourseListActivity.class);
+
+            intent.putExtra("ADAPTER_MODE", "ADD_LESSON");
+            intent.putExtra("ACTIVITY", ACTIVITY);
+
+            startActivity(intent);
+            CustomIntent.customType(getContext(),"fadein-to-fadeout");
         });
 
         plusTest = view.findViewById(R.id.buttonplustest);
-        plusTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeFragment.this.getActivity(), CourseListActivity.class);
-                intent.putExtra("ADAPTER_MODE", "ADD_TEST");
-                startActivity(intent);
-                CustomIntent.customType(getContext(),"fadein-to-fadeout");
-            }
+        plusTest.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeFragment.this.getActivity(), CourseListActivity.class);
+
+            intent.putExtra("ADAPTER_MODE", "ADD_TEST");
+            intent.putExtra("ACTIVITY", ACTIVITY);
+
+            startActivity(intent);
+            CustomIntent.customType(getContext(),"fadein-to-fadeout");
         });
 
 
@@ -120,37 +120,33 @@ public class HomeFragment extends Fragment  {
         //Кнопка нового курса
         newCourse = view.findViewById(R.id.courseBt);
         newCourse.setClipToOutline(true);
-        newCourse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeFragment.this.getActivity(), CourseName.class);
-                startActivity(intent);
-                CustomIntent.customType(getContext(),"left-to-right");
+        newCourse.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeFragment.this.getActivity(), CourseName.class);
 
-            }
+            intent.putExtra("ACTIVITY", ACTIVITY);
+
+            startActivity(intent);
+            CustomIntent.customType(getContext(),"left-to-right");
+
         });
 
-        Questions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeFragment.this.getActivity(), QuestionsActivity.class);
-                startActivity(intent);
-                CustomIntent.customType(getContext(),"left-to-right");
-                getActivity().finish();
-            }
+        Questions.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeFragment.this.getActivity(), QuestionsActivity.class);
+            startActivity(intent);
+            CustomIntent.customType(getContext(),"left-to-right");
+            getActivity().finish();
         });
 
 
         //Кнопка раскрывающая список курсов
-        ViewAllBt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent ListCoursesList = new Intent(HomeFragment.this.getActivity(), CourseListActivity.class);
-                ListCoursesList.putExtra("ADAPTER_MODE", "OPEN_COURSE");
-                startActivity(ListCoursesList);
-                CustomIntent.customType(getContext(),"fadein-to-fadeout");
+        ViewAllBt.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeFragment.this.getActivity(), CourseListActivity.class);
 
-            }
+            intent.putExtra("ADAPTER_MODE", "OPEN_COURSE");
+
+            startActivity(intent);
+            CustomIntent.customType(getContext(),"fadein-to-fadeout");
+
         });
 
         nextEvent = (TextView) view.findViewById(R.id.nextevent);

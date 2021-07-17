@@ -9,7 +9,6 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -19,7 +18,6 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
 
@@ -27,7 +25,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.ObjectKey;
 import com.example.finances.notifications.AlarmRequestsReceiver;
 import com.example.finances.toolbar.SettingsActivity;
-import com.example.finances.ui.Account;
+import com.example.finances.ui.Account.AccountActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
@@ -90,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         ImageButton toolbar_button = toolbar.findViewById(R.id.toolbar_image_button);
         toolbar_button.setOnClickListener(v -> {
-            Intent Account = new Intent(MainActivity.this, Account.class);
+            Intent Account = new Intent(MainActivity.this, AccountActivity.class);
             startActivity(Account);
         });
 

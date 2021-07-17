@@ -26,6 +26,8 @@ import java.util.Calendar;
 
 public class CalendarFragment extends Fragment {
 
+    private final String ACTIVITY = "MAIN";
+
     CalendarView calendarView;
     ArrayList<Event> events = new ArrayList<Event>();
     MainAdaptor mainAdaptor;
@@ -46,7 +48,7 @@ public class CalendarFragment extends Fragment {
         setInitialData(calendar.getTimeInMillis());
         RecyclerView LessonsList = (RecyclerView) view.findViewById(R.id.Lessonlist_calendar);
         Context context = getContext();
-        mainAdaptor = new MainAdaptor(context, events, false, false, null);
+        mainAdaptor = new MainAdaptor(context, events, false, false, null, ACTIVITY);
         LessonsList.setAdapter(mainAdaptor);
 
         androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar) getActivity().findViewById(R.id.toolbar);
@@ -56,18 +58,12 @@ public class CalendarFragment extends Fragment {
 
 
         calendarView = view.findViewById(R.id.calendarView);
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public void onSelectedDayChange(CalendarView view, int year,
-                                            int month, int dayOfMonth) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(year, month, dayOfMonth);
-                setInitialData(calendar.getTimeInMillis());
-                mainAdaptor = new MainAdaptor(context, events, false, false, null);
-                LessonsList.setAdapter(mainAdaptor);
-            }
+        calendarView.setOnDateChangeListener((view1, year, month, dayOfMonth) -> {
+            Calendar calendar1 = Calendar.getInstance();
+            calendar1.set(year, month, dayOfMonth);
+            setInitialData(calendar1.getTimeInMillis());
+            mainAdaptor = new MainAdaptor(context, events, false, false, null, ACTIVITY);
+            LessonsList.setAdapter(mainAdaptor);
         });
 
 

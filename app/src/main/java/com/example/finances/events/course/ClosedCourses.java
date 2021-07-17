@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import com.example.finances.R;
 import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
-import com.example.finances.ui.Account;
+import com.example.finances.ui.Account.AccountActivity;
 
 import java.util.ArrayList;
 
@@ -25,6 +25,8 @@ public class ClosedCourses extends AppCompatActivity {
     DBHelper dbHelper;
     ArrayList<Course> courses = new ArrayList<Course>();
     CourseAdapter courseAdapter;
+
+    private final String ACTIVITY = "CLOSED_COURSES";
 
 
     @Override
@@ -42,7 +44,7 @@ public class ClosedCourses extends AppCompatActivity {
 
         setInitialData();
         RecyclerView CoursesList = findViewById(R.id.list);
-        courseAdapter = new CourseAdapter(this, courses, CourseAdapter.AdapterMode.OpenCourse, false, null);
+        courseAdapter = new CourseAdapter(this, courses, CourseAdapter.AdapterMode.OpenCourse, false, null, ACTIVITY);
         CoursesList.setAdapter(courseAdapter);
 
 
@@ -61,23 +63,6 @@ public class ClosedCourses extends AppCompatActivity {
         return true;
     }
 
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            Intent intent = new Intent(ClosedCourses.this, Account.class);
-            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            CustomIntent.customType(this,"fadein-to-fadeout");
-            finish();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-
-
-    }
     //добавляем значения
     private void setInitialData() {
         dbHelper = new DBHelper(this);

@@ -28,6 +28,8 @@ import nz.co.trademe.covert.Covert;
 
 public class CourseListActivity extends AppCompatActivity {
 
+    private final String ACTIVITY = "COURSE_LIST";
+
     ArrayList<Course> courses = new ArrayList<Course>();
     DBHelper dbHelper;
     CalendarHelper calendarHelper;
@@ -42,20 +44,24 @@ public class CourseListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses_list);
+
         setInitialData();
+
         RecyclerView CoursesList = (RecyclerView) findViewById(R.id.CoursesList);
-        Context context = getApplicationContext();
-        CourseAdapter.AdapterMode mode = CourseAdapter.AdapterMode.OpenCourse;
+        TextView text = findViewById(R.id.textView);
+
         Intent i = getIntent();
+
+        CourseAdapter.AdapterMode mode;
         String modeStr = i.getStringExtra("ADAPTER_MODE");
         switch (modeStr){
             case "ADD_LESSON": mode = CourseAdapter.AdapterMode.AddLesson; break;
-            case "ADD_TEST": mode = CourseAdapter.AdapterMode.AddTest; break;
-            case "OPEN_COURSE": mode = CourseAdapter.AdapterMode.OpenCourse; break;
+            case "ADD_TEST": mode = CourseAdapter.AdapterMode.AddTest; text.setText("Choose a course to add a test to it"); break;
+            case "OPEN_COURSE": mode = CourseAdapter.AdapterMode.OpenCourse; text.setText("Choose a course"); break;
             default: mode = CourseAdapter.AdapterMode.OpenCourse; break;
         }
 
-
+        //ACTIVITY = i.getStringExtra("ACTIVITY");
 
         //свайаы блин
         covert = Covert.with(config).setIsActiveCallback(viewHolder -> false).doOnSwipe((viewHolder, swipeDirection) -> {
@@ -64,12 +70,12 @@ public class CourseListActivity extends AppCompatActivity {
             calendarHelper.deleteAllCalendarEvent(id);
             dbHelper.deleteCourse(id);
             setInitialData();
-            courseAdapter = new CourseAdapter(context, courses, CourseAdapter.AdapterMode.OpenCourse, true, covert);
+            courseAdapter = new CourseAdapter(this, courses, CourseAdapter.AdapterMode.OpenCourse, true, covert, ACTIVITY);
             CoursesList.setAdapter(courseAdapter);
             return null;
         }).attachTo(CoursesList);
 
-        courseAdapter = new CourseAdapter(this, courses, mode, true, covert);
+        courseAdapter = new CourseAdapter(this, courses, mode, true, covert, ACTIVITY);
         CoursesList.setAdapter(courseAdapter);
 
         //а это тулбар и фокусы с ним
@@ -96,23 +102,6 @@ public class CourseListActivity extends AppCompatActivity {
         return true;
     }
 
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            Intent intent = new Intent(this, MainActivity.class);
-            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            CustomIntent.customType(this,"fadein-to-fadeout");
-            finish();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-
-
-    }
 
     //добавляем значения
     private void setInitialData() {

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:tag="unique_tag_1"
-    tools:context=".ui.Account">
+    tools:context=".ui.Account.AccountActivity">
 
 
     <ImageButton
