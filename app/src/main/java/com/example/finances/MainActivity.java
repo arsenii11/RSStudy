@@ -11,7 +11,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -21,14 +24,27 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
 
+import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.BillingClientStateListener;
+import com.android.billingclient.api.BillingResult;
+import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.PurchasesUpdatedListener;
+import com.android.billingclient.api.SkuDetails;
+import com.android.billingclient.api.SkuDetailsParams;
+import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.ObjectKey;
 import com.example.finances.notifications.AlarmRequestsReceiver;
 import com.example.finances.toolbar.SettingsActivity;
 import com.example.finances.ui.Account.AccountActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import maes.tech.intentanim.CustomIntent;
@@ -38,7 +54,6 @@ import static com.example.finances.ui.Statistics.StatisticsFragment.APP_PREFEREN
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
 
-    private static final int MY_PERMISSIONS_REQUEST_READ_MEDIA = 1;
     public static boolean ALLOW_ADD_TO_CALENDAR = false;
 
 
@@ -59,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         //Обновляем состояние будильника
         myAlarm();
+
+        purchases();
 
         //изображение на toolbar
         setToolbarImage();
@@ -97,13 +114,54 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     @RequiresApi(api = Build.VERSION_CODES.P)
     public void myAlarm() {
-        Context appContext = getApplicationContext();
-
-        Intent IntentForBroadcast = new Intent(appContext, AlarmRequestsReceiver.class);
+        Intent IntentForBroadcast = new Intent(this, AlarmRequestsReceiver.class);
 
         IntentForBroadcast.setAction(AlarmRequestsReceiver.LESSON_ALARM);
         Log.e("Main", "check");
-        appContext.sendBroadcast(IntentForBroadcast);
+        this.sendBroadcast(IntentForBroadcast);
+    }
+
+    //Функция для обработки покупок внутри приложения
+    public void purchases() {
+
+        //Создаем новый платежный клиент
+        BillingClient billingClient = BillingClient.newBuilder(this).
+                setListener((billingResult, list) -> {
+
+                }).
+                enablePendingPurchases().
+                build();
+
+        //Запускаем соединение с Google Play
+        billingClient.startConnection(new BillingClientStateListener() {
+
+            //Соединение не установлено
+            @Override
+            public void onBillingServiceDisconnected() {
+                billingClient.startConnection(this); //пробуем еще раз подключиться
+            }
+
+            //Соединение установлено
+            @Override
+            public void onBillingSetupFinished(@NonNull @NotNull BillingResult billingResult) {
+
+
+                if (billingResult.getResponseCode() ==  BillingClient.BillingResponseCode.OK) {
+
+                    ArrayList<String> skuList = new ArrayList<>(); //Список активных товаров
+                    skuList.add("rsstudy.month"); //Добавляем в список подписку на месяц
+
+                    SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder(); //Создаем новый объект с параметрами товара
+                    params.setSkusList(skuList).setType(BillingClient.SkuType.SUBS); //Устанавливаем названия товаров, чтобы получить сведения о них
+
+                    //Запускаем запрос в платежный клиент
+                    billingClient.querySkuDetailsAsync(params.build(),
+                            (billingResult1, skuDetailsList) -> {
+
+                            });
+                }
+            }
+        });
     }
 
 
