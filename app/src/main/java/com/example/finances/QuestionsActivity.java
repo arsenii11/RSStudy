@@ -13,7 +13,7 @@ import maes.tech.intentanim.CustomIntent;
 
 public class QuestionsActivity extends AppCompatActivity {
 
-   Button clear;
+   AppCompatButton clear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
