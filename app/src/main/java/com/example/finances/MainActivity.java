@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         ImageButton settings = findViewById(R.id.settings_bt);
         settings.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            intent.putExtra("ACTIVITY", "MAIN");
             startActivity(intent);
             CustomIntent.customType(MainActivity.this, "fadein-to-fadeout");
             finish();

@@ -15,16 +15,22 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.example.finances.MainActivity;
 import com.example.finances.R;
+import com.example.finances.ui.Account.AccountActivity;
 import com.example.finances.ui.Home.HomeFragment;
 
 import maes.tech.intentanim.CustomIntent;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    private String ACTIVITY;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
+
+        ACTIVITY = getIntent().getStringExtra("ACTIVITY");
+
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -62,10 +68,16 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        Intent finalIntent;
+        switch (ACTIVITY){
+            case "MAIN": finalIntent = new Intent(this, MainActivity.class); break;
+            case "ACCOUNT": finalIntent = new Intent(this, AccountActivity.class); break;
+            default: finalIntent = new Intent(this, MainActivity.class); break;
+        }
+
         if (id == android.R.id.home) {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            finalIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(finalIntent);
             CustomIntent.customType(this,"fadein-to-fadeout");
             finish();
             return true;
