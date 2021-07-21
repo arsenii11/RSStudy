@@ -28,7 +28,7 @@ public class AlarmRequestsReceiver extends BroadcastReceiver {
 
     private static int sJobId = 1;
 
-    @RequiresApi(api = Build.VERSION_CODES.P)
+
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.e("AlarmRequestReceiver", "check1");
@@ -45,7 +45,6 @@ public class AlarmRequestsReceiver extends BroadcastReceiver {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.P)
     private void scheduleJob(Context context) {
 
         /*Calendar calendar = Calendar.getInstance();

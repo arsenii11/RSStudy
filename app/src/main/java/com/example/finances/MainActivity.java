@@ -23,18 +23,10 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
-
-import com.android.billingclient.api.BillingClient;
-import com.android.billingclient.api.BillingClientStateListener;
-import com.android.billingclient.api.BillingResult;
-import com.android.billingclient.api.Purchase;
-import com.android.billingclient.api.PurchasesUpdatedListener;
-import com.android.billingclient.api.SkuDetails;
-import com.android.billingclient.api.SkuDetailsParams;
-import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.ObjectKey;
 import com.example.finances.notifications.AlarmRequestsReceiver;
+import com.example.finances.purchases.BillingClientHelper;
 import com.example.finances.toolbar.SettingsActivity;
 import com.example.finances.ui.Account.AccountActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -57,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     public static boolean ALLOW_ADD_TO_CALENDAR = false;
 
 
-    @RequiresApi(api = Build.VERSION_CODES.P)
     @SuppressLint({"WrongViewCast", "WrongConstant"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +104,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.P)
     public void myAlarm() {
         Intent IntentForBroadcast = new Intent(this, AlarmRequestsReceiver.class);
 
@@ -124,45 +114,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     //Функция для обработки покупок внутри приложения
     public void purchases() {
-
-        //Создаем новый платежный клиент
-        BillingClient billingClient = BillingClient.newBuilder(this).
-                setListener((billingResult, list) -> {
-
-                }).
-                enablePendingPurchases().
-                build();
-
-        //Запускаем соединение с Google Play
-        billingClient.startConnection(new BillingClientStateListener() {
-
-            //Соединение не установлено
-            @Override
-            public void onBillingServiceDisconnected() {
-                billingClient.startConnection(this); //пробуем еще раз подключиться
-            }
-
-            //Соединение установлено
-            @Override
-            public void onBillingSetupFinished(@NonNull @NotNull BillingResult billingResult) {
-
-
-                if (billingResult.getResponseCode() ==  BillingClient.BillingResponseCode.OK) {
-
-                    ArrayList<String> skuList = new ArrayList<>(); //Список активных товаров
-                    skuList.add("rsstudy.month"); //Добавляем в список подписку на месяц
-
-                    SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder(); //Создаем новый объект с параметрами товара
-                    params.setSkusList(skuList).setType(BillingClient.SkuType.SUBS); //Устанавливаем названия товаров, чтобы получить сведения о них
-
-                    //Запускаем запрос в платежный клиент
-                    billingClient.querySkuDetailsAsync(params.build(),
-                            (billingResult1, skuDetailsList) -> {
-
-                            });
-                }
-            }
-        });
+        BillingClientHelper billingClientHelper = new BillingClientHelper(this);
+        if(billingClientHelper.isSub(BillingClientHelper.SUBSCRIPTION_MONTH)) Log.e("SUB", "SUB");
+        else Log.e("SUB", "NOT SUB");
+        billingClientHelper.finish();
     }
 
 
