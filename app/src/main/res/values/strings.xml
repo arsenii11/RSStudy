@@ -37,8 +37,12 @@
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="action_settings">Settings</string>
     <string name="IntroduceText">Welcome to the RS:Study guide! Here we will introduce you to the basic functions of the application and how to use them.</string>
-    <string name="ManualText1">Firstly, right after entering the application, the screen in front of your eyes is the main menu. What we recommend you do first is customize your profile section by clicking the gear button in the top right corner.</string>
-    <string name="ManualText2">Your new profile will be accessible from the main menu by clicking the avatar button in the upper left corner. You can upload your profile picture on the same screen by clicking the avatar in the circle to make your account even more unique!</string>
-    <string name="ManualText3">After your profile is customized, we would like to show you how to add courses and lessons into them. First press the plus button in the middle of the main screen with the course sign, then give your course a name and number of lessons per week. Then for each lesson, you can add its date, duration and whether it should be repeated or not. After you add them all to the course, you can see the upcoming lesson on the main screen.</string>
-    <string name="ManualText4">In case you need to add more lessons, instead of creating a new course, you can simply add more to the existing ones. To do this, press the plus button with the lesson sign in the center of the main screen and select the course to which you want to add additional lessons.</string>
+    <string name="ManualText1">First, customize your account by clicking the gear button in the right upper corner.</string>
+    <string name="ManualText2">Add your info here ↓</string>
+    <string name="ManualText3">By clicking the avatar button in the upper left corner, you can see the updated profile and add a profile picture.</string>
+    <string name="ManualText4">What’s more, we have a dark theme, that you can turn on in the same section.</string>
+    <string name="ManualText5">Now to the essentials - adding a course.</string>
+    <string name="ManualText6">You can do this from the main menu by clicking this button.</string>
+    <string name="ManualText7">After that give your course a name and number of lessons per week.</string>
+    <string name="ManualText8">Add date, duration, and repetitions for each lesson.</string>
 </resources>

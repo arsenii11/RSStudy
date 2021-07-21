@@ -35,24 +35,36 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="36dp"
                     android:fontFamily="@font/quicksand_regular"
-                    android:text="User guide"
+                    android:text="Welcome!"
                     android:textColor="@color/white"
                     android:textSize="52dp"
-                    android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/imageView2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
+                <TextView
+                    android:id="@+id/totext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_regular"
+                    android:text="to"
+                    android:textColor="@color/white"
+                    android:textSize="38dp"
+                    app:layout_constraintBottom_toTopOf="@+id/textView3"
+                    app:layout_constraintEnd_toEndOf="@+id/textView2"
+                    app:layout_constraintHorizontal_bias="0.502"
+                    app:layout_constraintStart_toStartOf="@+id/textView2"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2"
+                    app:layout_constraintVertical_bias="1.0" />
+
                 <ImageView
                     android:id="@+id/imageView2"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_marginBottom="8dp"
                     android:src="@drawable/roundlogo"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.32"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="@+id/textView2" />
 
                 <TextView
                     android:id="@+id/textView3"
@@ -63,7 +75,7 @@
                     android:gravity="center"
                     android:text="RS:Study"
                     android:textColor="@color/white"
-                    android:textSize="24dp"
+                    android:textSize="32dp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView2"
                     app:layout_constraintStart_toEndOf="@+id/imageView2"
@@ -73,10 +85,10 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
             <View
                 android:layout_width="match_parent"
-                android:layout_height="30dp"/>
+                android:layout_height="40dp"/>
 
             <TextView
-                android:layout_width="370dp"
+                android:layout_width="450dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/quicksand_bold"
@@ -86,10 +98,10 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="30dp"/>
+                android:layout_height="40dp"/>
 
             <TextView
-                android:layout_width="370dp"
+                android:layout_width="450dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/quicksand_bold"
@@ -99,19 +111,19 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="30dp"/>
+                android:layout_height="40dp"/>
 
             <ImageView
-                android:layout_width="340dp"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_gravity="center"
-                android:src="@drawable/main_screen"/>
+                android:src="@drawable/outline_settings_24"/>
             <View
                 android:layout_width="match_parent"
-                android:layout_height="30dp"/>
+                android:layout_height="40dp"/>
 
             <TextView
-                android:layout_width="370dp"
+                android:layout_width="450dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/quicksand_bold"
@@ -121,23 +133,41 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="30dp"/>
+                android:layout_height="40dp"/>
+
+            <ImageView
+                android:layout_width="400dp"
+                android:layout_height="400dp"
+                android:layout_gravity="center"
+                android:src="@drawable/guide_1" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="40dp"/>
+
 
             <TextView
-                android:layout_width="370dp"
+                android:layout_width="450dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/quicksand_bold"
                 android:text="@string/ManualText3"
+                android:gravity="center"
                 android:textColor="@color/diagramText"
                 android:textSize="25dp" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="30dp"/>
+                android:layout_height="40dp"/>
+
+            <ImageView
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_gravity="center"
+                android:src="@drawable/guide_2" />
 
             <TextView
-                android:layout_width="370dp"
+                android:layout_width="450dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/quicksand_bold"
@@ -147,7 +177,166 @@
 
             <View
                 android:layout_width="match_parent"
+                android:layout_height="40dp"/>
+
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="180dp"
+                android:layout_gravity="center"
+                android:src="@drawable/guide_4" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="90dp"/>
+
+            <TextView
+                android:layout_width="450dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/quicksand_semibold"
+                android:text="@string/ManualText5"
+                android:textColor="@color/diagramText"
+                android:textSize="30dp" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="70dp"/>
+
+
+            <TextView
+                android:layout_width="450dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="@string/ManualText6"
+                android:textColor="@color/diagramText"
+                android:textSize="25dp" />
+
+            <View
+                android:layout_width="match_parent"
                 android:layout_height="30dp"/>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <ImageView
+        android:layout_width="400dp"
+        android:layout_height="200dp"
+        android:src="@drawable/guide_5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="72dp"
+        android:layout_height="82dp"
+        android:src="@drawable/guide_5_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <View
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+
+            <TextView
+                android:layout_width="450dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="@string/ManualText7"
+                android:textColor="@color/diagramText"
+                android:textSize="25dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="60dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="220dp"
+                    android:layout_height="160dp"
+                    android:src="@drawable/guide_6_1" />
+
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"/>
+
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="160dp"
+                    android:src="@drawable/guide_6_2" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="60dp"/>
+
+            <TextView
+                android:layout_width="450dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="@string/ManualText8"
+                android:textColor="@color/diagramText"
+                android:textSize="25dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="60dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/guide_7_1"/>
+
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/guide_7_2"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/guide_7_3"/>
+
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/guide_7_4"/>
+            </LinearLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
