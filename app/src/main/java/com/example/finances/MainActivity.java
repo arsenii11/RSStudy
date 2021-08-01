@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
 
     public void myAlarm() {
-        Intent IntentForBroadcast = new Intent(this, AlarmRequestsReceiver.class);
+        Intent IntentForBroadcast = new Intent(MainActivity.this, AlarmRequestsReceiver.class);
 
         IntentForBroadcast.setAction(AlarmRequestsReceiver.LESSON_ALARM);
         Log.e("Main", "check");
@@ -124,6 +124,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     @Override
     protected void onStart() {
         super.onStart();
+
+        myAlarm();
     }
 
     @Override
