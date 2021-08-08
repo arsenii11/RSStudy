@@ -27,6 +27,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.ObjectKey;
 import com.example.finances.notifications.AlarmRequestsReceiver;
 import com.example.finances.purchases.BillingClientHelper;
+import com.example.finances.purchases.SubscribeActivity;
 import com.example.finances.toolbar.SettingsActivity;
 import com.example.finances.ui.Account.AccountActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -116,7 +117,11 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     public void purchases() {
         BillingClientHelper billingClientHelper = new BillingClientHelper(this);
         if(billingClientHelper.isSub(BillingClientHelper.SUBSCRIPTION_MONTH)) Log.e("SUB", "SUB");
-        else Log.e("SUB", "NOT SUB");
+        else {
+            /*Intent intent = new Intent(MainActivity.this, SubscribeActivity.class);
+            startActivity(intent);*/
+            Log.e("SUB", "NOT SUB");
+        }
         billingClientHelper.finish();
     }
 

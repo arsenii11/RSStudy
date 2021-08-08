@@ -1,15 +1,23 @@
 package com.example.finances.purchases;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.android.billingclient.api.BillingClient;
 import com.android.billingclient.api.BillingClientStateListener;
+import com.android.billingclient.api.BillingFlowParams;
 import com.android.billingclient.api.BillingResult;
 import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.SkuDetails;
+import com.android.billingclient.api.SkuDetailsParams;
+import com.android.billingclient.api.SkuDetailsResponseListener;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -74,18 +82,39 @@ public class BillingClientHelper {
 
     //Функция для получения всех покупок пользователя
     private void getPurchases(){
-        List<Purchase> purchases = new ArrayList<>();
-
         billingClient.queryPurchasesAsync(BillingClient.SkuType.SUBS, (queryBillingResult, list) -> {
-            if(isOK(queryBillingResult)) purchases.addAll(list);
+            if(isOK(queryBillingResult)) {
+                List<Purchase> local = list;
+                purchasesSub.addAll(local);
+            }
         });
-
-        purchasesSub = purchases;
     }
 
     //Функция проверки наличия подписки у пользователя
     public boolean isSub(String subscriptionName){
         return purchasesSub.stream().filter(p -> p.getSkus().contains(subscriptionName)).findAny().orElse(null) != null;
+    }
+
+    public void subscribe(Activity activity, String subscriptionName){
+
+        List<String> skuList = new ArrayList<> ();
+        skuList.add(subscriptionName);
+
+        SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
+        params.setSkusList(skuList).setType(BillingClient.SkuType.SUBS);
+        billingClient.querySkuDetailsAsync(params.build(),
+                (billingResult, list) -> {
+                    Log.e("SIZE", String.valueOf(list.size()));
+                    if(isOK(billingResult)) {
+                        SkuDetails skuDetails = list.get(0);
+
+                        BillingFlowParams billingFlowParams = BillingFlowParams.newBuilder()
+                                .setSkuDetails(skuDetails)
+                                .build();
+
+                        billingClient.launchBillingFlow(activity, billingFlowParams);
+                    }
+                });
     }
 
     //Функция завершения работы с клиентом

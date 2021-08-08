@@ -15,9 +15,6 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.Finances">
-        <activity android:name=".QuestionsActivity"/>
-        <activity android:name=".events.course.ClosedCourses" />
-        <activity android:name=".ui.Account.AccountActivity" />
 
         <receiver
             android:name=".notifications.NotificationReceiver"
@@ -135,6 +132,20 @@
             android:name=".events.lesson.RescheduleLessonActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+        <activity android:name=".purchases.SubscribeActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".QuestionsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity android:name=".events.course.ClosedCourses"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.Account.AccountActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>
