@@ -16,7 +16,7 @@ This project is an application that can help users plan and track their learning
 ### How to use
 The application can be installed in the Play Market <br />
 You must have Android version 9 or above to use the app. <br />
-[Get it on Google Play](https://play.google.com/store/apps)
+[Get it on Google Play](https://play.google.com/store/apps/details?id=com.rediss.rsstudy.release)
 
 ### Bug reports
 If you discover a problem with RS:Study, we would like to know about it. <br />Contact us by writing an email to [rsstydyrediss@gmail.com](rsstydyrediss@gmail.com)
@@ -32,4 +32,4 @@ Our team of like-minded people wants to relieve tension and accelerate progress 
 
 **Best regards,**
 
-<a href="https://imgbb.com/"><img src="https://i.ibb.co/Bw879nr/RMPic02.png" alt="RMPic02" border="0"></a>
+<a href="#"><img src="https://i.ibb.co/Bw879nr/RMPic02.png" alt="RMPic02" border="0"></a>
