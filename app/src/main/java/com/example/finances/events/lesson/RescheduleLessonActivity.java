@@ -101,7 +101,7 @@ public class RescheduleLessonActivity extends AppCompatActivity {
             finish();
         });
         //В зависимости от повторения урока отмечаем нужный чип
-        switch (lessonOptions.getIsRepeatable()){
+        switch (lessonOptions.isRepeatable()){
             case 0: repeatOnOff.setChecked(false); radioGroup.setVisibility(View.INVISIBLE); break; //Урок не повторяется
             case 1: repeatOnOff.setChecked(true); radioGroup.setVisibility(View.VISIBLE); break; //Урок повторяется
         }
@@ -204,11 +204,11 @@ public class RescheduleLessonActivity extends AppCompatActivity {
                     calendarHelper.deleteCalendarEvent(lessonOptions.getCalendarEventId());
                     lessonOptions.setCalendarEventId(addCalendarEvent(course.getName(), startCalendar.getTimeInMillis(), endCalendar.getTimeInMillis()));
                 }
-                lessonOptions.setIsRepeatable(0); //Ставим режим "не повторять"
+                lessonOptions.setRepeatable(0); //Ставим режим "не повторять"
 
                 //Добавляем опции урока в БД
                 if (COURSE_REPEAT.equals("YES")) {
-                    lessonOptions.setIsRepeatable(1); //Устанавливаем режим "повторять"
+                    lessonOptions.setRepeatable(1); //Устанавливаем режим "повторять"
 
                     //Рассчитываем добавочные миллисекудны и устанавливаем режим повтора урока в опции
                     long add = 0;

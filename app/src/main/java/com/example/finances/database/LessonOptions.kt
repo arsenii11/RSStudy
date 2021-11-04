@@ -1,69 +1,27 @@
-package com.example.finances.database;
+package com.example.finances.database
 
-public class LessonOptions {
-    private int id;
-    private int lessonId;
-    private int calendarEventId;
-    private int isRepeatable;
-    private int repeatMode;
-    private String description;
+class LessonOptions {
+    var id = 0
+    var lessonId = 0
+    var calendarEventId = 0
+    var isRepeatable = 0
+    var repeatMode = 0
+    var description: String? = null
 
-    public LessonOptions() {}
-
-    public LessonOptions(int id, int lessonId, int calendarEventId, int isRepeatable, int repeatMode, String description){
-        this.id = id;
-        this.lessonId = lessonId;
-        this.calendarEventId = calendarEventId;
-        this.isRepeatable = isRepeatable;
-        this.repeatMode = repeatMode;
-        this.description = description;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public int getLessonId() {
-        return lessonId;
-    }
-
-    public int getCalendarEventId() {
-        return calendarEventId;
-    }
-
-    public int getIsRepeatable() {
-        return isRepeatable;
-    }
-
-    public int getRepeatMode() {
-        return repeatMode;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setLessonId(int lessonId) {
-        this.lessonId = lessonId;
-    }
-
-    public void setCalendarEventId(int calendarEventId) {
-        this.calendarEventId = calendarEventId;
-    }
-
-    public void setIsRepeatable(int isRepeatable) {
-        this.isRepeatable = isRepeatable;
-    }
-
-    public void setRepeatMode(int repeatMode) {
-        this.repeatMode = repeatMode;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    constructor() {}
+    constructor(
+        id: Int,
+        lessonId: Int,
+        calendarEventId: Int,
+        isRepeatable: Int,
+        repeatMode: Int,
+        description: String?
+    ) {
+        this.id = id
+        this.lessonId = lessonId
+        this.calendarEventId = calendarEventId
+        this.isRepeatable = isRepeatable
+        this.repeatMode = repeatMode
+        this.description = description
     }
 }
