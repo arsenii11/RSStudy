@@ -75,8 +75,8 @@ public class HomeFragment extends Fragment  {
 
 
         androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar) getActivity().findViewById(R.id.toolbar);
-        TextView titleshadow = toolbar.findViewById(R.id.toolbar_shadowtext);
-        titleshadow.setText("Home");
+        //TextView titleshadow = toolbar.findViewById(R.id.toolbar_shadowtext);
+        //titleshadow.setText("Home");
 
 
         //widget add something

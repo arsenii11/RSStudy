@@ -64,10 +64,10 @@
             android:layout_height="40dp"
             android:backgroundTint="@color/transparent"
             android:src="@drawable/outline_settings_24"
-            android:tint="@color/diagramText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/diagramText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

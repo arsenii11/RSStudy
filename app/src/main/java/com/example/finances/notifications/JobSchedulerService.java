@@ -52,7 +52,7 @@ public class JobSchedulerService extends JobService {
 
         LessonOptions lessonOptions = dbHelper.getLessonOptions(LESSON_ID);
 
-        if(lessonOptions.getIsRepeatable() > 0){
+        if(lessonOptions.isRepeatable() > 0){
             Calendar calendar = Calendar.getInstance();
             Lesson mainLesson = dbHelper.getLesson(LESSON_ID);
             Course parentCourse = dbHelper.getCourse(mainLesson.getCourseId());
@@ -89,7 +89,7 @@ public class JobSchedulerService extends JobService {
             lesson = dbHelper.getLesson(lessonId);
 
             LessonOptions options = new LessonOptions();
-            options.setIsRepeatable(lessonOptions.getIsRepeatable());
+            options.setRepeatable(lessonOptions.isRepeatable());
             options.setRepeatMode(lessonOptions.getRepeatMode());
             options.setLessonId(lesson.getId());
             options.setDescription("");

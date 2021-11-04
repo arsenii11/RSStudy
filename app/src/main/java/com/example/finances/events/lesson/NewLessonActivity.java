@@ -200,7 +200,7 @@ public class NewLessonActivity extends AppCompatActivity {
 
                     lessonOptions.setLessonId(lesson.getId()); //Устанавливаем id урока в опции
                     lessonOptions.setCalendarEventId(addCalendarEvent(course.getName() + " lesson", startCalendar.getTimeInMillis(), endCalendar.getTimeInMillis())); //Устанавливаем ID события в календаре
-                    lessonOptions.setIsRepeatable(0); //Ставим режим "не повторять"
+                    lessonOptions.setRepeatable(0); //Ставим режим "не повторять"
                     lessonOptions.setRepeatMode(1); //Ставим повтор урока раз в неделю
                     lessonOptions.setDescription(""); //Ставим пустое описание
 
@@ -208,7 +208,7 @@ public class NewLessonActivity extends AppCompatActivity {
                     //Добавляем опции урока в БД
                     if (COURSE_REPEAT.equals("YES")) {
 
-                        lessonOptions.setIsRepeatable(1); //Устанавливаем режим "повторять"
+                        lessonOptions.setRepeatable(1); //Устанавливаем режим "повторять"
 
                         //Рассчитываем добавочные миллисекудны и устанавливаем режим повтора урока в опции
 
@@ -230,7 +230,7 @@ public class NewLessonActivity extends AppCompatActivity {
                     }
                     dbHelper.insertLessonOptions(lessonOptions); //Добавляем опции урока в БД
 
-                    if(lessonOptions.getIsRepeatable() > 0){
+                    if(lessonOptions.isRepeatable() > 0){
                         int k = 0;
                         switch (lessonOptions.getRepeatMode()){
                             case 1: k = 4; break;
@@ -260,7 +260,7 @@ public class NewLessonActivity extends AppCompatActivity {
                             lessonPer = dbHelper.getLesson(lessonPerId);
 
                             LessonOptions options = new LessonOptions();
-                            options.setIsRepeatable(lessonOptions.getIsRepeatable());
+                            options.setRepeatable(lessonOptions.isRepeatable());
                             options.setRepeatMode(lessonOptions.getRepeatMode());
                             options.setLessonId(lessonPer.getId());
                             options.setDescription("");

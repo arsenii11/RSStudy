@@ -23,10 +23,11 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
+
+import com.adapty.Adapty;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.ObjectKey;
 import com.example.finances.notifications.AlarmRequestsReceiver;
-import com.example.finances.purchases.BillingClientHelper;
 import com.example.finances.purchases.SubscribeActivity;
 import com.example.finances.toolbar.SettingsActivity;
 import com.example.finances.ui.Account.AccountActivity;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Adapty.activate(this,"public_live_TUnjqV0T.ayTCdvnOhehqQ2dQ4bI6");
         setContentView(R.layout.activity_main);
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -67,7 +69,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         //Обновляем состояние будильника
         myAlarm();
 
-        purchases();
+        Intent sub = new Intent(MainActivity.this, SubscribeActivity.class);
+        startActivity(sub);
 
         //изображение на toolbar
         setToolbarImage();
@@ -113,17 +116,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         this.sendBroadcast(IntentForBroadcast);
     }
 
-    //Функция для обработки покупок внутри приложения
-    public void purchases() {
-        BillingClientHelper billingClientHelper = new BillingClientHelper(this);
-        if(billingClientHelper.isSub(BillingClientHelper.SUBSCRIPTION_MONTH)) Log.e("SUB", "SUB");
-        else {
-            /*Intent intent = new Intent(MainActivity.this, SubscribeActivity.class);
-            startActivity(intent);*/
-            Log.e("SUB", "NOT SUB");
-        }
-        billingClientHelper.finish();
-    }
 
 
     @Override
