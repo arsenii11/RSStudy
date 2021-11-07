@@ -1,145 +1,138 @@
-package com.example.finances.events;
+package com.example.finances.events
 
-import android.content.Context;
-import android.content.Intent;
-import android.text.format.DateUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.content.Context
+import nz.co.trademe.covert.Covert
+import androidx.recyclerview.widget.RecyclerView
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import com.example.finances.R
+import android.text.format.DateUtils
+import android.content.Intent
+import android.view.View
+import com.example.finances.events.lesson.LessonActivity
+import com.example.finances.events.test.TestActivity
+import maes.tech.intentanim.CustomIntent
+import android.widget.TextView
+import com.example.finances.database.Event
+import java.util.*
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+class MainAdaptor(
+    private val context: Context,
+    private val events: ArrayList<Event>,
 
-import com.example.finances.R;
-import com.example.finances.database.Event;
-import com.example.finances.events.course.CourseActivity;
-import com.example.finances.events.lesson.LessonActivity;
-import com.example.finances.events.test.TestActivity;
+    //Флаг показывать ли дату
+    private val dateShow: Boolean,
 
-import org.jetbrains.annotations.NotNull;
+    //Флаг включены ли свайпы
+    private val swipeEnabled: Boolean,
 
-import java.util.ArrayList;
-import java.util.Calendar;
+    private val covert: Covert,
+    private val ACTIVITY: String
+) : RecyclerView.Adapter<MainAdaptor.ViewHolder>() {
 
-import maes.tech.intentanim.CustomIntent;
-import nz.co.trademe.covert.Covert;
+    private val inflater: LayoutInflater = LayoutInflater.from(context)
 
-public class MainAdaptor extends RecyclerView.Adapter<MainAdaptor.ViewHolder> {
-
-    private final LayoutInflater inflater;
-    private final Context context;
-    private final ArrayList<Event> events;
-    private final boolean dateShow; //Флаг показывать ли дату
-    private final boolean swipeEnabled; //Флаг включены ли свайпы
-    private final Covert covert;
-    private final String ACTIVITY;
-
-
-    public MainAdaptor(Context context, ArrayList<Event> events, boolean dateShow, boolean swipeEnabled, Covert covert, String ACTIVITY)  {
-        this.inflater = LayoutInflater.from(context);
-        this.context = context;
-        this.events = events;
-        this.dateShow = dateShow;
-        this.swipeEnabled = swipeEnabled;
-        this.covert = covert;
-        this.ACTIVITY = ACTIVITY;
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = inflater.inflate(R.layout.list_event_item, parent, false)
+        return ViewHolder(view)
     }
 
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-    @NonNull
-    @NotNull
-    @Override
-    public MainAdaptor.ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.list_event_item, parent, false);
-        return new MainAdaptor.ViewHolder(view);
-    }
+        if (swipeEnabled) covert.drawCornerFlag(holder)
 
-    @Override
-    public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
+        val event = events[position] //Получаем текущий экземпляр события
+        val eventType = event.eventType //Получаем тип события
+        val calendar = Calendar.getInstance() //Создаем экземпляр календаря
 
-        if(swipeEnabled)
-            covert.drawCornerFlag(holder);
-
-        Event event = events.get(position); //Получаем текущий экземпляр события
-        Event.EventType eventType = event.getEventType(); //Получаем тип события
-
-        Calendar calendar = Calendar.getInstance(); //Создаем экземпляр календаря
-        calendar.setTimeInMillis(event.getDate()*1000); //Устанавливаем в календарь дату и время начала события
-
-        String name = event.getName().split(", ")[0]; //Создаем строку с названием события
+        calendar.timeInMillis =
+            event.date * 1000 //Устанавливаем в календарь дату и время начала события
+        var name = event.name!!.split(", ").toTypedArray()[0] //Создаем строку с названием события
 
         //Создаем строку со временем начала события
-        String fromTo = DateUtils.formatDateTime(context,
-                calendar.getTimeInMillis(),
-                DateUtils.FORMAT_SHOW_TIME);
+        var fromTo = DateUtils.formatDateTime(
+            context,
+            calendar.timeInMillis,
+            DateUtils.FORMAT_SHOW_TIME
+        )
 
         //Создаем строку с датой начала события
-        String date = "";
-        if(dateShow) date = DateUtils.formatDateTime(context,
-                calendar.getTimeInMillis(),
-                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR);
+        var date: String? = ""
+        if (dateShow) date = DateUtils.formatDateTime(
+            context,
+            calendar.timeInMillis,
+            DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_YEAR
+        )
 
         //В зависимсоти от типа события меняем значения строк
-        if(eventType == Event.EventType.Lesson) {
-            name += " lesson"; //Оставляем только название курса и приписываем слово lesson в конец
-
-            calendar.setTimeInMillis(calendar.getTimeInMillis() + (long) (event.getDuration()*3600000)); //Устанавливаем в календарь дату и время конца урока
+        if (eventType === Event.EventType.Lesson) {
+            name += " lesson" //Оставляем только название курса и приписываем слово lesson в конец
+            calendar.timeInMillis =
+                calendar.timeInMillis + (event.duration * 3600000).toLong() //Устанавливаем в календарь дату и время конца урока
 
             //Создаем строку со временем конца урока
-            String to = DateUtils.formatDateTime(context,
-                    calendar.getTimeInMillis(),
-                    DateUtils.FORMAT_SHOW_TIME);
-
-            fromTo += " – " + to; //Добавляем ко времени начала события время уонца
+            val to = DateUtils.formatDateTime(
+                context,
+                calendar.timeInMillis,
+                DateUtils.FORMAT_SHOW_TIME
+            )
+            fromTo += " – $to" //Добавляем ко времени начала события время уонца
         }
 
-
-        holder.nameView.setText(name); //Устанавливаем в View название события
-        holder.eventId.setText(String.valueOf(event.getEventId())); //Устанавливаем в View id события
-        holder.eventType.setText(eventType.name().toUpperCase()); //Устанавливаем в View тип события
-        holder.duration.setText(fromTo); //Устанавливаем в View время начала и конца (для урока)
-        holder.date.setText(date); //Устанавливаем в View дату начала события
+        holder.nameView.text = name //Устанавливаем в View название события
+        holder.eventId.text =
+            java.lang.String.valueOf(event.eventId) //Устанавливаем в View id события
+        holder.eventType.text = eventType!!.name.toUpperCase(Locale.ROOT) //Устанавливаем в View тип события
+        holder.duration.text = fromTo //Устанавливаем в View время начала и конца (для урока)
+        holder.date.text = date //Устанавливаем в View дату начала события
 
         //Создаем функцию при нажатии на элемент списка
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent; //Создаем новое намерение
+        holder.itemView.setOnClickListener { v: View ->
+            val intent: Intent //Создаем новое намерение
 
             //В зависимости от типа события создаем намерение перехода на новую активность
-            if(eventType == Event.EventType.Lesson){
-                intent = new Intent(v.getContext(), LessonActivity.class); //Переход на активность с информацией об уроке
-                intent.putExtra("LESSON_ID", event.getId()); //Передаем в намерение id урока
+            if (eventType === Event.EventType.Lesson) {
+                intent = Intent(
+                    v.context,
+                    LessonActivity::class.java
+                ) //Переход на активность с информацией об уроке
+                intent.putExtra("LESSON_ID", event.id) //Передаем в намерение id урока
+            } else {
+                intent = Intent(
+                    v.context,
+                    TestActivity::class.java
+                ) //Переход на активность с информацией о тесте
+                intent.putExtra("TEST_ID", event.id) //Предаем в намерение id теста
             }
-            else {
-                intent = new Intent(v.getContext(), TestActivity.class); //Переход на активность с информацией о тесте
-                intent.putExtra("TEST_ID", event.getId()); //Предаем в намерение id теста
-            }
-            intent.putExtra("ACTIVITY", ACTIVITY);
-            v.getContext().startActivity(intent); //Запускаем намерение
-            CustomIntent.customType(v.getContext(),"left-to-right"); //Добавляем анимацию перехода
-        });
-    }
-
-    @Override
-    public int getItemCount() {
-        return events.size();
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        final TextView nameView; //View с названием события
-        final TextView eventId; //View с id события (скрыто от пользователя)
-        final TextView eventType; //View с типом события (скрыто от пользователя)
-        final TextView duration; //View со временем начала и конца (для урока)
-        final TextView date; //View с датой начала события
-
-        ViewHolder(View view){
-            super(view);
-            nameView = (TextView) view.findViewById(R.id.LessonItem);
-            eventId = view.findViewById(R.id.EventID);
-            eventType = view.findViewById(R.id.EventType);
-            duration = view.findViewById(R.id.duration);
-            date = view.findViewById(R.id.date);
+            intent.putExtra("ACTIVITY", ACTIVITY)
+            v.context.startActivity(intent) //Запускаем намерение
+            CustomIntent.customType(v.context, "left-to-right") //Добавляем анимацию перехода
         }
     }
+
+    override fun getItemCount(): Int {
+        return events.size
+    }
+
+
+    class ViewHolder internal constructor(view: View) : RecyclerView.ViewHolder(view) {
+
+        //Функция для оптимизации поиска объектов
+        private fun <T> lazyUnsynchronized(initializer: () -> T): Lazy<T> =
+            lazy(LazyThreadSafetyMode.NONE, initializer)
+
+        val nameView //View с названием события
+                : TextView by lazyUnsynchronized { view.findViewById<TextView>(R.id.LessonItem) }
+        val eventId //View с id события (скрыто от пользователя)
+                : TextView by lazyUnsynchronized { view.findViewById(R.id.EventID) }
+        val eventType //View с типом события (скрыто от пользователя)
+                : TextView by lazyUnsynchronized { view.findViewById(R.id.EventType) }
+        val duration //View со временем начала и конца (для урока)
+                : TextView by lazyUnsynchronized { view.findViewById(R.id.duration) }
+        val date //View с датой начала события
+                : TextView by lazyUnsynchronized { view.findViewById(R.id.date) }
+
+    }
+
 
 }

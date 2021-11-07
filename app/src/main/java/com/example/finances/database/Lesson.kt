@@ -1,20 +1,9 @@
 package com.example.finances.database
-
-class Lesson {
-    var id = 0
-    var name: String? = null
-    var courseId = 0
-    var date: Long = 0
-    var duration = 0f
-    var weight = 0
-
-    constructor() {}
-    constructor(id: Int, name: String?, courseId: Int, date: Long, duration: Float, weight: Int) {
-        this.id = id
-        this.name = name
-        this.courseId = courseId
-        this.date = date
-        this.duration = duration
-        this.weight = weight
-    }
-}
+class Lesson (
+    var id: Int = 0,
+    var name: String? = null,
+    var courseId: Int = 0,
+    var date: Long = 0,
+    var duration: Float = 0f,
+    var weight: Int = 0
+)
