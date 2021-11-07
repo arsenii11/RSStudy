@@ -1,4 +1,4 @@
-package com.example.finances.ui.Statistics;
+package com.example.finances.ui.statistics;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,7 +13,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.ObjectKey;
@@ -31,8 +30,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static com.pchmn.materialchips.R2.id.container;
 
 public class StatisticsFragment extends Fragment  {
 

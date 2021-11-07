@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:tag="unique_tag"
-    tools:context=".ui.Calendar.CalendarFragment">
+    tools:context=".ui.calendar.CalendarFragment">
 
 <LinearLayout
     android:id="@+id/LinerCal"

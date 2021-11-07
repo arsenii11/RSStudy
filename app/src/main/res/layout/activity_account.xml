@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:tag="unique_tag_1"
-    tools:context=".ui.Account.AccountActivity">
+    tools:context=".ui.account.AccountActivity">
 
 
     <ImageButton
@@ -16,9 +16,9 @@
         android:layout_height="60dp"
         android:background="@null"
         android:src="@drawable/close_lesson"
-        android:tint="@color/diagramText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/diagramText" />
 
     <com.example.finances.helpclasses.SquaredConstraintLayout
         android:id="@+id/ProfileImageLayout"
@@ -108,10 +108,10 @@
         android:layout_height="20dp"
         android:backgroundTint="@color/transparent"
         android:src="@drawable/list_black_24dp"
-        android:tint="@color/diagramText"
         app:layout_constraintEnd_toStartOf="@+id/view3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view3" />
+        app:layout_constraintTop_toTopOf="@+id/view3"
+        app:tint="@color/diagramText" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -129,11 +129,11 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@drawable/outline_settings_24"
-        android:tint="@color/diagramText"
         android:backgroundTint="@color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/view3"
-        app:layout_constraintTop_toTopOf="@+id/view3" />
+        app:layout_constraintTop_toTopOf="@+id/view3"
+        app:tint="@color/diagramText" />
 
     <TextView
         android:layout_width="wrap_content"

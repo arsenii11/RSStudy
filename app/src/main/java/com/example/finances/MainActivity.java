@@ -6,16 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
@@ -28,22 +23,17 @@ import com.adapty.Adapty;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.ObjectKey;
 import com.example.finances.notifications.AlarmRequestsReceiver;
-import com.example.finances.purchases.SubscribeActivity;
+import com.example.finances.ui.subscribe.SubscribeActivity;
 import com.example.finances.toolbar.SettingsActivity;
-import com.example.finances.ui.Account.AccountActivity;
+import com.example.finances.ui.account.AccountActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.snackbar.Snackbar;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import maes.tech.intentanim.CustomIntent;
 
-import static com.example.finances.ui.Statistics.StatisticsFragment.APP_PREFERENCES_Path;
+import static com.example.finances.ui.statistics.StatisticsFragment.APP_PREFERENCES_Path;
 
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 

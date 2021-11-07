@@ -1,4 +1,4 @@
-package com.example.finances.ui.Home;
+package com.example.finances.ui.home;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

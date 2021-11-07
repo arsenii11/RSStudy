@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:tag="Scroll_tag"
-    tools:context=".ui.Calendar.CalendarFragment">
+    tools:context=".ui.calendar.CalendarFragment">
 
 <LinearLayout
     android:layout_width="match_parent"

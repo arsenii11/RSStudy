@@ -9,14 +9,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.example.finances.MainActivity;
 import com.example.finances.R;
-import com.example.finances.ui.Account.AccountActivity;
-import com.example.finances.ui.Home.HomeFragment;
+import com.example.finances.ui.account.AccountActivity;
 
 import maes.tech.intentanim.CustomIntent;
 

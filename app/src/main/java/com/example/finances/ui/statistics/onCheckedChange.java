@@ -1,4 +1,4 @@
-package com.example.finances.ui.Statistics;
+package com.example.finances.ui.statistics;
 
 import android.content.ComponentCallbacks;
 import android.widget.CompoundButton;

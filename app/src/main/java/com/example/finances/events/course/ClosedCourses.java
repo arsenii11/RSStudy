@@ -11,11 +11,10 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.example.finances.MainActivity;
 import com.example.finances.R;
 import com.example.finances.database.Course;
 import com.example.finances.database.DBHelper;
-import com.example.finances.ui.Account.AccountActivity;
+import com.example.finances.ui.account.AccountActivity;
 
 import java.util.ArrayList;
 

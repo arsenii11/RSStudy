@@ -132,7 +132,7 @@
             android:name=".events.lesson.RescheduleLessonActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity android:name=".purchases.SubscribeActivity"
+        <activity android:name=".ui.subscribe.SubscribeActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
@@ -142,7 +142,7 @@
         <activity android:name=".events.course.ClosedCourses"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.Account.AccountActivity"
+        <activity android:name=".ui.account.AccountActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 

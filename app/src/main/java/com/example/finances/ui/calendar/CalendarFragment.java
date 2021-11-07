@@ -1,4 +1,4 @@
-package com.example.finances.ui.Calendar;
+package com.example.finances.ui.calendar;
 
 import android.content.Context;
 import android.os.Build;
@@ -9,13 +9,11 @@ import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.finances.MainActivity;
 import com.example.finances.R;
 import com.example.finances.database.DBHelper;
 import com.example.finances.database.Event;

@@ -1,4 +1,4 @@
-package com.example.finances.ui.Account;
+package com.example.finances.ui.account;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
