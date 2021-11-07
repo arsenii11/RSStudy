@@ -18,9 +18,9 @@ import com.example.finances.QuestionsActivity;
 import com.example.finances.R;
 import com.example.finances.database.Course;
 import com.example.finances.events.course.CourseAdapter;
-import com.example.finances.events.course.CourseName;
+import com.example.finances.events.course.CourseNameActivity;
 import com.example.finances.database.DBHelper;
-import com.example.finances.events.course.CourseListActivity;
+import com.example.finances.events.course.CoursesListActivity;
 import com.github.mikephil.charting.charts.PieChart;
 
 import java.util.ArrayList;
@@ -84,7 +84,7 @@ public class HomeFragment extends Fragment  {
 
 
         plusCourse.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeFragment.this.getActivity(), CourseName.class);
+            Intent intent = new Intent(HomeFragment.this.getActivity(), CourseNameActivity.class);
 
             intent.putExtra("ACTIVITY", ACTIVITY);
 
@@ -95,7 +95,7 @@ public class HomeFragment extends Fragment  {
 
         plusLesson = view.findViewById(R.id.buttonpluslesson);
         plusLesson.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeFragment.this.getActivity(), CourseListActivity.class);
+            Intent intent = new Intent(HomeFragment.this.getActivity(), CoursesListActivity.class);
 
             intent.putExtra("ADAPTER_MODE", "ADD_LESSON");
             intent.putExtra("ACTIVITY", ACTIVITY);
@@ -106,7 +106,7 @@ public class HomeFragment extends Fragment  {
 
         plusTest = view.findViewById(R.id.buttonplustest);
         plusTest.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeFragment.this.getActivity(), CourseListActivity.class);
+            Intent intent = new Intent(HomeFragment.this.getActivity(), CoursesListActivity.class);
 
             intent.putExtra("ADAPTER_MODE", "ADD_TEST");
             intent.putExtra("ACTIVITY", ACTIVITY);
@@ -121,7 +121,7 @@ public class HomeFragment extends Fragment  {
         newCourse = view.findViewById(R.id.courseBt);
         newCourse.setClipToOutline(true);
         newCourse.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeFragment.this.getActivity(), CourseName.class);
+            Intent intent = new Intent(HomeFragment.this.getActivity(), CourseNameActivity.class);
 
             intent.putExtra("ACTIVITY", ACTIVITY);
 
@@ -139,7 +139,7 @@ public class HomeFragment extends Fragment  {
 
         //Кнопка раскрывающая список курсов
         ViewAllBt.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeFragment.this.getActivity(), CourseListActivity.class);
+            Intent intent = new Intent(HomeFragment.this.getActivity(), CoursesListActivity.class);
 
             intent.putExtra("ADAPTER_MODE", "OPEN_COURSE");
 

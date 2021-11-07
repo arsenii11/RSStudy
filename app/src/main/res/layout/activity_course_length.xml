@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".events.course.CourseLength">
+    tools:context=".events.course.CourseLengthActivity">
 
     <TextView
-        android:id="@+id/courseLength"
+        android:id="@+id/courseLengthLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nokora_regular"
@@ -20,21 +20,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.449" />
 
-    <!--<EditText
-        android:id="@+id/editTextCourseLength"
-        android:layout_width="25dp"
-        android:layout_height="57dp"
-        android:ems="10"
-        android:inputType="number"
-        android:text="2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseLength"
-        app:layout_constraintVertical_bias="0.038" />-->
-
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/lengthSpinner"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="150dp"
@@ -42,11 +29,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseLength"
+        app:layout_constraintTop_toBottomOf="@+id/courseLengthLabel"
         app:layout_constraintVertical_bias="0.038" />
 
     <Button
-        android:id="@+id/buttonNext2"
+        android:id="@+id/nextButton"
         android:layout_width="110dp"
         android:layout_height="50dp"
         style="@style/LessonDateButton"
@@ -66,7 +53,7 @@
         app:layout_constraintVertical_bias="0.938" />
 
     <ImageButton
-        android:id="@+id/closeButton2"
+        android:id="@+id/closeButton"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@null"

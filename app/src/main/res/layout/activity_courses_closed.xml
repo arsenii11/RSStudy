@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context=".events.course.ClosedCourses">
+    tools:context=".events.course.ClosedCoursesListActivity">
 
     <include
-        android:id="@+id/toolbarCourseList"
+        android:id="@+id/toolbar"
         layout="@layout/toolbar">
     </include>
 <androidx.constraintlayout.widget.ConstraintLayout

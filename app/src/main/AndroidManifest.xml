@@ -79,7 +79,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".events.course.CourseName"
+            android:name=".events.course.CourseNameActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/EnterTheme">
@@ -88,7 +88,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".events.course.CourseLength"
+            android:name=".events.course.CourseLengthActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/EnterTheme">
@@ -109,7 +109,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".events.course.CourseListActivity"
+            android:name=".events.course.CoursesListActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
@@ -139,7 +139,7 @@
         <activity android:name=".QuestionsActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity android:name=".events.course.ClosedCourses"
+        <activity android:name=".events.course.ClosedCoursesListActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity android:name=".ui.account.AccountActivity"

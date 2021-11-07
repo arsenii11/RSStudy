@@ -4,6 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/matvi/StudioProjects/RSStudy/app/src/main/res/layout/activity_account.xml" value="0.14270833333333333" />
+        <entry key="..\:/Users/matvi/StudioProjects/RSStudy/app/src/main/res/layout/activity_course_info.xml" value="0.25" />
+        <entry key="..\:/Users/matvi/StudioProjects/RSStudy/app/src/main/res/layout/activity_course_length.xml" value="0.24230072463768115" />
+        <entry key="..\:/Users/matvi/StudioProjects/RSStudy/app/src/main/res/layout/activity_course_name.xml" value="0.24230072463768115" />
+        <entry key="..\:/Users/matvi/StudioProjects/RSStudy/app/src/main/res/layout/activity_courses_list.xml" value="0.24230072463768115" />
         <entry key="..\:/Users/matvi/StudioProjects/RSStudy/app/src/main/res/layout/activity_main.xml" value="1.0" />
         <entry key="..\:/Users/matvi/StudioProjects/RSStudy/app/src/main/res/layout/activity_subscribe.xml" value="0.33" />
         <entry key="..\:/Users/matvi/StudioProjects/RSStudy/app/src/main/res/layout/toolbar.xml" value="0.14270833333333333" />

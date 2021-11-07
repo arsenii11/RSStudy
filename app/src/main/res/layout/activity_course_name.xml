@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".events.course.CourseName">
+    tools:context=".events.course.CourseNameActivity">
 
     <TextView
-        android:id="@+id/courseName"
+        android:id="@+id/courseNameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Course name?"
@@ -29,11 +29,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseName"
+        app:layout_constraintTop_toBottomOf="@+id/courseNameLabel"
         app:layout_constraintVertical_bias="0.038" />
 
     <Button
-        android:id="@+id/buttonNext"
+        android:id="@+id/nextButton"
         android:layout_width="110dp"
         android:layout_height="50dp"
         style="@style/LessonDateButton"

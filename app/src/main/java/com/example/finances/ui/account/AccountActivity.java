@@ -23,7 +23,7 @@ import com.bumptech.glide.signature.ObjectKey;
 import com.example.finances.MainActivity;
 import com.example.finances.R;
 import com.example.finances.database.DBHelper;
-import com.example.finances.events.course.ClosedCourses;
+import com.example.finances.events.course.ClosedCoursesListActivity;
 import com.example.finances.events.course.CourseAdapter;
 import com.example.finances.helpclasses.SquaredConstraintLayout;
 import com.example.finances.toolbar.SettingsActivity;
@@ -141,7 +141,7 @@ public class AccountActivity extends AppCompatActivity implements  Function2<Che
         });
 
         ClosedCourses.setOnClickListener(v -> {
-            Intent intent = new Intent(AccountActivity.this, ClosedCourses.class);
+            Intent intent = new Intent(AccountActivity.this, ClosedCoursesListActivity.class);
             intent.putExtra("ACTIVITY", ACTIVITY);
             startActivity(intent);
             CustomIntent.customType(AccountActivity.this,"fadein-to-fadeout");

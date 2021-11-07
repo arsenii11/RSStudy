@@ -9,25 +9,25 @@
 
 
     <include
-        android:id="@+id/toolbar3"
+        android:id="@+id/toolbar"
         layout="@layout/toolbar">
     </include>
 
     <TextView
-        android:id="@+id/LabelCourseName"
+        android:id="@+id/courseNameLabel"
         style="@style/TextView.Primary.Header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Course"
         android:textSize="34dp"
-        app:layout_constraintBottom_toTopOf="@+id/NewEventList"
+        app:layout_constraintBottom_toTopOf="@+id/newEventList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar3"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/buttonEndCourse"
+        android:id="@+id/endCourseButton"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,43 +36,43 @@
         android:textAllCaps="false"
         android:textColor="@color/DivideLineList"
         android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/LabelCourseName"
-        app:layout_constraintStart_toEndOf="@+id/LabelCourseName"
-        app:layout_constraintTop_toTopOf="@+id/LabelCourseName" />
+        app:layout_constraintBottom_toBottomOf="@+id/courseNameLabel"
+        app:layout_constraintStart_toEndOf="@+id/courseNameLabel"
+        app:layout_constraintTop_toTopOf="@+id/courseNameLabel" />
 
     <TextView
-        android:id="@+id/LableNewEvent"
+        android:id="@+id/newEventLabel"
         style="@style/TextView.Primary.Header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="New event"
         android:textSize="28dp"
-        app:layout_constraintBottom_toTopOf="@+id/NewEventList"
+        app:layout_constraintBottom_toTopOf="@+id/newEventList"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar3"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.861" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/NewEventList"
+        android:id="@+id/newEventList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="156dp"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar3"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:layout_editor_absoluteX="0dp" />
 
     <TextView
-        android:id="@+id/Events"
+        android:id="@+id/eventsLabel"
         style="@style/TextView.Primary.Header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:text="Events"
         android:textSize="28dp"
-        app:layout_constraintStart_toStartOf="@+id/LableNewEvent"
-        app:layout_constraintTop_toBottomOf="@+id/NewEventList" />
+        app:layout_constraintStart_toStartOf="@+id/newEventLabel"
+        app:layout_constraintTop_toBottomOf="@+id/newEventList" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/allEventsList"
@@ -83,7 +83,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Events" />
+        app:layout_constraintTop_toBottomOf="@+id/eventsLabel" />
 
 
 
