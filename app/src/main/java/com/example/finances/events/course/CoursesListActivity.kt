@@ -1,4 +1,5 @@
 package com.example.finances.events.course
+import android.content.Intent
 import com.example.finances.database.Course
 import com.example.finances.database.DBHelper
 import com.example.finances.calendar.CalendarHelper
@@ -10,13 +11,18 @@ import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import android.widget.TextView
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import com.example.finances.events.course.CourseAdapter.AdapterMode
 import nz.co.trademe.covert.Covert.SwipeDirection
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.example.finances.MainActivity
+import com.pchmn.materialchips.R2.id.home
+import maes.tech.intentanim.CustomIntent
 import java.util.ArrayList
 
 class CoursesListActivity : AppCompatActivity() {
@@ -72,7 +78,7 @@ class CoursesListActivity : AppCompatActivity() {
 
         //ACTIVITY = i.getStringExtra("ACTIVITY");
 
-        //свайаы блин
+        //свайпы блин
         covert = Covert.with(config)
             .setIsActiveCallback { false }
             .doOnSwipe { viewHolder: RecyclerView.ViewHolder, swipeDirection: SwipeDirection? ->
@@ -108,6 +114,18 @@ class CoursesListActivity : AppCompatActivity() {
         menu.getItem(1).isVisible = false
         menu.getItem(0).isVisible = false
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        if (id == android.R.id.home) {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
+            CustomIntent.customType(this, "fadein-to-fadeout")
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     //добавляем значения
