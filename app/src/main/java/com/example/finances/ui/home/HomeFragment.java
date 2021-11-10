@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finances.QuestionsActivity;
@@ -21,6 +22,7 @@ import com.example.finances.events.course.CourseAdapter;
 import com.example.finances.events.course.CourseNameActivity;
 import com.example.finances.database.DBHelper;
 import com.example.finances.events.course.CoursesListActivity;
+import com.example.finances.ui.tutorial.TutorialFragment;
 import com.github.mikephil.charting.charts.PieChart;
 
 import java.util.ArrayList;
@@ -131,9 +133,9 @@ public class HomeFragment extends Fragment  {
         });
 
         Questions.setOnClickListener(v -> {
-            Intent intent = new Intent(HomeFragment.this.getActivity(), QuestionsActivity.class);
-            startActivity(intent);
-            CustomIntent.customType(getContext(),"left-to-right");
+            FragmentManager fragmentManager = getParentFragmentManager();
+            Fragment tutorial = new TutorialFragment();
+            fragmentManager.beginTransaction().replace(R.id.nav_host_fragment, tutorial).commit();
         });
 
 

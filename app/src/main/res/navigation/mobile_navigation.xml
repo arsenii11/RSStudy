@@ -6,6 +6,12 @@
     app:startDestination="@+id/navigation_home">
 
     <fragment
+        android:id="@+id/navigation_tutorial"
+        android:name="com.example.finances.ui.tutorial.TutorialFragment"
+        android:label="@string/title_tutorial"
+        tools:layout="@layout/fragment_tutorial" />
+
+    <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.finances.ui.home.HomeFragment"
         android:label="@string/title_home"
@@ -22,4 +28,5 @@
         android:name="com.example.finances.ui.statistics.StatisticsFragment"
         android:label="@string/title_statistics"
         tools:layout="@layout/fragment_statistics" />
+
 </navigation>

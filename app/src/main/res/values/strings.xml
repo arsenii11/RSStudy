@@ -45,4 +45,5 @@
     <string name="ManualText6">You can do this from the main menu by clicking this button.</string>
     <string name="ManualText7">After that give your course a name and number of lessons per week.</string>
     <string name="ManualText8">Add date, duration, and repetitions for each lesson.</string>
+    <string name="title_tutorial">Tutorial</string>
 </resources>

@@ -16,7 +16,6 @@ class SplashScreenActivity : AppCompatActivity() {
         iv_note.alpha = 0f
         iv_note.animate().setDuration(2000).alpha(1f).withEndAction() {
 
-
             //обращаемся к настройкам
             val sp = getSharedPreferences(
                 "hasVisited", Context.MODE_PRIVATE
@@ -24,6 +23,7 @@ class SplashScreenActivity : AppCompatActivity() {
             // проверяем, первый ли раз открывается программа (Если вход первый то вернет false)
             val hasVisited = sp.getBoolean("hasVisited", false)
 
+            val i = Intent(this, MainActivity::class.java)
 
                 if (!hasVisited) {
                     // Сработает если Вход первый
@@ -31,18 +31,15 @@ class SplashScreenActivity : AppCompatActivity() {
                     val e = sp.edit()
                     e.putBoolean("hasVisited", true)
                     e.apply()
-                    //Ниже запускаем активность которая нужна при первом входе
-                    val i = Intent(this, QuestionsActivity::class.java)
-                    startActivity(i)
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-                    finish()
+
+                    i.putExtra("VISITED", false);
                 }
                 else {
-                    val i = Intent(this, MainActivity::class.java)
-                    startActivity(i)
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-                    finish()
+                    i.putExtra("VISITED", true);
                 }
 
+            startActivity(i)
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            finish()
         }
     }}

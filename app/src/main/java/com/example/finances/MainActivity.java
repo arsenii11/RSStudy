@@ -14,8 +14,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
+import androidx.navigation.NavGraph;
+import androidx.navigation.NavInflater;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
 
@@ -23,11 +27,14 @@ import com.adapty.Adapty;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.ObjectKey;
 import com.example.finances.notifications.AlarmRequestsReceiver;
+import com.example.finances.ui.calendar.CalendarFragment;
 import com.example.finances.ui.subscribe.SubscribeActivity;
 import com.example.finances.toolbar.SettingsActivity;
 import com.example.finances.ui.account.AccountActivity;
+import com.example.finances.ui.tutorial.TutorialFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.Console;
 import java.io.File;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -48,9 +55,21 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         Adapty.activate(this,"public_live_TUnjqV0T.ayTCdvnOhehqQ2dQ4bI6");
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupWithNavController(navView, navController);
+
+        NavHostFragment navHost = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        NavController navController = navHost.getNavController();
+
+        NavInflater navInflater = navController.getNavInflater();
+        NavGraph graph = navInflater.inflate(R.navigation.mobile_navigation);
+
+        if (!getIntent().getBooleanExtra("VISITED", true))
+            graph.setStartDestination(R.id.navigation_tutorial);
+        else
+            graph.setStartDestination(R.id.navigation_home);
+
+        navController.setGraph(graph);
+        BottomNavigationView navigationView = findViewById(R.id.nav_view);
+        NavigationUI.setupWithNavController(navigationView, navController);
 
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -71,9 +90,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             finish();
         });
 
-        //регистрируем обработчик настроек
-        Context context = getApplicationContext();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefs.registerOnSharedPreferenceChangeListener(this);
 
         //Проверка разрешений
