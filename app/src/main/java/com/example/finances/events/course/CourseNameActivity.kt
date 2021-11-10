@@ -5,6 +5,7 @@ import com.example.finances.R
 import android.widget.EditText
 import android.content.Intent
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import com.example.finances.MainActivity
 import maes.tech.intentanim.CustomIntent
@@ -55,7 +56,7 @@ class CourseNameActivity : AppCompatActivity() {
         }
 
         //Получаем из View кнопку закрыть
-        val close by lazyUnsynchronized { findViewById<Button>(R.id.closeButton) }
+        val close by lazyUnsynchronized { findViewById<ImageButton>(R.id.closeButton) }
         //Действие при клике на кнопку закрыть
         close.setOnClickListener {
 

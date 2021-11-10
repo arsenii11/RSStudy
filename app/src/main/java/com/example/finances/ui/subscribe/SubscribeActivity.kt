@@ -13,9 +13,9 @@ class SubscribeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_subscribe)
 
-        val buttonMonth by lazy { findViewById<Button>(R.id.subscribe_btn_month) } //Кнопка для подписки на один месяц
-        val buttonSemiannual by lazy { findViewById<Button>(R.id.subscribe_btn_semiannual) } //Кнопка для подписки на полгода
-        val buttonAnnual by lazy { findViewById<Button>(R.id.subscribe_btn_annual) } //Кнопка для подписки на год
+        val buttonMonth by lazy { findViewById<Button>(R.id.subscribeMonthButton) } //Кнопка для подписки на один месяц
+        val buttonSemiannual by lazy { findViewById<Button>(R.id.subscribeSemiannualButton) } //Кнопка для подписки на полгода
+        val buttonAnnual by lazy { findViewById<Button>(R.id.subscribeAnnualButton) } //Кнопка для подписки на год
 
         //Словарь для связи ID товара из Google Play и кнопки на экране
         val buttonsMap by lazy(LazyThreadSafetyMode.NONE) {

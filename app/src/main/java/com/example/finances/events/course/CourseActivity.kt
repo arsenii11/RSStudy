@@ -24,31 +24,33 @@ import nz.co.trademe.covert.Covert.SwipeDirection
 import com.example.finances.database.Event
 import maes.tech.intentanim.CustomIntent
 import java.util.*
+import kotlin.collections.ArrayList
 
 class CourseActivity : AppCompatActivity() {
-    private var COURSE_ID = 0 //ID курса
-    private val ACTIVITY = "COURSE" //Название активности
-
-    private var labelCourse: TextView? = null //TextView для названия курса
-    private var covert: Covert? = null //Для свайпов
-    private var newEvents = ArrayList<NewEvent>() //Лист со всеми событиями
-    private var calendarHelper: CalendarHelper? = null //Помощник по работе с календарем
-    private var mainAdaptor: MainAdaptor? = null //Адаптер для списка событий
-    private var config: Covert.Config = //Настройки для свайпов
-        Covert.Config(R.drawable.ic_cancel_grey_24dp, R.color.white, R.color.ErrorText)
 
     //Функция для оптимизации поиска объектов
     private fun <T> lazyUnsynchronized(initializer: () -> T): Lazy<T> =
         lazy(LazyThreadSafetyMode.NONE, initializer)
 
-    var events = ArrayList<Event>() //Список всех событий
-
-    var dbHelper: DBHelper? = null //Помощник по работе с БД
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_course_info)
+
+        val ACTIVITY = "COURSE" //Название активности
+
+        val newEvents = ArrayList<NewEvent>() //Лист со всеми событиями
+        var mainAdaptor: MainAdaptor? //Адаптер для списка событий
+        var covert: Covert? = null //Свайпы
+        val config: Covert.Config = //Настройки для свайпов
+            Covert.Config(R.drawable.ic_cancel_grey_24dp, R.color.white, R.color.ErrorText)
+
+        val events = ArrayList<Event>() //Список всех событий
+
+        //Инициализация пощников
+        val dbHelper = DBHelper(this)
+        val calendarHelper = CalendarHelper(this)
 
         //Поиск во View элемента для названия курса
         val labelCourse by lazyUnsynchronized { findViewById<TextView>(R.id.courseNameLabel) }
@@ -60,10 +62,6 @@ class CourseActivity : AppCompatActivity() {
         val newEventsList by lazyUnsynchronized { findViewById<RecyclerView>(R.id.newEventList) }
 
         eventsList.layoutManager = LinearLayoutManager(this)
-
-        //Инициализация пощников
-        dbHelper = DBHelper(this)
-        calendarHelper = CalendarHelper(this)
 
         //Верхний тулбар
         val toolbar by lazyUnsynchronized { findViewById<Toolbar>(R.id.toolbar) }
@@ -81,15 +79,24 @@ class CourseActivity : AppCompatActivity() {
         //Получаем намерение, вызвавшее активность
         val i = intent
         //Получаем ID выбранного курса
-        COURSE_ID = i.getIntExtra("COURSE_ID", -1)
+        val COURSE_ID = i.getIntExtra("COURSE_ID", -1)
         //ACTIVITY = i.getStringExtra("ACTIVITY");
+
         //Получаем информацию из БД
-        setInitialData()
+        setInitialData(
+            events = events,
+            labelCourse = labelCourse,
+            COURSE_ID = COURSE_ID,
+            dbHelper = dbHelper
+        )
 
 
         //AND DELETE THIS SHIT
         val adapter = NewEventAdapter(this, newEvents, COURSE_ID, ACTIVITY)
+        newEvents.add(NewEvent("lesson"))
+        newEvents.add(NewEvent("test"))
         newEventsList.adapter = adapter
+
 
         //Конфигурация свайпов
         covert = Covert.with(config)
@@ -111,22 +118,27 @@ class CourseActivity : AppCompatActivity() {
                 if (eventType == "LESSON") {
 
                     //Получам из БД дополнительные парметры урока
-                    val lessonOptions = dbHelper!!.getLessonOptions(eventId)
+                    val lessonOptions = dbHelper.getLessonOptions(eventId)
                     //Проверяем, есть ли в календаре уведомление о выбранном уроке
                     if (lessonOptions.calendarEventId > -1)
                         //Удаляем событие в календаре
-                        calendarHelper!!.deleteCalendarEvent(lessonOptions.calendarEventId)
+                        calendarHelper.deleteCalendarEvent(lessonOptions.calendarEventId)
 
                     //Удаляем урок
-                    dbHelper!!.deleteLesson(eventId)
+                    dbHelper.deleteLesson(eventId)
                 }
                 //В случае, если — тест
                 else if (eventType == "TEST")
                     //Удаляем тест
-                    dbHelper!!.deleteTest(eventId)
+                    dbHelper.deleteTest(eventId)
 
                 //Получаем обновленную информацию из БД
-                setInitialData()
+                setInitialData(
+                    events = events,
+                    labelCourse = labelCourse,
+                    COURSE_ID = COURSE_ID,
+                    dbHelper = dbHelper
+                )
 
                 //Обновляем адаптер списка событий
                 mainAdaptor = MainAdaptor(this, events,
@@ -144,7 +156,7 @@ class CourseActivity : AppCompatActivity() {
         mainAdaptor = MainAdaptor(this, events,
             dateShow = true,
             swipeEnabled = true,
-            covert = covert!!,
+            covert = covert,
             ACTIVITY = ACTIVITY
         )
         //Устанавливаем значения в список
@@ -153,13 +165,13 @@ class CourseActivity : AppCompatActivity() {
         //Действия при клике на кнопку для завершения курса
         endCourse.setOnClickListener {
             //Получаем из БД информацию о текущем курсе
-            val course = dbHelper!!.getCourse(COURSE_ID.toLong())
+            val course = dbHelper.getCourse(COURSE_ID.toLong())
             //Устанавливаем текущую дату, как время завершения курса
             course.endDate = Calendar.getInstance().timeInMillis / 1000
             //Отмечаем, что курс завершен
             course.finished = 1
             //Обновляем информацию в БД
-            dbHelper!!.updateCourse(COURSE_ID, course)
+            dbHelper.updateCourse(COURSE_ID, course)
         }
     }
 
@@ -181,11 +193,9 @@ class CourseActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private fun setInitialData() {
-        newEvents.add(NewEvent("lesson"))
-        newEvents.add(NewEvent("test"))
-        events = dbHelper!!.getAllEvents(COURSE_ID)
-        labelCourse!!.text = dbHelper!!.getCourse(COURSE_ID.toLong()).name
+    private fun setInitialData(events: ArrayList<Event>, labelCourse: TextView, COURSE_ID: Int, dbHelper: DBHelper) {
+        events.clear()
+        events.addAll(dbHelper.getAllEvents(COURSE_ID))
+        labelCourse.text = dbHelper.getCourse(COURSE_ID.toLong()).name
     }
 }

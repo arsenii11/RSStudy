@@ -59,9 +59,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         //Обновляем состояние будильника
         myAlarm();
 
-        Intent sub = new Intent(MainActivity.this, SubscribeActivity.class);
-        startActivity(sub);
-
         //изображение на toolbar
         setToolbarImage();
 

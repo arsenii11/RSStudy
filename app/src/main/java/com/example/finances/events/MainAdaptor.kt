@@ -26,7 +26,7 @@ class MainAdaptor(
     //Флаг включены ли свайпы
     private val swipeEnabled: Boolean,
 
-    private val covert: Covert,
+    private val covert: Covert?,
     private val ACTIVITY: String
 ) : RecyclerView.Adapter<MainAdaptor.ViewHolder>() {
 
@@ -39,7 +39,7 @@ class MainAdaptor(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        if (swipeEnabled) covert.drawCornerFlag(holder)
+        if (swipeEnabled) covert?.drawCornerFlag(holder)
 
         val event = events[position] //Получаем текущий экземпляр события
         val eventType = event.eventType //Получаем тип события

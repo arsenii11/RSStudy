@@ -109,7 +109,7 @@ class CourseLengthActivity : AppCompatActivity() {
         }
 
         //Получаем из View кнопку закрыть
-        val close by lazyUnsynchronized { findViewById<Button>(R.id.closeButton) }
+        val close by lazyUnsynchronized { findViewById<ImageButton>(R.id.closeButton) }
         //Действие при клике на кнопку закрыть
         close.setOnClickListener {
 

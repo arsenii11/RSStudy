@@ -9,7 +9,7 @@
 
 
     <Button
-        android:id="@+id/subscribe_btn_month"
+        android:id="@+id/subscribeMonthButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Button"
@@ -21,7 +21,7 @@
         app:layout_constraintVertical_bias="0.428" />
 
     <Button
-        android:id="@+id/subscribe_btn_semiannual"
+        android:id="@+id/subscribeSemiannualButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Button"
@@ -33,7 +33,7 @@
         app:layout_constraintVertical_bias="0.499" />
 
     <Button
-        android:id="@+id/subscribe_btn_annual"
+        android:id="@+id/subscribeAnnualButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Button"
