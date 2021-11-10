@@ -20,11 +20,9 @@
         android:layout_height="wrap_content"
         android:text="Course"
         android:textSize="34dp"
-        app:layout_constraintBottom_toTopOf="@+id/newEventList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <Button
         android:id="@+id/endCourseButton"
@@ -32,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="finish course"
+        android:gravity="center_vertical"
         android:textAllCaps="false"
         android:textColor="@color/DivideLineList"
         android:textSize="12dp"
@@ -39,38 +38,68 @@
         app:layout_constraintStart_toStartOf="@+id/courseNameLabel"
         app:layout_constraintTop_toBottomOf="@+id/courseNameLabel" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/newEventList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="156dp"
-        android:visibility="visible"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        tools:layout_editor_absoluteX="0dp" />
+    <ImageButton
+        android:id="@+id/newlessonBT"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="52dp"
+        android:background="@drawable/button_test_states"
+        android:src="@drawable/outline_add_24"
+        app:layout_constraintEnd_toStartOf="@+id/endCourseButton"
+        app:layout_constraintTop_toBottomOf="@+id/endCourseButton" />
+
+    <ImageButton
+        android:id="@+id/newtestBT"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="52dp"
+        android:background="@drawable/button_course_states"
+        android:src="@drawable/outline_add_24"
+        app:layout_constraintStart_toEndOf="@+id/endCourseButton"
+        app:layout_constraintTop_toBottomOf="@+id/endCourseButton" />
 
     <TextView
         android:id="@+id/eventsLabel"
         style="@style/TextView.Primary.Header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="160dp"
         android:text="Events"
         android:textSize="28dp"
-        app:layout_constraintTop_toBottomOf="@+id/newEventList"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintStart_toStartOf="@+id/allEventsList"
+        app:layout_constraintTop_toBottomOf="@+id/endCourseButton" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/allEventsList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="360dp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eventsLabel" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="New lesson"
+        app:layout_constraintEnd_toEndOf="@+id/newlessonBT"
+        app:layout_constraintStart_toStartOf="@+id/newlessonBT"
+        app:layout_constraintTop_toBottomOf="@+id/newlessonBT" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="New test"
+        app:layout_constraintEnd_toEndOf="@+id/newtestBT"
+        app:layout_constraintStart_toStartOf="@+id/newtestBT"
+        app:layout_constraintTop_toBottomOf="@+id/newtestBT" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,5 @@
 package com.example.finances.events.course
+import android.content.Intent
 import com.example.finances.events.newevent.NewEvent
 import android.widget.TextView
 import com.example.finances.R
@@ -22,6 +23,8 @@ import androidx.appcompat.widget.Toolbar
 import com.example.finances.events.newevent.NewEventAdapter
 import nz.co.trademe.covert.Covert.SwipeDirection
 import com.example.finances.database.Event
+import com.example.finances.events.lesson.NewLessonActivity
+import com.example.finances.events.test.NewTestActivity
 import maes.tech.intentanim.CustomIntent
 import java.util.*
 import kotlin.collections.ArrayList
@@ -40,7 +43,8 @@ class CourseActivity : AppCompatActivity() {
 
         val ACTIVITY = "COURSE" //Название активности
 
-        val newEvents = ArrayList<NewEvent>() //Лист со всеми событиями
+
+
         var mainAdaptor: MainAdaptor? //Адаптер для списка событий
         var covert: Covert? = null //Свайпы
         val config: Covert.Config = //Настройки для свайпов
@@ -58,8 +62,10 @@ class CourseActivity : AppCompatActivity() {
         val endCourse by lazyUnsynchronized { findViewById<Button>(R.id.endCourseButton) }
         //Поиск во View элемента для отобраения списка событий
         val eventsList by lazyUnsynchronized { findViewById<RecyclerView>(R.id.allEventsList) }
-        //DELETE THIS SHIT
-        val newEventsList by lazyUnsynchronized { findViewById<RecyclerView>(R.id.newEventList) }
+        //поиск кнопки нового урока
+        val newlsBt by lazyUnsynchronized { findViewById<ImageButton>(R.id.newlessonBT) }
+        //поиск кнопки нового теста
+        val newtstBt by lazyUnsynchronized { findViewById<ImageButton>(R.id.newtestBT) }
 
         eventsList.layoutManager = LinearLayoutManager(this)
 
@@ -76,11 +82,34 @@ class CourseActivity : AppCompatActivity() {
         val titleShadow by lazyUnsynchronized { toolbar.findViewById<TextView>(R.id.toolbar_shadowtext) }
         titleShadow.visibility = View.INVISIBLE
 
+
+
         //Получаем намерение, вызвавшее активность
         val i = intent
         //Получаем ID выбранного курса
         val COURSE_ID = i.getIntExtra("COURSE_ID", -1)
         //ACTIVITY = i.getStringExtra("ACTIVITY");
+
+        //переходим к созданию нового УРОКА по кнопке
+        newlsBt.setOnClickListener{
+            val intent = Intent(this, NewLessonActivity::class.java)
+            intent.putExtra("COURSE_ID", COURSE_ID)
+            intent.putExtra("CURRENT_LESSON", 0)
+            intent.putExtra("LESSONS", 1)
+            intent.putExtra("COURSE_REPEAT", "NO")
+            intent.putExtra("ACTIVITY", ACTIVITY)
+            this.startActivity(intent)
+            CustomIntent.customType(this, "left-to-right")
+        }
+
+        //переходим к созданию нового ТЕСТА по кнопке
+        newtstBt.setOnClickListener{
+            val intent = Intent(this, NewTestActivity::class.java)
+            intent.putExtra("COURSE_ID", COURSE_ID)
+            intent.putExtra("ACTIVITY", ACTIVITY)
+            this.startActivity(intent)
+            CustomIntent.customType(this, "left-to-right")
+        }
 
         //Получаем информацию из БД
         setInitialData(
@@ -91,11 +120,8 @@ class CourseActivity : AppCompatActivity() {
         )
 
 
-        //AND DELETE THIS SHIT
-        val adapter = NewEventAdapter(this, newEvents, COURSE_ID, ACTIVITY)
-        newEvents.add(NewEvent("lesson"))
-        newEvents.add(NewEvent("test"))
-        newEventsList.adapter = adapter
+
+
 
 
         //Конфигурация свайпов
@@ -175,6 +201,7 @@ class CourseActivity : AppCompatActivity() {
         }
     }
 
+    //Верхнее меню
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
