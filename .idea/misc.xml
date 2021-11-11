@@ -20,10 +20,12 @@
         <entry key="app/src/main/res/layout/activity_course_info.xml" value="0.12907608695652173" />
         <entry key="app/src/main/res/layout/activity_course_length.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/activity_course_name.xml" value="0.15070921985815602" />
+        <entry key="app/src/main/res/layout/activity_courses_list.xml" value="0.11458333333333333" />
         <entry key="app/src/main/res/layout/activity_lesson_info.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/activity_questions.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.15070921985815602" />
         <entry key="app/src/main/res/layout/list_course_item.xml" value="0.15070921985815602" />
+        <entry key="app/src/main/res/layout/list_event_item.xml" value="0.11458333333333333" />
       </map>
     </option>
   </component>

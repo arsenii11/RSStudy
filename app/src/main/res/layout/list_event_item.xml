@@ -56,11 +56,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/button_pressed" />
 
-    <View
-        android:id="@+id/view2"
-        style="@style/DivideListElement"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/duration"
