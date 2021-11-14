@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     public static boolean ALLOW_ADD_TO_CALENDAR = false;
 
 
-    @SuppressLint({"WrongViewCast", "WrongConstant"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefs.registerOnSharedPreferenceChangeListener(this);
-
+        /*
         //Проверка разрешений
         if (checkSelfPermission(Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED)
             requestPermission();
@@ -95,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
             requestPermission();
         if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-            requestPermission();
+            requestPermission();*/
 
         ImageButton toolbar_button = toolbar.findViewById(R.id.toolbar_image_button);
         toolbar_button.setOnClickListener(v -> {
@@ -130,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         //Проверяем настройки
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        Boolean flagTheme = prefs.getBoolean("aa", false);
+        boolean flagTheme = prefs.getBoolean("aa", false);
         String theme = prefs.getString("ThemeList", "");
         if (flagTheme) {
             if (theme.equals("Bright")) {
@@ -140,6 +139,14 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             }
         } else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+
+        //активируем добавление событий в календарь
+        ALLOW_ADD_TO_CALENDAR = prefs.getBoolean("AllowAddToCalendar", false);
+        if(checkSelfPermission(Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED &&
+                checkSelfPermission(Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED &&
+                ALLOW_ADD_TO_CALENDAR){
+            requestPermission();
+        }
     }
 
     @Override
@@ -196,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         //Проверяем настройки
 
-        Boolean flagTheme = prefs.getBoolean("aa", false);
+        boolean flagTheme = prefs.getBoolean("aa", false);
         String theme = prefs.getString("ThemeList", "");
         if (flagTheme) {
             if (theme.equals("Bright"))
@@ -209,14 +216,19 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         //активируем добавление событий в календарь
         ALLOW_ADD_TO_CALENDAR = prefs.getBoolean("AllowAddToCalendar", false);
+        if(checkSelfPermission(Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED &&
+                checkSelfPermission(Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED &&
+                ALLOW_ADD_TO_CALENDAR){
+            requestPermission();
+        }
     }
 
     //Запрашиваем разрешения
     private void requestPermission() {
-        String[] permissions = new String[]{Manifest.permission.READ_CALENDAR,
+        String[] permissions = new String[]{
+                Manifest.permission.READ_CALENDAR,
                 Manifest.permission.WRITE_CALENDAR,
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                };
 
         ActivityCompat.requestPermissions(this, permissions, 1);
     }
