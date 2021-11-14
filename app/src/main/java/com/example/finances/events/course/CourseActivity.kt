@@ -1,6 +1,5 @@
 package com.example.finances.events.course
 import android.content.Intent
-import com.example.finances.events.newevent.NewEvent
 import android.widget.TextView
 import com.example.finances.R
 import nz.co.trademe.covert.Covert
@@ -20,7 +19,6 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.example.finances.events.newevent.NewEventAdapter
 import nz.co.trademe.covert.Covert.SwipeDirection
 import com.example.finances.database.Event
 import com.example.finances.events.lesson.NewLessonActivity
@@ -63,9 +61,9 @@ class CourseActivity : AppCompatActivity() {
         //Поиск во View элемента для отобраения списка событий
         val eventsList by lazyUnsynchronized { findViewById<RecyclerView>(R.id.allEventsList) }
         //поиск кнопки нового урока
-        val newlsBt by lazyUnsynchronized { findViewById<ImageButton>(R.id.newlessonBT) }
+        val newLessonButton by lazyUnsynchronized { findViewById<ImageButton>(R.id.newlessonBT) }
         //поиск кнопки нового теста
-        val newtstBt by lazyUnsynchronized { findViewById<ImageButton>(R.id.newtestBT) }
+        val newTestButton by lazyUnsynchronized { findViewById<ImageButton>(R.id.newtestBT) }
 
         eventsList.layoutManager = LinearLayoutManager(this)
 
@@ -91,7 +89,7 @@ class CourseActivity : AppCompatActivity() {
         //ACTIVITY = i.getStringExtra("ACTIVITY");
 
         //переходим к созданию нового УРОКА по кнопке
-        newlsBt.setOnClickListener{
+        newLessonButton.setOnClickListener{
             val intent = Intent(this, NewLessonActivity::class.java)
             intent.putExtra("COURSE_ID", COURSE_ID)
             intent.putExtra("CURRENT_LESSON", 0)
@@ -103,7 +101,7 @@ class CourseActivity : AppCompatActivity() {
         }
 
         //переходим к созданию нового ТЕСТА по кнопке
-        newtstBt.setOnClickListener{
+        newTestButton.setOnClickListener{
             val intent = Intent(this, NewTestActivity::class.java)
             intent.putExtra("COURSE_ID", COURSE_ID)
             intent.putExtra("ACTIVITY", ACTIVITY)
@@ -118,11 +116,6 @@ class CourseActivity : AppCompatActivity() {
             COURSE_ID = COURSE_ID,
             dbHelper = dbHelper
         )
-
-
-
-
-
 
         //Конфигурация свайпов
         covert = Covert.with(config)

@@ -63,6 +63,7 @@ public class TestActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         menu.getItem(0).setVisible(false);
+        menu.getItem(1).setVisible(false);
         return true;
     }
 
@@ -71,17 +72,6 @@ public class TestActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.settingsMenuItem) {
-            try {
-                Intent intent = new Intent(TestActivity.this, SettingsActivity.class);
-                startActivity(intent);
-                CustomIntent.customType(this,"fadein-to-fadeout");
-
-
-            } catch (Exception E) {
-
-            }
-        }
         if (id == android.R.id.home) {
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
