@@ -14,11 +14,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.NavGraph;
 import androidx.navigation.NavInflater;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 import androidx.preference.PreferenceManager;
@@ -27,14 +25,10 @@ import com.adapty.Adapty;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.ObjectKey;
 import com.example.finances.notifications.AlarmRequestsReceiver;
-import com.example.finances.ui.calendar.CalendarFragment;
-import com.example.finances.ui.subscribe.SubscribeActivity;
-import com.example.finances.toolbar.SettingsActivity;
+import com.example.finances.ui.settings.SettingsActivity;
 import com.example.finances.ui.account.AccountActivity;
-import com.example.finances.ui.tutorial.TutorialFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.io.Console;
 import java.io.File;
 
 import de.hdodenhof.circleimageview.CircleImageView;

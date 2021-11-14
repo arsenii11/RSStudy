@@ -62,7 +62,7 @@
             android:screenOrientation="portrait"> <!-- основная -->
         </activity>
         <activity
-            android:name=".toolbar.SettingsActivity"
+            android:name="com.example.finances.ui.settings.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
@@ -71,7 +71,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".toolbar.About"
+            android:name="com.example.finances.ui.about.AboutActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>

@@ -17,12 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.finances.MainActivity;
 import com.example.finances.R;
 import com.example.finances.database.DBHelper;
-import com.example.finances.database.Lesson;
 import com.example.finances.database.LessonOptions;
-import com.example.finances.events.course.CourseActivity;
-import com.example.finances.events.test.RescheduleTestActivity;
-import com.example.finances.events.test.TestActivity;
-import com.example.finances.toolbar.SettingsActivity;
+import com.example.finances.ui.settings.SettingsActivity;
 
 import maes.tech.intentanim.CustomIntent;
 
@@ -97,7 +93,7 @@ public class LessonActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.item4) {
+        if (id == R.id.settingsMenuItem) {
             try {
                 Intent intent = new Intent(LessonActivity.this, SettingsActivity.class);
                 startActivity(intent);

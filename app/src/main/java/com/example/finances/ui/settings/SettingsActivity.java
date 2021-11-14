@@ -1,4 +1,4 @@
-package com.example.finances.toolbar;
+package com.example.finances.ui.settings;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import com.example.finances.MainActivity;
 import com.example.finances.R;
 import com.example.finances.ui.account.AccountActivity;
+import com.example.finances.ui.about.AboutActivity;
 
 import maes.tech.intentanim.CustomIntent;
 
@@ -69,6 +70,7 @@ public class SettingsActivity extends AppCompatActivity {
         switch (ACTIVITY){
             case "MAIN": finalIntent = new Intent(this, MainActivity.class); break;
             case "ACCOUNT": finalIntent = new Intent(this, AccountActivity.class); break;
+            case "ABOUT": finalIntent = new Intent(this, AboutActivity.class); break;
             default: finalIntent = new Intent(this, MainActivity.class); break;
         }
 
@@ -80,11 +82,11 @@ public class SettingsActivity extends AppCompatActivity {
             return true;
         }
 
-        if(id == R.id.item2){
+        if(id == R.id.aboutMenuItem){
             try{
-                Intent intent = new Intent(this, About.class);
+                Intent intent = new Intent(this, AboutActivity.class);
                 startActivity(intent);
-                CustomIntent.customType(this,"right-to-left");
+                CustomIntent.customType(this,"fadein-to-fadeout");
                 finish();
             }
 

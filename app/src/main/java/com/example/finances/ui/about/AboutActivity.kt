@@ -1,4 +1,4 @@
-package com.example.finances.toolbar
+package com.example.finances.ui.about
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,14 +7,14 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.finances.MainActivity
 import com.example.finances.R
+import com.example.finances.ui.settings.SettingsActivity
 import maes.tech.intentanim.CustomIntent
 
-class About : AppCompatActivity() {
+class AboutActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about)
@@ -44,17 +44,14 @@ class About : AppCompatActivity() {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
             CustomIntent.customType(this, "fadein-to-fadeout")
-            return true
+            finish()
         }
-        if (id == R.id.item4) {
-            try {
-                val intent = Intent(this, SettingsActivity::class.java)
-                startActivity(intent)
-                CustomIntent.customType(this, "left-to-right")
-                finish()
-            } catch (E: Exception) {
-                E.printStackTrace()
-            }
+        if (id == R.id.settingsMenuItem) {
+            val intent = Intent(this, SettingsActivity::class.java)
+            intent.putExtra("ACTIVITY", "ABOUT");
+            startActivity(intent)
+            CustomIntent.customType(this, "fadein-to-fadeout")
+            finish()
         }
         return super.onOptionsItemSelected(item)
     }

@@ -26,7 +26,7 @@ import com.example.finances.database.DBHelper;
 import com.example.finances.events.course.ClosedCoursesListActivity;
 import com.example.finances.events.course.CourseAdapter;
 import com.example.finances.helpclasses.SquaredConstraintLayout;
-import com.example.finances.toolbar.SettingsActivity;
+import com.example.finances.ui.settings.SettingsActivity;
 import com.github.okdroid.checkablechipview.CheckableChipView;
 
 import java.io.File;
