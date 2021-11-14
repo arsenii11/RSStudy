@@ -127,7 +127,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:text="add"
+        android:text="save"
         android:textAllCaps="false"
         android:textColor="@color/plus1"
         android:textSize="25dp"
@@ -142,7 +142,7 @@
         android:layout_marginEnd="40dp"
         android:background="@null"
         android:src="@drawable/close_lesson"
-        android:tint="@color/Widget2text"
+        app:tint="@color/Widget2text"
         app:layout_constraintBottom_toBottomOf="@+id/LabelTest"
         app:layout_constraintEnd_toStartOf="@+id/LabelTest"
         app:layout_constraintTop_toTopOf="@+id/LabelTest" />
