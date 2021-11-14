@@ -25,7 +25,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings_activity);
+        setContentView(R.layout.activity_settings);
 
         ACTIVITY = getIntent().getStringExtra("ACTIVITY");
 
@@ -83,32 +83,11 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         if(id == R.id.aboutMenuItem){
-            try{
-                Intent intent = new Intent(this, AboutActivity.class);
-                startActivity(intent);
-                CustomIntent.customType(this,"fadein-to-fadeout");
-                finish();
-            }
-
-            catch (Exception E){
-
-            }
+            Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
+            CustomIntent.customType(this,"fadein-to-fadeout");
+            finish();
         }
         return super.onOptionsItemSelected(item);
-
-
     }
-
-    @Override
-    protected void onPause(){
-        super.onPause();
-
-    }
-
-    protected void onStop(){
-        super.onStop();
-
-    }
-
-
 }
